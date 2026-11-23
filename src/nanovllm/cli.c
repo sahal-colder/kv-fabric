@@ -52,6 +52,7 @@ static void usage(FILE *file) {
         "Usage: %s MODEL [options]\n"
         "  -z PATH       tokenizer (default models/tokenizer.bin)\n"
         "  -i TEXT       prompt; repeat for continuous batching\n"
+        "  --stdin       read one prompt per line, keeping the KV cache until EOF\n"
         "  -n N          max NEW tokens per request (default 64)\n"
         "  -t F          temperature; 0 = greedy (default 0.8)\n"
         "  -p F          top-p in (0,1] (default 0.9)\n"
@@ -65,6 +66,19 @@ static void usage(FILE *file) {
         "  --trace       print scheduling progress on stderr\n"
         "  --ids         print generated token IDs instead of text\n"
         "  --ignore-eos  generate exactly N tokens\n", cli_name);
+#ifdef NANO_WITH_REMOTE_KV
+    fputs(
+        "  --remote-kv                enable cross-worker KV prefix reuse\n"
+        "  --kv-control-endpoint IP:PORT    directory (default 127.0.0.1:9000)\n"
+        "  --kv-listen-endpoint IP:PORT     worker bind (default 127.0.0.1:0)\n"
+        "  --kv-advertise-endpoint IP:PORT  reachable worker address\n"
+        "  --kv-tenant NAME           cache namespace (default default)\n"
+        "  --kv-page-size N           tokens per page, same as --block-size\n"
+        "  --kv-cache-capacity N      worker export pages (default --blocks)\n"
+        "  --kv-prefetch-timeout MS   timeout in milliseconds (default 1000)\n"
+        "  --kv-worker-name NAME      override the worker registry name\n"
+        "  --kv-tp-size N --kv-pp-size N    Nano-VLLM supports 1 for both\n", file);
+#endif
 #ifdef NANO_WITH_STORAGE
     fputs(
             "  --ssd-slots N number of spill slots (default 0, disabled)\n"
@@ -84,6 +98,54 @@ static int integer(const char *s) {
     if (errno || !*s || *end || n < 1 || n > INT_MAX) nv_fatal("expected positive integer option");
     return (int)n;
 }
+
+#ifdef NANO_WITH_REMOTE_KV
+static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value) {
+    if (strcmp(flag, "--kv-control-endpoint") == 0)
+        o->control_endpoint = value;
+    else if (strcmp(flag, "--kv-listen-endpoint") == 0)
+        o->listen_endpoint = value;
+    else if (strcmp(flag, "--kv-advertise-endpoint") == 0)
+        o->advertise_endpoint = value;
+    else if (strcmp(flag, "--kv-tenant") == 0)
+        o->tenant = value;
+    else if (strcmp(flag, "--kv-page-size") == 0)
+        o->page_size = (unsigned)integer(value);
+    else if (strcmp(flag, "--kv-cache-capacity") == 0)
+        o->cache_capacity = (unsigned)integer(value);
+    else if (strcmp(flag, "--kv-prefetch-timeout") == 0)
+        o->prefetch_timeout_ms = (unsigned)integer(value);
+    else if (strcmp(flag, "--kv-worker-name") == 0)
+        o->worker_name = value;
+    else if (strcmp(flag, "--kv-tp-size") == 0)
+        o->tp_size = (unsigned)integer(value);
+    else if (strcmp(flag, "--kv-pp-size") == 0)
+        o->pp_size = (unsigned)integer(value);
+    else
+        return 0;
+    return 1;
+}
+
+static void print_remote_stats(NvEngine *engine) {
+    NvRemoteStats stats;
+    nv_engine_remote_flush(engine);
+    nv_engine_remote_stats(engine, &stats);
+    fprintf(stderr,
+            "remote_lookup_requests=%" PRIu64 " remote_lookup_hits=%" PRIu64
+            " remote_hit_pages=%" PRIu64 " remote_hit_tokens=%" PRIu64
+            " remote_import_bytes=%" PRIu64 " remote_prefetch_requests=%" PRIu64
+            " remote_prefetch_failures=%" PRIu64 " remote_prefetch_cancelled=%" PRIu64
+            " remote_prefill_skipped_tokens=%" PRIu64 " remote_prefill_fallbacks=%" PRIu64
+            " remote_cache_evictions=%" PRIu64 " remote_transfer_latency_ns=%" PRIu64
+            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 "\n",
+            stats.remote_lookup_requests, stats.remote_lookup_hits, stats.remote_hit_pages,
+            stats.remote_hit_tokens, stats.remote_import_bytes, stats.remote_prefetch_requests,
+            stats.remote_prefetch_failures, stats.remote_prefetch_cancelled,
+            stats.remote_prefill_skipped_tokens, stats.remote_prefill_fallbacks,
+            stats.remote_cache_evictions, stats.remote_transfer_latency_ns, stats.remote_transfer_samples,
+            stats.remote_published_pages);
+}
+#endif
 
 #ifdef NANO_WITH_STORAGE
 static int parse_flag(StorageOptions *options, const char *flag) {
@@ -185,6 +247,74 @@ static double seconds(void) {
     return (double)t.tv_sec + (double)t.tv_nsec / 1e9;
 }
 
+static void print_tokens(const NvTokenizer *t, const NvSequence *s, int first, int ids) {
+    for (int i = first; i < s->num_tokens; ++i) {
+        int token = s->tokens[i];
+        if (ids)
+            printf("%s%d", i == first ? "" : " ", token);
+        else if (token != 1 && token != 2)
+            nv_print_piece(stdout, nv_decode(t, s->tokens[i - 1], token));
+    }
+}
+
+static int run_prompts(NvEngine *e, const NvTokenizer *t, const char *const *prompts, int count,
+                       int max_new, NvSampling sampling, int trace, int ids) {
+    for (int i = 0; i < count; ++i) {
+        int n;
+        int *tokens = nv_encode(t, prompts[i], &n);
+        int id = nv_engine_add(e, tokens, n, max_new, sampling);
+        free(tokens);
+        if (id < 0)
+            return 0;
+    }
+
+    int stream = count == 1 && !ids;
+    NvSequence *lead = e->requests[0];
+    int printed = lead->prompt_len;
+    if (stream) {
+        nv_print_piece(stdout, prompts[0]);
+        fflush(stdout);
+    }
+    uint64_t generated = e->generated_tokens, forwards = e->forward_tokens, reused = e->cache.hits;
+    uint64_t preemptions = e->preemptions, prefilled = e->prefill_tokens;
+    double start = seconds();
+    while (nv_engine_has_work(e)) {
+        if (!nv_engine_step(e)) {
+            struct timespec idle = {.tv_nsec = 1000000L};
+            nanosleep(&idle, NULL);
+            continue;
+        }
+        if (trace)
+            fprintf(stderr, "step=%" PRIu64 " forwards=%" PRIu64 " generated=%" PRIu64
+                    " cache_hits=%" PRIu64 " preemptions=%" PRIu64 "\n",
+                    e->steps, e->forward_tokens, e->generated_tokens, e->cache.hits, e->preemptions);
+        if (stream) {
+            print_tokens(t, lead, printed, 0);
+            printed = lead->num_tokens;
+            fflush(stdout);
+        }
+    }
+    double elapsed = seconds() - start;
+    if (stream) {
+        fputc('\n', stdout);
+    } else {
+        for (int i = 0; i < count; ++i) {
+            printf("[%d] ", i);
+            if (!ids)
+                nv_print_piece(stdout, prompts[i]);
+            print_tokens(t, e->requests[i], e->requests[i]->prompt_len, ids);
+            fputc('\n', stdout);
+        }
+    }
+    generated = e->generated_tokens - generated;
+    fprintf(stderr, "generated=%" PRIu64 " forwards=%" PRIu64 " reused=%" PRIu64
+            " preemptions=%" PRIu64 " elapsed=%.3fs output_tok/s=%.2f prefilled=%" PRIu64 "\n",
+            generated, e->forward_tokens - forwards, e->cache.hits - reused,
+            e->preemptions - preemptions, elapsed, elapsed > 0 ? (double)generated / elapsed : 0,
+            e->prefill_tokens - prefilled);
+    return 1;
+}
+
 int nv_cli_run(int argc, char **argv) {
 
     if (argc == 2 && strcmp(argv[1], "--help") == 0) { usage(stdout); return 0; }
@@ -192,13 +322,18 @@ int nv_cli_run(int argc, char **argv) {
     if (argc < 2) { usage(stderr); return 1; }
     const char *tokenizer_path = NV_DEFAULT_TOKENIZER_PATH;
     const char *device = "cpu";
+#ifdef NANO_WITH_REMOTE_KV
+    NvRemoteOptions remote;
+    nv_remote_options_defaults(&remote);
+    int remote_enabled = 0, remote_configured = 0, block_size_set = 0;
+#endif
 #ifdef NANO_WITH_STORAGE
     StorageOptions storage = {.ssd_mode = "posix", .ssd_dir = "/tmp"};
 #endif
 
     const char **prompts = nv_alloc((size_t)argc, sizeof(char *));
     int count = 0, max_new = NV_DEFAULT_MAX_NEW_TOKENS;
-    int trace = NV_DEFAULT_TRACE, ids = NV_DEFAULT_IDS;
+    int trace = NV_DEFAULT_TRACE, ids = NV_DEFAULT_IDS, read_stdin = 0;
 
     NvOptions options = {.num_blocks = NV_DEFAULT_KV_BLOCKS, .block_size = NV_DEFAULT_KV_BLOCK_SIZE,
         .max_sequences = NV_DEFAULT_MAX_SEQUENCES, .token_budget = NV_DEFAULT_TOKEN_BUDGET,
@@ -214,7 +349,16 @@ int nv_cli_run(int argc, char **argv) {
         if (strcmp(flag, "--no-cache") == 0) { options.prefix_cache = 0; continue; }
         if (strcmp(flag, "--trace") == 0) { trace = 1; continue; }
         if (strcmp(flag, "--ids") == 0) { ids = 1; continue; }
+        if (strcmp(flag, "--stdin") == 0) { read_stdin = 1; continue; }
         if (strcmp(flag, "--ignore-eos") == 0) { sampling.ignore_eos = 1; continue; }
+        if (strcmp(flag, "--remote-kv") == 0) {
+#ifdef NANO_WITH_REMOTE_KV
+            remote_enabled = 1;
+            continue;
+#else
+            nv_fatal("remote KV support is disabled in this build");
+#endif
+        }
 #ifdef NANO_WITH_STORAGE
         if (parse_flag(&storage, flag)) continue;
 #endif
@@ -230,9 +374,18 @@ int nv_cli_run(int argc, char **argv) {
         if (strcmp(flag, "-p") == 0) { sampling.top_p = number(value); continue; }
         if (strcmp(flag, "-s") == 0) { sampling.seed = (uint64_t)integer(value); continue; }
         if (strcmp(flag, "--blocks") == 0) { options.num_blocks = integer(value); continue; }
-        if (strcmp(flag, "--block-size") == 0) { options.block_size = integer(value); continue; }
+        if (strcmp(flag, "--block-size") == 0) {
+            options.block_size = integer(value);
+#ifdef NANO_WITH_REMOTE_KV
+            block_size_set = 1;
+#endif
+            continue;
+        }
         if (strcmp(flag, "--batch") == 0) { options.max_sequences = integer(value); continue; }
         if (strcmp(flag, "--budget") == 0) { options.token_budget = integer(value); continue; }
+#ifdef NANO_WITH_REMOTE_KV
+        if (parse_remote(&remote, flag, value)) { remote_configured = 1; continue; }
+#endif
 #ifdef NANO_WITH_STORAGE
         if (parse_value(&storage, flag, value)) continue;
 #endif
@@ -241,10 +394,23 @@ int nv_cli_run(int argc, char **argv) {
 
     if (sampling.temperature < 0 || sampling.top_p <= 0 || sampling.top_p > 1)
         nv_fatal("temperature must be >=0, top-p must be in (0,1]");
+#ifdef NANO_WITH_REMOTE_KV
+    if (remote_configured && !remote_enabled)
+        nv_fatal("remote KV options require --remote-kv");
+    if (remote_enabled && (!options.prefix_cache || remote.tp_size != 1 || remote.pp_size != 1))
+        nv_fatal("remote KV requires prefix reuse, TP=1 and PP=1");
+    if (remote.page_size) {
+        if (block_size_set && remote.page_size != (unsigned)options.block_size)
+            nv_fatal("--block-size and --kv-page-size must match");
+        options.block_size = (int)remote.page_size;
+    }
+#endif
 
-    if (!count) prompts[count++] = NV_DEFAULT_PROMPT;
-    /* CLI 已知输入总数，按需设置请求表容量。 */
-    options.max_requests = count;
+    if (read_stdin && count)
+        nv_fatal("--stdin and -i cannot be combined");
+    if (!read_stdin && !count)
+        prompts[count++] = NV_DEFAULT_PROMPT;
+    options.max_requests = read_stdin ? 1 : count;
     NvModel model;
 #ifdef NANO_WITH_STORAGE
     validate(&storage);
@@ -281,17 +447,15 @@ int nv_cli_run(int argc, char **argv) {
 #ifdef NANO_WITH_STORAGE
     attach_ssd(&engine.cache, &storage);
 #endif
-
-    for (int i = 0; i < count; i++) {
-        int n;
-
-        int *tokens = nv_encode(&tokenizer, prompts[i], &n);
-
-        if (nv_engine_add(&engine, tokens, n, max_new, sampling) < 0)
-            nv_fatal("request exceeds context or KV pool capacity; reduce -n/prompt or increase --blocks");
-
-        free(tokens);
+#ifdef NANO_WITH_REMOTE_KV
+    if (remote_enabled) {
+        int status = nv_engine_enable_remote(&engine, &tokenizer, remote);
+        if (status < 0)
+            nv_fatal("invalid remote KV options or unsupported layout; see --help");
+        if (!status)
+            fputs("remote KV unavailable; using local prefill\n", stderr);
     }
+#endif
 
     fprintf(stderr, "model: dim=%d layers=%d heads=%d kv_heads=%d vocab=%d context=%d\n",
             model.config.dim, model.config.n_layers, model.config.n_heads,
@@ -300,60 +464,43 @@ int nv_cli_run(int argc, char **argv) {
     size_t kv_bytes = (size_t)options.num_blocks * (size_t)options.block_size *
                       (size_t)model.config.n_layers * (size_t)engine.cache.kv_dim * 2 * sizeof(float);
     fprintf(stderr, "KV pool: %.2f MiB; requests=%d device=%s\n",
-            (double)kv_bytes / 1048576.0, count, device);
+            (double)kv_bytes / 1048576.0, options.max_requests, device);
 
-    int printed = engine.requests[0]->prompt_len;
-    if (count == 1 && !ids) { nv_print_piece(stdout, prompts[0]); fflush(stdout); }
-
-    double start = seconds();
-
-    /* 每轮推进请求，单请求模式下及时输出新 token。 */
-    while (nv_engine_step(&engine)) {
-        if (trace) fprintf(stderr, "step=%" PRIu64 " forwards=%" PRIu64 " generated=%" PRIu64
-                           " cache_hits=%" PRIu64 " preemptions=%" PRIu64 "\n",
-                           engine.steps, engine.forward_tokens, engine.generated_tokens,
-                           engine.cache.hits, engine.preemptions);
-
-        if (count == 1 && !ids) {
-            NvSequence *s = engine.requests[0];
-
-            for (; printed < s->num_tokens; printed++) {
-                int token = s->tokens[printed];
-                if (token != 1 && token != 2) nv_print_piece(stdout, nv_decode(&tokenizer, s->tokens[printed - 1], token));
-            }
-
-            fflush(stdout);
+    char *line = NULL;
+    size_t line_capacity = 0;
+    do {
+        if (read_stdin) {
+            ssize_t length = getline(&line, &line_capacity, stdin);
+            if (length < 0)
+                break;
+            while (length && (line[length - 1] == '\n' || line[length - 1] == '\r'))
+                line[--length] = '\0';
+            prompts[0] = line;
+            count = 1;
         }
-    }
-    double elapsed = seconds() - start;
-    if (count == 1 && !ids) fputc('\n', stdout);
-
-    if (count > 1 || ids) {
-        for (int i = 0; i < count; i++) {
-            NvSequence *s = engine.requests[i];
-            printf("[%d] ", i);
-            if (!ids) nv_print_piece(stdout, prompts[i]);
-            for (int j = s->prompt_len; j < s->num_tokens; j++) {
-
-                if (ids) { printf("%s%d", j == s->prompt_len ? "" : " ", s->tokens[j]); continue; }
-                if (s->tokens[j] != 1 && s->tokens[j] != 2)
-                    nv_print_piece(stdout, nv_decode(&tokenizer, s->tokens[j - 1], s->tokens[j]));
-            }
-            fputc('\n', stdout);
+        if (!run_prompts(&engine, &tokenizer, prompts, count, max_new, sampling, trace, ids)) {
+            const char *error = "request exceeds context or KV pool capacity; reduce -n/prompt or increase --blocks";
+            if (!read_stdin)
+                nv_fatal(error);
+            fprintf(stderr, "%s: %s\n", cli_name, error);
+            continue;
         }
-    }
-
-    fprintf(stderr, "generated=%" PRIu64 " forwards=%" PRIu64 " reused=%" PRIu64
-            " preemptions=%" PRIu64 " elapsed=%.3fs output_tok/s=%.2f\n",
-            engine.generated_tokens, engine.forward_tokens, engine.cache.hits,
-            engine.preemptions, elapsed, elapsed > 0 ? (double)engine.generated_tokens / elapsed : 0);
 #ifdef NANO_WITH_STORAGE
-    print_stats(&storage, &engine.cache);
+        print_stats(&storage, &engine.cache);
 #endif
+#ifdef NANO_WITH_REMOTE_KV
+        if (remote_enabled)
+            print_remote_stats(&engine);
+#endif
+        fflush(stdout);
+        (void)nv_engine_clear_requests(&engine);
+    } while (read_stdin);
 
+    int ok = !read_stdin || !ferror(stdin);
+    free(line);
     nv_engine_free(&engine);
     nv_tokenizer_free(&tokenizer);
     nv_model_free(&model);
     free(prompts);
-    return 0;
+    return ok ? 0 : 1;
 }

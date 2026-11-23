@@ -30,6 +30,11 @@ void nv_prefix_remove(NvPrefixIndex *index, NvPrefixKey key);
 size_t nv_cache_init_metadata(NvCache *cache, const NvConfig *config, NvOptions options);
 /* 在主机缓冲区与 KV 缓存之间复制整个物理页。 */
 void nv_cache_copy_block(NvCache *cache, int block, void *host, size_t half, int to_cache);
+#ifdef NANO_WITH_REMOTE_KV
+/* 将已校验、已写入的物理页加入本地索引，再推进请求偏移。 */
+void nv_cache_commit_remote(NvCache *cache, NvSequence *seq, int block);
+void nv_cache_discard_remote(NvCache *cache, int block);
+#endif
 
 #ifdef NANO_WITH_STORAGE
 /* 接入 SSD 后端。之后由缓存负责关闭后端。 */

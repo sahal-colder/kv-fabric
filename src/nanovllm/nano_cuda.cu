@@ -333,6 +333,33 @@ void nv_cuda_copy_block(NvCache *cache, int block, void *host, size_t half, int 
     check(cudaStreamSynchronize(g->stream));
 }
 
+#ifdef NANO_WITH_REMOTE_KV
+int nv_cuda_copy_remote_block(NvCache *cache, int block, void *host, size_t half, int to_device) {
+    NvCuda *g = cache->cuda;
+    cudaEvent_t ready;
+    if (cudaSetDevice(g->device) != cudaSuccess ||
+        cudaEventCreateWithFlags(&ready, cudaEventDisableTiming) != cudaSuccess)
+        return 0;
+
+    float *sides[] = {g->keys, g->values};
+    cudaError_t status = cudaSuccess;
+    for (int i = 0; i < 2 && status == cudaSuccess; ++i) {
+        void *device = sides[i] + (size_t)block * (half / sizeof(float));
+        void *cpu = (unsigned char *)host + (size_t)i * half;
+        status = cudaMemcpyAsync(to_device ? device : cpu, to_device ? cpu : device, half,
+                                 to_device ? cudaMemcpyHostToDevice : cudaMemcpyDeviceToHost, g->stream);
+    }
+    if (status == cudaSuccess)
+        status = cudaEventRecord(ready, g->stream);
+    if (status == cudaSuccess)
+        status = cudaEventSynchronize(ready);
+    if (status != cudaSuccess)
+        (void)cudaStreamSynchronize(g->stream);
+    (void)cudaEventDestroy(ready);
+    return status == cudaSuccess;
+}
+#endif
+
 void nv_cuda_destroy(NvCuda *g) {
     if (!g)
         return;

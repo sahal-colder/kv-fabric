@@ -60,6 +60,8 @@ typedef struct {
 struct NvCuda;
 struct NvSpill;
 struct mi_mempool;
+struct NvRemoteKV;
+struct NvRemoteRequest;
 
 typedef struct {
     /* 从检查点读取并校验的模型配置。 */
@@ -133,6 +135,8 @@ typedef struct NvCache {
     uint64_t hits;
     /* 前缀复用开关及 CUDA 设备编号。 */
     int enabled, device;
+    /* 借用引擎持有的远程 KV 适配器，用于页淘汰通知。 */
+    struct NvRemoteKV *remote;
 } NvCache;
 
 typedef struct {
@@ -176,7 +180,9 @@ typedef enum {
     /* 请求已完成生成。 */
     NV_DONE,
     /* 请求已被取消。 */
-    NV_CANCELLED
+    NV_CANCELLED,
+    /* 已匹配本地前缀，等待远程完整页。 */
+    NV_REMOTE_PREFETCHING
 } NvStatus;
 
 typedef struct {
@@ -202,6 +208,10 @@ typedef struct {
     NvSampling sampling;
     /* 请求私有的随机数状态。 */
     uint64_t rng;
+    /* 首次完成完整提示词前向的 CLOCK_MONOTONIC 时间。 */
+    uint64_t prefill_done_ns;
+    struct NvRemoteRequest *remote_request;
+    int remote_checked;
 } NvSequence;
 
 typedef struct {
@@ -228,6 +238,24 @@ typedef struct {
         pooled_buffers;
 } NvOptions;
 
+typedef struct {
+    const char *control_endpoint, *listen_endpoint, *advertise_endpoint;
+    const char *tenant, *worker_name;
+    unsigned page_size, cache_capacity, prefetch_timeout_ms;
+    unsigned tp_size, pp_size;
+    /* Optional capacity for individual verified page transfer samples. */
+    size_t transfer_sample_capacity;
+} NvRemoteOptions;
+
+typedef struct {
+    uint64_t remote_lookup_requests, remote_lookup_hits;
+    uint64_t remote_hit_pages, remote_hit_tokens, remote_import_bytes;
+    uint64_t remote_prefetch_requests, remote_prefetch_failures, remote_prefetch_cancelled;
+    uint64_t remote_prefill_skipped_tokens, remote_prefill_fallbacks, remote_cache_evictions;
+    uint64_t remote_transfer_latency_ns, remote_transfer_samples;
+    uint32_t remote_published_pages;
+} NvRemoteStats;
+
 typedef struct NvRequestSet {
     /* 第 0 层记录请求 ID，上层每位标记下层一个非空字。 */
     uint64_t *level[6];
@@ -250,17 +278,32 @@ typedef struct {
     int num_requests, active;
     /* 等待与运行请求各自的分层位图。 */
     NvRequestSet waiting, running;
+    NvRequestSet remote_pending;
+    struct NvRemoteKV *remote;
     /* 复用的采样候选缓冲区。 */
     NvCandidate *candidates;
     /* 已执行的调度轮数。 */
     uint64_t steps,
              /* 实际执行前向的 token 数。 */
              forward_tokens,
+             /* 实际执行的提示词前向 token 数。 */
+             prefill_tokens,
              /* 已生成的 token 数。 */
              generated_tokens,
              /* 请求被抢占并重新排队的次数。 */
              preemptions;
 } NvEngine;
+
+#ifdef NANO_WITH_REMOTE_KV
+void nv_remote_options_defaults(NvRemoteOptions *options);
+/* Call before adding requests. Returns 1 on success, 0 if unavailable, -1 for invalid options. */
+int nv_engine_enable_remote(NvEngine *engine, const NvTokenizer *tokenizer, NvRemoteOptions options);
+void nv_engine_remote_stats(const NvEngine *engine, NvRemoteStats *out);
+/* Drain the recorded page durations. The returned view lasts until the next engine call. */
+const uint64_t *nv_engine_remote_take_transfer_samples(NvEngine *engine, size_t *count);
+/* Wait for queued exports and invalidations outside the scheduling loop. */
+void nv_engine_remote_flush(NvEngine *engine);
+#endif
 
 #ifdef NANO_WITH_CUDA
 
@@ -333,13 +376,18 @@ void nv_engine_init(NvEngine *engine, NvModel *model, NvOptions options);
 /* 释放引擎持有的请求、KV 和采样区。 */
 void nv_engine_free(NvEngine *engine);
 
+/* 空闲时释放已结束的请求并回收 ID，保留 KV 缓存。成功返回 1。 */
+int nv_engine_clear_requests(NvEngine *engine);
+
 /* 复制输入 token 并返回请求 ID。容量或参数无效时返回 -1。 */
 int nv_engine_add(NvEngine *engine, const int *tokens, int count, int max_new, NvSampling sampling);
 
 /* 取消尚未完成的请求，成功返回 1。 */
 int nv_engine_cancel(NvEngine *engine, int id);
 
-/* 执行一轮调度，返回本轮前向的 token 数。 */
+/* 判断是否仍有等待、前向或远程预取中的请求。 */
+int nv_engine_has_work(const NvEngine *engine);
+/* 执行一轮调度，返回前向 token 数。等待远程页时可返回 0。 */
 int nv_engine_step(NvEngine *engine);
 
 /* 从 logits 选出下一个 token ID。 */

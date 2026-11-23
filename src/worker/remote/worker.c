@@ -166,6 +166,7 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
     atomic_init(&w->remote_hits, 0);
     atomic_init(&w->reused_tokens, 0);
     atomic_init(&w->failed_fetches, 0);
+    atomic_init(&w->evictions, 0);
     atomic_init(&w->active_transfers, 0);
 
     kvf_status st = kvf_uuid_new(&w->info.owner.boot);

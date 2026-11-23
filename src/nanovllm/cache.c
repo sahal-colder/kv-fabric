@@ -3,6 +3,9 @@
  * 缓存持有 K/V Slab，活动请求借用页。由调度线程串行访问。
  */
 #include "nano_cache.h"
+#ifdef NANO_WITH_REMOTE_KV
+#include "nano_remote_kv.h"
+#endif
 #ifdef NANO_WITH_CUDA
 #include "nano_cuda.h"
 #endif
@@ -190,6 +193,10 @@ int nv_cache_allocate(NvCache *c) {
     if (c->free_count) {
         id = c->free_ids[--c->free_count];
     } else if (id >= 0) {
+#ifdef NANO_WITH_REMOTE_KV
+        if (c->remote)
+            nv_remote_evict(c->remote, id);
+#endif
 #ifdef NANO_WITH_STORAGE
         if (c->spill)
             nv_spill_evict(c, id);
@@ -251,11 +258,7 @@ void nv_cache_reuse(NvCache *c, NvSequence *s) {
     }
 }
 
-/* 只发布计算完的完整页，供后续请求共享。 */
-void nv_cache_publish(NvCache *c, NvSequence *s) {
-    if (!c->enabled || !s->computed || s->computed % c->block_size)
-        return;
-    int logical = s->computed / c->block_size - 1;
+static void publish_block(NvCache *c, NvSequence *s, int logical) {
     int id = s->block_table[logical];
     assert(c->blocks[id].refs == 1 && !c->blocks[id].prefix.length);
     NvPrefixKey parent = logical ? c->blocks[s->block_table[logical - 1]].prefix : (NvPrefixKey){0};
@@ -271,3 +274,23 @@ void nv_cache_publish(NvCache *c, NvSequence *s) {
         nv_prefix_insert(&c->prefixes, key, id);
     }
 }
+
+/* 只发布计算完的完整页，供后续请求共享。 */
+void nv_cache_publish(NvCache *c, NvSequence *s) {
+    if (c->enabled && s->computed && !(s->computed % c->block_size))
+        publish_block(c, s, s->computed / c->block_size - 1);
+}
+
+#ifdef NANO_WITH_REMOTE_KV
+void nv_cache_commit_remote(NvCache *c, NvSequence *s, int block) {
+    int logical = s->num_blocks++;
+    s->block_table[logical] = block;
+    publish_block(c, s, logical);
+    s->computed += c->block_size;
+}
+
+void nv_cache_discard_remote(NvCache *c, int block) {
+    assert(!c->blocks[block].prefix.length);
+    release(c, block);
+}
+#endif

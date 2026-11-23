@@ -20,6 +20,12 @@ target_compile_definitions(miniinfer PRIVATE NANO_WITH_STORAGE=1)
 target_compile_options(miniinfer PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall;-Wextra;-Wpedantic>)
 target_link_libraries(miniinfer PRIVATE miniinfer_storage m)
 
+if(TARGET miniinfer_remote)
+    target_sources(miniinfer PRIVATE "${NANO_DIR}/nano_remote_kv.c")
+    target_compile_definitions(miniinfer PRIVATE NANO_WITH_REMOTE_KV=1)
+    target_link_libraries(miniinfer PRIVATE miniinfer_remote OpenSSL::Crypto)
+endif()
+
 if(NANO_WITH_CUDA)
     target_sources(miniinfer PRIVATE "${NANO_DIR}/nano_cuda.cu")
     target_compile_definitions(miniinfer PRIVATE NANO_WITH_CUDA=1)

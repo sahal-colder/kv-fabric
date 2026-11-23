@@ -87,6 +87,8 @@ mi_status mi_page_lease_finish(mi_page_lease *lease);
 /* 放弃写入，底层租约结束后归还页引用。 */
 mi_status mi_page_lease_abort(mi_page_lease *lease);
 
+/* Seal a page after all layer writes commit, without adding a prefix index reference. */
+mi_status mi_kv_sequence_seal_page(mi_kv_sequence *sequence, size_t page, const int32_t *tokens);
 /* 将序列开头的完整页封存并加入前缀索引。 */
 mi_status mi_kv_sequence_publish(mi_kv_sequence *sequence, const int32_t *tokens,
                                  size_t token_count, size_t complete_pages);

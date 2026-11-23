@@ -25,7 +25,16 @@ typedef struct {
 typedef struct {
     kvf_status remote_status;
     size_t local_tokens, remote_tokens;
+    uint64_t lookup_requests, lookup_hits;
+    uint64_t transfer_ns, transfer_samples;
 } mi_remote_result;
+
+typedef struct {
+    kvf_hash parent;
+    uint64_t deadline_ms; /* Absolute KV-Fabric monotonic deadline. */
+    /* Optional output with one slot per requested page. Keep it alive through ticket destruction. */
+    uint64_t *page_transfer_ns;
+} mi_remote_suffix;
 
 /* Storage is borrowed. The Worker owns its Paged KV and one cache namespace. */
 void mi_remote_config_defaults(mi_remote_config *config);
@@ -40,6 +49,12 @@ void mi_remote_worker_stop(mi_remote_worker *worker);
 /* Publish only completely committed pages. The sequence belongs to this Worker. */
 kvf_status mi_remote_publish(mi_remote_worker *worker, mi_kv_sequence *sequence,
                               const int32_t *tokens, size_t token_count, size_t complete_pages);
+/* Export a complete, independently backed page at its original chain position. */
+kvf_status mi_remote_publish_page(mi_remote_worker *worker, mi_kv_sequence *sequence,
+                                   kvf_hash parent, const int32_t *tokens);
+/* Close a detached export and invalidate its replica. Heartbeat retries failed RPCs. */
+kvf_status mi_remote_invalidate_page(mi_remote_worker *worker, kvf_hash page);
+uint64_t mi_remote_worker_evictions(const mi_remote_worker *worker);
 /* Append a page, reclaiming an eligible published leaf under capacity pressure. */
 kvf_status mi_remote_append_page(mi_remote_worker *worker, mi_kv_sequence *sequence);
 /* Close source publication before releasing the cache's prefix references. */
@@ -51,7 +66,16 @@ kvf_status mi_remote_resolve(mi_remote_worker *worker, const int32_t *tokens, si
 /* Copies tokens and queues on the worker's bounded prefetch lane. */
 kvf_status mi_remote_prefetch_async(mi_remote_worker *worker, const int32_t *tokens, size_t token_count,
                                      mi_remote_prefetch **out);
-/* Transfers sequence ownership once. Cancelled work retains only fully verified pages. */
+/* Stage a contiguous suffix under one deadline. A miss ends the prefix. Other
+ * remote errors discard the entire staging sequence. Verified transfer timings
+ * remain available in the result even when the sequence cannot be used. */
+kvf_status mi_remote_prefetch_async_after(mi_remote_worker *worker, mi_remote_suffix suffix,
+                                          const int32_t *tokens, size_t token_count,
+                                          mi_remote_prefetch **out);
+/* Returns 0 while pending. On return 1, status reports the result of claiming. */
+int mi_remote_prefetch_poll(mi_remote_prefetch *job, mi_kv_sequence **out,
+                            mi_remote_result *result, kvf_status *status);
+/* Transfers result ownership once. The legacy path may retain verified pages on cancellation. */
 kvf_status mi_remote_prefetch_wait(mi_remote_prefetch *job, mi_kv_sequence **out, mi_remote_result *result);
 void mi_remote_prefetch_cancel(mi_remote_prefetch *job);
 /* Requests cancellation, joins work on this ticket and releases any unclaimed sequence. */

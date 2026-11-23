@@ -19,6 +19,7 @@ typedef struct {
     mi_page_ref ref;       /* Pins a sealed page until the export stops serving. */
     export_state state;   /* EMPTY -> ACTIVE -> RETIRING -> EMPTY. */
     int dirty;            /* Directory acknowledgement still outstanding. */
+    uint64_t order;       /* Nonzero publication order for detached exports. */
 } mi_remote_export;
 
 typedef struct mi_peer_pool mi_peer_pool;
@@ -49,8 +50,10 @@ struct mi_remote_worker {
     atomic_uint_fast64_t remote_hits;     /* Sequences with one or more verified imports. */
     atomic_uint_fast64_t reused_tokens;   /* Local plus imported token count. */
     atomic_uint_fast64_t failed_fetches;  /* Attempts ending in an unexpected remote status. */
+    atomic_uint_fast64_t evictions;       /* Retired or invalidated export references. */
     atomic_uint active_transfers;        /* Serving requests used for the next load report. */
     mi_remote_export *exports;            /* Fixed table owned for Worker lifetime. */
+    uint64_t publication_order;           /* Advanced under updates. */
     mi_segment_pool *segments;            /* Startup slab plus optional DMA resources. */
     mi_peer_pool *peers;                   /* Owned outbound pool, NULL for short mode. */
     mi_prefetch_queue *prefetch;           /* Bounded queue and one joined worker thread. */
@@ -59,15 +62,35 @@ struct mi_remote_worker {
 kvf_status mi_remote_from_storage(mi_status status);
 void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline);
 kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *sequence, size_t page,
-                             const kvf_grant *grant, const atomic_bool *cancel);
+                             const kvf_grant *grant, uint64_t deadline_ms, const atomic_bool *cancel);
 kvf_status mi_remote_sync_locked(mi_remote_worker *w);
 /* The caller holds exports_lock for handler lookups, or updates for mutations. */
 mi_remote_export *mi_remote_find_export(mi_remote_worker *w, kvf_page_key key);
 kvf_status mi_remote_resolve_impl(mi_remote_worker *w, const int32_t *tokens, size_t count,
                                    mi_kv_sequence **out, mi_remote_result *result,
                                    const atomic_bool *cancel);
+kvf_status mi_remote_resolve_after(mi_remote_worker *w, mi_remote_suffix suffix, const int32_t *tokens,
+                                    size_t count, mi_kv_sequence **out, mi_remote_result *result,
+                                    const atomic_bool *cancel);
 static inline int mi_remote_cancelled(const atomic_bool *cancel) {
     return cancel && atomic_load_explicit(cancel, memory_order_relaxed);
+}
+
+/* A zero deadline preserves the legacy per-RPC timeout. */
+static inline kvf_status mi_remote_request_client(kvf_client client, uint64_t deadline_ms,
+                                                  const atomic_bool *cancel, kvf_client *out) {
+    if (mi_remote_cancelled(cancel))
+        return KVF_CANCELLED;
+    if (deadline_ms) {
+        uint64_t now = kvf_now_ms();
+        if (now >= deadline_ms)
+            return KVF_TIMEOUT;
+        if (deadline_ms - now < client.timeout_ms)
+            client.timeout_ms = (uint32_t)(deadline_ms - now);
+    }
+    if (out)
+        *out = client;
+    return KVF_OK;
 }
 
 kvf_status mi_peer_pool_create(unsigned capacity, uint32_t idle_ms, mi_peer_pool **out);

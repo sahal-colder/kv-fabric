@@ -63,7 +63,7 @@ static kvf_status tcp_request(lane *l, mi_segment *check) {
     if (st == KVF_OK)
         st = mi_remote_append_page(b->worker, sequence);
     if (st == KVF_OK)
-        st = mi_remote_import(b->worker, sequence, 0, &grant, NULL);
+        st = mi_remote_import(b->worker, sequence, 0, &grant, 0, NULL);
     kvf_status finished = kvf_client_release(b->control, grant.ticket);
     if (st == KVF_OK)
         st = finished;

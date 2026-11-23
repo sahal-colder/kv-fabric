@@ -2,7 +2,11 @@
  * 推理调度层。推进请求状态、分页前缀和每步模型计算。
  * 引擎拥有活动请求状态并借用模型。调度由同一驱动线程串行推进。
  */
+#define _POSIX_C_SOURCE 200809L
 #include "nano_cache.h"
+#ifdef NANO_WITH_REMOTE_KV
+#include "nano_remote_kv.h"
+#endif
 #ifdef NANO_WITH_CUDA
 #include "nano_cuda.h"
 #endif
@@ -11,6 +15,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* 每层按 64 位一组汇总下层，直至顶层只剩一个字。 */
 static void request_set_init(NvRequestSet *set, size_t requests) {
@@ -79,6 +84,9 @@ static void init_engine(NvEngine *e, NvModel *m, NvOptions o) {
     e->candidates = nv_alloc((size_t)m->config.vocab_size, sizeof(*e->candidates));
     request_set_init(&e->waiting, (size_t)o.max_requests);
     request_set_init(&e->running, (size_t)o.max_requests);
+#ifdef NANO_WITH_REMOTE_KV
+    request_set_init(&e->remote_pending, (size_t)o.max_requests);
+#endif
 }
 
 void nv_engine_init(NvEngine *e, NvModel *m, NvOptions o) {
@@ -94,15 +102,33 @@ void nv_engine_init_cuda(NvEngine *e, NvModel *m, NvOptions o, int device) {
 }
 #endif
 
-void nv_engine_free(NvEngine *e) {
+static void free_requests(NvEngine *e) {
     for (int i = 0; i < e->num_requests; ++i) {
         free(e->requests[i]->tokens);
         free(e->requests[i]->block_table);
         free(e->requests[i]);
+        e->requests[i] = NULL;
     }
+    e->num_requests = 0;
+}
+
+int nv_engine_clear_requests(NvEngine *e) {
+    if (nv_engine_has_work(e))
+        return 0;
+    free_requests(e);
+    return 1;
+}
+
+void nv_engine_free(NvEngine *e) {
+#ifdef NANO_WITH_REMOTE_KV
+    if (e->remote)
+        nv_remote_close(e);
+#endif
+    free_requests(e);
     for (unsigned i = 0; i < e->waiting.depth; ++i) {
         free(e->waiting.level[i]);
         free(e->running.level[i]);
+        free(e->remote_pending.level[i]);
     }
     free(e->requests);
     free(e->candidates);
@@ -149,7 +175,16 @@ int nv_engine_cancel(NvEngine *e, int id) {
         request_set_update(&e->running, id, 0);
         nv_cache_release(&e->cache, s);
         --e->active;
-    } else {
+    }
+#ifdef NANO_WITH_REMOTE_KV
+    else if (s->status == NV_REMOTE_PREFETCHING) {
+        request_set_update(&e->remote_pending, id, 0);
+        nv_remote_cancel(e, s);
+        nv_cache_release(&e->cache, s);
+        --e->active;
+    }
+#endif
+    else {
         request_set_update(&e->waiting, id, 0);
     }
     s->status = NV_CANCELLED;
@@ -160,11 +195,24 @@ static int allocate_block(NvEngine *e, const NvSequence *s) {
     int block = nv_cache_allocate(&e->cache);
     while (block < 0) {
         int id = last_request(&e->running);
+#ifdef NANO_WITH_REMOTE_KV
+        if (e->remote) {
+            int pending = last_request(&e->remote_pending);
+            if (pending > id)
+                id = pending;
+        }
+#endif
         /* 只抢占排在当前请求之后的请求。 */
         if (id <= s->id)
             break;
         NvSequence *victim = e->requests[id];
-        request_set_update(&e->running, id, 0);
+#ifdef NANO_WITH_REMOTE_KV
+        if (victim->status == NV_REMOTE_PREFETCHING) {
+            request_set_update(&e->remote_pending, id, 0);
+            nv_remote_cancel(e, victim);
+        } else
+#endif
+            request_set_update(&e->running, id, 0);
         request_set_update(&e->waiting, id, 1);
         /* 归还被抢占请求的页。重新调度时可命中前缀。 */
         nv_cache_release(&e->cache, victim);
@@ -176,8 +224,35 @@ static int allocate_block(NvEngine *e, const NvSequence *s) {
     return block;
 }
 
+int nv_engine_has_work(const NvEngine *e) {
+    return e->active || last_request(&e->waiting) >= 0;
+}
+
+#ifdef NANO_WITH_REMOTE_KV
+static void collect_remote(NvEngine *e) {
+    nv_remote_reap(e->remote);
+    size_t cursor = 0;
+    for (;;) {
+        int id = request_at_or_after(&e->remote_pending, 0, cursor);
+        if (id < 0)
+            return;
+        cursor = (size_t)id + 1;
+        NvSequence *s = e->requests[id];
+        if (nv_remote_poll(e, s)) {
+            request_set_update(&e->remote_pending, id, 0);
+            request_set_update(&e->running, id, 1);
+            s->status = NV_ACTIVE;
+        }
+    }
+}
+#endif
+
 /* 在本轮 token 预算内推进等待和活跃请求。 */
 int nv_engine_step(NvEngine *e) {
+#ifdef NANO_WITH_REMOTE_KV
+    if (e->remote)
+        collect_remote(e);
+#endif
     int quota = e->options.token_budget / e->options.max_sequences;
     if (!quota)
         quota = 1;
@@ -198,9 +273,16 @@ int nv_engine_step(NvEngine *e) {
         if (s->status == NV_WAITING) {
             nv_cache_reuse(&e->cache, s);
             request_set_update(&e->waiting, id, 0);
+            ++e->active;
+#ifdef NANO_WITH_REMOTE_KV
+            if (e->remote && nv_remote_begin(e, s)) {
+                s->status = NV_REMOTE_PREFETCHING;
+                request_set_update(&e->remote_pending, id, 1);
+                continue;
+            }
+#endif
             request_set_update(&e->running, id, 1);
             s->status = NV_ACTIVE;
-            ++e->active;
         }
 
         for (int i = 0; i < quota && used < e->options.token_budget; ++i) {
@@ -216,7 +298,20 @@ int nv_engine_step(NvEngine *e) {
             ++s->computed;
             ++used;
             ++e->forward_tokens;
+            if (s->computed == s->prompt_len && !s->prefill_done_ns) {
+                struct timespec time;
+                if (clock_gettime(CLOCK_MONOTONIC, &time) == 0)
+                    s->prefill_done_ns = (uint64_t)time.tv_sec * UINT64_C(1000000000) +
+                                         (uint64_t)time.tv_nsec;
+            }
             nv_cache_publish(&e->cache, s);
+            if (s->computed <= s->prompt_len) {
+                ++e->prefill_tokens;
+#ifdef NANO_WITH_REMOTE_KV
+                if (e->remote && !(s->computed % e->options.block_size))
+                    nv_remote_publish(e, s);
+#endif
+            }
             /* 先算完已有 token，再根据最后一个位置的 logits 采样。 */
             if (s->computed < s->num_tokens)
                 continue;
@@ -236,6 +331,7 @@ int nv_engine_step(NvEngine *e) {
         }
     }
     ++e->steps;
-    assert(used || (!e->active && last_request(&e->waiting) < 0));
+    assert(used || !nv_engine_has_work(e) ||
+           (e->remote && last_request(&e->remote_pending) >= 0));
     return used;
 }

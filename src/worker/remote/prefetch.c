@@ -19,6 +19,7 @@ struct mi_remote_prefetch {
     kvf_status status;         /* Failure to start resolution or obtain a sequence. */
     mi_kv_sequence *sequence; /* Owned until claimed or destroyed. */
     mi_remote_result result;  /* Includes the safe prefix and any remote failure. */
+    mi_remote_suffix suffix;  /* Nonzero deadline selects private staging. */
     size_t count;              /* Number of copied tokens. */
     int32_t tokens[];          /* Immutable after admission, valid until completion. */
 };
@@ -48,7 +49,9 @@ static void *serve(void *arg) {
         q->running = j;
         pthread_mutex_unlock(&q->lock);
 
-        j->status = mi_remote_resolve_impl(w, j->tokens, j->count, &j->sequence, &j->result, &j->cancelled);
+        j->status = j->suffix.deadline_ms
+            ? mi_remote_resolve_after(w, j->suffix, j->tokens, j->count, &j->sequence, &j->result, &j->cancelled)
+            : mi_remote_resolve_impl(w, j->tokens, j->count, &j->sequence, &j->result, &j->cancelled);
 
         pthread_mutex_lock(&q->lock);
         q->running = NULL;
@@ -105,8 +108,8 @@ void mi_prefetch_stop(mi_remote_worker *w) {
     w->prefetch = NULL;
 }
 
-kvf_status mi_remote_prefetch_async(mi_remote_worker *w, const int32_t *tokens, size_t count,
-                                     mi_remote_prefetch **out) {
+static kvf_status enqueue(mi_remote_worker *w, mi_remote_suffix suffix, const int32_t *tokens,
+                          size_t count, mi_remote_prefetch **out) {
     if (!w || !tokens || !count || !out || count / w->identity.tokens_per_page > w->cache->max_pages ||
         count > (SIZE_MAX - sizeof(mi_remote_prefetch)) / sizeof(*tokens))
         return KVF_INVALID;
@@ -123,6 +126,7 @@ kvf_status mi_remote_prefetch_async(mi_remote_worker *w, const int32_t *tokens, 
         return KVF_INTERNAL;
     }
     atomic_init(&j->cancelled, 0);
+    j->suffix = suffix;
     j->count = count;
     memcpy(j->tokens, tokens, count * sizeof(*tokens));
     mi_prefetch_queue *q = w->prefetch;
@@ -144,20 +148,53 @@ kvf_status mi_remote_prefetch_async(mi_remote_worker *w, const int32_t *tokens, 
     return st;
 }
 
+kvf_status mi_remote_prefetch_async(mi_remote_worker *w, const int32_t *tokens, size_t count,
+                                     mi_remote_prefetch **out) {
+    return enqueue(w, (mi_remote_suffix){0}, tokens, count, out);
+}
+
+kvf_status mi_remote_prefetch_async_after(mi_remote_worker *w, mi_remote_suffix suffix, const int32_t *tokens,
+                                          size_t count, mi_remote_prefetch **out) {
+    if (!w || !suffix.deadline_ms || !count || count % w->identity.tokens_per_page)
+        return KVF_INVALID;
+    if (kvf_now_ms() >= suffix.deadline_ms)
+        return KVF_TIMEOUT;
+    return enqueue(w, suffix, tokens, count, out);
+}
+
+static kvf_status claim(mi_remote_prefetch *j, mi_kv_sequence **out, mi_remote_result *result) {
+    if (j->claimed)
+        return KVF_CONFLICT;
+    *out = j->sequence;
+    *result = j->result;
+    j->sequence = NULL;
+    j->claimed = 1;
+    return j->status;
+}
+
+int mi_remote_prefetch_poll(mi_remote_prefetch *j, mi_kv_sequence **out,
+                            mi_remote_result *result, kvf_status *status) {
+    if (!j || !out || !result || !status) {
+        if (status)
+            *status = KVF_INVALID;
+        return 1;
+    }
+    if (pthread_mutex_trylock(&j->lock) != 0)
+        return 0;
+    int done = j->done;
+    if (done)
+        *status = claim(j, out, result);
+    pthread_mutex_unlock(&j->lock);
+    return done;
+}
+
 kvf_status mi_remote_prefetch_wait(mi_remote_prefetch *j, mi_kv_sequence **out, mi_remote_result *result) {
     if (!j || !out || !result)
         return KVF_INVALID;
     pthread_mutex_lock(&j->lock);
     while (!j->done)
         pthread_cond_wait(&j->changed, &j->lock);
-    kvf_status st = KVF_CONFLICT;
-    if (!j->claimed) {
-        *out = j->sequence;
-        *result = j->result;
-        j->sequence = NULL;
-        j->claimed = 1;
-        st = j->status;
-    }
+    kvf_status st = claim(j, out, result);
     pthread_mutex_unlock(&j->lock);
     return st;
 }

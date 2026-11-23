@@ -36,13 +36,9 @@ static kvf_status copy_export(mi_remote_worker *w, mi_segment *stage, const kvf_
 }
 
 static kvf_status validate(mi_remote_worker *w, const kvf_fetch_request *r, uint64_t deadline) {
-    uint64_t now = kvf_now_ms();
-    if (deadline <= now)
-        return KVF_TIMEOUT;
-    kvf_client c = w->control;
-    if (deadline - now < c.timeout_ms)
-        c.timeout_ms = (uint32_t)(deadline - now);
-    return kvf_client_validate(c, r);
+    kvf_client client;
+    kvf_status st = mi_remote_request_client(w->control, deadline, NULL, &client);
+    return st == KVF_OK ? kvf_client_validate(client, r) : st;
 }
 
 static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f,
@@ -108,8 +104,13 @@ static kvf_status finish_layer(mi_remote_worker *w, mi_segment *stage, mi_page_l
     return mi_remote_from_storage(st == MI_OK ? retired : st);
 }
 
+static uint64_t transfer_deadline(kvf_client client, uint64_t deadline) {
+    uint64_t end = kvf_now_ms() + client.timeout_ms;
+    return deadline && deadline < end ? deadline : end;
+}
+
 kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
-                             const kvf_grant *g, const atomic_bool *cancel) {
+                             const kvf_grant *g, uint64_t deadline_ms, const atomic_bool *cancel) {
     kvf_fetch_request r = {
         .key = g->manifest.key, .owner_boot = g->manifest.owner.boot, .ticket = g->ticket
     };
@@ -117,7 +118,10 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
     mi_page_lease leases[2] = {0};
     mi_peer_conn *peer = NULL;
     int fd = -1;
-    kvf_status st = KVF_OK;
+    kvf_client client;
+    kvf_status st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+    if (st != KVF_OK)
+        return st;
     unsigned stages = w->peers && g->manifest.layer_count > 1 ? 2 : 1;
     if (w->location == MI_LOCATION_GPU) {
         for (unsigned i = 0; i < stages; ++i) {
@@ -129,20 +133,19 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
         }
     }
     if (w->peers) {
-        st = mi_peer_borrow(w->peers, g, kvf_now_ms() + w->control.timeout_ms, &peer, &fd);
+        st = mi_peer_borrow(w->peers, g, transfer_deadline(client, deadline_ms), &peer, &fd);
         if (st != KVF_OK)
             goto done;
     }
 
     uint64_t renew_at = kvf_now_ms() + g->ttl_ms / 2;
     for (uint32_t i = 0; i < g->manifest.layer_count; ++i) {
-        if (mi_remote_cancelled(cancel)) {
-            st = KVF_CANCELLED;
+        st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+        if (st != KVF_OK)
             goto done;
-        }
         if (kvf_now_ms() >= renew_at) {
             uint32_t ttl_ms;
-            st = kvf_client_renew(w->control, g->ticket, &ttl_ms);
+            st = kvf_client_renew(client, g->ticket, &ttl_ms);
             if (st != KVF_OK)
                 goto done;
             renew_at = kvf_now_ms() + ttl_ms / 2;
@@ -159,9 +162,12 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
         r.layer_index = i;
         r.layer = g->manifest.layer[i];
         void *dst = stage[slot] ? stage[slot]->data : lease->lease.data;
-        st = fd >= 0 ? kvf_client_fetch_on(fd, kvf_now_ms() + w->control.timeout_ms,
+        st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+        if (st != KVF_OK)
+            goto done;
+        st = fd >= 0 ? kvf_client_fetch_on(fd, transfer_deadline(client, deadline_ms),
                                            &r, dst, lease->lease.size)
-                     : kvf_client_fetch(g->endpoint, w->control.timeout_ms, &r, dst, lease->lease.size);
+                     : kvf_client_fetch(g->endpoint, client.timeout_ms, &r, dst, lease->lease.size);
         if (st != KVF_OK)
             goto done;
         if (stream) {
@@ -181,7 +187,9 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
         if (st != KVF_OK)
             goto done;
     }
-    st = mi_remote_cancelled(cancel) ? KVF_CANCELLED : kvf_client_validate(w->control, &r);
+    st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+    if (st == KVF_OK)
+        st = kvf_client_validate(client, &r);
 
 done:
     for (unsigned i = 0; i < 2; ++i) {

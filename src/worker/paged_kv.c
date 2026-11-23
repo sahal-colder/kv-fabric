@@ -330,6 +330,29 @@ mi_status mi_page_lease_abort(mi_page_lease *lease) {
     return lease && lease->kv ? page_complete(lease, 0) : MI_EINVAL;
 }
 
+mi_status mi_kv_sequence_seal_page(mi_kv_sequence *s, size_t page, const int32_t *tokens) {
+    if (!s || !tokens)
+        return MI_EINVAL;
+    mi_paged_kv *k = s->kv;
+    pthread_mutex_lock(&k->mutex);
+    mi_status st = MI_EINVAL;
+    if (page < s->count) {
+        uint32_t id = s->pages[page];
+        size_t bytes = k->tokens_per_page * sizeof(*tokens);
+        if (k->pages[id].sealed) {
+            st = memcmp(page_tokens(k, id), tokens, bytes) ? MI_ESTATE : MI_OK;
+        } else {
+            st = mi_storage_blocks_ready(k->storage, page_blocks(k, id), k->layers);
+            if (st == MI_OK) {
+                memcpy(page_tokens(k, id), tokens, bytes);
+                k->pages[id].sealed = 1;
+            }
+        }
+    }
+    pthread_mutex_unlock(&k->mutex);
+    return st;
+}
+
 /* 先检查各层数据已提交，再发布完整页前缀。 */
 mi_status mi_kv_sequence_publish(mi_kv_sequence *s, const int32_t *tokens,
                                  size_t count, size_t pages) {
