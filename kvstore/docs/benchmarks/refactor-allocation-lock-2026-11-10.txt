@@ -1,0 +1,31 @@
+# case topology process alloc malloc_calls calloc_calls realloc_calls
+# case topology process lock lock_kind calls calls_ge_10us total_ns
+# lock_kind: 0 pthread_mutex_lock, 1 pthread_rwlock_rdlock, 2 pthread_rwlock_wrlock
+base standalone primary alloc 51205 7 0
+base standalone primary lock 0 65 0 1499
+base standalone primary lock 1 8192 0 537475
+base standalone primary lock 2 16384 1 1354768
+release standalone primary alloc 32771 4 4
+release standalone primary lock 0 65 0 970
+release standalone primary lock 1 8192 0 343508
+release standalone primary lock 2 16384 1 941249
+mmpool standalone primary alloc 32771 4 4
+mmpool standalone primary lock 0 65624 1 2084144
+mmpool standalone primary lock 1 8192 0 457284
+mmpool standalone primary lock 2 16384 0 1093202
+release replica primary alloc 57357 8198 17
+release replica primary lock 0 24665 0 1222667
+release replica primary lock 1 8193 0 425964
+release replica primary lock 2 16384 1 1440551
+release replica replica alloc 57351 6 4
+release replica replica lock 0 71 0 5459
+release replica replica lock 1 1 0 111
+release replica replica lock 2 8193 1 694620
+mmpool replica primary alloc 57357 8198 17
+mmpool replica primary lock 0 155802 3 5472987
+mmpool replica primary lock 1 8193 0 426099
+mmpool replica primary lock 2 16384 0 1378545
+mmpool replica replica alloc 57351 6 4
+mmpool replica replica lock 0 114794 3 4091974
+mmpool replica replica lock 1 1 0 99
+mmpool replica replica lock 2 8193 0 590875
