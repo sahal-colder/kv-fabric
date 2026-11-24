@@ -12,6 +12,8 @@
 #define KVF_MAX_LAYER_BYTES (4u * 1024u * 1024u)
 #define KVF_MAX_TOKENS_PER_PAGE 4096u
 #define KVF_MAX_LOOKUP 64u
+#define KVF_MAX_BATCH_PAGES 8u
+#define KVF_MAX_BATCH_BYTES (8u * 1024u * 1024u)
 #define KVF_WORKER_NAME 48u
 #define KVF_ENDPOINT_TEXT 22u
 
@@ -125,6 +127,13 @@ typedef struct {
     uint32_t layer_index;      /* Index in the immutable manifest. */
     kvf_layer layer;           /* Complete expected physical identity including generation. */
 } kvf_fetch_request;
+
+typedef struct {
+    kvf_page_key key;
+    kvf_uuid owner_boot;
+    kvf_ticket ticket;
+    kvf_hash manifest_digest;   /* Canonical manifest, including every layer's generation and version. */
+} kvf_batch_page;
 
 const char *kvf_status_string(kvf_status status);
 kvf_status kvf_uuid_new(kvf_uuid *uuid);

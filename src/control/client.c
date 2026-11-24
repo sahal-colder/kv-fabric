@@ -96,6 +96,20 @@ kvf_status kvf_client_lookup_prefix(kvf_client c, kvf_hash space, const kvf_hash
     return kvf_reader_done(&r) && *matched <= count ? KVF_OK : KVF_PROTOCOL;
 }
 
+static int get_grant(kvf_reader *r, kvf_page_key key, int leased, kvf_grant *out) {
+    kvf_get_manifest(r, &out->manifest);
+    kvf_get_endpoint(r, &out->endpoint);
+    if (leased) {
+        kvf_get_ticket(r, &out->ticket);
+        out->ttl_ms = kvf_get_u32(r);
+        if (!out->ttl_ms || !out->ticket.fence || kvf_uuid_zero(out->ticket.directory) ||
+            kvf_uuid_zero(out->ticket.secret))
+            return 0;
+    }
+    return !r->failed && out->endpoint.port && kvf_page_key_equal(key, out->manifest.key) &&
+        kvf_manifest_validate(&out->manifest) == KVF_OK;
+}
+
 static kvf_status page_call(kvf_client c, kvf_opcode op, kvf_page_key key, const kvf_hash *pages,
                              uint32_t count, kvf_grant *out) {
     uint8_t bytes[KVF_METADATA_BYTES];
@@ -109,17 +123,7 @@ static kvf_status page_call(kvf_client c, kvf_opcode op, kvf_page_key key, const
     if (st != KVF_OK)
         return st;
     kvf_reader r = {.buffer = bytes, .size = n};
-    kvf_get_manifest(&r, &out->manifest);
-    kvf_get_endpoint(&r, &out->endpoint);
-    if (op != KVF_LOOKUP_PAGE) {
-        kvf_get_ticket(&r, &out->ticket);
-        out->ttl_ms = kvf_get_u32(&r);
-        if (!out->ttl_ms || !out->ticket.fence || kvf_uuid_zero(out->ticket.directory) ||
-            kvf_uuid_zero(out->ticket.secret))
-            return KVF_PROTOCOL;
-    }
-    return kvf_reader_done(&r) && out->endpoint.port && kvf_page_key_equal(key, out->manifest.key) &&
-        kvf_manifest_validate(&out->manifest) == KVF_OK ? KVF_OK : KVF_PROTOCOL;
+    return get_grant(&r, key, op != KVF_LOOKUP_PAGE, out) && kvf_reader_done(&r) ? KVF_OK : KVF_PROTOCOL;
 }
 
 kvf_status kvf_client_lookup_page(kvf_client c, kvf_page_key key, kvf_manifest *out, kvf_endpoint *endpoint) {
@@ -141,6 +145,47 @@ kvf_status kvf_client_acquire_prefix(kvf_client c, kvf_hash space, const kvf_has
     if (!pages || !count || count > KVF_MAX_LOOKUP || !out)
         return KVF_INVALID;
     return page_call(c, KVF_ACQUIRE_PREFIX, (kvf_page_key){space, pages[0]}, pages, count, out);
+}
+
+kvf_status kvf_client_acquire_batch(kvf_client c, kvf_hash space, const kvf_hash *pages, uint32_t count,
+                                    kvf_grant *grants, uint32_t *matched) {
+    if (!pages || !count || count > KVF_MAX_BATCH_PAGES || !grants || !matched)
+        return KVF_INVALID;
+    uint8_t bytes[KVF_BATCH_GRANT_BYTES];
+    kvf_writer w = {.buffer = bytes, .capacity = sizeof(bytes)};
+    put_candidates(&w, space, pages, count);
+    size_t n;
+    kvf_status st = call(c, KVF_ACQUIRE_BATCH, &w, bytes, sizeof(bytes), &n);
+    if (st != KVF_OK)
+        return st;
+    kvf_reader r = {.buffer = bytes, .size = n};
+    uint32_t hits = kvf_get_u32(&r);
+    if (!hits || hits > count)
+        return KVF_PROTOCOL;
+    for (uint32_t i = 0; i < hits; ++i)
+        if (!get_grant(&r, (kvf_page_key){space, pages[i]}, 1, &grants[i]))
+            return KVF_PROTOCOL;
+    if (!kvf_reader_done(&r))
+        return KVF_PROTOCOL;
+    *matched = hits;
+    return KVF_OK;
+}
+
+static kvf_status check_batch(kvf_client c, int fd, uint64_t deadline, const kvf_batch_page *pages,
+                               uint32_t count, int finish) {
+    uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
+    kvf_writer w = {.buffer = bytes, .capacity = sizeof(bytes)};
+    kvf_put_batch(&w, pages, count);
+    kvf_opcode op = finish ? KVF_FINISH_BATCH : KVF_VALIDATE_BATCH;
+    return fd >= 0 ? kvf_rpc_on(fd, op, &w, NULL, 0, NULL, deadline) : call(c, op, &w, NULL, 0, NULL);
+}
+
+kvf_status kvf_client_check_batch(kvf_client c, const kvf_batch_page *pages, uint32_t count, int finish) {
+    return check_batch(c, -1, 0, pages, count, finish);
+}
+
+kvf_status kvf_client_validate_batch_on(int fd, uint64_t deadline, const kvf_batch_page *pages, uint32_t count) {
+    return check_batch((kvf_client){0}, fd, deadline, pages, count, 0);
 }
 
 static kvf_status ticket_call(kvf_client c, kvf_opcode op, kvf_ticket ticket, uint32_t *ttl_ms) {
@@ -205,6 +250,18 @@ kvf_status kvf_client_fetch(kvf_endpoint ep, uint32_t timeout_ms, const kvf_fetc
 kvf_status kvf_client_fetch_on(int fd, uint64_t deadline, const kvf_fetch_request *r,
                                 void *payload, size_t capacity) {
     return fetch((kvf_client){0}, fd, deadline, r, payload, capacity);
+}
+
+kvf_status kvf_client_fetch_batch_on(int fd, uint64_t deadline, const kvf_batch_page *pages,
+                                      uint32_t count, void *payload, size_t size, kvf_receive_timing *timing) {
+    if (!payload || !size || size > KVF_MAX_BATCH_BYTES)
+        return KVF_INVALID;
+    uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
+    kvf_writer w = {.buffer = bytes, .capacity = sizeof(bytes)};
+    kvf_put_batch(&w, pages, count);
+    size_t n;
+    kvf_status st = kvf_rpc_on_timed(fd, KVF_FETCH_BATCH, &w, payload, size, &n, deadline, timing);
+    return st == KVF_OK && n != size ? KVF_PROTOCOL : st;
 }
 
 kvf_status kvf_client_block_meta(kvf_endpoint ep, uint32_t timeout_ms, const kvf_fetch_request *req,

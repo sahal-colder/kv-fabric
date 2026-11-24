@@ -72,7 +72,7 @@ void mi_peer_pool_reap(mi_peer_pool *pool) {
 }
 
 kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *g, uint64_t deadline,
-                           mi_peer_conn **out, int *fd) {
+                           mi_peer_conn **out, int *fd, int *reused) {
     mi_peer_conn *matching = NULL, *available = NULL;
     uint64_t now = kvf_now_ms();
     pthread_mutex_lock(&pool->lock);
@@ -113,6 +113,8 @@ kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *g, uint64_t deadl
             p->fd = -1;
         }
     }
+    if (reused)
+        *reused = p->fd >= 0;
     kvf_status st = p->fd >= 0 ? KVF_OK : kvf_connect(g->endpoint, deadline, &p->fd);
     if (st != KVF_OK) {
         mi_peer_return(pool, p, 0);

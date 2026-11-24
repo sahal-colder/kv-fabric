@@ -36,6 +36,9 @@ kvf_status kvf_directory_lookup_page(kvf_directory *d, kvf_page_key key, kvf_man
 kvf_status kvf_directory_acquire(kvf_directory *d, kvf_page_key key, kvf_grant *out);
 kvf_status kvf_directory_acquire_prefix(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                         uint32_t count, kvf_grant *out);
+kvf_status kvf_directory_acquire_batch(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
+                                       uint32_t count, kvf_grant *grants, uint32_t *matched);
+kvf_status kvf_directory_check_batch(kvf_directory *d, const kvf_batch_page *pages, uint32_t count, int finish);
 kvf_status kvf_directory_renew(kvf_directory *d, kvf_ticket ticket, uint32_t *ttl_ms);
 kvf_status kvf_directory_release(kvf_directory *d, kvf_ticket ticket);
 kvf_status kvf_directory_validate(kvf_directory *d, const kvf_fetch_request *request);

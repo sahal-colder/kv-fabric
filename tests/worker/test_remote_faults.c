@@ -325,9 +325,10 @@ static void peer_epoch(void) {
             mi_peer_pool_reap(pool);
         }
         mi_peer_conn *peer;
-        int fd;
+        int fd, reused;
         uint64_t deadline = kvf_now_ms() + 1000;
-        assert(mi_peer_borrow(pool, &grant, deadline, &peer, &fd) == KVF_OK);
+        assert(mi_peer_borrow(pool, &grant, deadline, &peer, &fd, &reused) == KVF_OK);
+        assert(reused == (attempt == 1));
         assert(kvf_rpc_on(fd, KVF_STATS, NULL, NULL, 0, NULL, deadline) == KVF_OK);
         mi_peer_return(pool, peer, 1);
         assert(atomic_load_explicit(&accepted, memory_order_relaxed) == (attempt ? attempt : 1));

@@ -3,6 +3,7 @@
 #define KVFABRIC_CLIENT_H
 
 #include "directory.h"
+#include "wire.h"
 
 typedef struct {
     kvf_endpoint endpoint;
@@ -20,6 +21,12 @@ kvf_status kvf_client_lookup_page(kvf_client c, kvf_page_key key, kvf_manifest *
 kvf_status kvf_client_acquire(kvf_client c, kvf_page_key key, kvf_grant *out);
 kvf_status kvf_client_acquire_prefix(kvf_client c, kvf_hash space, const kvf_hash *pages,
                                      uint32_t count, kvf_grant *out);
+kvf_status kvf_client_acquire_batch(kvf_client c, kvf_hash space, const kvf_hash *pages, uint32_t count,
+                                    kvf_grant *grants, uint32_t *matched);
+/* Finish validates the same snapshots and releases leases, including on partial failure. */
+kvf_status kvf_client_check_batch(kvf_client c, const kvf_batch_page *pages, uint32_t count, int finish);
+/* A producer can validate before and after its copy on one control connection. */
+kvf_status kvf_client_validate_batch_on(int fd, uint64_t deadline, const kvf_batch_page *pages, uint32_t count);
 kvf_status kvf_client_renew(kvf_client c, kvf_ticket ticket, uint32_t *ttl_ms);
 kvf_status kvf_client_release(kvf_client c, kvf_ticket ticket);
 kvf_status kvf_client_validate(kvf_client c, const kvf_fetch_request *request);
@@ -31,6 +38,8 @@ kvf_status kvf_client_fetch(kvf_endpoint source, uint32_t timeout_ms,
                              const kvf_fetch_request *request, void *payload, size_t capacity);
 kvf_status kvf_client_fetch_on(int fd, uint64_t deadline, const kvf_fetch_request *request,
                                 void *payload, size_t capacity);
+kvf_status kvf_client_fetch_batch_on(int fd, uint64_t deadline, const kvf_batch_page *pages,
+                                      uint32_t count, void *payload, size_t size, kvf_receive_timing *timing);
 kvf_status kvf_client_block_meta(kvf_endpoint source, uint32_t timeout_ms,
                                   const kvf_fetch_request *request, kvf_layer *out);
 

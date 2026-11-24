@@ -199,6 +199,56 @@ static void test_worker_expiry_and_new_epoch(void) {
     kvf_directory_destroy(d);
 }
 
+static void test_batch_fences(void) {
+    kvf_directory *d;
+    const kvf_directory_config config = {8, 2, 8, 5000, 5000};
+    assert(kvf_directory_create(config, &d) == KVF_OK);
+    kvf_worker_info a = make_worker("batch-a"), b = make_worker("batch-b");
+    assert(kvf_directory_register(d, &a, (kvf_uuid){0}) == KVF_OK);
+    assert(kvf_directory_register(d, &b, (kvf_uuid){0}) == KVF_OK);
+    kvf_manifest root = make_page(a.owner, (kvf_hash){0}, 2);
+    kvf_manifest leaf = make_page(b.owner, root.key.page, 3);
+    assert(kvf_directory_publish(d, &root) == KVF_OK);
+    assert(kvf_directory_publish(d, &leaf) == KVF_OK);
+    kvf_hash keys[] = {root.key.page, leaf.key.page, {{1}}};
+    kvf_grant grants[3];
+    uint32_t count;
+    assert(kvf_directory_acquire_batch(d, root.key.space, keys, 3, grants, &count) == KVF_OK && count == 2);
+    assert(kvf_owner_equal(&grants[0].manifest.owner, &a.owner));
+    assert(kvf_owner_equal(&grants[1].manifest.owner, &b.owner));
+    kvf_batch_page pages[2];
+    for (unsigned i = 0; i < 2; ++i) {
+        const kvf_manifest *m = &grants[i].manifest;
+        pages[i] = (kvf_batch_page){.key = m->key, .ticket = grants[i].ticket, .owner_boot = m->owner.boot};
+        assert(kvf_manifest_digest(m, &pages[i].manifest_digest) == KVF_OK);
+    }
+    assert(kvf_directory_check_batch(d, pages, 2, 0) == KVF_OK);
+    kvf_batch_page wrong = pages[0];
+    ++wrong.owner_boot.bytes[0];
+    assert(kvf_directory_check_batch(d, &wrong, 1, 0) == KVF_STALE);
+    wrong = pages[0];
+    ++wrong.ticket.fence;
+    assert(kvf_directory_check_batch(d, &wrong, 1, 0) == KVF_STALE);
+    wrong = pages[1];
+    ++wrong.ticket.directory.bytes[0];
+    assert(kvf_directory_check_batch(d, &wrong, 1, 0) == KVF_STALE);
+    kvf_manifest changed = leaf;
+    ++changed.layer[1].generation;
+    changed.layer[1].id += UINT64_C(1) << 32;
+    ++changed.layer[1].version;
+    wrong = pages[1];
+    assert(kvf_manifest_digest(&changed, &wrong.manifest_digest) == KVF_OK);
+    assert(kvf_directory_check_batch(d, &wrong, 1, 0) == KVF_STALE);
+    assert(kvf_directory_invalidate(d, &leaf) == KVF_OK);
+    assert(kvf_directory_publish(d, &changed) == KVF_OK);
+    assert(kvf_directory_check_batch(d, pages, 2, 1) == KVF_STALE);
+    assert(kvf_directory_check_batch(d, pages, 1, 0) == KVF_STALE);
+    assert(kvf_directory_acquire_batch(d, root.key.space, keys, 2, grants, &count) == KVF_OK && count == 2);
+    assert(grants[1].ticket.fence > pages[1].ticket.fence);
+    assert(kvf_directory_check_batch(d, pages, 2, 0) == KVF_STALE);
+    kvf_directory_destroy(d);
+}
+
 typedef struct {
     kvf_client client;
     kvf_worker_info info;
@@ -274,6 +324,7 @@ int main(void) {
     test_directory();
     test_replicas_and_eviction();
     test_worker_expiry_and_new_epoch();
+    test_batch_fences();
     test_rpc();
     puts("KV-Fabric directory and control RPC: PASS");
     return 0;

@@ -186,6 +186,13 @@ typedef enum {
 } NvStatus;
 
 typedef struct {
+    uint64_t dir_lookup_ns, conn_acquire_ns, net_recv_ns, crc_verify_ns, cpu_stage_ns;
+    uint64_t cuda_h2d_ns, cuda_sync_ns, kv_commit_ns, sched_resume_ns;
+    uint64_t lease_check_ns, prefetch_queue_ns, first_decode_ns, ttft_ns;
+    uint64_t received_bytes, data_requests;
+} NvRemoteTiming;
+
+typedef struct {
     /* 单调分配的请求 ID。 */
     int id,
         /* 提示词与生成 token 共用的数组。 */
@@ -209,7 +216,8 @@ typedef struct {
     /* 请求私有的随机数状态。 */
     uint64_t rng;
     /* 首次完成完整提示词前向的 CLOCK_MONOTONIC 时间。 */
-    uint64_t prefill_done_ns;
+    uint64_t prefill_done_ns, enqueued_ns, first_token_ns, remote_resume_ns;
+    NvRemoteTiming remote_timing;
     struct NvRemoteRequest *remote_request;
     int remote_checked;
 } NvSequence;
@@ -245,12 +253,14 @@ typedef struct {
     unsigned tp_size, pp_size;
     /* Optional capacity for individual verified page transfer samples. */
     size_t transfer_sample_capacity;
+    int publish_generated;
 } NvRemoteOptions;
 
 typedef struct {
     uint64_t remote_lookup_requests, remote_lookup_hits;
     uint64_t remote_hit_pages, remote_hit_tokens, remote_import_bytes;
     uint64_t remote_prefetch_requests, remote_prefetch_failures, remote_prefetch_cancelled;
+    uint64_t remote_admission_skips, remote_publish_retries, remote_publish_failures;
     uint64_t remote_prefill_skipped_tokens, remote_prefill_fallbacks, remote_cache_evictions;
     uint64_t remote_transfer_latency_ns, remote_transfer_samples;
     uint32_t remote_published_pages;
@@ -389,6 +399,8 @@ int nv_engine_cancel(NvEngine *engine, int id);
 int nv_engine_has_work(const NvEngine *engine);
 /* 执行一轮调度，返回前向 token 数。等待远程页时可返回 0。 */
 int nv_engine_step(NvEngine *engine);
+/* Call when a step made no progress, to wait for remote completion or a deadline. */
+void nv_engine_wait(NvEngine *engine);
 
 /* 从 logits 选出下一个 token ID。 */
 int nv_sample(float *logits, int count, NvSampling options, uint64_t *rng, NvCandidate *scratch);

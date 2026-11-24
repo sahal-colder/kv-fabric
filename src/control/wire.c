@@ -236,3 +236,39 @@ void kvf_get_fetch(kvf_reader *r, kvf_fetch_request *req) {
     req->layer_index = kvf_get_u32(r);
     kvf_get_layer(r, &req->layer);
 }
+
+kvf_status kvf_manifest_digest(const kvf_manifest *manifest, kvf_hash *out) {
+    uint8_t bytes[KVF_METADATA_BYTES];
+    kvf_writer w = {.buffer = bytes, .capacity = sizeof(bytes)};
+    kvf_put_manifest(&w, manifest);
+    return w.failed ? KVF_INVALID : kvf_hash_bytes(bytes, w.size, out);
+}
+
+void kvf_put_batch(kvf_writer *w, const kvf_batch_page *pages, uint32_t count) {
+    if (!pages || !count || count > KVF_MAX_BATCH_PAGES) {
+        w->failed = 1;
+        return;
+    }
+    kvf_put_u32(w, count);
+    for (uint32_t i = 0; i < count; ++i) {
+        kvf_put_key(w, pages[i].key);
+        kvf_put_bytes(w, pages[i].owner_boot.bytes, 16);
+        kvf_put_ticket(w, pages[i].ticket);
+        kvf_put_bytes(w, pages[i].manifest_digest.bytes, 32);
+    }
+}
+
+uint32_t kvf_get_batch(kvf_reader *r, kvf_batch_page pages[KVF_MAX_BATCH_PAGES]) {
+    uint32_t count = kvf_get_u32(r);
+    if (!count || count > KVF_MAX_BATCH_PAGES) {
+        r->failed = 1;
+        return 0;
+    }
+    for (uint32_t i = 0; i < count; ++i) {
+        kvf_get_key(r, &pages[i].key);
+        kvf_get_bytes(r, pages[i].owner_boot.bytes, 16);
+        kvf_get_ticket(r, &pages[i].ticket);
+        kvf_get_bytes(r, pages[i].manifest_digest.bytes, 32);
+    }
+    return count;
+}

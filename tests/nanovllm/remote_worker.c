@@ -6,6 +6,7 @@
 #include <cuda_runtime_api.h>
 #endif
 #include <inttypes.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/resource.h>
@@ -55,15 +56,32 @@ static void print_page_hashes(NvCache *cache, const NvSequence *s) {
     free(page);
 }
 
+static int *read_token_ids(char *text, int capacity, int *count) {
+    int *tokens = nv_alloc((size_t)capacity, sizeof(*tokens));
+    *count = 0;
+    for (char *id = text; *id;) {
+        char *end;
+        long value = strtol(id, &end, 10);
+        if (end == id || value < 0 || value > INT_MAX || *count == capacity || (*end && *end != ' '))
+            nv_fatal("invalid test token ID list");
+        tokens[(*count)++] = (int)value;
+        id = *end ? end + 1 : end;
+    }
+    return tokens;
+}
+
 static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_initial,
                     char *command, char *state) {
     const int cancel = strcmp(command, "cancel") == 0;
+    const int cancel_upload = strcmp(command, "cancel-upload") == 0;
     const int sync = strcmp(command, "sync") == 0;
     const int settle = strcmp(command, "settle") == 0;
     const int stall = strcmp(command, "stall") == 0;
-    const int inspect = strcmp(command, "inspect") == 0;
+    const int token_ids = strcmp(command, "inspect-ids") == 0;
+    const int inspect = token_ids || strcmp(command, "inspect") == 0;
     const int overlap = strcmp(command, "overlap") == 0;
-    if (!cancel && !sync && !settle && !stall && !inspect && !overlap && strcmp(command, "infer") != 0)
+    if (!cancel && !cancel_upload && !sync && !settle && !stall && !inspect && !overlap &&
+        strcmp(command, "infer") != 0)
         nv_fatal("unknown test command");
 
     int first = e->num_requests;
@@ -76,7 +94,8 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
     for (char *prompt = strtok_r(NULL, "\t\r\n", &state); prompt;
          prompt = strtok_r(NULL, "\t\r\n", &state)) {
         int count;
-        int *tokens = nv_encode(t, prompt, &count);
+        int *tokens = token_ids ? read_token_ids(prompt, e->model->config.seq_len, &count)
+                                : nv_encode(t, prompt, &count);
         NvSampling sampling = {.temperature = 0.7f, .top_p = 0.95f, .seed = 1234, .ignore_eos = 1};
         int id = nv_engine_add(e, tokens, count, max_new, sampling);
         free(tokens);
@@ -84,7 +103,7 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
             nv_fatal("test request exceeds context, page pool, or request count");
     }
     int count = e->num_requests - first;
-    if (count < 1 || ((cancel || inspect) && count != 1))
+    if (count < 1 || ((cancel || cancel_upload || inspect) && count != 1))
         nv_fatal("invalid test request count");
 
     if (overlap && (count != 2 || nv_engine_step(e) == 0 ||
@@ -101,15 +120,21 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
     }
 
     NvSequence *lead = e->requests[first];
-    uint64_t first_token = 0;
+    if (cancel_upload) {
+        while (nv_engine_has_work(e) && !lead->remote_timing.cuda_h2d_ns) {
+            if (!nv_engine_step(e) && !lead->remote_timing.cuda_h2d_ns)
+                nv_engine_wait(e);
+        }
+        if (!lead->remote_timing.cuda_h2d_ns || lead->status != NV_REMOTE_PREFETCHING ||
+            !nv_engine_cancel(e, first))
+            nv_fatal("expected cancellation after H2D submission and before commit");
+    }
     while (nv_engine_has_work(e)) {
         int used = nv_engine_step(e);
-        if (!first_token && lead->num_tokens > lead->prompt_len)
-            first_token = now_ns();
         if (sync)
             nv_engine_remote_flush(e);
         if (!used)
-            pause_ms(1);
+            nv_engine_wait(e);
     }
     uint64_t end = now_ns();
     (void)getrusage(RUSAGE_SELF, &usage_after);
@@ -129,15 +154,38 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
            ",\"ttft_ns\":%" PRIu64 ",\"prefill_ns\":%" PRIu64 ",\"decode_ns\":%" PRIu64
            ",\"cpu_ns\":%" PRIu64 ",\"rss_kib\":%ld",
            lead->prompt_len, e->prefill_tokens - prefilled, e->forward_tokens - forwards, e->cache.hits - local,
-           first_token ? first_token - start : 0, lead->prefill_done_ns ? lead->prefill_done_ns - start : 0,
-           first_token ? end - first_token : 0, cpu_ns(usage_after) - cpu_ns(usage_before), usage_after.ru_maxrss);
+           lead->first_token_ns ? lead->first_token_ns - start : 0,
+           lead->prefill_done_ns ? lead->prefill_done_ns - start : 0,
+           lead->first_token_ns ? end - lead->first_token_ns : 0,
+           cpu_ns(usage_after) - cpu_ns(usage_before), usage_after.ru_maxrss);
+#define STAGE(field) printf(",\"" #field "\":%" PRIu64, lead->remote_timing.field)
+    STAGE(dir_lookup_ns);
+    STAGE(conn_acquire_ns);
+    STAGE(net_recv_ns);
+    STAGE(crc_verify_ns);
+    STAGE(cpu_stage_ns);
+    STAGE(cuda_h2d_ns);
+    STAGE(cuda_sync_ns);
+    STAGE(kv_commit_ns);
+    STAGE(sched_resume_ns);
+    STAGE(first_decode_ns);
+    STAGE(prefetch_queue_ns);
+    STAGE(lease_check_ns);
+    STAGE(data_requests);
+    STAGE(received_bytes);
+#undef STAGE
     size_t gpu_free = gpu_free_initial ? gpu_free_bytes() : 0;
     if (gpu_free && gpu_free <= gpu_free_initial)
         printf(",\"gpu_device_delta_bytes\":%zu", gpu_free_initial - gpu_free);
     else
         fputs(",\"gpu_device_delta_bytes\":null", stdout);
-    if (inspect)
+    if (inspect) {
         print_page_hashes(&e->cache, lead);
+        fputs(",\"prompt_token_ids\":[", stdout);
+        for (int i = 0; i < lead->prompt_len; ++i)
+            printf("%s%d", i ? "," : "", lead->tokens[i]);
+        fputc(']', stdout);
+    }
 #define REPORT(field) printf(",\"" #field "\":%" PRIu64, after.field - before.field)
     REPORT(remote_lookup_requests);
     REPORT(remote_lookup_hits);
@@ -147,6 +195,9 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
     REPORT(remote_prefetch_requests);
     REPORT(remote_prefetch_failures);
     REPORT(remote_prefetch_cancelled);
+    REPORT(remote_admission_skips);
+    REPORT(remote_publish_retries);
+    REPORT(remote_publish_failures);
     REPORT(remote_prefill_skipped_tokens);
     REPORT(remote_prefill_fallbacks);
     REPORT(remote_cache_evictions);
@@ -205,6 +256,8 @@ int main(int argc, char **argv) {
         remote.cache_capacity = (unsigned)atoi(argv[12]);
         remote.prefetch_timeout_ms = (unsigned)atoi(argv[13]);
         remote.transfer_sample_capacity = (size_t)options.max_sequences * (size_t)options.num_blocks;
+        const char *generated = getenv("NV_TEST_PUBLISH_GENERATED");
+        remote.publish_generated = generated && strcmp(generated, "1") == 0;
         if (nv_engine_enable_remote(&engine, &tokenizer, remote) != 1)
             nv_fatal("could not start Nano-VLLM KV worker");
     }

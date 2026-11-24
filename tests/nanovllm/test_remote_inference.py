@@ -25,6 +25,8 @@ OTHER = "A different request runs fast"
 PAGE = 4
 VOCAB = 260
 LAYERS = 2
+FETCH_BATCH = 35
+PUBLISH = 5
 
 
 class NoCuda(Exception):
@@ -164,9 +166,18 @@ def exact(sock, size):
 def frame(sock):
     header = exact(sock, 36)
     size, = struct.unpack_from(">I", header, 24)
-    if size > 4 * 1024 * 1024:
+    if size > 8 * 1024 * 1024:
         raise ValueError("oversized test frame")
     return header, exact(sock, size)
+
+
+def crc32c(data):
+    crc = 0xFFFFFFFF
+    for byte in data:
+        crc ^= byte
+        for _ in range(8):
+            crc = (crc >> 1) ^ (0x82F63B78 if crc & 1 else 0)
+    return crc ^ 0xFFFFFFFF
 
 
 class Proxy(socketserver.ThreadingTCPServer):
@@ -183,8 +194,10 @@ class Proxy(socketserver.ThreadingTCPServer):
         with self.lock:
             self.mode, self.after, self.seen, self.injected = mode, after, 0, 0
 
-    def fault(self):
+    def fault(self, opcode):
         with self.lock:
+            if self.mode == "publish-drop" and opcode != PUBLISH:
+                return "pass"
             count = self.seen
             self.seen += 1
             if self.mode != "pass" and (count == self.after or self.mode == "pace"):
@@ -211,17 +224,31 @@ class Relay(socketserver.BaseRequestHandler):
             with socket.create_connection(self.server.target, timeout=3) as peer:
                 while True:
                     header, data = frame(self.request)
-                    fault = self.server.fault()
-                    if fault == "drop":
+                    opcode, = struct.unpack_from(">H", header, 8)
+                    fault = self.server.fault(opcode)
+                    if fault in ("drop", "publish-drop"):
                         return
                     peer.sendall(header + data)
                     header, data = frame(peer)
                     if fault == "crc" and data:
+                        assert opcode == FETCH_BATCH
+                        # Keep the wire CRC valid so the manifest detects corruption
+                        # in page two, after page one has been staged successfully.
+                        data[LAYERS * PAGE * 16 * 2 * 4] ^= 1
+                        struct.pack_into(">I", header, 28, crc32c(data))
+                        struct.pack_into(">I", header, 32, crc32c(header[:32]))
+                    if fault == "wire-crc" and data:
                         data[0] ^= 1
                     if fault in ("expired", "slow"):
                         time.sleep(0.60)
+                    if fault == "learn":
+                        time.sleep(0.08)
                     if fault == "pace":
                         time.sleep(0.18)
+                        self.request.sendall(header + data[:len(data) // 2])
+                        time.sleep(0.18)
+                        self.request.sendall(data[len(data) // 2:])
+                        continue
                     self.request.sendall(header + data)
         except (EOFError, OSError):
             return
@@ -241,14 +268,15 @@ class Runs:
         return Child([self.args.directory, "--config", conf, "--listen", "127.0.0.1:0"], directory=True)
 
     def worker(self, mode, directory=None, *, tenant="integration", files=None, page=PAGE,
-               blocks=48, capacity=48, timeout=2000, new=4, name=None, listen=0, advertise="-", device=None):
+               blocks=48, capacity=48, timeout=2000, new=4, name=None, listen=0, advertise="-", device=None,
+               publish_generated=False):
         self.name += 1
         model, tokenizer = files or self.files
         return Child([
             self.args.worker, model, tokenizer, device or self.args.device, mode,
             directory.endpoint if directory else "-", f"127.0.0.1:{listen}", advertise,
             name or f"nano-test-{self.name}", tenant, page, blocks, capacity, timeout, new,
-        ], env=self.env)
+        ], env=dict(self.env, NV_TEST_PUBLISH_GENERATED=str(int(publish_generated))))
 
 
 def match(output, expected, *, skip=None):
@@ -268,6 +296,8 @@ def positive(runs, directory, cold):
             assert result["remote_hit_pages"] == 5
             assert result["remote_lookup_hits"] == result["remote_transfer_samples"] == 5
             assert result["remote_import_bytes"] == 5 * LAYERS * PAGE * 16 * 2 * 4
+            assert result["remote_lookup_requests"] == result["data_requests"] == 1, result
+            assert result["received_bytes"] == result["remote_import_bytes"], result
             assert result["kv_page_hashes"] == cold[TARGET]["kv_page_hashes"], result
             assert result["kv_page_hashes"][:5] == published["kv_page_hashes"], published
         with runs.worker("remote", directory) as consumer:
@@ -345,7 +375,7 @@ def chain_and_tail(runs, directory, cold):
             assert warm["remote_published_pages"] == 1 and warm["remote_cache_evictions"] == 3, warm
             partial = consumer.infer(TARGET)
             match(partial, cold[TARGET], skip=4)
-            assert partial["local"] == 16 and partial["remote_lookup_requests"] == 2, partial
+            assert partial["local"] == 16 and partial["remote_lookup_requests"] == partial["data_requests"] == 1, partial
         with runs.worker("remote", directory, tenant="chain") as rootless:
             miss = rootless.infer(TARGET)
             match(miss, cold[TARGET], skip=0)
@@ -371,9 +401,8 @@ def faults(runs, directory, cold):
         opts = dict(tenant="faults", name="fault-source", listen=listen, advertise=proxy.endpoint)
         with runs.worker("remote", directory, **opts) as producer:
             producer.infer(SOURCE)
-            for mode in ("drop", "crc", "slow"):
-                # For CRC, let one full page complete before corrupting the next.
-                proxy.arm(mode, after=LAYERS if mode == "crc" else 0)
+            for mode in ("drop", "wire-crc", "crc", "slow"):
+                proxy.arm(mode)
                 with runs.worker("remote", directory, tenant="faults", timeout=300 if mode == "slow" else 2000) as worker:
                     failed = worker.infer(TARGET)
                     match(failed, cold[TARGET], skip=0)
@@ -381,17 +410,19 @@ def faults(runs, directory, cold):
                     assert failed["local"] == 0 and failed["remote_import_bytes"] == 0
                     if mode == "crc":
                         assert failed["remote_transfer_samples"] == 1, failed
+                    if mode == "wire-crc":
+                        assert failed["remote_transfer_samples"] == 0, failed
                 assert proxy.injected == 1, mode
 
-            # Each layer can arrive within an individual 300 ms timeout, but
-            # two layers cannot fit in that budget. Delay polling the engine
+            # Each half can arrive within a separate 300 ms timeout, but both
+            # halves together exceed that budget. Delay polling the engine
             # so the Connector must enforce the request deadline itself.
             proxy.arm("pace")
             with runs.worker("remote", directory, tenant="faults", timeout=300) as worker:
                 deadline = worker.infer(TARGET, command="stall")
                 match(deadline, cold[TARGET], skip=0)
                 assert deadline["remote_prefetch_failures"] == 1 and deadline["page_transfer_ns"] == [], deadline
-            assert 1 <= proxy.seen <= LAYERS, proxy.seen
+            assert proxy.seen == proxy.injected == 1, proxy.seen
 
             proxy.arm("slow")
             with runs.worker("remote", directory, tenant="faults", timeout=300) as worker:
@@ -409,6 +440,15 @@ def faults(runs, directory, cold):
                 match(resumed, cold[TARGET], skip=20)
                 assert resumed["local"] == 0, resumed
 
+            if runs.args.device == "cuda":
+                with runs.worker("remote", directory, tenant="faults") as worker:
+                    cancelled = worker.infer(TARGET, command="cancel-upload")
+                    assert cancelled["cuda_h2d_ns"] > 0 and cancelled["remote_prefetch_cancelled"] == 1, cancelled
+                    assert cancelled["remote_hit_pages"] == cancelled["prefilled"] == 0, cancelled
+                    resumed = worker.infer(TARGET, command="inspect")
+                    match(resumed, cold[TARGET], skip=20)
+                    assert resumed["local"] == 0 and resumed["kv_page_hashes"] == cold[TARGET]["kv_page_hashes"], resumed
+
             producer.close(check=False, kill=True)
             with runs.worker("remote", directory, tenant="faults") as worker:
                 fallback = worker.infer(TARGET)
@@ -420,7 +460,7 @@ def faults(runs, directory, cold):
             with runs.worker("remote", directory, tenant="faults") as worker:
                 match(worker.infer(TARGET), cold[TARGET], skip=20)
 
-    # The first layer is served with a valid ticket, then reaches B after expiry.
+    # The batch is served under valid tickets, then arrives after expiry.
     listen = unused_port()
     with runs.directory(ttl=250) as expiry_dir, Proxy(listen) as proxy:
         with runs.worker("remote", expiry_dir, listen=listen, advertise=proxy.endpoint) as producer:
@@ -431,6 +471,65 @@ def faults(runs, directory, cold):
                 match(expired, cold[TARGET], skip=0)
                 assert expired["remote_lookup_hits"] and expired["remote_prefetch_failures"] == 1, expired
             assert proxy.injected == 1
+
+
+def publication_retry(runs, directory, cold):
+    with Proxy(int(directory.endpoint.split(":")[1])) as control:
+        with runs.worker("remote", control, tenant="retry") as producer:
+            control.arm("publish-drop")
+            published = producer.infer(SOURCE)
+            assert control.injected == 1
+            assert published["remote_publish_retries"] >= 1 and published["remote_publish_failures"] == 0, published
+            assert published["remote_published_pages"] == 5, published
+            with runs.worker("remote", directory, tenant="retry") as consumer:
+                match(consumer.infer(TARGET), cold[TARGET], skip=20)
+
+
+def admission(runs, directory, cold):
+    listen = unused_port()
+    with Proxy(listen) as proxy:
+        with runs.worker("remote", directory, tenant="admission", listen=listen, advertise=proxy.endpoint) as producer:
+            producer.infer(SOURCE, OTHER)
+            with runs.worker("remote", directory, tenant="admission") as consumer:
+                proxy.arm("learn")
+                match(consumer.infer(TARGET), cold[TARGET], skip=20)
+                assert proxy.injected == 1
+                proxy.arm("pass")
+                skipped = consumer.infer(OTHER)
+                match(skipped, cold[OTHER], skip=0)
+                assert skipped["remote_admission_skips"] == 1 and skipped["data_requests"] == proxy.seen == 0, skipped
+                assert skipped["remote_prefetch_failures"] == 0, skipped
+
+
+def conversation(runs, directory):
+    opts = dict(tenant="conversation", new=8, publish_generated=True)
+    with runs.worker("cold", new=8) as oracle, contextlib.ExitStack() as workers:
+        # Replay canonical token history as a chat service would. Re-tokenizing
+        # text across an assistant/user boundary can change BPE segmentation.
+        messages = [
+            (SOURCE + " ") * 3 + "walked away",
+            "What happened the next day?",
+            "How did the story end?",
+        ]
+        history = []
+        expected_reused = 0
+        for turn, text in enumerate(messages, 1):
+            encoded = oracle.infer(text, command="inspect")["prompt_token_ids"]
+            history.extend(encoded if turn == 1 else encoded[1:])
+            tokens = " ".join(map(str, history))
+            expected = oracle.infer(tokens, command="inspect-ids")
+            worker = workers.enter_context(runs.worker("remote", directory, **opts))
+            result = worker.infer(tokens, command="inspect-ids")
+            match(result, expected, skip=expected_reused)
+            assert result["local"] == 0 and result["kv_page_hashes"] == expected["kv_page_hashes"], result
+            if turn == 3:
+                assert result["data_requests"] >= 2, result
+            complete = (len(history) + len(result["tokens"][0]) - 1) // PAGE
+            assert result["remote_published_pages"] == (complete - expected_reused // PAGE), result
+            print(f"turn {turn}: prompt={len(history)} reused={expected_reused} "
+                  f"published={result['remote_published_pages']} data_requests={result['data_requests']}")
+            history.extend(result["tokens"][0])
+            expected_reused = complete * PAGE
 
 
 def contention(runs, directory, cold):
@@ -462,7 +561,10 @@ def integration(runs):
         positive(runs, directory, cold)
         chain_and_tail(runs, directory, cold)
         faults(runs, directory, cold)
+        publication_retry(runs, directory, cold)
+        admission(runs, directory, cold)
         contention(runs, directory, cold)
+        conversation(runs, directory)
     print(f"Nano-VLLM {runs.args.device}: independent workers matched cold outputs and exercised fallback")
 
 
@@ -509,7 +611,7 @@ def percentiles(values):
     return tuple(order[math.ceil(len(order) * q) - 1] for q in (0.50, 0.95, 0.99))
 
 
-def benchmark(runs, output, samples):
+def benchmark(runs, output, samples, warmup=0, offset=0):
     warm = (SOURCE + " ") * 4 + "walks away"
     target = (SOURCE + " ") * 4 + "jumps high"
     rows = []
@@ -518,11 +620,13 @@ def benchmark(runs, output, samples):
         publisher = producer.infer(warm)
         peers = {"publisher": producer.process.pid, "directory": directory.process.pid}
         expected = None
-        for sample in range(samples):
+        for sample in range(offset, offset + samples):
             # Rotate measurement order to reduce drift across the three modes.
             modes = ("cold", "local", "remote")
             for mode in modes[sample % 3:] + modes[:sample % 3]:
                 with runs.worker(mode, directory, new=8) as worker:
+                    for _ in range(warmup):
+                        worker.infer("A different story begins in a quiet valley.")
                     if mode == "local":
                         worker.infer(warm)
                     before = ({role: process_resources(pid)[0] for role, pid in peers.items()}
@@ -584,19 +688,26 @@ def main():
     parser.add_argument("--cli", type=Path, action="append", default=[])
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     parser.add_argument("--benchmark", type=Path, help="write raw loopback samples to this CSV")
+    parser.add_argument("--conversation", action="store_true", help="run three workers on canonical chat history")
     parser.add_argument("--samples", type=int, default=30)
+    parser.add_argument("--warmup", type=int, default=0, help="independent warmup requests per consumer")
+    parser.add_argument("--sample-offset", type=int, default=0, help="global sample offset for interleaved shards")
     parser.add_argument("--model", type=Path, help="optional checkpoint for benchmark mode")
     parser.add_argument("--tokenizer", type=Path, help="tokenizer for the optional checkpoint")
     args = parser.parse_args()
     if not __debug__:
         parser.error("run tests with assertions enabled")
-    if args.samples <= 0 or bool(args.model) != bool(args.tokenizer) or (args.model and not args.benchmark):
-        parser.error("provide a positive sample count and use --model/--tokenizer together for benchmarks")
+    if (args.samples <= 0 or args.warmup < 0 or args.sample_offset < 0 or bool(args.model) != bool(args.tokenizer)
+            or (args.model and not (args.benchmark or args.conversation))):
+        parser.error("provide a positive sample count and pair --model/--tokenizer for benchmark or chat")
     try:
         with tempfile.TemporaryDirectory(prefix="nano-kv-") as tmp:
             runs = Runs(args, Path(tmp))
             if args.benchmark:
-                benchmark(runs, args.benchmark, args.samples)
+                benchmark(runs, args.benchmark, args.samples, args.warmup, args.sample_offset)
+            elif args.conversation:
+                with runs.directory() as directory:
+                    conversation(runs, directory)
             else:
                 integration(runs)
     except NoCuda:

@@ -12,19 +12,40 @@
 #include <pthread.h>
 #include <stdatomic.h>
 
-typedef enum { EXPORT_EMPTY, EXPORT_ACTIVE, EXPORT_RETIRING } export_state;
+typedef enum {
+    EXPORT_EMPTY, EXPORT_PENDING, EXPORT_PUBLISHING, EXPORT_ACTIVE, EXPORT_RETRY, EXPORT_RETIRING, EXPORT_FAILED
+} export_state;
 
 typedef struct {
     kvf_manifest manifest; /* Immutable while active, IDs refer to ref's layers. */
+    kvf_hash digest;
     mi_page_ref ref;       /* Pins a sealed page until the export stops serving. */
-    export_state state;   /* EMPTY -> ACTIVE -> RETIRING -> EMPTY. */
-    int dirty;            /* Directory acknowledgement still outstanding. */
+    export_state state;
+    kvf_status status;    /* Last result for this revision, protected by updates. */
+    int hidden;           /* Serving gate, protected by exports_lock. */
     uint64_t order;       /* Nonzero publication order for detached exports. */
 } mi_remote_export;
+
+/* A publish RPC may have committed before its acknowledgement reaches us.
+ * PUBLISHING and RETRY still require a live Directory lease to serve. */
+static inline int mi_remote_export_visible(const mi_remote_export *e) {
+    return e && !e->hidden && (e->state == EXPORT_ACTIVE || e->state == EXPORT_PUBLISHING ||
+                               e->state == EXPORT_RETRY);
+}
+
+static inline int mi_remote_publish_retryable(kvf_status st) {
+    return st == KVF_LIMIT || st == KVF_STALE || st == KVF_NOT_FOUND || st == KVF_UNAVAILABLE ||
+           st == KVF_IO || st == KVF_TIMEOUT || st == KVF_INTERNAL;
+}
 
 typedef struct mi_peer_pool mi_peer_pool;
 typedef struct mi_peer_conn mi_peer_conn;
 typedef struct mi_prefetch_queue mi_prefetch_queue;
+
+typedef struct {
+    void *data;
+    size_t capacity;
+} mi_batch_buffer;
 
 struct mi_remote_worker {
     mi_tiered_storage *storage;  /* Borrowed, outlives all service threads. */
@@ -57,13 +78,19 @@ struct mi_remote_worker {
     mi_segment_pool *segments;            /* Startup slab plus optional DMA resources. */
     mi_peer_pool *peers;                   /* Owned outbound pool, NULL for short mode. */
     mi_prefetch_queue *prefetch;           /* Bounded queue and one joined worker thread. */
+    mi_batch_buffer *batch_send;           /* One reusable allocation per inbound lane. */
+    mi_batch_buffer batch_recv;            /* Private to the suffix prefetch lane. */
 };
 
 kvf_status mi_remote_from_storage(mi_status status);
 void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline);
 kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *sequence, size_t page,
                              const kvf_grant *grant, uint64_t deadline_ms, const atomic_bool *cancel);
+kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, const kvf_batch_page *pages,
+                                   uint32_t count, size_t size, uint64_t deadline_ms,
+                                   const atomic_bool *cancel, mi_remote_timing *timing);
 kvf_status mi_remote_sync_locked(mi_remote_worker *w);
+void mi_remote_drop_export(mi_remote_worker *w, mi_remote_export *entry, export_state state);
 /* The caller holds exports_lock for handler lookups, or updates for mutations. */
 mi_remote_export *mi_remote_find_export(mi_remote_worker *w, kvf_page_key key);
 kvf_status mi_remote_resolve_impl(mi_remote_worker *w, const int32_t *tokens, size_t count,
@@ -97,7 +124,7 @@ kvf_status mi_peer_pool_create(unsigned capacity, uint32_t idle_ms, mi_peer_pool
 void mi_peer_pool_destroy(mi_peer_pool *pool);
 void mi_peer_pool_reap(mi_peer_pool *pool);
 kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *grant, uint64_t deadline,
-                           mi_peer_conn **out, int *fd);
+                           mi_peer_conn **out, int *fd, int *reused);
 void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *peer, int reusable);
 
 kvf_status mi_prefetch_start(mi_remote_worker *w);

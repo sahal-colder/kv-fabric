@@ -59,16 +59,28 @@ static kvf_status dispatch(kvf_directory *d, kvf_opcode op, kvf_reader *r, kvf_w
             kvf_directory_invalidate(d, &manifest);
     }
     case KVF_LOOKUP_PREFIX:
+    case KVF_ACQUIRE_BATCH:
     case KVF_ACQUIRE_PREFIX: {
         kvf_hash space, pages[KVF_MAX_LOOKUP];
         kvf_get_bytes(r, space.bytes, 32);
         uint32_t count = kvf_get_u32(r);
-        if (!count || count > KVF_MAX_LOOKUP)
+        if (!count || count > (op == KVF_ACQUIRE_BATCH ? KVF_MAX_BATCH_PAGES : KVF_MAX_LOOKUP))
             return KVF_INVALID;
         for (uint32_t i = 0; i < count; ++i)
             kvf_get_bytes(r, pages[i].bytes, 32);
         if (!kvf_reader_done(r))
             return KVF_INVALID;
+        if (op == KVF_ACQUIRE_BATCH) {
+            kvf_grant grants[KVF_MAX_BATCH_PAGES];
+            uint32_t matched;
+            kvf_status st = kvf_directory_acquire_batch(d, space, pages, count, grants, &matched);
+            if (st == KVF_OK) {
+                kvf_put_u32(w, matched);
+                for (uint32_t i = 0; i < matched; ++i)
+                    put_grant(w, &grants[i]);
+            }
+            return st;
+        }
         if (op == KVF_ACQUIRE_PREFIX) {
             kvf_grant g;
             kvf_status st = kvf_directory_acquire_prefix(d, space, pages, count, &g);
@@ -118,6 +130,12 @@ static kvf_status dispatch(kvf_directory *d, kvf_opcode op, kvf_reader *r, kvf_w
         kvf_get_fetch(r, &request);
         return kvf_reader_done(r) ? kvf_directory_validate(d, &request) : KVF_INVALID;
     }
+    case KVF_VALIDATE_BATCH:
+    case KVF_FINISH_BATCH: {
+        kvf_batch_page pages[KVF_MAX_BATCH_PAGES];
+        uint32_t count = kvf_get_batch(r, pages);
+        return kvf_reader_done(r) ? kvf_directory_check_batch(d, pages, count, op == KVF_FINISH_BATCH) : KVF_INVALID;
+    }
     case KVF_STATS: {
         if (!kvf_reader_done(r))
             return KVF_INVALID;
@@ -135,6 +153,7 @@ static kvf_status dispatch(kvf_directory *d, kvf_opcode op, kvf_reader *r, kvf_w
     }
     case KVF_FETCH:
     case KVF_FETCH_STREAM:
+    case KVF_FETCH_BATCH:
     case KVF_BLOCK_META:
         return KVF_PROTOCOL;
     }
@@ -143,19 +162,25 @@ static kvf_status dispatch(kvf_directory *d, kvf_opcode op, kvf_reader *r, kvf_w
 
 static void control_request(void *context, unsigned lane, int fd, uint64_t deadline) {
     (void)lane;
-    uint8_t bytes[KVF_METADATA_BYTES], reply[KVF_METADATA_BYTES];
-    kvf_frame f;
-    if (kvf_recv_frame(fd, &f, bytes, sizeof(bytes), deadline) != KVF_OK || f.response)
-        return;
-    kvf_reader r = {.buffer = bytes, .size = f.size};
-    kvf_writer w = {.buffer = reply, .capacity = sizeof(reply)};
-    f.status = dispatch(context, f.opcode, &r, &w);
-    if (w.failed)
-        f.status = KVF_INTERNAL;
-    f.response = 1;
-    f.size = f.status == KVF_OK ? (uint32_t)w.size : 0;
-    /* A broken peer may leave an acquired lease. Its expiry bounds that state. */
-    (void)kvf_send_frame(fd, f, reply, deadline);
+    uint8_t bytes[KVF_METADATA_BYTES], reply[KVF_BATCH_GRANT_BYTES];
+    for (int pair = 0; pair < 2; ++pair) {
+        kvf_frame f;
+        if (kvf_recv_frame(fd, &f, bytes, sizeof(bytes), deadline) != KVF_OK || f.response ||
+            (pair && f.opcode != KVF_VALIDATE_BATCH))
+            return;
+        kvf_reader r = {.buffer = bytes, .size = f.size};
+        kvf_writer w = {.buffer = reply, .capacity = sizeof(reply)};
+        f.status = dispatch(context, f.opcode, &r, &w);
+        if (w.failed)
+            f.status = KVF_INTERNAL;
+        f.response = 1;
+        f.size = f.status == KVF_OK ? (uint32_t)w.size : 0;
+        /* Only the producer's two validation calls share a control lane. An
+         * acquired lease never reserves a lane while waiting for data. */
+        if (kvf_send_frame(fd, f, reply, deadline) != KVF_OK ||
+            f.opcode != KVF_VALIDATE_BATCH || f.status != KVF_OK)
+            return;
+    }
 }
 
 kvf_status kvf_control_start(kvf_directory *d, kvf_endpoint listen, unsigned lanes,

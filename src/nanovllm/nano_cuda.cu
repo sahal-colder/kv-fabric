@@ -21,6 +21,12 @@ struct NvCuda {
     mi_graph_allocator *workspace;
 #endif
     cudaStream_t stream;
+#ifdef NANO_WITH_REMOTE_KV
+    cudaStream_t upload_stream;
+    cudaEvent_t upload_done, snapshot_done;
+    unsigned char *upload_stage, *snapshot_stage;
+    size_t upload_capacity;
+#endif
     cudaGraphExec_t graph;
     void *buffers[6];
     int *table, *input, *host_input;
@@ -334,28 +340,104 @@ void nv_cuda_copy_block(NvCache *cache, int block, void *host, size_t half, int 
 }
 
 #ifdef NANO_WITH_REMOTE_KV
-int nv_cuda_copy_remote_block(NvCache *cache, int block, void *host, size_t half, int to_device) {
+unsigned char *nv_cuda_remote_stage(NvCache *cache, size_t bytes) {
     NvCuda *g = cache->cuda;
-    cudaEvent_t ready;
-    if (cudaSetDevice(g->device) != cudaSuccess ||
-        cudaEventCreateWithFlags(&ready, cudaEventDisableTiming) != cudaSuccess)
-        return 0;
+    if (bytes > g->upload_capacity) {
+        unsigned char *stage;
+        if (cudaSetDevice(g->device) != cudaSuccess ||
+            cudaMallocHost((void **)&stage, bytes) != cudaSuccess)
+            return NULL;
+        if (g->upload_stage)
+            (void)cudaFreeHost(g->upload_stage);
+        g->upload_stage = stage;
+        g->upload_capacity = bytes;
+    }
+    return g->upload_stage;
+}
 
+int nv_cuda_remote_init(NvCache *cache, size_t export_bytes, size_t import_bytes) {
+    NvCuda *g = cache->cuda;
+    return cudaSetDevice(g->device) == cudaSuccess &&
+           cudaStreamCreateWithFlags(&g->upload_stream, cudaStreamNonBlocking) == cudaSuccess &&
+           cudaEventCreateWithFlags(&g->upload_done, cudaEventDisableTiming | cudaEventBlockingSync) == cudaSuccess &&
+           cudaEventCreateWithFlags(&g->snapshot_done, cudaEventDisableTiming) == cudaSuccess &&
+           cudaMallocHost((void **)&g->snapshot_stage, export_bytes) == cudaSuccess &&
+           nv_cuda_remote_stage(cache, import_bytes);
+}
+
+void nv_cuda_remote_free(NvCache *cache) {
+    NvCuda *g = cache->cuda;
+    (void)cudaSetDevice(g->device);
+    if (g->snapshot_done)
+        (void)cudaEventDestroy(g->snapshot_done);
+    if (g->upload_done)
+        (void)cudaEventDestroy(g->upload_done);
+    if (g->upload_stream)
+        (void)cudaStreamDestroy(g->upload_stream);
+    if (g->snapshot_stage)
+        (void)cudaFreeHost(g->snapshot_stage);
+    if (g->upload_stage)
+        (void)cudaFreeHost(g->upload_stage);
+    g->snapshot_done = g->upload_done = NULL;
+    g->upload_stream = NULL;
+    g->snapshot_stage = g->upload_stage = NULL;
+    g->upload_capacity = 0;
+}
+
+int nv_cuda_remote_snapshot(NvCache *cache, int block, void *host, size_t half) {
+    NvCuda *g = cache->cuda;
+    if (cudaSetDevice(g->device) != cudaSuccess)
+        return 0;
     float *sides[] = {g->keys, g->values};
     cudaError_t status = cudaSuccess;
     for (int i = 0; i < 2 && status == cudaSuccess; ++i) {
         void *device = sides[i] + (size_t)block * (half / sizeof(float));
-        void *cpu = (unsigned char *)host + (size_t)i * half;
-        status = cudaMemcpyAsync(to_device ? device : cpu, to_device ? cpu : device, half,
-                                 to_device ? cudaMemcpyHostToDevice : cudaMemcpyDeviceToHost, g->stream);
+        status = cudaMemcpyAsync(g->snapshot_stage + (size_t)i * half, device, half,
+                                 cudaMemcpyDeviceToHost, g->stream);
     }
     if (status == cudaSuccess)
-        status = cudaEventRecord(ready, g->stream);
+        status = cudaEventRecord(g->snapshot_done, g->stream);
     if (status == cudaSuccess)
-        status = cudaEventSynchronize(ready);
+        status = cudaEventSynchronize(g->snapshot_done);
     if (status != cudaSuccess)
         (void)cudaStreamSynchronize(g->stream);
-    (void)cudaEventDestroy(ready);
+    else
+        memcpy(host, g->snapshot_stage, 2 * half);
+    return status == cudaSuccess;
+}
+
+int nv_cuda_remote_upload(NvCache *cache, const int *blocks, int count, size_t half) {
+    NvCuda *g = cache->cuda;
+    if (cudaSetDevice(g->device) != cudaSuccess)
+        return 0;
+    float *sides[] = {g->keys, g->values};
+    cudaError_t status = cudaSuccess;
+    for (int first = 0; first < count && status == cudaSuccess;) {
+        int end = first + 1;
+        while (end < count && blocks[end] == blocks[end - 1] + 1)
+            ++end;
+        for (int side = 0; side < 2 && status == cudaSuccess; ++side) {
+            void *dst = sides[side] + (size_t)blocks[first] * (half / sizeof(float));
+            const unsigned char *src = g->upload_stage + ((size_t)side * count + first) * half;
+            status = cudaMemcpyAsync(dst, src, (size_t)(end - first) * half,
+                                     cudaMemcpyHostToDevice, g->upload_stream);
+        }
+        first = end;
+    }
+    if (status == cudaSuccess)
+        status = cudaEventRecord(g->upload_done, g->upload_stream);
+    if (status != cudaSuccess)
+        (void)cudaStreamSynchronize(g->upload_stream);
+    return status == cudaSuccess;
+}
+
+int nv_cuda_remote_wait(NvCache *cache) {
+    NvCuda *g = cache->cuda;
+    cudaError_t status = cudaSetDevice(g->device);
+    if (status == cudaSuccess)
+        status = cudaEventSynchronize(g->upload_done);
+    if (status != cudaSuccess)
+        (void)cudaStreamSynchronize(g->upload_stream);
     return status == cudaSuccess;
 }
 #endif

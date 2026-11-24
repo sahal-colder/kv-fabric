@@ -17,8 +17,12 @@ void nv_cuda_init(NvEngine *engine, int device);
 /* 在主机与设备之间复制完整 KV 页。 */
 void nv_cuda_copy_block(NvCache *cache, int block, void *host, size_t half, int to_device);
 #ifdef NANO_WITH_REMOTE_KV
-/* Returns success only after the stream event completes both K and V copies. */
-int nv_cuda_copy_remote_block(NvCache *cache, int block, void *host, size_t half, int to_device);
+int nv_cuda_remote_init(NvCache *cache, size_t export_bytes, size_t import_bytes);
+void nv_cuda_remote_free(NvCache *cache);
+int nv_cuda_remote_snapshot(NvCache *cache, int block, void *host, size_t half);
+unsigned char *nv_cuda_remote_stage(NvCache *cache, size_t bytes);
+int nv_cuda_remote_upload(NvCache *cache, const int *blocks, int count, size_t half);
+int nv_cuda_remote_wait(NvCache *cache);
 #endif
 /* 释放 CUDA 图、流和缓冲区。 */
 void nv_cuda_destroy(struct NvCuda *cuda);

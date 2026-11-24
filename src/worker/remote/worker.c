@@ -48,7 +48,7 @@ void mi_remote_worker_info(mi_remote_worker *w, kvf_worker_info *info) {
     info->active_transfers = atomic_load_explicit(&w->active_transfers, memory_order_relaxed);
     pthread_mutex_lock(&w->exports_lock);
     for (uint32_t i = 0; i < w->exports_capacity; ++i)
-        if (w->exports[i].state == EXPORT_ACTIVE)
+        if (w->exports[i].state == EXPORT_ACTIVE && !w->exports[i].hidden)
             ++info->published_pages;
     pthread_mutex_unlock(&w->exports_lock);
 }
@@ -61,9 +61,14 @@ kvf_status mi_remote_sync_locked(mi_remote_worker *w) {
     kvf_status st = kvf_client_heartbeat(w->control, &info);
     if (st == KVF_NOT_FOUND) {
         st = kvf_client_register(w->control, &info, (kvf_uuid){0});
-        if (st == KVF_OK)
-            for (uint32_t i = 0; i < w->exports_capacity; ++i)
-                w->exports[i].dirty = 1;
+        if (st == KVF_OK) {
+            pthread_mutex_lock(&w->exports_lock);
+            for (uint32_t i = 0; i < w->exports_capacity; ++i) {
+                if (w->exports[i].state == EXPORT_ACTIVE)
+                    w->exports[i].state = EXPORT_RETRY;
+            }
+            pthread_mutex_unlock(&w->exports_lock);
+        }
     }
     if (st != KVF_OK)
         return st;
@@ -79,13 +84,29 @@ kvf_status mi_remote_sync_locked(mi_remote_worker *w) {
             e->state = EXPORT_EMPTY;
             pthread_mutex_unlock(&w->exports_lock);
         }
-        if (e->state == EXPORT_ACTIVE && e->dirty) {
+        if (e->state == EXPORT_PENDING || e->state == EXPORT_RETRY) {
+            pthread_mutex_lock(&w->exports_lock);
+            int hidden = e->hidden;
+            if (!hidden)
+                e->state = EXPORT_PUBLISHING;
+            pthread_mutex_unlock(&w->exports_lock);
+            if (hidden) {
+                mi_remote_drop_export(w, e, EXPORT_RETIRING);
+                continue;
+            }
             st = kvf_client_publish(w->control, &e->manifest);
-            if (st != KVF_OK && st != KVF_CONFLICT && st != KVF_LIMIT)
-                return st;
-            e->dirty = st != KVF_OK;
-            if (pending == KVF_OK)
+            e->status = st;
+            if (st != KVF_OK && !mi_remote_publish_retryable(st)) {
+                mi_remote_drop_export(w, e, EXPORT_FAILED);
+            } else {
+                pthread_mutex_lock(&w->exports_lock);
+                e->state = st == KVF_OK ? EXPORT_ACTIVE : EXPORT_RETRY;
+                pthread_mutex_unlock(&w->exports_lock);
+            }
+            if (st != KVF_OK && pending == KVF_OK)
                 pending = st;
+            if (st == KVF_IO || st == KVF_TIMEOUT || st == KVF_STALE)
+                break;
         }
     }
     return pending;
@@ -123,6 +144,13 @@ static void release_worker(mi_remote_worker *w) {
     mi_paged_kv_destroy(w->cache);
     mi_peer_pool_destroy(w->peers);
     mi_segment_pool_destroy(w->segments);
+    if (w->batch_send) {
+        for (unsigned i = 0; i < w->lanes; ++i)
+            if (w->batch_send[i].data)
+                (void)mi_device_host_free(w->device, w->batch_send[i].data);
+    }
+    free(w->batch_send);
+    free(w->batch_recv.data);
     free(w->exports);
     free(w);
 }
@@ -185,7 +213,8 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
 
     st = KVF_LIMIT;
     w->exports = calloc(w->exports_capacity, sizeof(*w->exports));
-    if (!w->exports)
+    w->batch_send = calloc(w->lanes, sizeof(*w->batch_send));
+    if (!w->exports || !w->batch_send)
         goto failed;
     /* One slot per incoming lane, a separate publication slot and two per GPU importer. */
     unsigned dma_stages = cfg.identity.layers > 1 && cfg.peer_connections ? 2 : 1;

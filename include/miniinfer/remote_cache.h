@@ -8,6 +8,7 @@
 
 #include "miniinfer/paged_kv.h"
 #include "kvfabric/client.h"
+#include <stdatomic.h>
 
 typedef struct mi_remote_worker mi_remote_worker;
 typedef struct mi_remote_prefetch mi_remote_prefetch;
@@ -23,10 +24,19 @@ typedef struct {
 } mi_remote_config;
 
 typedef struct {
+    uint64_t dir_lookup_ns, conn_acquire_ns, net_recv_ns, crc_verify_ns, cpu_stage_ns, kv_commit_ns;
+    uint64_t lease_check_ns, prefetch_queue_ns, reply_wait_ns;
+    uint64_t received_bytes, data_requests;
+} mi_remote_timing;
+
+typedef struct {
     kvf_status remote_status;
     size_t local_tokens, remote_tokens;
     uint64_t lookup_requests, lookup_hits;
     uint64_t transfer_ns, transfer_samples;
+    uint64_t ready_ns, valid_until_ms;
+    int admission_skipped;
+    mi_remote_timing timing;
 } mi_remote_result;
 
 typedef struct {
@@ -34,6 +44,9 @@ typedef struct {
     uint64_t deadline_ms; /* Absolute KV-Fabric monotonic deadline. */
     /* Optional output with one slot per requested page. Keep it alive through ticket destruction. */
     uint64_t *page_transfer_ns;
+    /* Zero costs leave admission open while the engine learns from actual requests. */
+    double prefill_ns_per_token, remote_fixed_ns, remote_ns_per_byte;
+    size_t remaining_prompt_tokens;
 } mi_remote_suffix;
 
 /* Storage is borrowed. The Worker owns its Paged KV and one cache namespace. */
@@ -52,6 +65,13 @@ kvf_status mi_remote_publish(mi_remote_worker *worker, mi_kv_sequence *sequence,
 /* Export a complete, independently backed page at its original chain position. */
 kvf_status mi_remote_publish_page(mi_remote_worker *worker, mi_kv_sequence *sequence,
                                    kvf_hash parent, const int32_t *tokens);
+/* The caller retains the cancellation flag through this call. Retained means
+ * the Worker owns the staged revision and will retry transient directory errors. */
+kvf_status mi_remote_publish_page_guarded(mi_remote_worker *worker, mi_kv_sequence *sequence,
+                                           kvf_hash parent, const int32_t *tokens,
+                                           const atomic_bool *cancelled, int *retained);
+/* Gate local serving immediately. Follow with invalidate off the scheduling thread. */
+void mi_remote_hide_page(mi_remote_worker *worker, kvf_hash page);
 /* Close a detached export and invalidate its replica. Heartbeat retries failed RPCs. */
 kvf_status mi_remote_invalidate_page(mi_remote_worker *worker, kvf_hash page);
 uint64_t mi_remote_worker_evictions(const mi_remote_worker *worker);
@@ -80,5 +100,8 @@ kvf_status mi_remote_prefetch_wait(mi_remote_prefetch *job, mi_kv_sequence **out
 void mi_remote_prefetch_cancel(mi_remote_prefetch *job);
 /* Requests cancellation, joins work on this ticket and releases any unclaimed sequence. */
 void mi_remote_prefetch_destroy(mi_remote_prefetch *job);
+/* Borrowed eventfd shared by completed jobs. The scheduling driver drains it. */
+int mi_remote_completion_fd(const mi_remote_worker *worker);
+void mi_remote_signal_completion(mi_remote_worker *worker);
 
 #endif

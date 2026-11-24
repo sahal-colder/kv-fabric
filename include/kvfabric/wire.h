@@ -10,6 +10,7 @@
 #define KVF_HEADER_BYTES 36u
 #define KVF_WIRE_VERSION 3u
 #define KVF_METADATA_BYTES 8192u
+#define KVF_BATCH_GRANT_BYTES (4u + KVF_MAX_BATCH_PAGES * (384u + KVF_MAX_LAYERS * 28u))
 #define KVF_DEFAULT_TIMEOUT_MS 3000u
 
 typedef enum {
@@ -28,9 +29,13 @@ typedef enum {
     KVF_STATS,
     KVF_ACQUIRE_PREFIX,
     KVF_RETIRE,
+    KVF_ACQUIRE_BATCH,
+    KVF_VALIDATE_BATCH,
+    KVF_FINISH_BATCH,
     KVF_FETCH = 32,
     KVF_BLOCK_META,
-    KVF_FETCH_STREAM
+    KVF_FETCH_STREAM,
+    KVF_FETCH_BATCH
 } kvf_opcode;
 
 typedef struct {
@@ -79,7 +84,11 @@ void kvf_put_ticket(kvf_writer *w, kvf_ticket ticket);
 void kvf_get_ticket(kvf_reader *r, kvf_ticket *ticket);
 void kvf_put_fetch(kvf_writer *w, const kvf_fetch_request *request);
 void kvf_get_fetch(kvf_reader *r, kvf_fetch_request *request);
+kvf_status kvf_manifest_digest(const kvf_manifest *manifest, kvf_hash *out);
+void kvf_put_batch(kvf_writer *w, const kvf_batch_page *pages, uint32_t count);
+uint32_t kvf_get_batch(kvf_reader *r, kvf_batch_page pages[KVF_MAX_BATCH_PAGES]);
 
+uint64_t kvf_now_ns(void);
 uint64_t kvf_now_ms(void);
 kvf_status kvf_connect(kvf_endpoint endpoint, uint64_t deadline, int *fd);
 kvf_status kvf_send_frame(int fd, kvf_frame frame, const void *payload, uint64_t deadline);
@@ -90,6 +99,12 @@ kvf_status kvf_rpc(kvf_endpoint endpoint, kvf_opcode opcode, const kvf_writer *r
 /* A borrowed fd must have a single caller until the response is read. */
 kvf_status kvf_rpc_on(int fd, kvf_opcode opcode, const kvf_writer *request,
                        void *reply, size_t reply_capacity, size_t *reply_size, uint64_t deadline);
+typedef struct {
+    uint64_t net_recv_ns, reply_wait_ns, crc_verify_ns, received_bytes;
+} kvf_receive_timing;
+kvf_status kvf_rpc_on_timed(int fd, kvf_opcode opcode, const kvf_writer *request,
+                             void *reply, size_t reply_capacity, size_t *reply_size,
+                             uint64_t deadline, kvf_receive_timing *timing);
 
 /* Fixed lanes and a bounded kernel accept queue. Handler decides connection lifetime. */
 typedef struct kvf_server kvf_server;

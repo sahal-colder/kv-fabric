@@ -20,7 +20,9 @@ if(MINIINFER_BUILD_INTEGRATION AND (NOT MINIINFER_BUILD_STORAGE OR NOT MINIINFER
 endif()
 
 if(KVF_SANITIZE OR MINIINFER_SANITIZE)
-    add_compile_options("$<$<COMPILE_LANGUAGE:C>:-fsanitize=address,undefined;-fno-omit-frame-pointer;-fno-pie>")
+    add_compile_options(
+        "$<$<COMPILE_LANGUAGE:C>:-fsanitize=address,undefined;-fno-omit-frame-pointer;-fno-pie>"
+        "$<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-fsanitize=address;-Xcompiler=-fsanitize=undefined;-Xcompiler=-fno-omit-frame-pointer;-Xcompiler=-fno-pie>")
     add_link_options(-fsanitize=address,undefined -no-pie)
 endif()
 

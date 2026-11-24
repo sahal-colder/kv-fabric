@@ -17,6 +17,12 @@
 #include <string.h>
 #include <time.h>
 
+static uint64_t monotonic_ns(void) {
+    struct timespec time;
+    clock_gettime(CLOCK_MONOTONIC, &time);
+    return (uint64_t)time.tv_sec * UINT64_C(1000000000) + (uint64_t)time.tv_nsec;
+}
+
 /* 每层按 64 位一组汇总下层，直至顶层只剩一个字。 */
 static void request_set_init(NvRequestSet *set, size_t requests) {
     size_t words = (requests + 63) / 64;
@@ -115,6 +121,10 @@ static void free_requests(NvEngine *e) {
 int nv_engine_clear_requests(NvEngine *e) {
     if (nv_engine_has_work(e))
         return 0;
+#ifdef NANO_WITH_REMOTE_KV
+    if (e->remote)
+        nv_remote_detach_sequences(e->remote);
+#endif
     free_requests(e);
     return 1;
 }
@@ -155,7 +165,8 @@ int nv_engine_add(NvEngine *e, const int *tokens, int n, int max_new, NvSampling
 
     NvSequence *s = nv_alloc(1, sizeof(*s));
     *s = (NvSequence){.id = e->num_requests, .prompt_len = n, .num_tokens = n,
-        .max_new_tokens = max_new, .sampling = sampling, .rng = sampling.seed ? sampling.seed : 1};
+        .max_new_tokens = max_new, .sampling = sampling, .rng = sampling.seed ? sampling.seed : 1,
+        .enqueued_ns = monotonic_ns()};
     s->tokens = nv_alloc((size_t)n + max_new, sizeof(*s->tokens));
     memcpy(s->tokens, tokens, (size_t)n * sizeof(*s->tokens));
     s->block_table = nv_alloc(blocks, sizeof(*s->block_table));
@@ -230,7 +241,7 @@ int nv_engine_has_work(const NvEngine *e) {
 
 #ifdef NANO_WITH_REMOTE_KV
 static void collect_remote(NvEngine *e) {
-    nv_remote_reap(e->remote);
+    nv_remote_reap(e);
     size_t cursor = 0;
     for (;;) {
         int id = request_at_or_after(&e->remote_pending, 0, cursor);
@@ -246,6 +257,27 @@ static void collect_remote(NvEngine *e) {
     }
 }
 #endif
+
+void nv_engine_wait(NvEngine *e) {
+#ifdef NANO_WITH_REMOTE_KV
+    if (!e->remote)
+        return;
+    uint64_t deadline = 0;
+    for (size_t cursor = 0;;) {
+        int id = request_at_or_after(&e->remote_pending, 0, cursor);
+        if (id < 0)
+            break;
+        uint64_t next = nv_remote_deadline(e->requests[id]);
+        if (!deadline || next < deadline)
+            deadline = next;
+        cursor = (size_t)id + 1;
+    }
+    if (deadline || nv_remote_upload_busy(e->remote))
+        nv_remote_wait(e->remote, deadline);
+#else
+    (void)e;
+#endif
+}
 
 /* 在本轮 token 预算内推进等待和活跃请求。 */
 int nv_engine_step(NvEngine *e) {
@@ -293,33 +325,50 @@ int nv_engine_step(NvEngine *e) {
                     break;
                 s->block_table[s->num_blocks++] = block;
             }
+            int first = s->computed + 1 == s->prompt_len && !s->first_token_ns;
+            uint64_t start = first || s->remote_resume_ns || (e->remote && s->computed < s->prompt_len)
+                ? monotonic_ns() : 0;
+            if (s->remote_resume_ns) {
+                s->remote_timing.sched_resume_ns += start - s->remote_resume_ns;
+                s->remote_resume_ns = 0;
+            }
             float *logits = nv_forward(e->model, &e->cache, s->block_table, s->tokens[s->computed],
                                        s->computed);
+            uint64_t done = start ? monotonic_ns() : 0;
             ++s->computed;
             ++used;
             ++e->forward_tokens;
-            if (s->computed == s->prompt_len && !s->prefill_done_ns) {
-                struct timespec time;
-                if (clock_gettime(CLOCK_MONOTONIC, &time) == 0)
-                    s->prefill_done_ns = (uint64_t)time.tv_sec * UINT64_C(1000000000) +
-                                         (uint64_t)time.tv_nsec;
-            }
+            if (first)
+                s->prefill_done_ns = done;
             nv_cache_publish(&e->cache, s);
-            if (s->computed <= s->prompt_len) {
+            if (s->computed <= s->prompt_len)
                 ++e->prefill_tokens;
-#ifdef NANO_WITH_REMOTE_KV
-                if (e->remote && !(s->computed % e->options.block_size))
-                    nv_remote_publish(e, s);
-#endif
+            int sampled = s->computed == s->num_tokens;
+            if (sampled) {
+                int token = nv_sample(logits, e->model->config.vocab_size, s->sampling,
+                                      &s->rng, e->candidates);
+                s->tokens[s->num_tokens++] = token;
+                ++e->generated_tokens;
+                if (first) {
+                    s->first_token_ns = monotonic_ns();
+                    s->remote_timing.first_decode_ns = s->first_token_ns - start;
+                    s->remote_timing.ttft_ns = s->first_token_ns - s->enqueued_ns;
+                }
             }
+#ifdef NANO_WITH_REMOTE_KV
+            if (e->remote) {
+                if (start)
+                    nv_remote_note_forward(e->remote, done - start);
+                if (!(s->computed % e->options.block_size) &&
+                    (s->computed <= s->prompt_len || nv_remote_publish_generated(e->remote)))
+                    nv_remote_publish(e, s);
+            }
+#endif
             /* 先算完已有 token，再根据最后一个位置的 logits 采样。 */
-            if (s->computed < s->num_tokens)
+            if (!sampled)
                 continue;
 
-            int token = nv_sample(logits, e->model->config.vocab_size, s->sampling,
-                                  &s->rng, e->candidates);
-            s->tokens[s->num_tokens++] = token;
-            ++e->generated_tokens;
+            int token = s->tokens[s->num_tokens - 1];
             if (s->num_tokens - s->prompt_len == s->max_new_tokens ||
                 (!s->sampling.ignore_eos && (token == 1 || token == 2))) {
                 s->status = NV_DONE;
@@ -331,7 +380,11 @@ int nv_engine_step(NvEngine *e) {
         }
     }
     ++e->steps;
-    assert(used || !nv_engine_has_work(e) ||
-           (e->remote && last_request(&e->remote_pending) >= 0));
+#ifdef NANO_WITH_REMOTE_KV
+    assert(used || !nv_engine_has_work(e) || (e->remote &&
+           (last_request(&e->remote_pending) >= 0 || nv_remote_upload_busy(e->remote))));
+#else
+    assert(used || !nv_engine_has_work(e));
+#endif
     return used;
 }

@@ -16,6 +16,7 @@ typedef struct {
 
 typedef struct {
     kvf_manifest manifest;  /* Immutable until the replica is unlinked. */
+    kvf_hash digest;         /* Canonical manifest for the batch data path. */
     uint64_t revision;      /* Nonzero for a linked replica. A lease binds this incarnation. */
     uint64_t touched;       /* Logical clock for LRU, advanced on use or first publish. */
     uint32_t worker;        /* Registry slot matching manifest.owner. */
@@ -316,6 +317,10 @@ kvf_status kvf_directory_publish(kvf_directory *d, const kvf_manifest *m) {
     kvf_status st = kvf_manifest_validate(m);
     if (st != KVF_OK)
         return st;
+    kvf_hash digest;
+    st = kvf_manifest_digest(m, &digest);
+    if (st != KVF_OK)
+        return st;
     pthread_mutex_lock(&d->lock);
     uint64_t now = kvf_now_ms();
     worker_entry *w = find_worker(d, m->owner.name);
@@ -363,7 +368,7 @@ kvf_status kvf_directory_publish(kvf_directory *d, const kvf_manifest *m) {
     uint32_t slot = d->free_page;
     page_entry *p = &d->pages[slot];
     d->free_page = p->next;
-    *p = (page_entry){.manifest = *m, .revision = ++d->next_revision,
+    *p = (page_entry){.manifest = *m, .digest = digest, .revision = ++d->next_revision,
                       .touched = ++d->clock, .worker = worker};
     *link = slot;
     ++w->info.published_pages;
@@ -434,6 +439,29 @@ kvf_status kvf_directory_lookup_page(kvf_directory *d, kvf_page_key key, kvf_man
     return slot ? KVF_OK : KVF_NOT_FOUND;
 }
 
+static kvf_status grant_page(kvf_directory *d, uint32_t page, uint64_t now, kvf_uuid secret, kvf_grant *out) {
+    if (!page)
+        return KVF_NOT_FOUND;
+    if (d->next_fence == UINT64_MAX)
+        return KVF_LIMIT;
+    for (uint32_t probe = 0; probe < d->config.max_leases; ++probe) {
+        uint32_t slot = d->next_lease;
+        d->next_lease = (slot + 1) % d->config.max_leases;
+        lease_entry *l = &d->leases[slot];
+        if (lease_live(d, l, now))
+            continue;
+        page_entry *p = &d->pages[page];
+        kvf_ticket t = {.directory = d->epoch, .secret = secret, .fence = ++d->next_fence, .slot = slot};
+        *l = (lease_entry){.ticket = t, .deadline = now + d->config.lease_ttl_ms,
+                           .page_revision = p->revision, .page = page};
+        p->touched = ++d->clock;
+        *out = (kvf_grant){.manifest = p->manifest, .endpoint = d->workers[p->worker].info.endpoint,
+                           .ticket = t, .ttl_ms = d->config.lease_ttl_ms};
+        return KVF_OK;
+    }
+    return KVF_LIMIT;
+}
+
 kvf_status kvf_directory_acquire_prefix(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                         uint32_t count, kvf_grant *out) {
     if (!pages || !out || !count || count > KVF_MAX_LOOKUP || kvf_hash_zero(space))
@@ -444,28 +472,42 @@ kvf_status kvf_directory_acquire_prefix(kvf_directory *d, kvf_hash space, const 
         return st;
     pthread_mutex_lock(&d->lock);
     uint64_t now = kvf_now_ms();
-    uint32_t page = select_replica(d, space, pages, count, now);
-    st = page ? KVF_LIMIT : KVF_NOT_FOUND;
-    if (page && d->next_fence < UINT64_MAX) {
-        for (uint32_t probe = 0; probe < d->config.max_leases; ++probe) {
-            uint32_t slot = d->next_lease;
-            d->next_lease = (slot + 1) % d->config.max_leases;
-            lease_entry *l = &d->leases[slot];
-            if (lease_live(d, l, now))
-                continue;
-            page_entry *p = &d->pages[page];
-            kvf_ticket t = {.directory = d->epoch, .secret = secret, .fence = ++d->next_fence, .slot = slot};
-            *l = (lease_entry){.ticket = t, .deadline = now + d->config.lease_ttl_ms,
-                               .page_revision = p->revision, .page = page};
-            p->touched = ++d->clock;
-            *out = (kvf_grant){.manifest = p->manifest, .endpoint = d->workers[p->worker].info.endpoint,
-                               .ticket = t, .ttl_ms = d->config.lease_ttl_ms};
-            st = KVF_OK;
-            break;
-        }
-    }
+    st = grant_page(d, select_replica(d, space, pages, count, now), now, secret, out);
     pthread_mutex_unlock(&d->lock);
     return st;
+}
+
+kvf_status kvf_directory_acquire_batch(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
+                                       uint32_t count, kvf_grant *out, uint32_t *matched) {
+    if (!pages || !out || !matched || !count || count > KVF_MAX_BATCH_PAGES || kvf_hash_zero(space))
+        return KVF_INVALID;
+    kvf_uuid secrets[KVF_MAX_BATCH_PAGES];
+    for (uint32_t i = 0; i < count; ++i) {
+        kvf_status st = kvf_uuid_new(&secrets[i]);
+        if (st != KVF_OK)
+            return st;
+    }
+    pthread_mutex_lock(&d->lock);
+    uint64_t now = kvf_now_ms();
+    uint32_t n = 0, worker = UINT32_MAX;
+    kvf_status st = KVF_OK;
+    while (n < count) {
+        uint32_t page = worker == UINT32_MAX ? 0 : *page_link(d, (kvf_page_key){space, pages[n]}, worker);
+        if (!page)
+            page = select_replica(d, space, pages + n, count - n, now);
+        if (page && n && !kvf_hash_equal(d->pages[page].manifest.parent, pages[n - 1]))
+            page = 0;
+        st = grant_page(d, page, now, secrets[n], &out[n]);
+        if (st != KVF_OK)
+            break;
+        worker = d->pages[page].worker;
+        ++n;
+    }
+    ++d->stats.lookups;
+    d->stats.matched_pages += n;
+    pthread_mutex_unlock(&d->lock);
+    *matched = n;
+    return n ? KVF_OK : st;
 }
 
 kvf_status kvf_directory_acquire(kvf_directory *d, kvf_page_key key, kvf_grant *out) {
@@ -517,6 +559,31 @@ kvf_status kvf_directory_validate(kvf_directory *d, const kvf_fetch_request *r) 
         if (kvf_page_key_equal(m->key, r->key) && kvf_uuid_equal(m->owner.boot, r->owner_boot) &&
             r->layer_index < m->layer_count && kvf_layer_equal(m->layer[r->layer_index], r->layer))
             st = KVF_OK;
+    }
+    pthread_mutex_unlock(&d->lock);
+    return st;
+}
+
+kvf_status kvf_directory_check_batch(kvf_directory *d, const kvf_batch_page *pages, uint32_t count, int finish) {
+    if (!pages || !count || count > KVF_MAX_BATCH_PAGES)
+        return KVF_INVALID;
+    pthread_mutex_lock(&d->lock);
+    uint64_t now = kvf_now_ms();
+    kvf_status st = KVF_OK;
+    for (uint32_t i = 0; i < count; ++i) {
+        const kvf_batch_page *r = &pages[i];
+        lease_entry *lease = find_lease(d, r->ticket);
+        if (!lease || !lease_live(d, lease, now)) {
+            st = KVF_STALE;
+            continue;
+        }
+        const page_entry *p = &d->pages[lease->page];
+        if (!kvf_page_key_equal(p->manifest.key, r->key) ||
+            !kvf_uuid_equal(p->manifest.owner.boot, r->owner_boot) ||
+            !kvf_hash_equal(p->digest, r->manifest_digest))
+            st = KVF_STALE;
+        if (finish)
+            lease->deadline = 0;
     }
     pthread_mutex_unlock(&d->lock);
     return st;

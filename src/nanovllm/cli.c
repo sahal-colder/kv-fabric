@@ -76,6 +76,7 @@ static void usage(FILE *file) {
         "  --kv-page-size N           tokens per page, same as --block-size\n"
         "  --kv-cache-capacity N      worker export pages (default --blocks)\n"
         "  --kv-prefetch-timeout MS   timeout in milliseconds (default 1000)\n"
+        "  --kv-publish-generated    export complete pages of forwarded generated tokens\n"
         "  --kv-worker-name NAME      override the worker registry name\n"
         "  --kv-tp-size N --kv-pp-size N    Nano-VLLM supports 1 for both\n", file);
 #endif
@@ -135,12 +136,14 @@ static void print_remote_stats(NvEngine *engine) {
             " remote_hit_pages=%" PRIu64 " remote_hit_tokens=%" PRIu64
             " remote_import_bytes=%" PRIu64 " remote_prefetch_requests=%" PRIu64
             " remote_prefetch_failures=%" PRIu64 " remote_prefetch_cancelled=%" PRIu64
+            " remote_admission_skips=%" PRIu64 " remote_publish_retries=%" PRIu64 " remote_publish_failures=%" PRIu64
             " remote_prefill_skipped_tokens=%" PRIu64 " remote_prefill_fallbacks=%" PRIu64
             " remote_cache_evictions=%" PRIu64 " remote_transfer_latency_ns=%" PRIu64
             " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 "\n",
             stats.remote_lookup_requests, stats.remote_lookup_hits, stats.remote_hit_pages,
             stats.remote_hit_tokens, stats.remote_import_bytes, stats.remote_prefetch_requests,
             stats.remote_prefetch_failures, stats.remote_prefetch_cancelled,
+            stats.remote_admission_skips, stats.remote_publish_retries, stats.remote_publish_failures,
             stats.remote_prefill_skipped_tokens, stats.remote_prefill_fallbacks,
             stats.remote_cache_evictions, stats.remote_transfer_latency_ns, stats.remote_transfer_samples,
             stats.remote_published_pages);
@@ -259,6 +262,7 @@ static void print_tokens(const NvTokenizer *t, const NvSequence *s, int first, i
 
 static int run_prompts(NvEngine *e, const NvTokenizer *t, const char *const *prompts, int count,
                        int max_new, NvSampling sampling, int trace, int ids) {
+    uint64_t submitted = trace ? (uint64_t)(seconds() * 1e9) : 0;
     for (int i = 0; i < count; ++i) {
         int n;
         int *tokens = nv_encode(t, prompts[i], &n);
@@ -280,8 +284,7 @@ static int run_prompts(NvEngine *e, const NvTokenizer *t, const char *const *pro
     double start = seconds();
     while (nv_engine_has_work(e)) {
         if (!nv_engine_step(e)) {
-            struct timespec idle = {.tv_nsec = 1000000L};
-            nanosleep(&idle, NULL);
+            nv_engine_wait(e);
             continue;
         }
         if (trace)
@@ -295,6 +298,34 @@ static int run_prompts(NvEngine *e, const NvTokenizer *t, const char *const *pro
         }
     }
     double elapsed = seconds() - start;
+    if (trace) {
+#ifdef NANO_WITH_REMOTE_KV
+        nv_engine_remote_flush(e);
+#endif
+        for (int i = 0; i < count; ++i) {
+            NvSequence *s = e->requests[i];
+            const NvRemoteTiming *t = &s->remote_timing;
+            fprintf(stderr, "request=%d ttft_ns=%" PRIu64, s->id,
+                    s->first_token_ns ? s->first_token_ns - submitted : 0);
+#define TRACE(field) fprintf(stderr, " " #field "=%" PRIu64, t->field)
+            TRACE(dir_lookup_ns);
+            TRACE(conn_acquire_ns);
+            TRACE(net_recv_ns);
+            TRACE(crc_verify_ns);
+            TRACE(cpu_stage_ns);
+            TRACE(cuda_h2d_ns);
+            TRACE(cuda_sync_ns);
+            TRACE(kv_commit_ns);
+            TRACE(sched_resume_ns);
+            TRACE(first_decode_ns);
+            TRACE(prefetch_queue_ns);
+            TRACE(lease_check_ns);
+            TRACE(received_bytes);
+            TRACE(data_requests);
+#undef TRACE
+            fputc('\n', stderr);
+        }
+    }
     if (stream) {
         fputc('\n', stdout);
     } else {
@@ -351,6 +382,12 @@ int nv_cli_run(int argc, char **argv) {
         if (strcmp(flag, "--ids") == 0) { ids = 1; continue; }
         if (strcmp(flag, "--stdin") == 0) { read_stdin = 1; continue; }
         if (strcmp(flag, "--ignore-eos") == 0) { sampling.ignore_eos = 1; continue; }
+#ifdef NANO_WITH_REMOTE_KV
+        if (strcmp(flag, "--kv-publish-generated") == 0) {
+            remote.publish_generated = remote_configured = 1;
+            continue;
+        }
+#endif
         if (strcmp(flag, "--remote-kv") == 0) {
 #ifdef NANO_WITH_REMOTE_KV
             remote_enabled = 1;

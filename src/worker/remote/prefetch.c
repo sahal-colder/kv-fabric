@@ -5,8 +5,11 @@
  * consumed or destroyed before Worker shutdown.
  */
 #include "internal.h"
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/eventfd.h>
+#include <unistd.h>
 
 enum { PREFETCH_DEPTH = 8 };
 
@@ -20,6 +23,7 @@ struct mi_remote_prefetch {
     mi_kv_sequence *sequence; /* Owned until claimed or destroyed. */
     mi_remote_result result;  /* Includes the safe prefix and any remote failure. */
     mi_remote_suffix suffix;  /* Nonzero deadline selects private staging. */
+    uint64_t enqueued_ns;
     size_t count;              /* Number of copied tokens. */
     int32_t tokens[];          /* Immutable after admission, valid until completion. */
 };
@@ -32,7 +36,18 @@ struct mi_prefetch_queue {
     mi_remote_prefetch *running;                       /* Current job, or NULL. */
     unsigned head, count;                              /* Occupied range wraps modulo depth. */
     int stopping;                                      /* No new entries after shutdown begins. */
+    int completion_fd;
 };
+
+int mi_remote_completion_fd(const mi_remote_worker *w) {
+    return w->prefetch->completion_fd;
+}
+
+void mi_remote_signal_completion(mi_remote_worker *w) {
+    int fd = mi_remote_completion_fd(w);
+    while (eventfd_write(fd, 1) < 0 && errno == EINTR)
+        continue;
+}
 
 static void *serve(void *arg) {
     mi_remote_worker *w = arg;
@@ -49,6 +64,7 @@ static void *serve(void *arg) {
         q->running = j;
         pthread_mutex_unlock(&q->lock);
 
+        uint64_t started = kvf_now_ns();
         j->status = j->suffix.deadline_ms
             ? mi_remote_resolve_after(w, j->suffix, j->tokens, j->count, &j->sequence, &j->result, &j->cancelled)
             : mi_remote_resolve_impl(w, j->tokens, j->count, &j->sequence, &j->result, &j->cancelled);
@@ -58,9 +74,12 @@ static void *serve(void *arg) {
         pthread_mutex_unlock(&q->lock);
         /* After signalling, the waiter may free j immediately. */
         pthread_mutex_lock(&j->lock);
+        j->result.timing.prefetch_queue_ns = started - j->enqueued_ns;
+        j->result.ready_ns = kvf_now_ns();
         j->done = 1;
         pthread_cond_broadcast(&j->changed);
         pthread_mutex_unlock(&j->lock);
+        mi_remote_signal_completion(w);
         pthread_mutex_lock(&q->lock);
     }
     pthread_mutex_unlock(&q->lock);
@@ -80,10 +99,18 @@ kvf_status mi_prefetch_start(mi_remote_worker *w) {
         free(q);
         return KVF_INTERNAL;
     }
+    q->completion_fd = eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
+    if (q->completion_fd < 0) {
+        pthread_cond_destroy(&q->work);
+        pthread_mutex_destroy(&q->lock);
+        free(q);
+        return KVF_IO;
+    }
     w->prefetch = q;
     if (pthread_create(&q->thread, NULL, serve, w) == 0)
         return KVF_OK;
     w->prefetch = NULL;
+    close(q->completion_fd);
     pthread_cond_destroy(&q->work);
     pthread_mutex_destroy(&q->lock);
     free(q);
@@ -102,6 +129,7 @@ void mi_prefetch_stop(mi_remote_worker *w) {
     pthread_cond_signal(&q->work);
     pthread_mutex_unlock(&q->lock);
     pthread_join(q->thread, NULL);
+    close(q->completion_fd);
     pthread_cond_destroy(&q->work);
     pthread_mutex_destroy(&q->lock);
     free(q);
@@ -133,6 +161,7 @@ static kvf_status enqueue(mi_remote_worker *w, mi_remote_suffix suffix, const in
     pthread_mutex_lock(&q->lock);
     kvf_status st = KVF_LIMIT;
     if (!q->stopping && q->count < PREFETCH_DEPTH) {
+        j->enqueued_ns = kvf_now_ns();
         q->jobs[(q->head + q->count++) % PREFETCH_DEPTH] = j;
         pthread_cond_signal(&q->work);
         st = KVF_OK;
