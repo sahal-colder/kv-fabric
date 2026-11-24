@@ -135,9 +135,8 @@ static int specified(kvf_endpoint e) {
     return e.ipv4[0] || e.ipv4[1] || e.ipv4[2] || e.ipv4[3];
 }
 
+/* Both service threads must be stopped before releasing the storage they borrow. */
 static void release_worker(mi_remote_worker *w) {
-    mi_prefetch_stop(w);
-    kvf_server_stop(w->server);
     if (w->exports)
         for (uint32_t i = 0; i < w->exports_capacity; ++i)
             mi_page_ref_release(&w->exports[i].ref);
@@ -264,14 +263,12 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
         st = KVF_INTERNAL;
         goto condition_ready;
     }
-    w->heartbeat_started = 1;
     *out = w;
     return KVF_OK;
 
 condition_ready:
     mi_prefetch_stop(w);
     kvf_server_stop(w->server);
-    w->server = NULL;
     pthread_cond_destroy(&w->wake);
 locks_ready:
     pthread_mutex_destroy(&w->exports_lock);
@@ -294,15 +291,12 @@ void mi_remote_worker_stop(mi_remote_worker *w) {
     if (!w)
         return;
     mi_prefetch_stop(w);
-    if (w->heartbeat_started) {
-        pthread_mutex_lock(&w->updates);
-        w->stopping = 1;
-        pthread_cond_signal(&w->wake);
-        pthread_mutex_unlock(&w->updates);
-        pthread_join(w->heartbeat, NULL);
-    }
+    pthread_mutex_lock(&w->updates);
+    w->stopping = 1;
+    pthread_cond_signal(&w->wake);
+    pthread_mutex_unlock(&w->updates);
+    pthread_join(w->heartbeat, NULL);
     kvf_server_stop(w->server);
-    w->server = NULL;
     (void)kvf_client_unregister(w->control, &w->info.owner);
     pthread_cond_destroy(&w->wake);
     pthread_mutex_destroy(&w->exports_lock);

@@ -1,0 +1,8 @@
+cpu, posix, remote=False: 3 token lines match, 5 reads and 9 writes
+cpu, posix, remote=True: 3 token lines match, 5 reads and 9 writes
+cpu, uring, remote=False: 3 token lines match, 5 reads and 9 writes
+cpu, uring, remote=True: 3 token lines match, 5 reads and 9 writes
+cuda, posix, remote=False: 3 token lines match, 5 reads and 9 writes
+cuda, posix, remote=True: 3 token lines match, 5 reads and 9 writes
+cuda, uring, remote=False: 3 token lines match, 5 reads and 9 writes
+cuda, uring, remote=True: 3 token lines match, 5 reads and 9 writes

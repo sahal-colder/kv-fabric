@@ -2,8 +2,12 @@
 #include "kvfabric/wire.h"
 #include <string.h>
 
+static int fits(size_t capacity, size_t position, size_t size) {
+    return position <= capacity && size <= capacity - position;
+}
+
 void kvf_put_bytes(kvf_writer *w, const void *data, size_t size) {
-    if (w->failed || w->size > w->capacity || size > w->capacity - w->size ||
+    if (w->failed || !fits(w->capacity, w->size, size) ||
         (size && (!w->buffer || !data))) {
         w->failed = 1;
         return;
@@ -29,7 +33,7 @@ void kvf_put_u64(kvf_writer *w, uint64_t n) {
 }
 
 void kvf_get_bytes(kvf_reader *r, void *data, size_t size) {
-    if (r->failed || r->offset > r->size || size > r->size - r->offset ||
+    if (r->failed || !fits(r->size, r->offset, size) ||
         (size && (!r->buffer || !data))) {
         r->failed = 1;
         return;

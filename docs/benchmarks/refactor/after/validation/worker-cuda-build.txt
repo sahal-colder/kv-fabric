@@ -1,0 +1,90 @@
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- The CUDA compiler identification is NVIDIA 12.8.93
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda-12.8/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2") found components: Crypto 
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'liburing'
+--   Found liburing, version 2.0
+-- Found CUDAToolkit: /usr/local/cuda-12.8/include (found version "12.8.93") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda
+[1/65] Building C object src/control/CMakeFiles/kvfabric.dir/control.c.o
+[2/65] Building C object src/control/CMakeFiles/kvfabric.dir/identity.c.o
+[3/65] Building C object src/control/CMakeFiles/kvfabric.dir/client.c.o
+[4/65] Building C object src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o
+[5/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o
+[6/65] Building C object src/control/CMakeFiles/kvfabric.dir/net.c.o
+[7/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o
+[8/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o
+[9/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o
+[10/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[11/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o
+[12/65] Building C object src/control/CMakeFiles/kvfabric.dir/directory.c.o
+[13/65] Building C object src/control/CMakeFiles/kvfabric.dir/wire.c.o
+[14/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o
+[15/65] Linking C static library src/control/libkvfabric.a
+[16/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[17/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[18/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[19/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[20/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[21/65] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[22/65] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[23/65] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[24/65] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[25/65] Building C object src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o
+[26/65] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[27/65] Building C object src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o
+[28/65] Building C object src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o
+[29/65] Building C object src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o
+[30/65] Building C object src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o
+[31/65] Building C object src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o
+[32/65] Building C object src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o
+[33/65] Building C object src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o
+[34/65] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[35/65] Building C object src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o
+[36/65] Building C object src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o
+[37/65] Building C object src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o
+[38/65] Building C object src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o
+[39/65] Building C object src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o
+[40/65] Building C object src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o
+[41/65] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o
+[42/65] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o
+[43/65] Building C object src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o
+[44/65] Building C object src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o
+[45/65] Building C object src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o
+[46/65] Linking C executable bin/kvfabricd
+[47/65] Linking C executable bin/kvfctl
+[48/65] Linking C executable bin/test_kvf_protocol
+[49/65] Linking C executable bin/test_kvf_directory
+[50/65] Linking C executable bin/test_remote_e2e
+[51/65] Building CUDA object src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o
+[52/65] Linking CUDA static library src/worker/libminiinfer_storage.a
+[53/65] Linking CUDA static library src/worker/libminiinfer_remote.a
+[54/65] Linking CUDA executable bin/test_pool
+[55/65] Linking CUDA executable bin/test_kv_cache
+[56/65] Linking CUDA executable bin/test_graph
+[57/65] Linking CUDA executable bin/test_tiered
+[58/65] Linking CUDA executable bin/miniinfer_basic
+[59/65] Linking CUDA executable bin/test_paged_kv
+[60/65] Linking CUDA executable bin/test_direct_io
+[61/65] Linking CUDA executable bin/test_gpu_mock
+[62/65] Linking CUDA executable bin/kvf_bench
+[63/65] Linking CUDA executable bin/test_remote_lifecycle
+[64/65] Linking CUDA executable bin/miniinfer_worker
+[65/65] Linking CUDA executable bin/test_remote_faults

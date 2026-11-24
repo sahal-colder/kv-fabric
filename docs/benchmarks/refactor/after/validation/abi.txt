@@ -1,0 +1,10 @@
+cpu: libkvfabric.a kept all 103 project symbols
+cpu: libminiinfer_storage.a kept all 143 project symbols
+cpu: libminiinfer_remote.a kept all 39 project symbols
+cpu: libminiinfer_nano.a kept all 55 project symbols
+cpu: all C compilation commands use -std=c11
+cuda: libkvfabric.a kept all 103 project symbols
+cuda: libminiinfer_storage.a kept all 143 project symbols
+cuda: libminiinfer_remote.a kept all 39 project symbols
+cuda: libminiinfer_nano.a kept all 66 project symbols
+cuda: all C compilation commands use -std=c11

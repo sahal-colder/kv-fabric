@@ -1,0 +1,31 @@
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2") found components: Crypto 
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for modules 'spdk_event;spdk_event_bdev;spdk_event_iobuf;spdk_bdev_nvme;spdk_bdev_malloc;spdk_env_dpdk;spdk_syslibs'
+--   No package 'spdk_event' found
+--   No package 'spdk_event_bdev' found
+--   No package 'spdk_event_iobuf' found
+--   No package 'spdk_bdev_nvme' found
+--   No package 'spdk_bdev_malloc' found
+--   No package 'spdk_env_dpdk' found
+--   No package 'spdk_syslibs' found
+CMake Error at /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake:603 (message):
+  A required package was not found
+Call Stack (most recent call first):
+  /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake:825 (_pkg_check_modules_internal)
+  third_party/infer-io/cmake/InferSpdk.cmake:17 (pkg_check_modules)
+  src/worker/CMakeLists.txt:42 (include)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-spdk/CMakeFiles/CMakeOutput.log".

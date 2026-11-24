@@ -9,7 +9,7 @@
 #include <climits>
 #include <cmath>
 #include <cstring>
-#include <vector>
+#include <stdlib.h>
 
 /* CUDA 执行状态持有流、图以及模型、KV 和前向缓冲区。 */
 struct NvCuda {
@@ -215,7 +215,7 @@ void nv_cuda_init(NvEngine *engine, int device) {
     NvModel *model = engine->model;
     NvCache *cache = &engine->cache;
     NvConfig c = model->config;
-    auto *g = new NvCuda{};
+    NvCuda *g = (NvCuda *)nv_alloc(1, sizeof(*g));
     g->device = cache->device = device;
     g->cfg = c;
     g->head_size = c.dim / c.n_heads;
@@ -289,7 +289,7 @@ void nv_cuda_init(NvEngine *engine, int device) {
     g->logits = static_cast<float *>(g->buffers[4]);
     check(cudaMallocHost(reinterpret_cast<void **>(&g->host_logits), logits_bytes));
 
-    std::vector<float> rope(rope_count);
+    float *rope = (float *)nv_alloc(rope_count, sizeof(*rope));
     for (int pos = 0; pos < c.seq_len; ++pos) {
         for (int i = 0; i < g->head_size; i += 2) {
             float angle = (float)pos / powf(10000.0f, (float)i / (float)g->head_size);
@@ -299,8 +299,9 @@ void nv_cuda_init(NvEngine *engine, int device) {
         }
     }
     g->rope = static_cast<float *>(g->buffers[5]);
-    check(cudaMemcpyAsync(g->rope, rope.data(), bytes[5], cudaMemcpyHostToDevice, g->stream));
+    check(cudaMemcpyAsync(g->rope, rope, bytes[5], cudaMemcpyHostToDevice, g->stream));
     check(cudaStreamSynchronize(g->stream));
+    free(rope);
     check(cudaStreamBeginCapture(g->stream, cudaStreamCaptureModeThreadLocal));
     enqueue_forward(g);
     check(cudaMemcpyAsync(g->host_logits, g->logits, logits_bytes, cudaMemcpyDeviceToHost, g->stream));
@@ -459,5 +460,5 @@ void nv_cuda_destroy(NvCuda *g) {
     check(cudaFreeHost(g->host_logits));
     check(cudaFreeHost(g->host_input));
     check(cudaStreamDestroy(g->stream));
-    delete g;
+    free(g);
 }

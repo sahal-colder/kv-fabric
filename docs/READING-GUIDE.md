@@ -21,7 +21,7 @@ TCP 导入和本地再次命中的顺序，再把设备切到 CUDA。部署命�
 | 文件 | 入口与阅读顺序 |
 | --- | --- |
 | `include/kvfabric/wire.h`、`src/control/wire.c` | 从 `kvf_put_u32` 和 `kvf_get_u32` 看边界校验，再读 `kvf_put_manifest` 和 `kvf_get_fetch`。 |
-| `src/control/crc32c.c` | `kvf_crc32c_extend` 可继续已有 CRC。x86 可用 SSE4.2，软件路径给出相同结果。 |
+| `third_party/infer-io/src/base/crc32c.c` | `kvf_crc32c_extend` 可继续已有 CRC。x86 可用 SSE4.2，软件路径给出相同结果。 |
 | `src/control/net.c` | `kvf_connect` → `kvf_rpc_on` → `kvf_send_frame` / `kvf_recv_frame`。对照 `transfer` 看短读写、EINTR、poll 和 Deadline。 |
 | `include/kvfabric/client.h`、`src/control/client.c` | `kvf_client_acquire_prefix` 拿 Grant，`kvf_client_fetch_on` 复用 fd。客户端额外核对请求 ID、层长度和 Manifest CRC。 |
 
@@ -41,7 +41,7 @@ Directory 只有一个元数据互斥锁。租约绑定副本槽和修订号。�
 
 | 文件 | 入口与阅读顺序 |
 | --- | --- |
-| `include/miniinfer/device_transfer.h`、`src/worker/device_transfer.c` | `mi_device_init` → `mi_device_host_alloc` → `mi_device_copy_from_host` → `mi_device_event_wait`。默认支持 CPU，开启 `MINIINFER_WITH_CUDA` 后可使用 CUDA Runtime。 |
+| `include/miniinfer/device_transfer.h`、`src/worker/device_transfer.c`、`src/worker/device_cuda.cu` | `mi_device_init` → `mi_device_host_alloc` → `mi_device_copy_from_host` → `mi_device_event_wait`。默认支持 CPU，开启 `MINIINFER_WITH_CUDA` 后可使用 CUDA Runtime。 |
 | `src/worker/segment_pool.h`、`src/worker/segment_pool.c` | `mi_segment_pool_create` 单次分配连续区，`mi_segment_acquire` 用 CAS 取得独占槽。只在 socket、磁盘或 DMA 完成后归还。 |
 | `src/worker/allocator.c`、`src/worker/storage_backend.c` | `mi_mempool_alloc_slab` → `mi_memory_backend_create` → `mi_backend_reserve`。Slab 属于分配池，物理槽表属于 Backend。 |
 | `src/worker/tiered_storage.c` | `mi_storage_acquire`、`mi_storage_read_snapshot_event`、`mi_storage_migrate`。先钉住记录和槽，放锁再搬运，最后提交新位置。 |

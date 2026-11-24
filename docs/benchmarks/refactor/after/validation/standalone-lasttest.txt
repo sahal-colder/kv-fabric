@@ -1,0 +1,116 @@
+Start testing: Nov 24 08:14 CST
+----------------------------------------------------------
+1/7 Testing: pool
+1/7 Test: pool
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_pool"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"pool" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+pool ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"pool" end time: Nov 24 08:14 CST
+"pool" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/7 Testing: graph
+2/7 Test: graph
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_graph"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"graph" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+graph ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"graph" end time: Nov 24 08:14 CST
+"graph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/7 Testing: tiered
+3/7 Test: tiered
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_tiered"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"tiered" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+tiered ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"tiered" end time: Nov 24 08:14 CST
+"tiered" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/7 Testing: kv_cache
+4/7 Test: kv_cache
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_kv_cache"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"kv_cache" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+kv cache ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"kv_cache" end time: Nov 24 08:14 CST
+"kv_cache" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/7 Testing: paged_kv
+5/7 Test: paged_kv
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_paged_kv"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"paged_kv" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+paged kv ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"paged_kv" end time: Nov 24 08:14 CST
+"paged_kv" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/7 Testing: gpu_mock
+6/7 Test: gpu_mock
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_gpu_mock"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"gpu_mock" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+CUDA-disabled contract ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"gpu_mock" end time: Nov 24 08:14 CST
+"gpu_mock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/7 Testing: direct_io_cpu
+7/7 Test: direct_io_cpu
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/bin/test_direct_io"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone/src/worker
+"direct_io_cpu" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+observed file mode: direct-uring-fixed
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"direct_io_cpu" end time: Nov 24 08:14 CST
+"direct_io_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 24 08:14 CST

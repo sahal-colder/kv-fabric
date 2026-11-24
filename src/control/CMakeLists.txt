@@ -1,8 +1,9 @@
 option(KVF_BUILD_TESTS "Build KV-Fabric protocol and directory tests" ON)
 include(CMakePackageConfigHelpers)
 
-add_library(kvfabric STATIC identity.c wire.c net.c crc32c.c
-    directory.c control.c client.c)
+add_library(kvfabric STATIC identity.c wire.c net.c directory.c control.c client.c
+    "${PROJECT_SOURCE_DIR}/third_party/infer-io/src/base/crc32c.c")
+target_compile_definitions(kvfabric PRIVATE KVF_CRC32C=1)
 add_library(KVFabric::kvfabric ALIAS kvfabric)
 target_include_directories(kvfabric PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"

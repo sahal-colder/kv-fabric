@@ -175,6 +175,18 @@ int nv_engine_add(NvEngine *e, const int *tokens, int n, int max_new, NvSampling
     return s->id;
 }
 
+static void deactivate_request(NvEngine *e, NvSequence *s) {
+#ifdef NANO_WITH_REMOTE_KV
+    if (s->status == NV_REMOTE_PREFETCHING) {
+        request_set_update(&e->remote_pending, s->id, 0);
+        nv_remote_cancel(e, s);
+    } else
+#endif
+        request_set_update(&e->running, s->id, 0);
+    nv_cache_release(&e->cache, s);
+    --e->active;
+}
+
 /* 从调度位图移除请求并释放已持有的页。 */
 int nv_engine_cancel(NvEngine *e, int id) {
     if ((unsigned)id >= (unsigned)e->num_requests)
@@ -182,22 +194,10 @@ int nv_engine_cancel(NvEngine *e, int id) {
     NvSequence *s = e->requests[id];
     if (s->status == NV_DONE || s->status == NV_CANCELLED)
         return 0;
-    if (s->status == NV_ACTIVE) {
-        request_set_update(&e->running, id, 0);
-        nv_cache_release(&e->cache, s);
-        --e->active;
-    }
-#ifdef NANO_WITH_REMOTE_KV
-    else if (s->status == NV_REMOTE_PREFETCHING) {
-        request_set_update(&e->remote_pending, id, 0);
-        nv_remote_cancel(e, s);
-        nv_cache_release(&e->cache, s);
-        --e->active;
-    }
-#endif
-    else {
+    if (s->status == NV_WAITING)
         request_set_update(&e->waiting, id, 0);
-    }
+    else
+        deactivate_request(e, s);
     s->status = NV_CANCELLED;
     return 1;
 }
@@ -217,18 +217,10 @@ static int allocate_block(NvEngine *e, const NvSequence *s) {
         if (id <= s->id)
             break;
         NvSequence *victim = e->requests[id];
-#ifdef NANO_WITH_REMOTE_KV
-        if (victim->status == NV_REMOTE_PREFETCHING) {
-            request_set_update(&e->remote_pending, id, 0);
-            nv_remote_cancel(e, victim);
-        } else
-#endif
-            request_set_update(&e->running, id, 0);
-        request_set_update(&e->waiting, id, 1);
         /* 归还被抢占请求的页。重新调度时可命中前缀。 */
-        nv_cache_release(&e->cache, victim);
+        deactivate_request(e, victim);
         victim->status = NV_WAITING;
-        --e->active;
+        request_set_update(&e->waiting, id, 1);
         ++e->preemptions;
         block = nv_cache_allocate(&e->cache);
     }

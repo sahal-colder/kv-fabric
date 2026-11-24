@@ -117,7 +117,7 @@ static int make_identity(const NvEngine *e, const NvTokenizer *tokenizer, NvRemo
         FLT_RADIX != 2 || FLT_MANT_DIG != 24 || FLT_MAX_EXP != 128)
         return -1;
     int head_dim = model->dim / model->n_heads;
-    size_t layer = cache->elements / (size_t)cache->num_blocks / (size_t)cache->layers;
+    size_t layer = nv_cache_block_elements(cache) / (size_t)cache->layers;
     if (cache->layers != model->n_layers || cache->kv_dim != head_dim * model->n_kv_heads ||
         layer / (size_t)cache->block_size != (size_t)cache->kv_dim ||
         layer % (size_t)cache->block_size || (unsigned)cache->block_size > KVF_MAX_TOKENS_PER_PAGE ||
@@ -486,9 +486,10 @@ void nv_remote_publish(NvEngine *e, NvSequence *s) {
     if (!room)
         return;
 
-    kvf_hash parent, hash;
+    kvf_hash parent, hash = slot->hash;
     if (prefix_hash(r, s, logical, &parent) != KVF_OK ||
-        kvf_page_hash(&r->space, parent, s->tokens + logical * n, (uint32_t)n, &hash) != KVF_OK)
+        (kvf_hash_zero(hash) &&
+         kvf_page_hash(&r->space, parent, s->tokens + logical * n, (uint32_t)n, &hash) != KVF_OK))
         return;
     slot->hash = hash;
     NvRemoteExport *item = calloc(1, sizeof(*item) + (size_t)n * sizeof(*item->tokens));

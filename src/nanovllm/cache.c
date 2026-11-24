@@ -125,12 +125,16 @@ void nv_cache_free(NvCache *c) {
     *c = (NvCache){0};
 }
 
+static size_t cache_offset(const NvCache *c, int block, int layer, int offset) {
+    return (((size_t)block * c->layers + layer) * c->block_size + offset) * c->kv_dim;
+}
+
 float *nv_cache_key(NvCache *c, int block, int layer, int offset) {
-    return c->keys + (((size_t)block * c->layers + layer) * c->block_size + offset) * c->kv_dim;
+    return c->keys + cache_offset(c, block, layer, offset);
 }
 
 float *nv_cache_value(NvCache *c, int block, int layer, int offset) {
-    return c->values + (((size_t)block * c->layers + layer) * c->block_size + offset) * c->kv_dim;
+    return c->values + cache_offset(c, block, layer, offset);
 }
 
 void nv_cache_copy_block(NvCache *c, int block, void *host, size_t half, int to_cache) {

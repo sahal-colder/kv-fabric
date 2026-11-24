@@ -136,6 +136,12 @@ void mi_prefetch_stop(mi_remote_worker *w) {
     w->prefetch = NULL;
 }
 
+static void free_prefetch(mi_remote_prefetch *j) {
+    pthread_cond_destroy(&j->changed);
+    pthread_mutex_destroy(&j->lock);
+    free(j);
+}
+
 static kvf_status enqueue(mi_remote_worker *w, mi_remote_suffix suffix, const int32_t *tokens,
                           size_t count, mi_remote_prefetch **out) {
     if (!w || !tokens || !count || !out || count / w->identity.tokens_per_page > w->cache->max_pages ||
@@ -170,9 +176,7 @@ static kvf_status enqueue(mi_remote_worker *w, mi_remote_suffix suffix, const in
     if (st == KVF_OK) {
         *out = j;
     } else {
-        pthread_cond_destroy(&j->changed);
-        pthread_mutex_destroy(&j->lock);
-        free(j);
+        free_prefetch(j);
     }
     return st;
 }
@@ -241,7 +245,5 @@ void mi_remote_prefetch_destroy(mi_remote_prefetch *j) {
     mi_remote_result result;
     (void)mi_remote_prefetch_wait(j, &sequence, &result);
     mi_kv_sequence_destroy(sequence);
-    pthread_cond_destroy(&j->changed);
-    pthread_mutex_destroy(&j->lock);
-    free(j);
+    free_prefetch(j);
 }

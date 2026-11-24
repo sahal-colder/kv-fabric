@@ -28,6 +28,11 @@ void nv_prefix_remove(NvPrefixIndex *index, NvPrefixKey key);
 
 /* 初始化页表和索引，返回单侧 K 或 V 的元素数。 */
 size_t nv_cache_init_metadata(NvCache *cache, const NvConfig *config, NvOptions options);
+/* K 和 V 每侧物理页的元素数。 */
+static inline size_t nv_cache_block_elements(const NvCache *cache) {
+    return cache->elements / (size_t)cache->num_blocks;
+}
+
 /* 在主机缓冲区与 KV 缓存之间复制整个物理页。 */
 void nv_cache_copy_block(NvCache *cache, int block, void *host, size_t half, int to_cache);
 #ifdef NANO_WITH_REMOTE_KV

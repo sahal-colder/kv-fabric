@@ -14,7 +14,7 @@ CPU, GPU and SSD backends through C APIs. CUDA inference requires the CUDA compi
 | [`src/integration`](../src/integration/) | `miniinfer` CLI using the inference sources and the MiniInfer storage APIs. |
 
 All targets build from the repository root. To build a single component, see
-[CPU storage](miniinfer-storage.md) or [nano-vLLM](nanovllm.md).
+[CPU storage](#standalone-storage) or [nano-vLLM](nanovllm.md).
 
 `NANO_WITH_CUDA=ON` enables the legacy optional inference kernels.
 `MINIINFER_WITH_CUDA=ON` enables the Storage product's C CUDA Runtime backend.
@@ -54,6 +54,20 @@ cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug -DMINIINFER_BUILD_TESTS=ON
 cmake --build build-debug -j
 ctest --test-dir build-debug --output-on-failure
 ```
+
+### Standalone storage
+
+Build and test MiniInfer Storage by itself from the repository root.
+
+```bash
+cmake -S . -B build-storage -DCMAKE_BUILD_TYPE=Debug \
+  -DMINIINFER_WITH_KVFABRIC=OFF -DMINIINFER_BUILD_NANOVLLM=OFF -DMINIINFER_BUILD_INTEGRATION=OFF
+cmake --build build-storage -j
+./build-storage/bin/miniinfer_basic
+ctest --test-dir build-storage --output-on-failure
+```
+
+See [build switches](#build-switches) for the independent io_uring, SPDK and CUDA options.
 
 ### KV-Fabric C SDK
 

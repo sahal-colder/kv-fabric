@@ -1,0 +1,42 @@
+Timestamp = 2026-11-24T08:16:23.549650+08:00
+System = Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35
+Python = 3.10.12
+CPU affinity = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+Model SHA-256 = cd590644d963867a2b6e5a1107f51fad663c41d79c149fbecbbb1f95fa81f49a
+Tokenizer SHA-256 = 50a52ef822ee9e83de5ce9d0be0a025a773d019437f58b5ff9dcafb063ece361
+Rounds = 100
+Topology = IPv4 TCP 127.0.0.1, independent directory, publisher and consumer processes
+Order = baseline-first on odd rounds, after-first on even rounds, one process group at a time
+Cold/Local/Remote order rotates by round. Each group gets one producer prime.
+One unrelated warmup per consumer. Local also primes the target prefix.
+Prompt = The quick brown fox repeated four times, then walks away (prime) or jumps high (target)
+Sampling = 8 tokens, seed 1234, temperature 0.7, top-p 0.95, ignore EOS
+Batch=4, budget=16, pages=48, page size=4, exports=48, timeout=2000 ms, TP=1, PP=1
+TTFT = before prompt encoding to first completed sample. OpenBLAS and OMP threads = 1
+Quantiles = nearest rank. Delta = (after / baseline - 1) * 100.
+Compiler = gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+Copyright (C) 2021 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+CMake = cmake version 3.22.1
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+OpenBLAS, liburing, OpenSSL = 0.3.20
+2.0
+3.0.2
+baseline build = /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/build-before-cpu
+CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+MINIINFER_WITH_CUDA:BOOL=OFF
+MINIINFER_WITH_URING:BOOL=ON
+NANO_WITH_CUDA:BOOL=OFF
+kvfabricd SHA-256 = 6818c2be21f8b5728f70961e845a20a0aaf580f48256c6c98ac79e785e67773d
+test_nano_remote_worker SHA-256 = 672da7a09a257d9adcc7606d1bce0d8d4fd44b0f2c02b651f1b78408330892e5
+after build = /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-cpu
+CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+MINIINFER_WITH_CUDA:BOOL=OFF
+MINIINFER_WITH_URING:BOOL=ON
+NANO_WITH_CUDA:BOOL=OFF
+kvfabricd SHA-256 = 9872de650b7d723844413ed1cb13d465b0ebad0c72ca5cf3bbf9d24d36b2e4f5
+test_nano_remote_worker SHA-256 = c237de8d43cda768c0d79578d25cecf0dce07003c6b3ce865385d9b5e4ac88dc

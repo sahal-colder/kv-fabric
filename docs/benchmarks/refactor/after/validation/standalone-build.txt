@@ -1,0 +1,66 @@
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'liburing'
+--   Found liburing, version 2.0
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-standalone
+[1/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o
+[2/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o
+[3/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o
+[4/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o
+[5/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[6/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o
+[7/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[8/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[9/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o
+[10/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/__/__/third_party/infer-io/src/base/crc32c.c.o
+[11/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[12/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[13/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[14/49] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o
+[15/49] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[16/49] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o
+[17/49] Building C object src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o
+[18/49] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o
+[19/49] Linking C static library src/worker/libminiinfer_storage.a
+[20/49] Building C object src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o
+[21/49] Building C object src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o
+[22/49] Building C object src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o
+[23/49] Building C object src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o
+[24/49] Building C object src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o
+[25/49] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o
+[26/49] Building C object src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o
+[27/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o
+[28/49] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o
+[29/49] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o
+[30/49] Building C object src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o
+[31/49] Linking C static library src/nanovllm/libminiinfer_nano.a
+[32/49] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o
+[33/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o
+[34/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o
+[35/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o
+[36/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o
+[37/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o
+[38/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o
+[39/49] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o
+[40/49] Linking C executable bin/miniinfer_basic
+[41/49] Linking C executable bin/test_pool
+[42/49] Linking C executable bin/test_graph
+[43/49] Linking C executable bin/test_tiered
+[44/49] Linking C executable bin/test_kv_cache
+[45/49] Linking C executable bin/test_paged_kv
+[46/49] Linking C executable bin/test_gpu_mock
+[47/49] Linking C executable bin/test_direct_io
+[48/49] Linking C executable bin/nanovllm
+[49/49] Linking C executable bin/miniinfer

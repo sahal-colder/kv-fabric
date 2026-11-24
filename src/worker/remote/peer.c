@@ -80,26 +80,27 @@ kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *g, uint64_t deadl
         mi_peer_conn *p = &pool->peers[i];
         int same_endpoint = p->endpoint.port == g->endpoint.port &&
             !memcmp(p->endpoint.ipv4, g->endpoint.ipv4, sizeof(p->endpoint.ipv4));
-        int same_boot = kvf_uuid_equal(p->boot, g->manifest.owner.boot);
+        int replaced = same_endpoint && !kvf_uuid_equal(p->boot, g->manifest.owner.boot);
         if (p->used) {
-            if (same_endpoint && !same_boot)
+            if (replaced)
                 p->retire = 1;
             continue;
         }
-        if (p->fd >= 0 && ((same_endpoint && !same_boot) || now - p->idle_since >= pool->idle_ms))
+        if (p->fd >= 0 && (replaced || now - p->idle_since >= pool->idle_ms))
             close_peer(p);
-        if (p->fd >= 0 && same_endpoint && same_boot)
+        if (p->fd >= 0 && same_endpoint)
             matching = p;
         if (!available || p->fd < 0 || (available->fd >= 0 && p->idle_since < available->idle_since))
             available = p;
     }
     mi_peer_conn *p = matching ? matching : available;
     if (p) {
-        if (!matching)
+        if (!matching) {
             close_peer(p);
+            p->endpoint = g->endpoint;
+            p->boot = g->manifest.owner.boot;
+        }
         p->used = 1;
-        p->endpoint = g->endpoint;
-        p->boot = g->manifest.owner.boot;
     }
     pthread_mutex_unlock(&pool->lock);
     if (!p)

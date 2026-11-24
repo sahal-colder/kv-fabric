@@ -27,11 +27,11 @@ mi_status mi_segment_pool_create(int device, size_t bytes, unsigned count, int s
     st = mi_device_host_alloc(device, total + (device < 0 ? 0 : mask), &pool->allocation);
     if (st != MI_OK)
         goto failed;
-    pool->base = (unsigned char *)pool->allocation + ((-(uintptr_t)pool->allocation) & mask);
+    unsigned char *base = (unsigned char *)pool->allocation + ((-(uintptr_t)pool->allocation) & mask);
     for (unsigned i = 0; i < count; ++i) {
         mi_segment *slot = &pool->slots[i];
         atomic_init(&slot->ref_count, 0);
-        slot->data = pool->base + i * stride;
+        slot->data = base + i * stride;
         ++pool->count;
         if (streams && device >= 0) {
             st = mi_device_stream_create(device, &slot->stream);

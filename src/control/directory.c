@@ -405,9 +405,13 @@ static uint32_t select_replica(kvf_directory *d, kvf_hash space, const kvf_hash 
     return best;
 }
 
+static int valid_lookup(kvf_hash space, const kvf_hash *pages, uint32_t count) {
+    return pages && count && count <= KVF_MAX_LOOKUP && !kvf_hash_zero(space);
+}
+
 kvf_status kvf_directory_lookup_prefix(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                         uint32_t count, uint32_t *matched) {
-    if (!pages || !matched || !count || count > KVF_MAX_LOOKUP || kvf_hash_zero(space))
+    if (!matched || !valid_lookup(space, pages, count))
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
     uint64_t now = kvf_now_ms();
@@ -464,7 +468,7 @@ static kvf_status grant_page(kvf_directory *d, uint32_t page, uint64_t now, kvf_
 
 kvf_status kvf_directory_acquire_prefix(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                         uint32_t count, kvf_grant *out) {
-    if (!pages || !out || !count || count > KVF_MAX_LOOKUP || kvf_hash_zero(space))
+    if (!out || !valid_lookup(space, pages, count))
         return KVF_INVALID;
     kvf_uuid secret;
     kvf_status st = kvf_uuid_new(&secret);

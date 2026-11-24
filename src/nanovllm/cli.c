@@ -200,7 +200,7 @@ static void attach_ssd(NvCache *cache, const StorageOptions *storage) {
         return;
     if (!cache->enabled)
         nv_fatal("SSD spill requires prefix reuse");
-    size_t payload = 2 * sizeof(float) * (cache->elements / (size_t)cache->num_blocks);
+    size_t payload = 2 * sizeof(float) * nv_cache_block_elements(cache);
     if (payload > SIZE_MAX - 64 - 4095)
         nv_fatal("SSD slot size overflow");
     int is_spdk = strcmp(storage->ssd_mode, "spdk") == 0;

@@ -1,0 +1,259 @@
+Start testing: Nov 24 08:14 CST
+----------------------------------------------------------
+1/15 Testing: kvf_protocol
+1/15 Test: kvf_protocol
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_kvf_protocol"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/control
+"kvf_protocol" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+KV-Fabric protocol: PASS
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"kvf_protocol" end time: Nov 24 08:14 CST
+"kvf_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/15 Testing: pool
+3/15 Test: pool
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_pool"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"pool" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+pool ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"pool" end time: Nov 24 08:14 CST
+"pool" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/15 Testing: graph
+4/15 Test: graph
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_graph"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"graph" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+graph ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"graph" end time: Nov 24 08:14 CST
+"graph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/15 Testing: tiered
+5/15 Test: tiered
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_tiered"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"tiered" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+tiered ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"tiered" end time: Nov 24 08:14 CST
+"tiered" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/15 Testing: kv_cache
+6/15 Test: kv_cache
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_kv_cache"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"kv_cache" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+kv cache ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"kv_cache" end time: Nov 24 08:14 CST
+"kv_cache" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/15 Testing: paged_kv
+7/15 Test: paged_kv
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_paged_kv"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"paged_kv" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+paged kv ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"paged_kv" end time: Nov 24 08:14 CST
+"paged_kv" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/15 Testing: gpu_mock
+8/15 Test: gpu_mock
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_gpu_mock"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"gpu_mock" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+CUDA leases, staging and reuse ok
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"gpu_mock" end time: Nov 24 08:14 CST
+"gpu_mock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/15 Testing: direct_io_cpu
+9/15 Test: direct_io_cpu
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_direct_io"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"direct_io_cpu" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+observed file mode: direct-uring-fixed
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"direct_io_cpu" end time: Nov 24 08:14 CST
+"direct_io_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/15 Testing: direct_io_cuda
+10/15 Test: direct_io_cuda
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_direct_io" "cuda"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"direct_io_cuda" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+observed file mode: direct-uring-fixed
+<end of output>
+Test time =   0.28 sec
+----------------------------------------------------------
+Test Passed.
+"direct_io_cuda" end time: Nov 24 08:14 CST
+"direct_io_cuda" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/15 Testing: remote_lifecycle
+11/15 Test: remote_lifecycle
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_remote_lifecycle"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"remote_lifecycle" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+snapshot, page reference, suffix rollback, and generation reuse: PASS
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"remote_lifecycle" end time: Nov 24 08:14 CST
+"remote_lifecycle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/15 Testing: kvf_directory
+2/15 Test: kvf_directory
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_kvf_directory"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/control
+"kvf_directory" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+KV-Fabric directory and control RPC: PASS
+<end of output>
+Test time =   0.66 sec
+----------------------------------------------------------
+Test Passed.
+"kvf_directory" end time: Nov 24 08:14 CST
+"kvf_directory" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/15 Testing: remote_e2e_cpu
+13/15 Test: remote_e2e_cpu
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_remote_e2e" "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/kvfabricd" "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/miniinfer_worker" "cpu"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"remote_e2e_cpu" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+device=cpu layer_bytes=4096 pages=2 layers=2 sha256=515b34bb2aba41bd83679c6d9c37666a189206164ce91be5e4c56b2f1b0ccb2d fp32_attention=byte-identical
+device=cpu layer_bytes=65536 pages=2 layers=2 sha256=4eb07d3b7c05d8cdff658d0e43226df6716482e37a6d02f0f518c3eeb779def0 fp32_attention=byte-identical
+device=cpu layer_bytes=262144 pages=2 layers=2 sha256=c4a93f71a680a3e2110fc38e5af67bc8637e8ee68e3b0efc8c8806e77bd4d84f fp32_attention=byte-identical
+device=cpu layer_bytes=1048576 pages=2 layers=2 sha256=464ae2b56e1fb276acab946f667cfc209947b9dd21d6bac775a8de1a8e640ff0 fp32_attention=byte-identical
+device=cpu layer_bytes=4194304 pages=2 layers=2 sha256=c21a3e21f3324d65b5c4df975d0833413c2833e2be7b9c93a3abf9c0fe5e45f3 fp32_attention=byte-identical
+<end of output>
+Test time =   1.47 sec
+----------------------------------------------------------
+Test Passed.
+"remote_e2e_cpu" end time: Nov 24 08:14 CST
+"remote_e2e_cpu" time elapsed: 00:00:01
+----------------------------------------------------------
+
+14/15 Testing: remote_restart
+14/15 Test: remote_restart
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_remote_e2e" "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/kvfabricd" "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/miniinfer_worker" "cpu" "restart"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"remote_restart" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+SIGKILL and Worker restart: old boot denied, fresh import verified
+Directory restart: new epoch, Worker republish, old lease denied
+device=cpu layer_bytes=4096 pages=2 layers=2 sha256=515b34bb2aba41bd83679c6d9c37666a189206164ce91be5e4c56b2f1b0ccb2d fp32_attention=byte-identical
+<end of output>
+Test time =   1.59 sec
+----------------------------------------------------------
+Test Passed.
+"remote_restart" end time: Nov 24 08:14 CST
+"remote_restart" time elapsed: 00:00:01
+----------------------------------------------------------
+
+12/15 Testing: remote_faults
+12/15 Test: remote_faults
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_remote_faults"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"remote_faults" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+partial TCP response: safe prefix retained and failed suffix rolled back
+layer CRC32C: safe prefix retained and failed suffix rolled back
+expired directory lease: safe prefix retained and failed suffix rolled back
+eviction and generation reuse: safe prefix retained and failed suffix rolled back
+prefetch cancellation and bounded queue: safe prefix retained and failed suffix rolled back
+<end of output>
+Test time =   3.09 sec
+----------------------------------------------------------
+Test Passed.
+"remote_faults" end time: Nov 24 08:14 CST
+"remote_faults" time elapsed: 00:00:03
+----------------------------------------------------------
+
+15/15 Testing: remote_e2e_cuda
+15/15 Test: remote_e2e_cuda
+Command: "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/test_remote_e2e" "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/kvfabricd" "/home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/bin/miniinfer_worker" "cuda"
+Directory: /home/wtyjt/workspace/kvfabric-refactor.DMQDo8/final/build-refactor-worker-cuda/src/worker
+"remote_e2e_cuda" start time: Nov 24 08:14 CST
+Output:
+----------------------------------------------------------
+device=cuda layer_bytes=4096 pages=2 layers=2 sha256=515b34bb2aba41bd83679c6d9c37666a189206164ce91be5e4c56b2f1b0ccb2d fp32_attention=byte-identical
+device=cuda layer_bytes=65536 pages=2 layers=2 sha256=4eb07d3b7c05d8cdff658d0e43226df6716482e37a6d02f0f518c3eeb779def0 fp32_attention=byte-identical
+device=cuda layer_bytes=262144 pages=2 layers=2 sha256=c4a93f71a680a3e2110fc38e5af67bc8637e8ee68e3b0efc8c8806e77bd4d84f fp32_attention=byte-identical
+device=cuda layer_bytes=1048576 pages=2 layers=2 sha256=464ae2b56e1fb276acab946f667cfc209947b9dd21d6bac775a8de1a8e640ff0 fp32_attention=byte-identical
+device=cuda layer_bytes=4194304 pages=2 layers=2 sha256=c21a3e21f3324d65b5c4df975d0833413c2833e2be7b9c93a3abf9c0fe5e45f3 fp32_attention=byte-identical
+<end of output>
+Test time =   4.31 sec
+----------------------------------------------------------
+Test Passed.
+"remote_e2e_cuda" end time: Nov 24 08:14 CST
+"remote_e2e_cuda" time elapsed: 00:00:04
+----------------------------------------------------------
+
+End testing: Nov 24 08:14 CST

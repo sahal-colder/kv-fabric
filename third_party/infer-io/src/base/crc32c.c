@@ -1,5 +1,10 @@
 /* 第 0 层：CRC32C。不分配内存；查找表在首次使用时建好，之后只读。 */
+/* The standalone Storage and Directory builds keep their respective exported APIs. */
+#ifdef KVF_CRC32C
+#include "kvfabric/kvfabric.h"
+#else
 #include "infer/base.h"
+#endif
 #include <sched.h>
 #include <stdatomic.h>
 #include <string.h>
@@ -106,6 +111,20 @@ __attribute__((target("sse4.2"))) static uint32_t hw_run(uint32_t c, const uint8
 }
 #endif
 
+#ifdef KVF_CRC32C
+uint32_t kvf_crc32c_extend(uint32_t crc, const void *data, size_t size) {
+#if defined(__x86_64__)
+    if (__builtin_cpu_supports("sse4.2"))
+        return ~hw_run(~crc, data, size);
+#endif
+    once(&sw_state, sw_build);
+    return ~sw_run(~crc, data, size);
+}
+
+uint32_t kvf_crc32c(const void *data, size_t size) {
+    return kvf_crc32c_extend(0, data, size);
+}
+#else
 int if_crc32c_hw(void) {
 #if defined(__x86_64__)
     static _Atomic int cached = -1;
@@ -133,3 +152,4 @@ uint32_t if_crc32c(uint32_t crc, const void *data, size_t n) {
 #endif
     return if_crc32c_sw(crc, data, n);
 }
+#endif

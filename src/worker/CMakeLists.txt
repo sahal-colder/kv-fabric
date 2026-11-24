@@ -1,4 +1,3 @@
-option(MINIINFER_WITH_CUDA "Build the C CUDA Runtime transfer backend" OFF)
 option(MINIINFER_WITH_URING "Build the Infer io_uring backend" OFF)
 option(MINIINFER_WITH_SPDK "Build the Infer SPDK bdev backend" OFF)
 option(MINIINFER_BUILD_TESTS "Build storage tests" ON)
@@ -8,7 +7,6 @@ option(MINIINFER_BUILD_EXAMPLES "Build example programs" ON)
 add_library(miniinfer_storage STATIC
     common.c
     allocator.c
-    cuda_adapter.c
     device_transfer.c
     model_mapping.c
     segment_pool.c
@@ -21,7 +19,7 @@ add_library(miniinfer_storage STATIC
     paged_kv.c)
 target_include_directories(miniinfer_storage PUBLIC "${PROJECT_SOURCE_DIR}/include")
 target_link_libraries(miniinfer_storage PUBLIC Threads::Threads)
-target_compile_options(miniinfer_storage PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(miniinfer_storage PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall;-Wextra;-Wpedantic>)
 
 set(INFER_IO_DIR "${PROJECT_SOURCE_DIR}/third_party/infer-io")
 target_include_directories(miniinfer_storage PRIVATE "${INFER_IO_DIR}/include/c")
@@ -49,6 +47,7 @@ endif()
 
 if(MINIINFER_WITH_CUDA)
     find_package(CUDAToolkit REQUIRED)
+    target_sources(miniinfer_storage PRIVATE device_cuda.cu)
     target_compile_definitions(miniinfer_storage PUBLIC MINIINFER_WITH_CUDA=1)
     target_link_libraries(miniinfer_storage PUBLIC CUDA::cudart)
 endif()

@@ -216,13 +216,10 @@ kvf_status mi_remote_append_page(mi_remote_worker *w, mi_kv_sequence *s) {
         return mi_remote_from_storage(local);
 
     pthread_mutex_lock(&w->updates);
-    local = mi_kv_sequence_append_page(s, w->location);
-    if (local != MI_ENOMEM) {
-        pthread_mutex_unlock(&w->updates);
-        return mi_remote_from_storage(local);
-    }
+    kvf_status st = mi_remote_from_storage(mi_kv_sequence_append_page(s, w->location));
+    if (st != KVF_LIMIT)
+        goto done;
     uint64_t after = 0;
-    kvf_status st = KVF_LIMIT;
     for (uint32_t attempt = 0; attempt < w->exports_capacity; ++attempt) {
         mi_remote_export *oldest = NULL;
         uint64_t age = UINT64_MAX;
@@ -264,6 +261,7 @@ kvf_status mi_remote_append_page(mi_remote_worker *w, mi_kv_sequence *s) {
         if (st != KVF_LIMIT)
             break;
     }
+done:
     pthread_mutex_unlock(&w->updates);
     return st;
 }

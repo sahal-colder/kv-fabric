@@ -11,6 +11,10 @@
 typedef enum { MI_DEVICE_CPU, MI_DEVICE_CUDA } mi_device_kind;
 typedef void *mi_event;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 mi_device_kind mi_device_backend(void);
 /* 每个设备资源所有者取得一次引用，所有线程和 DMA 退出后归还。 */
 mi_status mi_device_init(int device);
@@ -33,4 +37,7 @@ mi_status mi_device_event_ready(int device, mi_event event);
 mi_status mi_device_copy_to_host(int device, void *host, const void *src, size_t bytes, mi_stream stream);
 mi_status mi_device_copy_from_host(int device, void *dst, const void *host, size_t bytes, mi_stream stream);
 
+#ifdef __cplusplus
+}
+#endif
 #endif

@@ -25,7 +25,7 @@ struct NvSpill {
 };
 
 void nv_cache_attach_ssd(NvCache *cache, mi_storage_backend *backend, int count) {
-    size_t half = cache->elements / (size_t)cache->num_blocks * sizeof(float);
+    size_t half = nv_cache_block_elements(cache) * sizeof(float);
     size_t payload = 2 * half;
     if (!cache->enabled || !backend || count <= 0 ||
         mi_backend_slot_bytes(backend) < payload || payload > SIZE_MAX - 4095)

@@ -1,0 +1,89 @@
+branch: dev
+HEAD: 02fe2db383bad59dc614d8dd124d21f976ae0869
+origin/dev: 02fe2db383bad59dc614d8dd124d21f976ae0869
+
+Short status before audit
+ M CMakeLists.txt
+ M include/kvfabric/client.h
+ M include/kvfabric/directory.h
+ M include/kvfabric/kvfabric.h
+ M include/kvfabric/wire.h
+ M include/miniinfer/remote_cache.h
+ M include/nanovllm/nv.h
+ M src/control/client.c
+ M src/control/control.c
+ M src/control/directory.c
+ M src/control/net.c
+ M src/control/wire.c
+ M src/nanovllm/cli.c
+ M src/nanovllm/engine.c
+ M src/nanovllm/nano_cuda.cu
+ M src/nanovllm/nano_cuda.h
+ M src/nanovllm/nano_remote_kv.c
+ M src/nanovllm/nano_remote_kv.h
+ M src/worker/remote/cache.c
+ M src/worker/remote/internal.h
+ M src/worker/remote/peer.c
+ M src/worker/remote/prefetch.c
+ M src/worker/remote/transfer.c
+ M src/worker/remote/worker.c
+ M tests/control/test_directory.c
+ M tests/nanovllm/remote_worker.c
+ M tests/nanovllm/test_remote_inference.py
+ M tests/worker/test_remote_faults.c
+ M third_party/NtyCo/core/nty_coroutine.c
+ M third_party/NtyCo/core/nty_coroutine.h
+ M third_party/NtyCo/core/nty_socket.c
+?? docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md
+?? docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md
+?? docs/benchmarks/ultimate/baseline/cuda-legacy-profile.csv
+?? docs/benchmarks/ultimate/baseline/cuda-raw-transfers.csv
+?? docs/benchmarks/ultimate/baseline/cuda-raw.csv
+?? docs/benchmarks/ultimate/cpu-page-staging.csv
+?? docs/benchmarks/ultimate/cpu-raw.csv
+?? docs/benchmarks/ultimate/cpu-summary.csv
+?? docs/benchmarks/ultimate/cuda-page-staging.csv
+?? docs/benchmarks/ultimate/cuda-raw.csv
+?? docs/benchmarks/ultimate/cuda-summary.csv
+?? docs/benchmarks/ultimate/environment.txt
+?? docs/benchmarks/ultimate/matched/cuda-page-staging.csv
+?? docs/benchmarks/ultimate/matched/cuda-raw.csv
+?? docs/benchmarks/ultimate/matched/cuda-summary.csv
+?? docs/benchmarks/ultimate/matched/environment.txt
+?? docs/benchmarks/ultimate/matched/paired-ttft.csv
+?? docs/benchmarks/ultimate/paired-ttft.csv
+?? scripts/benchmark_nano_remote.py
+
+Original tracked diffstat
+ CMakeLists.txt                          |   4 +-
+ include/kvfabric/client.h               |   9 +
+ include/kvfabric/directory.h            |   3 +
+ include/kvfabric/kvfabric.h             |   9 +
+ include/kvfabric/wire.h                 |  17 +-
+ include/miniinfer/remote_cache.h        |  23 ++
+ include/nanovllm/nv.h                   |  14 +-
+ src/control/client.c                    |  79 ++++-
+ src/control/control.c                   |  53 +++-
+ src/control/directory.c                 | 107 +++++--
+ src/control/net.c                       | 130 ++++++--
+ src/control/wire.c                      |  36 +++
+ src/nanovllm/cli.c                      |  41 ++-
+ src/nanovllm/engine.c                   |  89 ++++--
+ src/nanovllm/nano_cuda.cu               | 104 ++++++-
+ src/nanovllm/nano_cuda.h                |   8 +-
+ src/nanovllm/nano_remote_kv.c           | 534 ++++++++++++++++++++++++++------
+ src/nanovllm/nano_remote_kv.h           |   8 +-
+ src/worker/remote/cache.c               | 266 +++++++++++++---
+ src/worker/remote/internal.h            |  35 ++-
+ src/worker/remote/peer.c                |   4 +-
+ src/worker/remote/prefetch.c            |  29 ++
+ src/worker/remote/transfer.c            | 153 ++++++++-
+ src/worker/remote/worker.c              |  49 ++-
+ tests/control/test_directory.c          |  51 +++
+ tests/nanovllm/remote_worker.c          |  75 ++++-
+ tests/nanovllm/test_remote_inference.py | 149 +++++++--
+ tests/worker/test_remote_faults.c       |   5 +-
+ third_party/NtyCo/core/nty_coroutine.c  |  60 +++-
+ third_party/NtyCo/core/nty_coroutine.h  |   4 +
+ third_party/NtyCo/core/nty_socket.c     |  47 +--
+ 31 files changed, 1845 insertions(+), 350 deletions(-)

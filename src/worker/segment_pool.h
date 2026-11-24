@@ -20,7 +20,6 @@ typedef struct {
 
 typedef struct {
     void *allocation;        /* 原始驱动分配，释放时必须用这个地址。 */
-    unsigned char *base;     /* 对齐后的基地址，slot[i] 位于 base + i * stride。 */
     size_t stride;           /* 每个槽的总字节数，为 4 KiB 的倍数。 */
     unsigned count;          /* 创建后固定，关闭前须归还所有引用。 */
     int device;              /* -1 表示普通 CPU 主机内存。 */

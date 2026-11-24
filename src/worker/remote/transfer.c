@@ -54,10 +54,10 @@ static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f
     const void *payload = bytes;
     if (!kvf_reader_done(&reader) || r.layer_index >= w->identity.layers ||
         r.layer.size != w->identity.bytes_per_layer)
-        return kvf_send_frame(fd, f, bytes, deadline);
+        goto reply;
     f.status = KVF_STALE;
     if (!kvf_uuid_equal(r.owner_boot, w->info.owner.boot) || !kvf_hash_equal(r.key.space, w->space))
-        return kvf_send_frame(fd, f, bytes, deadline);
+        goto reply;
 
     f.status = validate(w, &r, deadline);
     if (f.status == KVF_OK)
@@ -80,6 +80,7 @@ static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f
         f.size = r.layer.size;
         payload = stage->data;
     }
+reply:
     /* Only the independent staging Segment stays live during socket backpressure. */
     return kvf_send_frame(fd, f, payload, deadline);
 }

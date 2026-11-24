@@ -65,7 +65,6 @@ struct mi_remote_worker {
     pthread_mutex_t exports_lock; /* Protects server reads of export state/references. */
     pthread_cond_t wake;         /* Wakes heartbeat for new publications or shutdown. */
     pthread_t heartbeat;         /* Must exit before listener and cache teardown. */
-    int heartbeat_started;       /* Only join successfully started threads. */
     int stopping;                /* Under updates, disables further heartbeat work. */
     atomic_uint_fast64_t local_hits;      /* Sequences with a local cache hit. */
     atomic_uint_fast64_t remote_hits;     /* Sequences with one or more verified imports. */
