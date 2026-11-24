@@ -1,0 +1,29 @@
+item,value
+client_date,2026-11-24
+kernel,6.18.54.1-microsoft-standard-WSL2-rdma
+python,"3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]"
+numpy,2.2.6
+tokenizers,0.23.3
+distro,Ubuntu 22.04.5 LTS
+cpu,Intel(R) Core(TM) Ultra 7 265KF
+gpu,"NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 610.88"
+gpu_before,"NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 15130 MiB, 921 MiB, 49, 610.88"
+gpu_after,"NVIDIA GeForce RTX 5060 Ti, 16311 MiB, 15112 MiB, 939 MiB, 48, 610.88"
+scratch_device,/dev/sdd ext4
+scratch_device_model,Virtual Disk (WSL2 VHD)
+repository_mount,9p (Windows drive C:)
+ssd_payload_bytes,4194304
+cpu_toolchain,gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+sanitizer_compiler,Ubuntu clang version 14.0.0-1ubuntu1.1
+cuda,"Cuda compilation tools, release 12.8, V12.8.93"
+cmake,cmake version 3.22.1
+liburing,2.0
+openssl,3.0.2
+inference_network,"127.0.0.1 IPv4 TCP (independent directory and Worker processes, one GPU)"
+wire_header_bytes,36
+batch_limit_pages,8
+batch_limit_bytes,8388608
+effective_page_tokens,32
+prefetch_deadline_ms,12000
+ssd_process_memlock_bytes,268435456
+git_head,06b7f286d13c20c26e01803d7c43fb09adcd83eb

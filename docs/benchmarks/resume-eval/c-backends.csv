@@ -1,0 +1,5 @@
+concurrency,cmake_with_uring,verified_mode,memlock_bytes,startup
+4,OFF,direct-posix,268435456,MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=4
+4,ON,direct-uring-fixed,268435456,MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=4
+32,ON,direct-uring-fixed,268435456,MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=32
+32,OFF,direct-posix,268435456,MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=32

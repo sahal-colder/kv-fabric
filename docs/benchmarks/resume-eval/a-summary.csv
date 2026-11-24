@@ -1,0 +1,5 @@
+mode,requests,prompt_tokens,page_tokens,offered_shared,generated_tokens,matching_generated_ids,matching_full_kv_pages,prefill_tokens,remote_reused_tokens,local_reused_tokens,rpc_per_request,bytes_per_request,fallbacks,fallback_pct,ttft_p50_ms,ttft_p95_ms,ttft_p99_ms,net_recv_p50_ms,net_recv_p95_ms,net_recv_p99_ms,network_share_of_ttft_pct_p50,p50_decrease_pct_vs_matched_cold,faster_than_matched_cold
+cold,30,512,32,448,8,30,480,512,0,0,0,0,0,0.0,11106.046632,11210.005313,11220.608963,0.000000,0.000000,0.000000,0.000000,0.000000,0
+local,30,512,32,448,8,30,480,64,0,448,0,0,0,0.0,1638.028040,1731.016622,1745.189221,0.000000,0.000000,0.000000,0.000000,85.251025,30
+remote,30,512,32,448,8,30,480,64,448,0,5,33030144,0,0.0,1708.250512,1750.570427,1775.977257,42.340711,50.098748,54.296632,2.465246,84.618735,30
+legacy,5,512,32,448,8,5,80,64,448,0,504,33030144,0,0.0,2236.648393,2323.676690,2323.676690,529.121098,588.060042,588.060042,23.656874,79.920120,5
