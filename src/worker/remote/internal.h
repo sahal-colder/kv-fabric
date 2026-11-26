@@ -12,6 +12,15 @@
 #include <pthread.h>
 #include <stdatomic.h>
 
+#ifdef MINIINFER_WITH_NVTX
+#include <nvtx3/nvToolsExt.h>
+#define MI_REMOTE_RANGE_BEGIN(name) nvtxRangePushA(name)
+#define MI_REMOTE_RANGE_END() nvtxRangePop()
+#else
+#define MI_REMOTE_RANGE_BEGIN(name) ((void)0)
+#define MI_REMOTE_RANGE_END() ((void)0)
+#endif
+
 #define MI_REMOTE_MAX_PEERS 64u
 
 typedef enum {
@@ -95,6 +104,10 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *sequence, size_
 kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, const kvf_batch_page *pages,
                                    uint32_t count, size_t size, uint64_t deadline_ms,
                                    const atomic_bool *cancel, mi_remote_timing *timing);
+kvf_status mi_remote_receive_batch_into(mi_remote_worker *w, const kvf_grant *grant,
+                                   const kvf_batch_page *pages, uint32_t count, size_t size,
+                                   uint64_t deadline_ms, const atomic_bool *cancel,
+                                   mi_remote_timing *timing, void *destination);
 kvf_status mi_remote_sync_locked(mi_remote_worker *w);
 void mi_remote_drop_export(mi_remote_worker *w, mi_remote_export *entry, export_state state);
 /* The caller holds exports_lock for handler lookups, or updates for mutations. */

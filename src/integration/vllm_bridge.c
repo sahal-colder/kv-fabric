@@ -1,6 +1,7 @@
 #define _POSIX_C_SOURCE 200809L
 #include "kvfabric/vllm_bridge.h"
 #include "miniinfer/remote_cache.h"
+#include "../worker/remote/remote_sock.h"
 #include <nvtx3/nvToolsExt.h>
 #include <pthread.h>
 #include <stdatomic.h>
@@ -100,8 +101,9 @@ void kvf_vllm_close(kvf_vllm_worker *w) {
     free(w);
 }
 
-kvf_status kvf_vllm_open(const kvf_vllm_spec *spec, const char *name, const char *disk_path,
-                        size_t cache_pages, uint32_t io_depth, kvf_vllm_worker **out) {
+kvf_status kvf_vllm_open_remote(const kvf_vllm_spec *spec, const char *name, const char *disk_path,
+                        size_t cache_pages, uint32_t io_depth, const char *listen,
+                        const char *transport, uint32_t timeout_ms, kvf_vllm_worker **out) {
     if (!out || !name || strnlen(name, KVF_WORKER_NAME) >= KVF_WORKER_NAME ||
         !cache_pages || cache_pages > UINT32_MAX || !io_depth || io_depth > 64)
         return KVF_INVALID;
@@ -112,6 +114,20 @@ kvf_status kvf_vllm_open(const kvf_vllm_spec *spec, const char *name, const char
     mi_remote_config_defaults(&config);
     if (st == KVF_OK)
         st = kvf_endpoint_parse(spec->control, &config.control);
+    if (st == KVF_OK && listen)
+        st = kvf_endpoint_parse(listen, &config.listen);
+    if (st == KVF_OK && transport) {
+        st = mi_remote_transport_parse(transport, &config.transport_mode);
+        config.rdma_strict = 1;
+    }
+    if (timeout_ms) config.timeout_ms = timeout_ms;
+    const char *idle_text = getenv("KVF_RDMA_PEER_IDLE_MS");
+    if (idle_text) {
+        char *end;
+        unsigned long idle = strtoul(idle_text, &end, 10);
+        if (end == idle_text || *end || !idle || idle > 30000) return KVF_INVALID;
+        config.peer_idle_ms = (uint32_t)idle;
+    }
     if (st != KVF_OK)
         return st;
     size_t page_bytes = identity.layers * (size_t)identity.bytes_per_layer;
@@ -345,3 +361,29 @@ size_t kvf_vllm_load_owned(kvf_vllm_worker *w, const kvf_hash *hashes,
     nvtxRangePop();
     return loaded;
 }
+
+kvf_status kvf_vllm_open(const kvf_vllm_spec *spec, const char *name, const char *disk,
+                        size_t pages, uint32_t depth, kvf_vllm_worker **out) {
+    return kvf_vllm_open_remote(spec, name, disk, pages, depth, NULL, NULL, 0, out);
+}
+
+kvf_status kvf_vllm_load_direct(kvf_vllm_worker *w, const kvf_hash *parent,
+                       const int32_t *tokens, size_t pages, uint32_t timeout_ms, void *data) {
+    if (!w || !parent || !tokens || !data || !pages || pages > 128) return KVF_INVALID;
+    if (!timeout_ms) return KVF_TIMEOUT;
+    mi_remote_timing t = {0};
+    nvtxRangePushA("kvfabric.rdma.direct_receive");
+    kvf_status st = mi_remote_snapshot_into(w->remote, *parent, tokens, pages,
+                              kvf_now_ms() + timeout_ms, data, &t);
+    nvtxRangePop();
+    if (getenv("KVF_PERF_TRACE"))
+        fprintf(stderr, "KVF_DIRECT {\"status\":%d,\"pages\":%zu,\"directory_ns\":%llu,\"connection_ns\":%llu,\"net_recv_ns\":%llu,\"crc_ns\":%llu,\"lease_ns\":%llu,\"received_bytes\":%llu,\"data_requests\":%llu,\"transport\":\"%s\"}\n",
+                st, pages, (unsigned long long)t.dir_lookup_ns, (unsigned long long)t.conn_acquire_ns,
+                (unsigned long long)t.net_recv_ns, (unsigned long long)t.crc_verify_ns,
+                (unsigned long long)t.lease_check_ns, (unsigned long long)t.received_bytes,
+                (unsigned long long)t.data_requests,
+                mi_remote_transport_name(mi_remote_worker_active_transport(w->remote)));
+    return st;
+}
+
+unsigned kvf_vllm_pending_closes(void) { return remote_rdma_pending_closes(); }

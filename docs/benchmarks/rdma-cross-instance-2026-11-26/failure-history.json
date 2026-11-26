@@ -1,0 +1,189 @@
+[
+  {
+    "run": "env-probe",
+    "cleanup": "2026-11-26T17:00:37+08:00\nnetns shared copy-on-fork on\n",
+    "reason": "Runtime exclusive switch rejected with EBUSY."
+  },
+  {
+    "run": "env-probe2",
+    "cleanup": "2026-11-26T17:01:50+08:00\nnetns exclusive copy-on-fork on\n",
+    "reason": "RXE not visible in target namespace; cleanup restoration subsequently corrected."
+  },
+  {
+    "run": "env-probe3",
+    "cleanup": "2026-11-26T17:02:34+08:00\nnetns exclusive copy-on-fork on\n",
+    "reason": "Stock RXE namespace migration rejected with EOPNOTSUPP."
+  },
+  {
+    "run": "siw-probe",
+    "cleanup": "2026-11-26T17:04:56+08:00\nnetns exclusive copy-on-fork on\nlink siw1/1 state DOWN physical_state DISABLED \n",
+    "reason": "Stock SIW namespace migration rejected with EOPNOTSUPP."
+  },
+  {
+    "run": "siw-patched-probe2",
+    "cleanup": "2026-11-26T17:12:49+08:00\nnetns shared copy-on-fork on\n",
+    "reason": "Two-namespace SIW functional probe passed."
+  },
+  {
+    "run": "full-siw",
+    "cleanup": "2026-11-26T17:17:32+08:00\nnetns shared copy-on-fork on\n",
+    "reason": "Absolute Swap guard aborted startup; no TTFT distribution accepted."
+  },
+  {
+    "run": "final-siw",
+    "cleanup": "2026-11-26T17:18:43+08:00\nnetns shared copy-on-fork on\n",
+    "reason": "Incremental Swap guard aborted startup; no TTFT distribution accepted."
+  },
+  {
+    "run": "measured-siw",
+    "cleanup": "2026-11-26T17:21:31+08:00\nnetns shared copy-on-fork on\n",
+    "reason": "Swap guard aborted startup; four verified 72MiB source windows retained, no TTFT distribution accepted."
+  },
+  {
+    "run": "accepted-siw",
+    "cleanup": "2026-11-26T17:28:19+08:00\nnetns shared copy-on-fork on\n",
+    "reason": "1/15 baseline I/O fallback retained in TTFT; later RDMA retry limited to safe read-only cases."
+  },
+  {
+    "run": "final-rdma",
+    "cleanup": "2026-11-26T17:44:28+08:00\nnetns shared copy-on-fork on\n",
+    "fault_cut_requests": [
+      {
+        "request_id": "cmpl-959925edc5e7c707",
+        "prompt_tokens": 16384,
+        "output_ids": [
+          315,
+          220,
+          16,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "start_monotonic_ns": 3339106862549,
+        "first_token_monotonic_ns": 3479989814417,
+        "prompt_sha256": "d95a398aa78bc81cf875512109456de6457d6c9a2cf38fe8f7cbe3488f619b15",
+        "ttft_ms": 140882.951868,
+        "tpot_ms": 55.1391926,
+        "itl_ms": [
+          50.449256,
+          55.409056,
+          55.203329,
+          55.23004,
+          55.153011,
+          55.295491,
+          55.883657,
+          55.301123,
+          55.199759,
+          55.594985,
+          55.431988,
+          55.462285,
+          55.631121,
+          55.851471,
+          55.991317
+        ],
+        "output_chunk_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "index": 0,
+        "mode": "fault-cut"
+      }
+    ],
+    "reason": "18MiB chunk ablation retained; provider fault deadline problem observed."
+  },
+  {
+    "run": "final72-rdma",
+    "cleanup": "2026-11-26T17:54:58+08:00\nnetns shared copy-on-fork on\n",
+    "fault_cut_requests": [
+      {
+        "request_id": "cmpl-90f1d4066e1ca7c8",
+        "prompt_tokens": 16384,
+        "output_ids": [
+          315,
+          220,
+          16,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "start_monotonic_ns": 3969837115795,
+        "first_token_monotonic_ns": 4110749708648,
+        "prompt_sha256": "d95a398aa78bc81cf875512109456de6457d6c9a2cf38fe8f7cbe3488f619b15",
+        "ttft_ms": 140912.592853,
+        "tpot_ms": 55.08664206666667,
+        "itl_ms": [
+          49.767402,
+          55.259325,
+          55.097739,
+          55.181382,
+          55.198402,
+          54.81858,
+          55.037023,
+          55.349646,
+          55.580301,
+          55.528104,
+          55.714703,
+          56.014674,
+          56.025357,
+          56.013923,
+          55.71307
+        ],
+        "output_chunk_sizes": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "index": 0,
+        "mode": "fault-cut"
+      }
+    ],
+    "reason": "72MiB healthy run passed; connection acquire stalled 135399.155523ms under loss before bounded connect tasks."
+  }
+]

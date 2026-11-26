@@ -28,6 +28,8 @@ def connector():
     exec(compile(tree, str(path), "exec"), ns)
     cls = ns["KVFabricConnector"]
     obj = cls.__new__(cls)
+    obj._disable_save = False
+    obj._snapshot_export = None
     obj._block = 16
     obj._requests = {}
     obj._failed_loads = set()

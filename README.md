@@ -18,9 +18,36 @@ KV-Fabric 是一套 C11 分布式 KV Cache。目录服务维护 KV 前缀、副�
 | --- | --- | --- |
 | Qwen2.5-3B BF16，16K 输入 / 8K SSD 命中 | TTFT P50 **4.961 → 3.675 s** | owned SSD 直读与四 lane 并发，load/save error 为 0 |
 | 72 MiB Gather / Scatter kernel | 单向有效 **119.13 / 103.54 GiB/s** | 物理 DRAM 总带宽为 214.99 / 187.66 GiB/s，实际显存时钟约 8 / 7 GHz |
-| 16 MiB CUDA KV 跨 Worker 恢复 | **30.195 ms，0.517 GiB/s** | 同机 RXE Soft-RoCE、MTU 9000；含目录/建连/CRC/提交，不代表物理 HCA 或 GPUDirect |
+| Qwen2.5-3B，跨实例拉取 8K KV 替代 Prefill | TTFT P50 **5.568 → 3.511 s，下降 36.9%** | 双 netns + SIW 软件 RDMA；16K 输入、288 MiB 前缀、15/15 Token ID 一致 |
 
-RDMA 是独立的跨 Worker 数据面；本机 RXE 仍慢于同负载 TCP，不将本机 CPU/NVMe 的 Qwen TTFT 收益归给 RDMA。完整归因、失败历史、原始报告和命令见[性能审计](docs/PERFORMANCE-ATTRIBUTION-AUDIT.md)。[三张 README 图片与导出路径](docs/README-VISUALS.md)覆盖分层架构、真实 nsys 时间线和 ncu 带宽账目。
+RDMA 已跑通独立实例之间的“拉取 KV → 只算后缀”闭环。有效 KV 就绪吞吐为 **0.861 GiB/s**，达到 288 MiB `ib_write_bw` 实测锚点的 **62.5%**；只看负载接收活动区间为 **97.0%**，两种分母不混用。[CUDA/NVMe 归因](docs/PERFORMANCE-ATTRIBUTION-AUDIT.md)与[跨实例 RDMA 实测](docs/RDMA-CROSS-INSTANCE-AUDIT.md)分别保留可复核证据。
+
+## 跨实例 RDMA：用共享前缀传输替代重算
+
+ns1（10.10.0.1）持续服务真实计算得到的 8K / 288 MiB 前缀 KV；无目标 KV 的 ns2（10.10.0.2）通过严格 rsockets 拉取，直接接收到双槽 pinned ring，边接收边 H2D/Scatter，再计算剩余 8K 后缀。已有 4.5 MiB 批量帧被复用，新增直接接收消除临时 KV 中转、缓冲调优和 CUDA Event 交接。
+
+![双命名空间架构](docs/benchmarks/rdma-cross-instance-2026-11-26/figures/architecture.png)
+
+| 同一 16K 请求 | TTFT P50 | KV 就绪吞吐 | 失败 |
+|---|---:|---:|---|
+| 原生冷 KV，全量 Prefill | 5.568 s | — | 0/15 |
+| RDMA 优化前 | 3.766 s | 0.477 GiB/s | 1/15 安全回退；保留样本 |
+| RDMA 优化后 | **3.511 s** | **0.861 GiB/s** | **0/15** |
+| 本地 CPU 热 KV 参考 | 3.250 s | — | 0/15 |
+
+全部输出 Token ID 一致。KV 就绪时间 **590.113 → 326.775 ms（-44.6%）**；`nsys` 中真正 payload receive 与 H2D/Scatter active 的重叠比例中位数 **0 → 36.2%**。500 ms 预算下，高延迟/100% 丢包均回退原生重算，返回后目录租约为 0，移除故障后恢复 RDMA 命中。
+
+![真实 nsys 区间](docs/benchmarks/rdma-cross-instance-2026-11-26/figures/nsys-rdma-h2d.png)
+![端到端 TTFT](docs/benchmarks/rdma-cross-instance-2026-11-26/figures/ttft.png)
+
+一键测试（先按下方构建方式启用 CUDA、RDMA、vLLM bridge，详见[精确复现步骤](docs/RDMA-CROSS-INSTANCE-AUDIT.md#复现)）：
+
+```bash
+bash scripts/reproduce_rdma_cross_instance.sh "$MODEL" "$PWD/build-rdma" \
+  "$PWD/.kvfabric-local/rdma-reproduce" /usr/bin/python3
+```
+
+硬件边界：**单机双 netns + 带命名空间补丁的 SIW（software iWARP）验证**。当前内核原生 RXE 无法迁入 netns，`--provider rxe` 保留为支持它的内核入口；不把 SIW 写成 Soft-RoCE。仅一张 GPU，源端预热和目的推理依次执行，测量时源实例用 CPU KV。未验证物理 200G/400G RoCE、GPUDirect 或“十毫秒级”传输，真实 HCA 的收益需要另行实测。
 
 ## 构建与测试
 
@@ -45,16 +72,6 @@ cmake --install build-release --prefix "$PWD/build-release/install"
 | `-DMINIINFER_WITH_URING=ON` | 启用 io_uring 文件后端，需要 liburing 开发包 |
 | `-DKVF_SANITIZE=ON` | 启用 ASan 和 UBSan，Linux 可同时检查泄漏 |
 | `-DMINIINFER_WITH_KVFABRIC=OFF` | 构建单机存储或推理组件 |
-
-## 数据路径与性能归因图
-
-![分层缓存与跨 Worker 数据面](docs/benchmarks/perf-attribution-2026-11-26/figures/architecture.png)
-
-![真实 nsys 回源时间线对比](docs/benchmarks/perf-attribution-2026-11-26/figures/nsys-read-concurrency.png)
-
-![ncu 载荷与物理 DRAM 带宽口径](docs/benchmarks/perf-attribution-2026-11-26/figures/ncu-bandwidth-accounting.png)
-
-图片由代码与真实 profiler 区间/计数生成。完整报告本地保留；[公开逐请求测量、计数与导出边界](docs/benchmarks/perf-attribution-2026-11-26/README.md)可复核收益和单位。
 
 ## Nano-VLLM 远程 KV
 

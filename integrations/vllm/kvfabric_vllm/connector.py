@@ -75,6 +75,14 @@ class KVFabricConnector(KVConnectorBase_V1):
         extra = self._kv_transfer_config.kv_connector_extra_config
         self._lookup_ms = int(extra.get("lookup_timeout_ms", 300))
         self._load_ms = int(extra.get("load_timeout_ms", 10_000))
+        self._rdma_pipeline = bool(extra.get("rdma_pipeline", False))
+        self._direct_receive = bool(extra.get("direct_receive", self._rdma_pipeline))
+        self._read_chunk_pages = int(extra.get("read_chunk_pages", 32))
+        if not 1 <= self._read_chunk_pages <= 128:
+            raise ValueError("read_chunk_pages must be 1..128")
+        self._save_prefix_pages = int(extra.get("save_prefix_tokens", 0)) // self._block
+        self._disable_save = bool(extra.get("disable_save", False))
+        self._snapshot_export = extra.get("snapshot_export_dir")
         self._verify = bool(extra.get("verify_gpu", False))
         self._metrics = extra.get("metrics_file")
         self._metrics_lock = Lock()
@@ -121,6 +129,7 @@ class KVFabricConnector(KVConnectorBase_V1):
                 self._io_mode = self._bridge.open(
                     f"vllm-{os.getpid()}", os.fsencode(disk_path) if disk_path else None,
                     int(extra.get("cache_pages", 2048)), int(extra.get("io_depth", 4)),
+                    extra.get("listen"), extra.get("transport"), self._load_ms,
                 )
             finally:
                 if disk_path:
@@ -242,6 +251,7 @@ class KVFabricConnector(KVConnectorBase_V1):
         if self._cuda:
             self._load_stream.wait_stream(torch.cuda.current_stream(self._device))
             self._read_slot = self._cuda.slot()
+            self._read_slots = [self._read_slot, self._cuda.slot()] if self._rdma_pipeline else [self._read_slot]
             self._write_stream = torch.cuda.Stream(device=self._device)
             self._publisher = ThreadPoolExecutor(max_workers=1, thread_name_prefix="kvfabric-publish")
             self._write_slots = [(self._cuda.slot(), None) for _ in range(4)]
@@ -255,6 +265,19 @@ class KVFabricConnector(KVConnectorBase_V1):
             self._receiving[item.request_id] = (item, self._executor.submit(self._load, item))
 
     def _load(self, item):
+        begin = time.perf_counter_ns()
+        with nvtx.annotate("kvfabric.load.total"):
+            result = self._load_impl(item)
+        if os.environ.get("KVF_PERF_TRACE") == "1":
+            self._record("load_total", request_id=item.request_id,
+                         begin_ns=begin, end_ns=time.perf_counter_ns(),
+                         payload_bytes=len(item.blocks)*self._bridge.spec.layers*self._bridge.spec.layer_bytes,
+                         status=result[0], pending_socket_closes=self._bridge.pending_closes())
+        return result
+
+    def _load_impl(self, item):
+        if self._rdma_pipeline:
+            return self._load_pipeline(item)
         ids, hashes = self._bridge.chain(item.tokens)
         deadline = time.monotonic() + self._load_ms / 1000
         blocks_checked = 0
@@ -274,7 +297,8 @@ class KVFabricConnector(KVConnectorBase_V1):
                     status = self._bridge.transfer(
                         ids, hashes, item.first + start + offset,
                         min(self._bridge.window, len(blocks) - offset),
-                        stage.data_ptr() + offset * page_bytes, self._remaining_ms(deadline)
+                        stage.data_ptr() + offset * page_bytes, self._remaining_ms(deadline),
+                        direct=self._direct_receive
                     )
                     if status:
                         return self._bridge.describe(status), blocks_checked
@@ -303,6 +327,63 @@ class KVFabricConnector(KVConnectorBase_V1):
                     return "timeout", blocks_checked
         return None, blocks_checked
 
+    def _load_pipeline(self, item):
+        if not self._cuda:
+            raise RuntimeError("RDMA pipeline requires CUDA page packing")
+        ids, hashes = self._bridge.chain(item.tokens)
+        deadline = time.monotonic() + self._load_ms / 1000
+        pending = [None, None]
+        checked = 0
+        page_bytes = self._bridge.spec.layers * self._bridge.spec.layer_bytes
+        window = min(self._read_chunk_pages, self._cuda.pages)
+        with gpu_sync_allowed(), torch.cuda.device(self._device), torch.cuda.stream(self._load_stream):
+            try:
+                for chunk, start in enumerate(range(0, len(item.blocks), window)):
+                    index = chunk % 2
+                    slot = self._read_slots[index]
+                    if pending[index] is not None:
+                        with nvtx.annotate("kvfabric.ring.reuse_wait"):
+                            pending[index].synchronize()
+                    blocks = item.blocks[start:start + window]
+                    begin = time.perf_counter_ns()
+                    with nvtx.annotate("kvfabric.rdma.chunk"):
+                        status = self._bridge.transfer(ids, hashes, item.first + start,
+                            len(blocks), slot[0].data_ptr(), self._remaining_ms(deadline), direct=True)
+                    end = time.perf_counter_ns()
+                    if status:
+                        return self._bridge.describe(status), checked
+                    pending[index] = self._cuda.load_async(slot, blocks, self._load_stream)
+                    if self._verify:
+                        pending[index].synchronize()
+                        for i, block in enumerate(blocks):
+                            for layer, dst in enumerate(self._tensors):
+                                if not torch.equal(dst[block].cpu(), slot[0][i, layer]):
+                                    return "GPU block mismatch", checked
+                                checked += 1
+                    if os.environ.get("KVF_PERF_TRACE") == "1":
+                        self._record("rdma_chunk", request_id=item.request_id, start=start,
+                            pages=len(blocks), payload_bytes=len(blocks)*page_bytes,
+                            begin_ns=begin, end_ns=end, receive_ms=(end-begin)/1e6)
+            finally:
+                # A failed later chunk invalidates all destination pages only
+                # after earlier copies have stopped writing them.
+                with nvtx.annotate("kvfabric.ring.drain"):
+                    failure = None
+                    for event in pending:
+                        if event is not None:
+                            try:
+                                event.synchronize()
+                            except Exception as error:
+                                failure = failure or error
+                    # Also drains copies submitted before an event-record failure.
+                    try:
+                        self._load_stream.synchronize()
+                    except Exception as error:
+                        failure = failure or error
+                    if failure is not None:
+                        raise failure
+        return (None if time.monotonic() < deadline else "timeout"), checked
+
     @staticmethod
     def _remaining_ms(deadline):
         return max(0, math.ceil((deadline - time.monotonic()) * 1000))
@@ -319,6 +400,21 @@ class KVFabricConnector(KVConnectorBase_V1):
         try:
             with nvtx.annotate("kvfabric.sync.save.background"), gpu_sync_allowed():
                 ready.synchronize()
+            if self._snapshot_export:
+                folder = Path(self._snapshot_export)
+                folder.mkdir(parents=True, exist_ok=True)
+                spec = self._bridge.spec
+                (folder / "spec.json").write_text(json.dumps({
+                    "control": spec.control.decode(), "model_key": spec.model_key.decode(),
+                    "tenant": spec.tenant.decode(), "block_tokens": spec.block_tokens,
+                    "layers": spec.layers, "layer_bytes": spec.layer_bytes}))
+                (folder / "tokens.json").write_text(json.dumps(item.tokens))
+                stride = spec.layers * spec.layer_bytes
+                path = folder / "kv.bin"
+                with path.open("r+b" if path.exists() else "w+b") as output:
+                    output.seek(first * stride)
+                    output.write(memoryview(stage[:count].view(torch.uint8).numpy()).cast("B"))
+                self._record("snapshot_exported", first=first, pages=count)
             ids, hashes = self._bridge.chain(item.tokens)
             page_bytes = self._bridge.spec.layers * self._bridge.spec.layer_bytes
             for offset in range(0, count, self._bridge.window):
@@ -339,12 +435,17 @@ class KVFabricConnector(KVConnectorBase_V1):
                          tokens=count * self._block)
 
     def wait_for_save(self):
+        if self._disable_save:
+            return
         saves = self._get_connector_metadata().saves
         if self._cuda:
             with gpu_sync_allowed():
                 stream = torch.cuda.current_stream(self._device)
                 for item in saves:
-                    for start in range(0, len(item.blocks), self._cuda.pages):
+                    limit = len(item.blocks)
+                    if self._save_prefix_pages:
+                        limit = min(limit, max(0, self._save_prefix_pages - item.first))
+                    for start in range(0, limit, self._cuda.pages):
                         slot_index = next((i for i, (_, done) in enumerate(self._write_slots)
                                            if done is None or done.done()), None)
                         if slot_index is None:
@@ -357,7 +458,7 @@ class KVFabricConnector(KVConnectorBase_V1):
                             except Exception as exc:
                                 logger.exception("KV-Fabric background save failed")
                                 self._record("save_failure", request_id=item.request_id, status=str(exc))
-                        blocks = item.blocks[start:start + self._cuda.pages]
+                        blocks = item.blocks[start:min(start + self._cuda.pages, limit)]
                         ready = self._cuda.snapshot(slot, blocks, stream, self._write_stream)
                         self._record("save_queued", request_id=item.request_id, first=item.first + start,
                                      tokens=len(blocks) * self._block)

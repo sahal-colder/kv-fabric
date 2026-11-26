@@ -1,0 +1,2 @@
+name      bytes   xfers   iters   total       time     Gb/sec    usec/xfer
+custom    288m    1       3       1.6g        1.72s      8.42  286899.84

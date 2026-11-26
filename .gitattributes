@@ -26,3 +26,6 @@ CMakeLists.txt text eol=lf
 
 # Performance evidence manifest hashes exact exported bytes.
 docs/benchmarks/perf-attribution-2026-11-26/** -text
+
+# Cross-instance evidence hashes exact exported bytes.
+docs/benchmarks/rdma-cross-instance-2026-11-26/** -text
