@@ -1,0 +1,1060 @@
+{
+  "nsys-before-disk": [
+    {
+      "index": 0,
+      "request_id": "cmpl-b3fbb765eae67450",
+      "ttft_ms": 4767.519738,
+      "fetch_wall_ms": 1527.860896,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1240.716417,
+          "wall_union_ms": 1240.716417
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 45.233994,
+          "wall_union_ms": 45.233994
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 20.619909,
+          "wall_union_ms": 20.619909
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 2.947669,
+          "wall_union_ms": 2.947669
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 1240.716417,
+        "disk_crc.read": 45.233994,
+        "disk_stage.read": 20.619909,
+        "disk_slot.acquire": 2.947669,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 218.342907
+      },
+      "h2d_scatter_sync_wall_ms": 31.995793,
+      "h2d_dma_ms": 28.671036,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 1,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3207.663049,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b3fbb765eae67450-0-b83c5ef8",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 372.0404099985899,
+          "h2d_scatter_sync_ms": 8.040716998948483
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b3fbb765eae67450-0-b83c5ef8",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 390.29591899816296,
+          "h2d_scatter_sync_ms": 8.2337580024614
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b3fbb765eae67450-0-b83c5ef8",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 364.39096899994183,
+          "h2d_scatter_sync_ms": 8.205062000342878
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b3fbb765eae67450-0-b83c5ef8",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 404.4205710015376,
+          "h2d_scatter_sync_ms": 7.642292999662459
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "request_id": "cmpl-94b1d7b4952858bf",
+      "ttft_ms": 4795.08539,
+      "fetch_wall_ms": 1589.127508,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1267.990594,
+          "wall_union_ms": 1267.990594
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 52.460513,
+          "wall_union_ms": 52.460513
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 24.837875,
+          "wall_union_ms": 24.837875
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 3.162235,
+          "wall_union_ms": 3.162235
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 1267.990594,
+        "disk_crc.read": 52.460513,
+        "disk_stage.read": 24.837875,
+        "disk_slot.acquire": 3.162235,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 240.676291
+      },
+      "h2d_scatter_sync_wall_ms": 29.80399,
+      "h2d_dma_ms": 26.485244,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 1,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3176.1538920000003,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-94b1d7b4952858bf-0-81f22493",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 410.7202059967676,
+          "h2d_scatter_sync_ms": 7.97070200133021
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-94b1d7b4952858bf-0-81f22493",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 406.3419129997783,
+          "h2d_scatter_sync_ms": 7.291764999536099
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-94b1d7b4952858bf-0-81f22493",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 385.15383300182293,
+          "h2d_scatter_sync_ms": 7.459479998942697
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-94b1d7b4952858bf-0-81f22493",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 390.2760409982875,
+          "h2d_scatter_sync_ms": 7.245662000059383
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "request_id": "cmpl-b5062c284a2c6533",
+      "ttft_ms": 5274.27147,
+      "fetch_wall_ms": 2044.577531,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1738.100753,
+          "wall_union_ms": 1738.100753
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 46.065434,
+          "wall_union_ms": 46.065434
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 26.300048,
+          "wall_union_ms": 26.300048
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 3.519091,
+          "wall_union_ms": 3.519091
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 1738.100753,
+        "disk_crc.read": 46.065434,
+        "disk_stage.read": 26.300048,
+        "disk_slot.acquire": 3.519091,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 230.592205
+      },
+      "h2d_scatter_sync_wall_ms": 31.457807,
+      "h2d_dma_ms": 28.113203,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 1,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3198.2361319999995,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5062c284a2c6533-0-906fe78c",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 457.59629600070184,
+          "h2d_scatter_sync_ms": 7.608585998241324
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5062c284a2c6533-0-906fe78c",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 680.5161989977933,
+          "h2d_scatter_sync_ms": 7.618365001690108
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5062c284a2c6533-0-906fe78c",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 448.8058759998239,
+          "h2d_scatter_sync_ms": 8.032574998651398
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5062c284a2c6533-0-906fe78c",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 460.4873230018711,
+          "h2d_scatter_sync_ms": 8.338118997926358
+        }
+      ]
+    }
+  ],
+  "nsys-before-diagnostic": [
+    {
+      "index": 0,
+      "request_id": "cmpl-b5dae11b4c05b0a7",
+      "ttft_ms": 4755.105196,
+      "fetch_wall_ms": 1514.533951,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1238.685839,
+          "wall_union_ms": 1238.685839
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 42.482219,
+          "wall_union_ms": 42.482219
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 21.939037,
+          "wall_union_ms": 21.939037
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 2.776763,
+          "wall_union_ms": 2.776763
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 1238.685839,
+        "disk_crc.read": 42.482219,
+        "disk_stage.read": 21.939037,
+        "disk_slot.acquire": 2.776763,
+        "bridge_stage": 28.351721,
+        "remaining_fetch": 180.298372
+      },
+      "h2d_scatter_sync_wall_ms": 29.997941,
+      "h2d_dma_ms": 26.734395,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 1,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3210.5733040000005,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5dae11b4c05b0a7-0-a4f05c33",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 385.0902619997214,
+          "h2d_scatter_sync_ms": 7.473597001080634
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5dae11b4c05b0a7-0-a4f05c33",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 376.3831830001436,
+          "h2d_scatter_sync_ms": 7.322939000005135
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5dae11b4c05b0a7-0-a4f05c33",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 386.00265299828607,
+          "h2d_scatter_sync_ms": 7.979311001690803
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-b5dae11b4c05b0a7-0-a4f05c33",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 370.57753300177865,
+          "h2d_scatter_sync_ms": 7.3493950003467035
+        }
+      ],
+      "remote_timing_thread_sum_ms": {
+        "queue_ns": 1.217226,
+        "completion_to_wait_return_ns": 1.31898,
+        "crc_ns": 32.431488,
+        "cpu_stage_ns": 15.508784,
+        "commit_ns": 6.250318,
+        "directory_ns": 12.084608,
+        "lease_ns": 7.640789,
+        "net_recv_ns": 1406.241348
+      }
+    },
+    {
+      "index": 1,
+      "request_id": "cmpl-ace31a2adb111115",
+      "ttft_ms": 4817.475579,
+      "fetch_wall_ms": 1602.314211,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1320.43594,
+          "wall_union_ms": 1320.43594
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 45.625596,
+          "wall_union_ms": 45.625596
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 23.282328,
+          "wall_union_ms": 23.282328
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 2.814729,
+          "wall_union_ms": 2.814729
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 1320.43594,
+        "disk_crc.read": 45.625596,
+        "disk_stage.read": 23.282328,
+        "disk_slot.acquire": 2.814729,
+        "bridge_stage": 29.219291,
+        "remaining_fetch": 180.936327
+      },
+      "h2d_scatter_sync_wall_ms": 30.633208,
+      "h2d_dma_ms": 27.399668,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 1,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3184.52816,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ace31a2adb111115-0-966b01bf",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 371.5250189998187,
+          "h2d_scatter_sync_ms": 7.641762000275776
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ace31a2adb111115-0-966b01bf",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 468.350561997795,
+          "h2d_scatter_sync_ms": 7.956297002237989
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ace31a2adb111115-0-966b01bf",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 391.59177400142653,
+          "h2d_scatter_sync_ms": 7.861450998461805
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ace31a2adb111115-0-966b01bf",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 374.6618179975485,
+          "h2d_scatter_sync_ms": 7.323555000766646
+        }
+      ],
+      "remote_timing_thread_sum_ms": {
+        "queue_ns": 1.14407,
+        "completion_to_wait_return_ns": 1.530485,
+        "crc_ns": 30.560916,
+        "cpu_stage_ns": 16.093732,
+        "commit_ns": 5.630751,
+        "directory_ns": 11.590811,
+        "lease_ns": 7.077784,
+        "net_recv_ns": 1495.703784
+      }
+    },
+    {
+      "index": 2,
+      "request_id": "cmpl-9fd080aaf61eee0e",
+      "ttft_ms": 5146.051186,
+      "fetch_wall_ms": 1892.651159,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1563.266699,
+          "wall_union_ms": 1563.266699
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 50.576775,
+          "wall_union_ms": 50.576775
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 27.591225,
+          "wall_union_ms": 27.591225
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 3.631329,
+          "wall_union_ms": 3.631329
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 1563.266699,
+        "disk_crc.read": 50.576775,
+        "disk_stage.read": 27.591225,
+        "disk_slot.acquire": 3.631329,
+        "bridge_stage": 31.618078,
+        "remaining_fetch": 215.967053
+      },
+      "h2d_scatter_sync_wall_ms": 32.450246,
+      "h2d_dma_ms": 29.28068,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 1,
+      "mutex_calls_above_1us": 4,
+      "mutex_call_thread_sum_above_1us_ms": 0.009861,
+      "other_ttft_ms": 3220.9497809999993,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fd080aaf61eee0e-0-99230463",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 456.3932589990145,
+          "h2d_scatter_sync_ms": 8.385362001718022
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fd080aaf61eee0e-0-99230463",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 479.33055700195837,
+          "h2d_scatter_sync_ms": 8.367833997908747
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fd080aaf61eee0e-0-99230463",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 479.8286540026311,
+          "h2d_scatter_sync_ms": 7.633850997081026
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fd080aaf61eee0e-0-99230463",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 480.7100929974695,
+          "h2d_scatter_sync_ms": 8.202348999475362
+        }
+      ],
+      "remote_timing_thread_sum_ms": {
+        "queue_ns": 0.861751,
+        "completion_to_wait_return_ns": 1.703482,
+        "crc_ns": 39.822448,
+        "cpu_stage_ns": 19.378291,
+        "commit_ns": 5.664302,
+        "directory_ns": 11.475828,
+        "lease_ns": 5.287454,
+        "net_recv_ns": 1772.775426
+      }
+    }
+  ],
+  "nsys-cpu": [
+    {
+      "index": 0,
+      "request_id": "cmpl-9e3b9db32ddaea35",
+      "ttft_ms": 3271.269922,
+      "fetch_wall_ms": 38.371194,
+      "disk": {
+        "disk_io.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_crc.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_stage.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_slot.acquire": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 0.0,
+        "disk_crc.read": 0.0,
+        "disk_stage.read": 0.0,
+        "disk_slot.acquire": 0.0,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 38.371194
+      },
+      "h2d_scatter_sync_wall_ms": 30.290008,
+      "h2d_dma_ms": 27.50787,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 0,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3202.60872,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-9e3b9db32ddaea35-0-85715a68",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.325224997155601,
+          "h2d_scatter_sync_ms": 7.895624999946449
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-9e3b9db32ddaea35-0-85715a68",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.307444001024123,
+          "h2d_scatter_sync_ms": 7.991836999281077
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-9e3b9db32ddaea35-0-85715a68",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.485476999543607,
+          "h2d_scatter_sync_ms": 7.310829001653474
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-9e3b9db32ddaea35-0-85715a68",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 10.321474001102615,
+          "h2d_scatter_sync_ms": 7.18412499918486
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "request_id": "cmpl-a4d5d124d59489a5",
+      "ttft_ms": 3269.508107,
+      "fetch_wall_ms": 37.984244,
+      "disk": {
+        "disk_io.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_crc.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_stage.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_slot.acquire": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 0.0,
+        "disk_crc.read": 0.0,
+        "disk_stage.read": 0.0,
+        "disk_slot.acquire": 0.0,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 37.984244
+      },
+      "h2d_scatter_sync_wall_ms": 29.95127,
+      "h2d_dma_ms": 27.185487,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 0,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3201.5725930000003,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a4d5d124d59489a5-0-aed8f63b",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.62023900137865,
+          "h2d_scatter_sync_ms": 7.765606998873409
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a4d5d124d59489a5-0-aed8f63b",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.402584000781644,
+          "h2d_scatter_sync_ms": 7.392611998511711
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a4d5d124d59489a5-0-aed8f63b",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.371737000037683,
+          "h2d_scatter_sync_ms": 7.800457999110222
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a4d5d124d59489a5-0-aed8f63b",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.658688002673443,
+          "h2d_scatter_sync_ms": 7.0795929968880955
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "request_id": "cmpl-a8265af4f3c49869",
+      "ttft_ms": 3271.197061,
+      "fetch_wall_ms": 38.602449,
+      "disk": {
+        "disk_io.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_crc.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_stage.read": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        },
+        "disk_slot.acquire": {
+          "count": 0,
+          "thread_sum_ms": 0.0,
+          "wall_union_ms": 0.0
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 0.0,
+        "disk_crc.read": 0.0,
+        "disk_stage.read": 0.0,
+        "disk_slot.acquire": 0.0,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 38.602449
+      },
+      "h2d_scatter_sync_wall_ms": 28.635933,
+      "h2d_dma_ms": 25.84076,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 0,
+      "mutex_calls_above_1us": 1,
+      "mutex_call_thread_sum_above_1us_ms": 0.005872,
+      "other_ttft_ms": 3203.958679,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a8265af4f3c49869-0-b917ec21",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.97320500027854,
+          "h2d_scatter_sync_ms": 7.53779800288612
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a8265af4f3c49869-0-b917ec21",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.218931001669262,
+          "h2d_scatter_sync_ms": 6.965445998503128
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a8265af4f3c49869-0-b917ec21",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.985747001337586,
+          "h2d_scatter_sync_ms": 7.313638998311944
+        },
+        {
+          "event": "load_window",
+          "tier": "cpu",
+          "request_id": "cmpl-a8265af4f3c49869-0-b917ec21",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 9.505901001830352,
+          "h2d_scatter_sync_ms": 6.9057949986017775
+        }
+      ]
+    }
+  ],
+  "nsys-final-disk": [
+    {
+      "index": 0,
+      "request_id": "cmpl-ad4486ecfade5c19",
+      "ttft_ms": 3619.332038,
+      "fetch_wall_ms": 379.385917,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1393.829858,
+          "wall_union_ms": 378.81366
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 41.755057,
+          "wall_union_ms": 40.464094
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 24.746323,
+          "wall_union_ms": 24.311929
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 3.079062,
+          "wall_union_ms": 3.070482
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 378.81366,
+        "disk_crc.read": 0.097789,
+        "disk_stage.read": 0.04867,
+        "disk_slot.acquire": 0.005805,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 0.419993
+      },
+      "h2d_scatter_sync_wall_ms": 29.303595,
+      "h2d_dma_ms": 26.137992,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 4,
+      "mutex_calls_above_1us": 0,
+      "mutex_call_thread_sum_above_1us_ms": 0.0,
+      "other_ttft_ms": 3210.642526,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ad4486ecfade5c19-0-816cf1ef",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 94.593852001708,
+          "h2d_scatter_sync_ms": 7.274876999872504
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ad4486ecfade5c19-0-816cf1ef",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 94.96593799849506,
+          "h2d_scatter_sync_ms": 7.238961003167788
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ad4486ecfade5c19-0-816cf1ef",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 93.48388199941837,
+          "h2d_scatter_sync_ms": 7.437737000145717
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-ad4486ecfade5c19-0-816cf1ef",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 96.43737300211797,
+          "h2d_scatter_sync_ms": 7.466564999049297
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "request_id": "cmpl-9fdc351cd2f86a04",
+      "ttft_ms": 3612.591564,
+      "fetch_wall_ms": 387.135905,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1416.959195,
+          "wall_union_ms": 386.414629
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 43.80073,
+          "wall_union_ms": 42.468958
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 26.019552,
+          "wall_union_ms": 25.565334
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 5.336209,
+          "wall_union_ms": 5.064153
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 386.414629,
+        "disk_crc.read": 0.130779,
+        "disk_stage.read": 0.0639,
+        "disk_slot.acquire": 0.010647,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 0.51595
+      },
+      "h2d_scatter_sync_wall_ms": 29.295842,
+      "h2d_dma_ms": 26.460877,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 4,
+      "mutex_calls_above_1us": 1,
+      "mutex_call_thread_sum_above_1us_ms": 0.00104,
+      "other_ttft_ms": 3196.1598169999997,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fdc351cd2f86a04-0-87509963",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 99.8662889978732,
+          "h2d_scatter_sync_ms": 7.353192999289604
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fdc351cd2f86a04-0-87509963",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 93.48783699897467,
+          "h2d_scatter_sync_ms": 7.24379500024952
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fdc351cd2f86a04-0-87509963",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 98.22172999702161,
+          "h2d_scatter_sync_ms": 7.54893400153378
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-9fdc351cd2f86a04-0-87509963",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 95.92797000004794,
+          "h2d_scatter_sync_ms": 7.266144999448443
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "request_id": "cmpl-bcc9951b7c67c2c8",
+      "ttft_ms": 3680.690863,
+      "fetch_wall_ms": 431.158761,
+      "disk": {
+        "disk_io.read": {
+          "count": 18432,
+          "thread_sum_ms": 1596.886548,
+          "wall_union_ms": 430.308985
+        },
+        "disk_crc.read": {
+          "count": 18432,
+          "thread_sum_ms": 41.996151,
+          "wall_union_ms": 40.570693
+        },
+        "disk_stage.read": {
+          "count": 18432,
+          "thread_sum_ms": 25.111363,
+          "wall_union_ms": 24.599409
+        },
+        "disk_slot.acquire": {
+          "count": 18432,
+          "thread_sum_ms": 3.844862,
+          "wall_union_ms": 3.827848
+        }
+      },
+      "fetch_exclusive_coverage_ms": {
+        "disk_io.read": 430.308985,
+        "disk_crc.read": 0.195985,
+        "disk_stage.read": 0.102666,
+        "disk_slot.acquire": 0.01366,
+        "bridge_stage": 0.0,
+        "remaining_fetch": 0.537465
+      },
+      "h2d_scatter_sync_wall_ms": 30.422245,
+      "h2d_dma_ms": 27.57033,
+      "h2d_payload_bytes": 301989888,
+      "disk_io_peak_concurrent_api": 4,
+      "mutex_calls_above_1us": 6,
+      "mutex_call_thread_sum_above_1us_ms": 0.018362,
+      "other_ttft_ms": 3219.109857,
+      "python_load_windows": [
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-bcc9951b7c67c2c8-0-a2a2489a",
+          "start": 0,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 111.15757199877407,
+          "h2d_scatter_sync_ms": 7.606144001329085
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-bcc9951b7c67c2c8-0-a2a2489a",
+          "start": 128,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 113.94697599826031,
+          "h2d_scatter_sync_ms": 7.8378710022661835
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-bcc9951b7c67c2c8-0-a2a2489a",
+          "start": 256,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 102.730934999272,
+          "h2d_scatter_sync_ms": 7.701449001615401
+        },
+        {
+          "event": "load_window",
+          "tier": "disk",
+          "request_id": "cmpl-bcc9951b7c67c2c8-0-a2a2489a",
+          "start": 384,
+          "pages": 128,
+          "payload_bytes": 75497472,
+          "fetch_ms": 103.41604100176482,
+          "h2d_scatter_sync_ms": 7.406994998746086
+        }
+      ]
+    }
+  ]
+}

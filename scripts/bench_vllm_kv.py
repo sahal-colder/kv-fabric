@@ -488,6 +488,8 @@ def benchmark(args):
                         summaries.write(json.dumps(result) + "\n")
                         summaries.flush()
                         print(json.dumps(result), flush=True)
+                        if args.require_cache_write_success and result["kvfabric_save_failures"]:
+                            raise RuntimeError("Cache write failures invalidate this performance result; raw rows preserved")
                         if mode.startswith("kvfabric"):
                             wait_kvf_idle(run / "kvfabric.jsonl")
 
@@ -520,6 +522,8 @@ def main():
     parser.add_argument("--reference", type=Path, help="recompute requests.jsonl from an identical workload")
     parser.add_argument("--legacy-cuda", action="store_true", help="measure the original per-segment connector")
     parser.add_argument("--expected-io-mode", choices=("direct-uring-fixed", "direct-posix"))
+    parser.add_argument("--require-cache-write-success", action="store_true",
+                        help="reject performance claims with backend publication errors; best-effort skips remain counted")
     parser.add_argument("--reset-gpu-between-batches", action="store_true",
                         help="force Host/offload imports between measured bursts; excludes reset RPCs from throughput")
     parser.add_argument("--resume", action="store_true", help="retain complete modes from an identical workload")

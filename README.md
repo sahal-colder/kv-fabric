@@ -12,6 +12,16 @@ KV-Fabric 是一套 C11 分布式 KV Cache。目录服务维护 KV 前缀、副�
 
 完整项目入口：[交付与复现指南](docs/PROJECT-DELIVERY.md) · [验证报告](docs/KV-FABRIC-VALIDATION-REPORT.md) · [脱敏简历](docs/resume_ai_infra.public.md)
 
+## 性能口径与可复核证据
+
+| 场景 | 实测结果 | 范围 |
+| --- | --- | --- |
+| Qwen2.5-3B BF16，16K 输入 / 8K SSD 命中 | TTFT P50 **4.961 → 3.675 s** | owned SSD 直读与四 lane 并发，load/save error 为 0 |
+| 72 MiB Gather / Scatter kernel | 单向有效 **119.13 / 103.54 GiB/s** | 物理 DRAM 总带宽为 214.99 / 187.66 GiB/s，实际显存时钟约 8 / 7 GHz |
+| 16 MiB CUDA KV 跨 Worker 恢复 | **30.195 ms，0.517 GiB/s** | 同机 RXE Soft-RoCE、MTU 9000；含目录/建连/CRC/提交，不代表物理 HCA 或 GPUDirect |
+
+RDMA 是独立的跨 Worker 数据面；本机 RXE 仍慢于同负载 TCP，不将本机 CPU/NVMe 的 Qwen TTFT 收益归给 RDMA。完整归因、失败历史、原始报告和命令见[性能审计](docs/PERFORMANCE-ATTRIBUTION-AUDIT.md)。[三张 README 图片与导出路径](docs/README-VISUALS.md)覆盖分层架构、真实 nsys 时间线和 ncu 带宽账目。
+
 ## 构建与测试
 
 在 Linux 或 WSL 上安装 C11 编译器、CMake 3.18+ 和 OpenSSL 开发包。从仓库根目录一次构建目录服务、CPU Worker 和相关工具。
@@ -35,6 +45,16 @@ cmake --install build-release --prefix "$PWD/build-release/install"
 | `-DMINIINFER_WITH_URING=ON` | 启用 io_uring 文件后端，需要 liburing 开发包 |
 | `-DKVF_SANITIZE=ON` | 启用 ASan 和 UBSan，Linux 可同时检查泄漏 |
 | `-DMINIINFER_WITH_KVFABRIC=OFF` | 构建单机存储或推理组件 |
+
+## 数据路径与性能归因图
+
+![分层缓存与跨 Worker 数据面](docs/benchmarks/perf-attribution-2026-11-26/figures/architecture.png)
+
+![真实 nsys 回源时间线对比](docs/benchmarks/perf-attribution-2026-11-26/figures/nsys-read-concurrency.png)
+
+![ncu 载荷与物理 DRAM 带宽口径](docs/benchmarks/perf-attribution-2026-11-26/figures/ncu-bandwidth-accounting.png)
+
+图片由代码与真实 profiler 区间/计数生成。完整报告本地保留；[公开逐请求测量、计数与导出边界](docs/benchmarks/perf-attribution-2026-11-26/README.md)可复核收益和单位。
 
 ## Nano-VLLM 远程 KV
 
@@ -76,6 +96,3 @@ build-release/bin/nanovllm MODEL -z TOKENIZER -i 'The quick brown fox jumps' -n 
 
 - [全仓审计修复账本](docs/KV-FABRIC-AUDIT-REMEDIATION.md)
 - [构建、Sanitizer、故障与性能验收](docs/KV-FABRIC-VALIDATION-REPORT.md)
-
-- [历史Remote KV优化设计](docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md)
-- [历史阶段测试口径](docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md)

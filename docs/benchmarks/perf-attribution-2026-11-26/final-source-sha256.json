@@ -1,0 +1,17 @@
+{
+  "src/integration/vllm_bridge.c": "a4d827a4b12d9d991b5cb71ac0c6eff93165e118aaff6a50f06c6bb1e0c9083e",
+  "src/worker/direct_io.c": "907a3fa89b2d1a3b219d19c10e832cf9da5fc427158a8c2788150328be2492a0",
+  "integrations/vllm/kvfabric_vllm/connector.py": "4e31c8d15e45292da74c51b130fec4c1a24c615ecabb98ab75a7fb79dcb8f101",
+  "scripts/profile_vllm_kv.py": "36b3de553d1d9cf04cd58ab66d2f5c67f0f251501d324e826b1fc36e03117c03",
+  "scripts/summarize_native_ncu.py": "3c435107b77bbbca00e0431b3fabaf00d1f88e9b6a1bab8d848d37a812cfe4c4",
+  "scripts/bench_vllm_kv.py": "f687fd61b125962d820d7ff22c2a9af98847146c924f379bfc70b2d6c7437732",
+  "scripts/profile_kv.sh": "d1528f30e964690cb2462b1e33f38d810f6c9dfc4ffe0aef92cd207d28b53404",
+  "tools/kvf_io_compare.c": "54fa5ea40b50d47b6bd5338305c08074aca82e5847820bcc802326330ed6df26",
+  "scripts/run_perf_attribution.py": "941db6e8f1837b73b9e881923cb627971aee20f883e5d91be2c2056334b37820",
+  "scripts/summarize_perf_attribution.py": "23fc3ff8aa476c3a91f09b6f6f10f960227bdcff0b8ce4bdfe4a6030bff4f5da",
+  "scripts/render_perf_attribution.py": "a852ccb4a69caadb8de139ce4f1586d07aac89cd63e9523f2830609fd870eadb",
+  "scripts/build_perf_baseline.py": "64a6bcb1e0813a0fbf8480de4aa49da68ffd73ac01ceb7eed8bab5cace446cec",
+  "scripts/bench_rdma_payload.py": "7b4c3e83470bbfc97fdd93b57dc3900933e16caef5ee770985ac2335ffd07ea9",
+  "scripts/perf_softroce_setup.sh": "fcbd42f4e400034f19008db89f5915bae3e5bf0ac1eb1d639b5b3ea761759c7a",
+  "tests/vllm/test_owned_disk_parallel.py": "52a63b9181f05858016e9c93db7a5de13cda2526d00448e31526a5e8ca2691f3"
+}

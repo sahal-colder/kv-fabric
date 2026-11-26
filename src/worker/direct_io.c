@@ -199,7 +199,13 @@ mi_status mi_direct_record(mi_direct_io *io, int write, uint64_t offset,
         return MI_EINVAL;
     if (mi_direct_failed(io))
         return MI_EIO;
+#ifdef MINIINFER_WITH_NVTX
+    nvtxRangePushA("kvfabric.disk_slot.acquire");
+#endif
     mi_segment *slot = mi_segment_acquire(io->pool, 0, io->pool->count);
+#ifdef MINIINFER_WITH_NVTX
+    nvtxRangePop();
+#endif
     if (!slot)
         return MI_EBUSY;
     unsigned char *p = slot->data;
@@ -234,11 +240,23 @@ mi_status mi_direct_record(mi_direct_io *io, int write, uint64_t offset,
             goto done;
     }
     st = record_io(io, slot, p, 0, offset);
+#ifdef MINIINFER_WITH_NVTX
+    nvtxRangePushA("kvfabric.disk_crc.read");
+#endif
     if (st == MI_OK && !valid_record(p, meta, verify))
         st = MI_ECRC;
+#ifdef MINIINFER_WITH_NVTX
+    nvtxRangePop();
+#endif
     if (st == MI_OK && !write) {
+#ifdef MINIINFER_WITH_NVTX
+        nvtxRangePushA("kvfabric.disk_stage.read");
+#endif
         st = mi_device_copy_from_host(device, data, payload, meta->size, slot->stream);
         st = finish_copy(io, slot, device, st);
+#ifdef MINIINFER_WITH_NVTX
+        nvtxRangePop();
+#endif
     }
 
 done:

@@ -94,4 +94,6 @@ python tests/worker/test_rdma_roundtrip.py --build build-cuda-release \
 
 ## 简历
 
-[公开 Markdown](resume_ai_infra.public.md)、[公开 PDF](resume_public/AI_Infra_Resume.pdf)及[公开 Word](resume_public/AI_Infra_Resume.docx)使用相同项目事实。姓名、联系方式、私人备份和本机提权凭据不在公开版本中。完整本地简历独立交付。
+[公开 Markdown](resume_ai_infra.public.md)已更新为最新性能审计口径；[公开 PDF](resume_public/AI_Infra_Resume.pdf)及[公开 Word](resume_public/AI_Infra_Resume.docx)是本轮审计前导出，暂未同步。姓名、联系方式、私人备份和本机提权凭据不在公开版本中。完整本地简历独立交付。
+
+最新回源修复、带宽归因与 RXE 实测见[性能审计](PERFORMANCE-ATTRIBUTION-AUDIT.md)和[公开证据](benchmarks/perf-attribution-2026-11-26/README.md)。

@@ -262,6 +262,7 @@ class KVFabricConnector(KVConnectorBase_V1):
         window = self._cuda.pages if self._cuda else self._bridge.window
         with gpu_sync_allowed(), torch.cuda.device(self._device), torch.cuda.stream(self._load_stream):
             for start in range(0, len(item.blocks), window):
+                fetch_start = time.perf_counter()
                 blocks = item.blocks[start:start + window]
                 loaded = 0
                 if self._cuda:
@@ -277,6 +278,7 @@ class KVFabricConnector(KVConnectorBase_V1):
                     )
                     if status:
                         return self._bridge.describe(status), blocks_checked
+                fetch_end = time.perf_counter()
                 if self._cuda:
                     self._cuda.load(self._read_slot, blocks, self._load_stream)
                 else:
@@ -286,6 +288,11 @@ class KVFabricConnector(KVConnectorBase_V1):
                                 dst[block].copy_(stage[i, layer], non_blocking=True)
                     with nvtx.annotate("kvfabric.sync.load"):
                         self._load_stream.synchronize()
+                if os.environ.get("KVF_PERF_TRACE") == "1":
+                    self._record("load_window", request_id=item.request_id, start=start,
+                                 pages=len(blocks), payload_bytes=len(blocks) * page_bytes,
+                                 fetch_ms=(fetch_end - fetch_start) * 1000,
+                                 h2d_scatter_sync_ms=(time.perf_counter() - fetch_end) * 1000)
                 if self._verify:
                     for i, block in enumerate(blocks):
                         for layer, dst in enumerate(self._tensors):
