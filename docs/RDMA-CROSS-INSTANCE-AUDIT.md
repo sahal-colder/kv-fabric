@@ -44,7 +44,7 @@
 
 ## 代码瓶颈与改动
 
-已有 Wire V3 `FETCH_BATCH` 已把 8 页聚合为一帧。本模型每页 16 Token × 36 层 × 16 KiB = 576 KiB，所以每帧是 **4.5 MiB**，8K 前缀共 **512 页、64 个数据帧**。并非原实现逐层发 18,432 个网络 RPC；没有把已有批处理冒充新增优化。
+已有 Wire V3 `FETCH_BATCH` 已把 8 页聚合为一帧。本模型每个 16-Token 页为 36 层 × 16 KiB/层 = 576 KiB，所以每帧是 **4.5 MiB**，8K 前缀共 **512 页、64 个数据帧**。并非原实现逐层发 18,432 个网络 RPC；没有把已有批处理冒充新增优化。
 
 实际瓶颈是接收后重复中转：`batch_recv → 临时 Trie/Storage 的逐层 WRITE lease → bridge copy_page → pinned → H2D → 每窗口同步`。新增 `mi_remote_snapshot_into` / `kvf_vllm_load_direct` 在调用者 pinned buffer 中接收，仍验证 frame CRC、每层 manifest CRC、parent chain、owner boot 和 FINISH lease；不创建目的临时 KV、不发布目的副本。失败窗口不可见，整体丢弃。另修复了空命中路径访问 `candidates[matched-1]` 的下溢。
 
