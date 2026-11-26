@@ -84,6 +84,7 @@ static int set(kvs_config_t *c, const char *key, const char *value, char *error)
 		c->field = !strcmp(value, "yes");                                                          \
 		return 0;                                                                                  \
 	}
+	TEXT("replication-secret", replication.secret)
 	TEXT("bind", bind)
 	TEXT("engine", engine)
 	TEXT("network", network)
@@ -279,6 +280,11 @@ int kvs_config_validate(const kvs_config_t *c, char *error) {
 		return fail(error, "invalid persistence configuration");
 	if (r->role < KVS_ROLE_STANDALONE || r->role > KVS_ROLE_SLAVE)
 		return fail(error, "invalid role");
+	if (r->role != KVS_ROLE_STANDALONE &&
+	    (strnlen(r->secret, sizeof(r->secret)) < 32 || !memchr(r->secret, 0, sizeof(r->secret))))
+		return fail(error, "replication requires a 32..128 byte replication-secret");
+	if (r->role == KVS_ROLE_MASTER && !r->listen_port)
+		return fail(error, "authenticated replication requires a separate replication-port");
 	if (r->role == KVS_ROLE_SLAVE && (!r->master_host[0] || !r->master_port))
 		return fail(error, "slave requires master-host and master-port");
 	if (r->timeout_ms < 2000)
@@ -340,7 +346,7 @@ void kvs_config_print(const kvs_config_t *c, FILE *out) {
 	    "bind %s\nport %u\nengine %s\nnetwork %s\npersistence %s\n"
 	    "role %s\nsync-transport %s\nreplication-port %u\nmaster-host %s\nmaster-port %u\n"
 	    "sync-timeout-ms %u\nsync-reconnect-ms %u\nsync-queue-bytes %zu\nsync-snapshot-bytes %zu\n"
-	    "ebpf-enabled %s\nmysql-enabled %s\nmysql-password <redacted>\n",
+	    "ebpf-enabled %s\nmysql-enabled %s\nmysql-password <redacted>\nreplication-secret <redacted>\n",
 	    c->bind, c->port, c->engine, c->network,
 	    c->persistence < 0 ? "none"
 		: c->persistence   ? "aof"

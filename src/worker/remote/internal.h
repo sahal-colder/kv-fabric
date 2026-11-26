@@ -7,10 +7,12 @@
 #define MINIINFER_REMOTE_INTERNAL_H
 
 #include "miniinfer/remote_cache.h"
-#include "kvfabric/wire.h"
+#include "remote_sock.h"
 #include "../segment_pool.h"
 #include <pthread.h>
 #include <stdatomic.h>
+
+#define MI_REMOTE_MAX_PEERS 64u
 
 typedef enum {
     EXPORT_EMPTY, EXPORT_PENDING, EXPORT_PUBLISHING, EXPORT_ACTIVE, EXPORT_RETRY, EXPORT_RETIRING, EXPORT_FAILED
@@ -23,7 +25,7 @@ typedef struct {
     export_state state;
     kvf_status status;    /* Last result for this revision, protected by updates. */
     int hidden;           /* Serving gate, protected by exports_lock. */
-    uint64_t order;       /* Nonzero publication order for detached exports. */
+    uint64_t order;       /* Nonzero generation for every installed export. */
 } mi_remote_export;
 
 /* A publish RPC may have committed before its acknowledgement reaches us.
@@ -41,6 +43,7 @@ static inline int mi_remote_publish_retryable(kvf_status st) {
 typedef struct mi_peer_pool mi_peer_pool;
 typedef struct mi_peer_conn mi_peer_conn;
 typedef struct mi_prefetch_queue mi_prefetch_queue;
+typedef struct mi_remote_server mi_remote_server;
 
 typedef struct {
     void *data;
@@ -50,12 +53,16 @@ typedef struct {
 struct mi_remote_worker {
     mi_tiered_storage *storage;  /* Borrowed, outlives all service threads. */
     mi_paged_kv *cache;          /* Owned, one Trie per namespace. */
-    kvf_server *server;          /* Owns incoming sockets and accepts up to lanes at once. */
+    mi_remote_server *server;     /* Owns incoming sockets and accepts up to lanes at once. */
     kvf_client control;          /* Value handle for metadata RPCs. */
     kvf_identity identity;      /* Immutable full namespace. */
     kvf_hash space;              /* Identity digest for fast namespace checks. */
     kvf_worker_info info;        /* Immutable registry identity, endpoint and capacity. */
     mi_location location;        /* Destination tier for newly imported layers. */
+    kvf_transport transport_mode; /* Preferred transport selected at startup. */
+    int rdma_strict;
+    _Atomic kvf_transport active_transport;
+    atomic_bool warned_peer_fallback;
     int device;                  /* Storage ordinal or -1 for a CPU-only Worker. */
     uint32_t heartbeat_ms;       /* Period between registry refreshes. */
     uint32_t peer_idle_ms;       /* Accepted idle stream timeout. */
@@ -82,7 +89,7 @@ struct mi_remote_worker {
 };
 
 kvf_status mi_remote_from_storage(mi_status status);
-void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline);
+void mi_remote_serve(mi_remote_worker *w, unsigned lane, mi_remote_socket socket, uint64_t deadline);
 kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *sequence, size_t page,
                              const kvf_grant *grant, uint64_t deadline_ms, const atomic_bool *cancel);
 kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, const kvf_batch_page *pages,
@@ -122,9 +129,9 @@ static inline kvf_status mi_remote_request_client(kvf_client client, uint64_t de
 kvf_status mi_peer_pool_create(unsigned capacity, uint32_t idle_ms, mi_peer_pool **out);
 void mi_peer_pool_destroy(mi_peer_pool *pool);
 void mi_peer_pool_reap(mi_peer_pool *pool);
-kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *grant, uint64_t deadline,
-                           mi_peer_conn **out, int *fd, int *reused);
-void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *peer, int reusable);
+kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *grant, kvf_transport transport,
+                           uint64_t deadline, mi_peer_conn **peer, mi_remote_socket *out, int *reused);
+void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *peer, mi_remote_socket socket, int reusable);
 
 kvf_status mi_prefetch_start(mi_remote_worker *w);
 void mi_prefetch_stop(mi_remote_worker *w);

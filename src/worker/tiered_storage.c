@@ -52,9 +52,21 @@ struct mi_tiered_storage {
     pthread_cond_t changed;
     pthread_t worker;
     int worker_started, stopping;
+    int quarantined, retired;
+    struct mi_tiered_storage *retired_next;
     size_t queue_depth, queue_head, queued;
     migration_job queue[];
 };
+
+static pthread_mutex_t retired_mutex = PTHREAD_MUTEX_INITIALIZER;
+static mi_tiered_storage *retired_storage;
+
+int mi_storage_quarantined(mi_tiered_storage *s) {
+    pthread_mutex_lock(&s->mutex);
+    int failed = s->quarantined;
+    pthread_mutex_unlock(&s->mutex);
+    return failed;
+}
 
 /* 由 ID 低位定位记录，并比对完整 ID 排除旧代数。 */
 static block_record *record_at(mi_tiered_storage *s, mi_block_id id) {
@@ -190,13 +202,18 @@ mi_status mi_storage_create_block(mi_tiered_storage *s, size_t bytes, mi_locatio
 
     mi_storage_handle slot;
     mi_status st = mi_backend_reserve(backend, bytes, &slot);
-    if (st != MI_OK)
-        return st;
+    if (st != MI_OK) {
+        pthread_mutex_lock(&s->mutex);
+        int failed = s->quarantined;
+        pthread_mutex_unlock(&s->mutex);
+        return failed ? MI_EIO : st;
+    }
     pthread_mutex_lock(&s->mutex);
-    if (!s->free_count) {
+    if (s->quarantined || !s->free_count) {
+        int failed = s->quarantined;
         pthread_mutex_unlock(&s->mutex);
         (void)mi_backend_release(backend, slot);
-        return MI_ENOMEM;
+        return failed ? MI_EIO : MI_ENOMEM;
     }
     uint32_t index = s->free_slots[--s->free_count];
     block_record *r = &s->records[index];
@@ -218,7 +235,9 @@ mi_status mi_storage_acquire(mi_tiered_storage *s, mi_block_id id, mi_access_mod
     pthread_mutex_lock(&s->mutex);
     block_record *r = record_at(s, id);
     mi_status st = MI_OK;
-    if (!r)
+    if (s->quarantined)
+        st = MI_EIO;
+    else if (!r)
         st = MI_ENOENT;
     else if (r->meta.location == MI_LOCATION_SSD)
         st = MI_ESTATE;
@@ -248,10 +267,25 @@ mi_status mi_storage_acquire(mi_tiered_storage *s, mi_block_id id, mi_access_mod
 
 /* Lease retirement is ordered after the caller's last GPU use. */
 static mi_status lease_complete(mi_lease *lease, int commit) {
+    mi_status completion = MI_OK;
+    int unconfirmed = 0;
     if (lease->stream) {
-        mi_status st = mi_device_stream_wait(lease->device, lease->stream);
-        if (st != MI_OK)
-            return st;
+        completion = mi_device_stream_wait(lease->device, lease->stream);
+        if (completion != MI_OK) {
+            /* A failed wait is not evidence that DMA stopped. Fence this exact
+             * stream; only a successful event wait permits retirement. Failed
+             * fencing leaves the lease owned by the caller for an explicit retry. */
+            mi_event event = NULL;
+            mi_status fenced = mi_device_event_create(lease->device, &event);
+            if (fenced == MI_OK)
+                fenced = mi_device_event_record(lease->device, event, lease->stream);
+            if (fenced == MI_OK)
+                fenced = mi_device_event_wait(lease->device, event);
+            if (event)
+                (void)mi_device_event_destroy(lease->device, event);
+            unconfirmed = fenced != MI_OK;
+            commit = 0; /* An errored write must never publish a new version. */
+        }
     }
     mi_tiered_storage *s = lease->storage;
     pthread_mutex_lock(&s->mutex);
@@ -260,7 +294,16 @@ static mi_status lease_complete(mi_lease *lease, int commit) {
         pthread_mutex_unlock(&s->mutex);
         return MI_ENOENT;
     }
-    mi_status st = MI_OK;
+    mi_status st = s->quarantined ? MI_EIO : MI_OK;
+    if (s->quarantined)
+        commit = 0;
+    if (unconfirmed) {
+        /* The Storage, attached backends and their pool references take over
+         * physical ownership. The caller's stack lease and page ref may retire
+         * normally; no slot or slab from this owner may be reused or destroyed. */
+        s->quarantined = 1;
+        r->meta.state = MI_BLOCK_ERROR;
+    }
     if (lease->mode == MI_ACCESS_WRITE) {
         r->writer = 0;
         if (commit && r->meta.version == UINT64_MAX) {
@@ -270,7 +313,7 @@ static mi_status lease_complete(mi_lease *lease, int commit) {
             /* 数据提交后推进版本，读回 SSD 时用版本核对记录。 */
             ++r->meta.version;
         }
-        if (r->replica) {
+        if (r->replica && !s->quarantined) {
             if (mi_backend_release(s->backends[MI_LOCATION_SSD], r->replica) != MI_OK) {
                 r->cleanup = r->replica;
                 r->cleanup_location = MI_LOCATION_SSD;
@@ -282,7 +325,7 @@ static mi_status lease_complete(mi_lease *lease, int commit) {
     --r->meta.lease_count;
     *lease = (mi_lease){0};
     pthread_mutex_unlock(&s->mutex);
-    return st;
+    return completion != MI_OK ? completion : st;
 }
 
 mi_status mi_lease_finish(mi_lease *lease) {
@@ -306,8 +349,10 @@ mi_status mi_storage_metadata(mi_tiered_storage *s, mi_block_id id, mi_block_met
 
 mi_status mi_storage_blocks_ready(mi_tiered_storage *s, const mi_block_id *ids, size_t n) {
     pthread_mutex_lock(&s->mutex);
-    mi_status st = MI_OK;
+    mi_status st = s->quarantined ? MI_EIO : MI_OK;
     for (size_t i = 0; i < n; ++i) {
+        if (st != MI_OK)
+            break;
         const block_record *r = record_at(s, ids[i]);
         if (!r || !r->initialized || r->meta.lease_count || r->busy ||
             r->meta.state != MI_BLOCK_RESIDENT) {
@@ -329,14 +374,14 @@ static mi_status move_payload(mi_storage_backend *staging, mi_storage_backend *s
             meta.location = target;
             return mi_backend_write_record(dst, new_slot, &meta, host);
         }
-        return mi_backend_write(dst, new_slot, 0, host, meta.size);
+        return mi_backend_gpu_copy_owned(dst, new_slot, host, meta.size, 1);
     }
 
     if (target == MI_LOCATION_CPU) {
         void *host = mi_backend_reserved_ptr(dst, new_slot);
         return meta.location == MI_LOCATION_SSD
             ? mi_backend_read_validated(src, old_slot, &meta, host)
-            : mi_backend_read(src, old_slot, 0, host, meta.size);
+            : mi_backend_gpu_copy_owned(src, old_slot, host, meta.size, 0);
     }
 
     if (target == MI_LOCATION_SSD && mi_backend_is_direct(dst)) {
@@ -354,7 +399,7 @@ static mi_status move_payload(mi_storage_backend *staging, mi_storage_backend *s
         return st;
     void *host = mi_backend_reserved_ptr(staging, staging_slot);
     if (target == MI_LOCATION_SSD) {
-        st = mi_backend_read(src, old_slot, 0, host, meta.size);
+        st = mi_backend_gpu_copy_owned(src, old_slot, host, meta.size, 0);
         if (st == MI_OK) {
             meta.location = target;
             st = mi_backend_write_record(dst, new_slot, &meta, host);
@@ -362,9 +407,10 @@ static mi_status move_payload(mi_storage_backend *staging, mi_storage_backend *s
     } else {
         st = mi_backend_read_validated(src, old_slot, &meta, host);
         if (st == MI_OK)
-            st = mi_backend_write(dst, new_slot, 0, host, meta.size);
+            st = mi_backend_gpu_copy_owned(dst, new_slot, host, meta.size, 1);
     }
-    (void)mi_backend_release(staging, staging_slot);
+    if (!mi_backend_gpu_pending(src) && !mi_backend_gpu_pending(dst))
+        (void)mi_backend_release(staging, staging_slot);
     return st;
 }
 
@@ -375,9 +421,12 @@ mi_status mi_storage_migrate(mi_tiered_storage *s, mi_block_id id, mi_location t
     block_record *r = record_at(s, id);
     mi_storage_backend *dst = s->backends[target];
     mi_status st = MI_OK;
-    if (!r)
+    if (s->quarantined)
+        st = MI_EIO;
+    else if (!r)
         st = MI_ENOENT;
-    else if (r->busy || r->meta.lease_count || r->cleanup || r->meta.state != MI_BLOCK_RESIDENT)
+    else if (r->busy || r->meta.lease_count || r->cleanup || r->meta.state != MI_BLOCK_RESIDENT ||
+             (r->meta.location == MI_LOCATION_SSD && r->replica))
         st = MI_EBUSY;
     else if (!dst)
         st = MI_EUNSUPPORTED;
@@ -396,31 +445,59 @@ mi_status mi_storage_migrate(mi_tiered_storage *s, mi_block_id id, mi_location t
     r->meta.state = MI_BLOCK_MOVING;
     pthread_mutex_unlock(&s->mutex);
 
+    /* The old resident and SSD replica remain authoritative until copying
+     * succeeds. busy excludes all mutators while I/O runs outside the mutex. */
     st = mi_backend_reserve(dst, meta.size, &new_slot);
-    if (st == MI_OK && r->replica) {
-        st = mi_backend_release(s->backends[MI_LOCATION_SSD], r->replica);
-        if (st == MI_OK)
-            r->replica = MI_INVALID_HANDLE;
-    }
     if (st == MI_OK && initialized)
         st = move_payload(s->staging, src, old_slot, dst, new_slot, meta, target);
-    pthread_mutex_lock(&s->mutex);
-    if (st == MI_OK) {
-        /* 搬运成功后切换驻留槽，逻辑 ID 保持不变。 */
-        r->slot = new_slot;
-        r->meta.location = target;
-        if (meta.location == MI_LOCATION_SSD && s->retain_ssd_copy) {
-            r->replica = old_slot;
-        } else if (mi_backend_release(src, old_slot) != MI_OK) {
-            r->cleanup = old_slot;
-            r->cleanup_location = meta.location;
-            st = MI_ECLEANUP;
-        }
-    } else if (new_slot && mi_backend_release(dst, new_slot) != MI_OK) {
-        /* 回滚时无法释放目标槽，留待后续清理。 */
+    if (mi_backend_gpu_pending(src) || mi_backend_gpu_pending(dst)) {
+        if (st == MI_OK)
+            st = MI_EIO;
+        pthread_mutex_lock(&s->mutex);
+        s->quarantined = 1;
+        r->busy = 0;
+        r->meta.state = MI_BLOCK_ERROR;
+        /* Retain both addresses, including the uncommitted destination. */
         r->cleanup = new_slot;
         r->cleanup_location = target;
+        pthread_mutex_unlock(&s->mutex);
+        return st;
+    }
+    mi_storage_handle cleanup = MI_INVALID_HANDLE;
+    mi_location cleanup_location = target;
+    if (st == MI_OK) {
+        pthread_mutex_lock(&s->mutex);
+        mi_storage_handle replica = r->replica;
+        r->slot = new_slot;
+        r->meta.location = target;
+        int keep_old = meta.location == MI_LOCATION_SSD && s->retain_ssd_copy;
+        if (keep_old)
+            r->replica = old_slot;
+        pthread_mutex_unlock(&s->mutex);
+        if (!keep_old && mi_backend_release(src, old_slot) != MI_OK) {
+            cleanup = old_slot;
+            cleanup_location = meta.location;
+            st = MI_ECLEANUP;
+        }
+        /* A memory-to-memory move preserves its validated SSD replica. Only a
+         * newly committed SSD resident makes that replica redundant. */
+        if (target == MI_LOCATION_SSD && replica) {
+            mi_status released = mi_backend_release(s->backends[MI_LOCATION_SSD], replica);
+            pthread_mutex_lock(&s->mutex);
+            if (released == MI_OK)
+                r->replica = MI_INVALID_HANDLE;
+            else
+                st = MI_ECLEANUP; /* Retain the handle for erase/retry. */
+            pthread_mutex_unlock(&s->mutex);
+        }
+    } else if (new_slot && mi_backend_release(dst, new_slot) != MI_OK) {
+        cleanup = new_slot;
         st = MI_EROLLBACK_CLEANUP;
+    }
+    pthread_mutex_lock(&s->mutex);
+    if (cleanup) {
+        r->cleanup = cleanup;
+        r->cleanup_location = cleanup_location;
     }
     r->meta.state = MI_BLOCK_RESIDENT;
     r->busy = 0;
@@ -539,9 +616,10 @@ mi_status mi_storage_read_to_host(mi_tiered_storage *s, mi_block_id id, void *ds
         return MI_EINVAL;
     pthread_mutex_lock(&s->mutex);
     block_record *r = record_at(s, id);
-    if (!r || !r->initialized || r->meta.lease_count || r->busy ||
+    if (s->quarantined || !r || !r->initialized || r->meta.lease_count || r->busy ||
         r->meta.state != MI_BLOCK_RESIDENT || capacity < r->meta.size) {
-        mi_status st = !r ? MI_ENOENT : capacity < r->meta.size ? MI_EINVAL : MI_EBUSY;
+        mi_status st = s->quarantined ? MI_EIO
+            : !r ? MI_ENOENT : capacity < r->meta.size ? MI_EINVAL : MI_EBUSY;
         pthread_mutex_unlock(&s->mutex);
         return st;
     }
@@ -553,6 +631,10 @@ mi_status mi_storage_read_to_host(mi_tiered_storage *s, mi_block_id id, void *ds
     pthread_mutex_unlock(&s->mutex);
     mi_status st = mi_backend_read_validated(b, slot, &meta, dst);
     pthread_mutex_lock(&s->mutex);
+    if (mi_backend_gpu_pending(b)) {
+        s->quarantined = 1;
+        r->meta.state = MI_BLOCK_ERROR;
+    }
     --r->meta.lease_count;
     pthread_mutex_unlock(&s->mutex);
     if (st == MI_OK && bytes_read)
@@ -572,7 +654,9 @@ mi_status mi_storage_read_snapshot_event(mi_tiered_storage *s, mi_block_id id, u
     pthread_mutex_lock(&s->mutex);
     block_record *r = record_at(s, id);
     mi_status st = MI_OK;
-    if (!r || (version && (r->meta.version != version || r->meta.size != capacity)))
+    if (s->quarantined)
+        st = MI_EIO;
+    else if (!r || (version && (r->meta.version != version || r->meta.size != capacity)))
         st = MI_ENOENT;
     else if (capacity < r->meta.size || (r->meta.location == MI_LOCATION_GPU && !stream))
         st = MI_EINVAL;
@@ -592,16 +676,12 @@ mi_status mi_storage_read_snapshot_event(mi_tiered_storage *s, mi_block_id id, u
     pthread_mutex_unlock(&s->mutex);
 
     if (meta.location == MI_LOCATION_GPU) {
-        int device = mi_backend_device(b);
-        st = mi_device_copy_to_host(device, dst, mi_backend_reserved_ptr(b, slot), meta.size, stream);
-        if (st == MI_OK && event) {
-            st = mi_device_event_record(device, event, stream);
-            if (st == MI_OK)
-                st = mi_device_event_wait(device, event);
-            if (st != MI_OK)
-                (void)mi_device_stream_wait(device, stream);
-        } else if (st == MI_OK) {
-            st = mi_device_stream_wait(device, stream);
+        st = mi_backend_gpu_copy(b, slot, 0, dst, meta.size, 0, stream, event);
+        if (mi_backend_gpu_pending(b)) {
+            pthread_mutex_lock(&s->mutex);
+            s->quarantined = 1;
+            r->meta.state = MI_BLOCK_ERROR;
+            pthread_mutex_unlock(&s->mutex);
         }
     } else {
         st = mi_backend_read_validated(b, slot, &meta, dst);
@@ -620,12 +700,21 @@ mi_status mi_storage_read_snapshot(mi_tiered_storage *s, mi_block_id id, uint64_
 }
 
 static mi_status clear_cleanup(mi_tiered_storage *s, block_record *r) {
-    if (!r->cleanup)
-        return MI_OK;
-    mi_status st = mi_backend_release(s->backends[r->cleanup_location], r->cleanup);
-    if (st == MI_OK)
+    if (r->cleanup) {
+        mi_status st = mi_backend_release(s->backends[r->cleanup_location], r->cleanup);
+        if (st != MI_OK)
+            return st;
         r->cleanup = MI_INVALID_HANDLE;
-    return st;
+    }
+    /* After a new SSD resident commits, a failed release of the old SSD copy
+     * remains owned by replica until retry. Never overwrite it on migration. */
+    if (r->meta.location == MI_LOCATION_SSD && r->replica) {
+        mi_status st = mi_backend_release(s->backends[MI_LOCATION_SSD], r->replica);
+        if (st != MI_OK)
+            return st;
+        r->replica = MI_INVALID_HANDLE;
+    }
+    return MI_OK;
 }
 
 mi_status mi_storage_retry_cleanup(mi_tiered_storage *s, mi_block_id id) {
@@ -633,7 +722,8 @@ mi_status mi_storage_retry_cleanup(mi_tiered_storage *s, mi_block_id id) {
         return MI_EINVAL;
     pthread_mutex_lock(&s->mutex);
     block_record *r = record_at(s, id);
-    mi_status st = !r ? MI_ENOENT : r->busy || r->meta.lease_count ? MI_EBUSY : clear_cleanup(s, r);
+    mi_status st = s->quarantined ? MI_EIO
+        : !r ? MI_ENOENT : r->busy || r->meta.lease_count ? MI_EBUSY : clear_cleanup(s, r);
     if (st == MI_OK && !r->slot)
         recycle_record(s, r);
     pthread_mutex_unlock(&s->mutex);
@@ -645,9 +735,10 @@ mi_status mi_storage_erase(mi_tiered_storage *s, mi_block_id id) {
         return MI_EINVAL;
     pthread_mutex_lock(&s->mutex);
     block_record *r = record_at(s, id);
-    if (!r || r->busy || r->meta.lease_count) {
+    if (s->quarantined || !r || r->busy || r->meta.lease_count) {
+        int failed = s->quarantined;
         pthread_mutex_unlock(&s->mutex);
-        return r ? MI_EBUSY : MI_ENOENT;
+        return failed ? MI_EIO : r ? MI_EBUSY : MI_ENOENT;
     }
     mi_status st = clear_cleanup(s, r);
     if (st == MI_OK && r->slot) {
@@ -672,7 +763,7 @@ mi_status mi_storage_erase(mi_tiered_storage *s, mi_block_id id) {
 }
 
 int mi_storage_has_room(mi_tiered_storage *s, mi_location loc) {
-    return s && (unsigned)loc < TIER_COUNT && s->backends[loc] &&
+    return s && !mi_storage_quarantined(s) && (unsigned)loc < TIER_COUNT && s->backends[loc] &&
         mi_backend_available(s->backends[loc]) != 0;
 }
 
@@ -680,11 +771,26 @@ void mi_tiered_storage_destroy(mi_tiered_storage *s) {
     if (!s)
         return;
     pthread_mutex_lock(&s->mutex);
+    if (s->retired) {
+        pthread_mutex_unlock(&s->mutex);
+        return;
+    }
     s->stopping = 1;
     pthread_cond_broadcast(&s->changed);
     pthread_mutex_unlock(&s->mutex);
     if (s->worker_started)
         pthread_join(s->worker, NULL);
+    pthread_mutex_lock(&s->mutex);
+    if (s->quarantined) {
+        s->retired = 1;
+        pthread_mutex_unlock(&s->mutex);
+        pthread_mutex_lock(&retired_mutex);
+        s->retired_next = retired_storage;
+        retired_storage = s;
+        pthread_mutex_unlock(&retired_mutex);
+        return;
+    }
+    pthread_mutex_unlock(&s->mutex);
     for (size_t i = 0; i < s->capacity; ++i) {
         block_record *r = &s->records[i];
         if (!r->meta.id)

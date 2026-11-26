@@ -1,7 +1,7 @@
 /* An independent Worker process driven through the Nano-VLLM scheduling API. */
 #define _POSIX_C_SOURCE 200809L
 #include "nano_cache.h"
-#include "kvfabric/kvfabric.h"
+#include "miniinfer/remote_cache.h"
 #ifdef NANO_WITH_CUDA
 #include <cuda_runtime_api.h>
 #endif
@@ -205,6 +205,7 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
     REPORT(remote_transfer_samples);
 #undef REPORT
     printf(",\"remote_published_pages\":%" PRIu32, after.remote_published_pages);
+    printf(",\"active_transport\":\"%s\"", after.active_transport ? after.active_transport : "OFF");
     size_t sample_count;
     const uint64_t *samples = nv_engine_remote_take_transfer_samples(e, &sample_count);
     if (sample_count != after.remote_transfer_samples - before.remote_transfer_samples)
@@ -258,6 +259,10 @@ int main(int argc, char **argv) {
         remote.transfer_sample_capacity = (size_t)options.max_sequences * (size_t)options.num_blocks;
         const char *generated = getenv("NV_TEST_PUBLISH_GENERATED");
         remote.publish_generated = generated && strcmp(generated, "1") == 0;
+        const char *transport = getenv("NV_TEST_KV_TRANSPORT");
+        if (transport && mi_remote_transport_parse(transport, &remote.transport_mode) != KVF_OK)
+            nv_fatal("invalid test transport");
+        remote.rdma_strict = 1;
         if (nv_engine_enable_remote(&engine, &tokenizer, remote) != 1)
             nv_fatal("could not start Nano-VLLM KV worker");
     }

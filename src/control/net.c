@@ -135,11 +135,10 @@ static int valid_frame(kvf_frame f) {
         f.request_id && f.size <= max && (f.status == KVF_OK || (f.response && !f.size));
 }
 
-kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t deadline) {
+kvf_status kvf_frame_encode_header(kvf_frame f, const void *payload, uint8_t header[KVF_HEADER_BYTES]) {
     if (!valid_frame(f) || (!payload && f.size))
         return KVF_INVALID;
-    uint8_t header[KVF_HEADER_BYTES];
-    kvf_writer w = {.buffer = header, .capacity = sizeof(header)};
+    kvf_writer w = {.buffer = header, .capacity = KVF_HEADER_BYTES};
     kvf_put_u32(&w, KVF_MAGIC);
     kvf_put_u16(&w, KVF_WIRE_VERSION);
     kvf_put_u16(&w, KVF_HEADER_BYTES);
@@ -150,6 +149,14 @@ kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t dea
     kvf_put_u32(&w, f.size);
     kvf_put_u32(&w, kvf_crc32c(payload, f.size));
     kvf_put_u32(&w, kvf_crc32c(header, w.size));
+    return KVF_OK;
+}
+
+kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t deadline) {
+    uint8_t header[KVF_HEADER_BYTES];
+    kvf_status encoded = kvf_frame_encode_header(f, payload, header);
+    if (encoded != KVF_OK)
+        return encoded;
     struct iovec parts[] = {{header, sizeof(header)}, {(void *)payload, f.size}};
     struct msghdr msg = {.msg_iov = parts, .msg_iovlen = f.size ? 2 : 1};
     while (msg.msg_iovlen) {
@@ -178,6 +185,36 @@ kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t dea
     return KVF_OK;
 }
 
+kvf_status kvf_frame_decode_header(const uint8_t header[KVF_HEADER_BYTES], kvf_frame *frame,
+                                   uint32_t *payload_crc, uint64_t *crc_verify_ns) {
+    kvf_reader r = {.buffer = header, .size = KVF_HEADER_BYTES};
+    if (kvf_get_u32(&r) != KVF_MAGIC || kvf_get_u16(&r) != KVF_WIRE_VERSION ||
+        kvf_get_u16(&r) != KVF_HEADER_BYTES)
+        return KVF_PROTOCOL;
+    kvf_frame f;
+    f.opcode = (kvf_opcode)kvf_get_u16(&r);
+    f.response = kvf_get_u16(&r);
+    uint32_t status = kvf_get_u32(&r);
+    if (status > KVF_CANCELLED)
+        return KVF_PROTOCOL;
+    f.status = (kvf_status)status;
+    f.request_id = kvf_get_u64(&r);
+    f.size = kvf_get_u32(&r);
+    uint32_t expected = kvf_get_u32(&r);
+    uint32_t header_crc = kvf_get_u32(&r);
+    uint64_t start = crc_verify_ns ? kvf_now_ns() : 0;
+    uint32_t actual = kvf_crc32c(header, KVF_HEADER_BYTES - sizeof(header_crc));
+    if (crc_verify_ns)
+        *crc_verify_ns += kvf_now_ns() - start;
+    if (actual != header_crc)
+        return KVF_CRC;
+    if (!valid_frame(f))
+        return KVF_PROTOCOL;
+    *frame = f;
+    *payload_crc = expected;
+    return KVF_OK;
+}
+
 static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t capacity,
                              uint64_t deadline, kvf_receive_timing *timing) {
     if (!frame)
@@ -192,28 +229,12 @@ static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t cap
     }
     if (st != KVF_OK)
         return st;
-    kvf_reader r = {.buffer = header, .size = sizeof(header)};
-    if (kvf_get_u32(&r) != KVF_MAGIC || kvf_get_u16(&r) != KVF_WIRE_VERSION ||
-        kvf_get_u16(&r) != KVF_HEADER_BYTES)
-        return KVF_PROTOCOL;
     kvf_frame f;
-    f.opcode = (kvf_opcode)kvf_get_u16(&r);
-    f.response = kvf_get_u16(&r);
-    uint32_t status = kvf_get_u32(&r);
-    if (status > KVF_CANCELLED)
-        return KVF_PROTOCOL;
-    f.status = (kvf_status)status;
-    f.request_id = kvf_get_u64(&r);
-    f.size = kvf_get_u32(&r);
-    uint32_t payload_crc = kvf_get_u32(&r);
-    uint32_t header_crc = kvf_get_u32(&r);
-    start = timing ? kvf_now_ns() : 0;
-    uint32_t actual = kvf_crc32c(header, sizeof(header) - sizeof(header_crc));
-    if (timing)
-        timing->crc_verify_ns += kvf_now_ns() - start;
-    if (actual != header_crc)
-        return KVF_CRC;
-    if (!valid_frame(f) || f.size > capacity || (f.size && !payload))
+    uint32_t payload_crc;
+    st = kvf_frame_decode_header(header, &f, &payload_crc, timing ? &timing->crc_verify_ns : NULL);
+    if (st != KVF_OK)
+        return st;
+    if (f.size > capacity || (f.size && !payload))
         return KVF_PROTOCOL;
     start = timing ? kvf_now_ns() : 0;
     st = receive(fd, payload, f.size, deadline, timing ? &timing->received_bytes : NULL);
@@ -222,7 +243,7 @@ static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t cap
     if (st != KVF_OK)
         return st;
     start = timing ? kvf_now_ns() : 0;
-    actual = kvf_crc32c(payload, f.size);
+    uint32_t actual = kvf_crc32c(payload, f.size);
     if (timing)
         timing->crc_verify_ns += kvf_now_ns() - start;
     if (actual != payload_crc)

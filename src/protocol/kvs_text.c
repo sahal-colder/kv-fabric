@@ -28,16 +28,10 @@ int kvs_text_command(char *line, char response[BUFFER_LENGTH]) {
 	const char *command = args[0];
 	if (argc == 1 && !strcasecmp(command, "PING"))
 		return sprintf(response, "+PONG\r\n");
-	int load = !strcmp(command, "LOAD");
-	if (load || !strcmp(command, "SAVE")) {
-		if (argc != 1 && (argc != 2 || kvs_config_get()->persistence != KVS_PERSISTENCE_FULL))
-			return sprintf(response, "ERROR\r\n");
-		if (load && !kvs_replication_allows_client_writes())
-			return sprintf(response, "READONLY\r\n");
-		const char *filename = argc == 2 ? args[1] : NULL;
-		int result = load ? kvs_engine_load(filename) : kvs_persistence_save(filename);
-		return sprintf(response, result == 0 ? "OK\r\n" : "ERROR\r\n");
-	}
+	/* This protocol has no authenticated administrative session. Internal
+	 * startup/checkpoint APIs remain available; remote filenames are forbidden. */
+	if (!strcasecmp(command, "LOAD") || !strcasecmp(command, "SAVE"))
+		return sprintf(response, "ERROR remote persistence disabled\r\n");
 
 	int engine = KVS_FORMAT_ENGINE_ARRAY;
 	switch (*command) {

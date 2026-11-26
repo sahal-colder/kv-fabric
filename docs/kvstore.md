@@ -29,6 +29,8 @@ Start with `./build/bin/kvstore --config config/kvstore.conf`;
 make
 ```
 
+Build dependencies include pthread, OpenSSL libcrypto, and liburing when Proactor is enabled.
+
 All generated files are kept under `build/`:
 
 - `build/obj/<allocator>-<features>/`: objects isolated by allocator and feature flags.
@@ -173,12 +175,15 @@ The Redis-compatible command set currently includes `HELLO`, `PING`, `ECHO`,
 `SET` (`NX`, `XX`, and `GET` options), `SETNX`, `GET`, `GETSET`, `GETDEL`,
 `APPEND`, `DEL`, `UNLINK`, `EXISTS`, `TOUCH`, `RENAME`, `RENAMENX`, `MSET`,
 `MSETNX`, `MGET`, `INCR`, `DECR`, `INCRBY`, `DECRBY`, `STRLEN`, `TYPE`,
-`DBSIZE`, `FLUSHDB`, `FLUSHALL`, `SAVE`, `LOAD`, `SELECT`, `INFO`, `COMMAND`,
+`DBSIZE`, `FLUSHDB`, `FLUSHALL`, `SELECT`, `INFO`, `COMMAND`,
 `CLIENT`, `AUTH` and `QUIT`. Multiple RESP requests in one receive buffer are
 processed in order, which supports hiredis pipelining and the
 `redis-benchmark -P` option
-when the aggregate request and response fit within the configured 1 KiB
-network buffer.
+with input frames bounded to 64 KiB. Replies grow from a 1 KiB stack buffer
+up to a 64 MiB per-reply limit. `SAVE` and `LOAD` are rejected remotely with
+`NOPERM` (or a text-protocol error), including requests without a filename.
+MSET/MSETNX prepare the batch before mutating the selected index; allocation
+failure leaves all batch keys unchanged. This is not a crash-atomic multi-record WAL.
 
 The Redis view uses the selected Array, red-black-tree, hash-table, or
 skip-list engine and database 0. `INFO` reports the active engine as
@@ -192,9 +197,10 @@ The default role is `standalone`, so existing startup commands remain valid.
 Configure a master or slave explicitly with:
 
 ```sh
-./build/bin/kvstore 2000 hash --role master
-./build/bin/kvstore 2001 hash --role slave \
-  --master-host 127.0.0.1 --master-port 2000
+# Add the same private `replication-secret` (32..128 bytes) to both config files.
+# Generate a value with `openssl rand -hex 32`; do not use a published example key.
+./build/bin/kvstore --config config/miniinfer-master.conf
+./build/bin/kvstore --config config/miniinfer-slave.conf
 ```
 
 The slave role is read-only for client commands. Every connection first restores
@@ -204,9 +210,11 @@ Bounded per-slave queues keep network I/O out of the request's storage lock.
 Heartbeats detect broken links; reconnects retry until shutdown and replace stale
 state with a new full snapshot. `INFO` reports `master_link_status:up` only after
 snapshot installation. Replication is asynchronous, without quorum or automatic
-failover. Both sides must use the new protocol version. TCP uses the client port
-unless `replication-port` selects a separate listener; RDMA requires a separate
-listener. See the integration guide for resource budgets and eBPF requirements.
+failover. Both peers must use the authenticated V2 handshake and the same
+private secret. TCP and RDMA require a separate replication listener. V1 and
+shared client-listener replication fail closed; there is no authentication
+downgrade. HMAC authenticates the handshake; payloads are not encrypted.
+See the integration guide for resource budgets and eBPF requirements.
 
 ## Persistence backends
 
@@ -222,30 +230,21 @@ The modes are mutually exclusive. The header macro only supplies the startup
 default. Full snapshots and incremental logs are two different persistence
 strategies, not two files that are automatically combined during recovery.
 
-`KVS_PERSISTENCE_FULL` writes a complete RESP2 snapshot:
-
-```text
-SAVE [filename]
-LOAD [filename]
-```
-
-The filename is optional; the default is `data/kvstore.snapshot`. A snapshot
-contains a `KVS-META` marker, one `SELECT` section for each enabled engine,
-standard Redis `FLUSHDB` and `SET` commands, and a `KVS-END` marker with the
-payload length and CRC32. `SAVE` writes a unique temporary file in the target
-directory, syncs it, renames it over the snapshot, and syncs the directory.
-`LOAD` validates the mapped file and builds replacement indexes before changing
-the live store. Full snapshot loading remains explicit. Older binary snapshots
-are unsupported.
+`KVS_PERSISTENCE_FULL` retains the internal `kvs_persistence_save` and
+`kvs_persistence_load` APIs. Snapshot files include versioned sections, payload
+length and CRC32. Saving writes a unique same-directory temporary file, syncs it,
+renames it, and syncs the directory. Loading validates into replacement indexes
+before installing them. The network protocol exposes neither operation; use a
+trusted in-process administrative integration. The default snapshot path is
+`data/kvstore.snapshot`. Older binary snapshots are unsupported.
 
 `KVS_PERSISTENCE_INCREMENTAL` automatically recovers the configured AOF before
-serving requests. Each successful mutation is appended as a RESP2 record before
-it is acknowledged or replicated. Acknowledgement covers the file write into
-the OS cache. Use `SAVE` to synchronize the file to storage. The process stops
-without acknowledging the mutation if an append fails after changing memory.
-Recovery truncates an incomplete final record and rejects malformed or
-unreplayable complete records. `LOAD` uses the same recovery path and installs
-the result only after successful replay.
+serving requests. Each mutation is appended before acknowledgement or replication;
+acknowledgement covers the OS cache, not a per-command fsync. Internal checkpoint
+and orderly shutdown perform synchronization. An append failure stops the process
+before acknowledgement. Recovery truncates incomplete tail records and rejects
+malformed complete records. Multi-key in-memory atomicity does not add a
+multi-record crash transaction to this WAL.
 
 With AOF on a replica, full synchronization atomically replaces the replica's
 AOF before the new data is installed and acknowledged. A disconnected replica

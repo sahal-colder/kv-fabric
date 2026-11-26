@@ -12,6 +12,8 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+TEST_BUILD = ROOT / os.environ.get("KVS_TEST_BUILD_DIR", "build")
+TEST_SECRET = "test-only-replication-key-at-least-32-bytes"
 
 
 def request(port, *args):
@@ -56,6 +58,8 @@ def eventually(check, timeout=12):
 class Server:
     def __init__(self, port, *args, file_limit=None):
         self.port = port
+        if "--role" in args and "--replication-secret" not in args:
+            args = (*args, "--replication-secret", TEST_SECRET)
         self.resources = contextlib.ExitStack()
         self.log = self.resources.enter_context(
             tempfile.TemporaryFile(mode="w+b")  # noqa: SIM115 - owned by resources until stop()
@@ -65,7 +69,7 @@ class Server:
 
         self.process = subprocess.Popen(
             [
-                str(ROOT / "build/bin/kvstore"),
+                str(TEST_BUILD / "bin/kvstore"),
                 str(port),
                 "hash",
                 "--persistence",
@@ -116,6 +120,13 @@ class Server:
 
 def exercise(dedicated, bpf_map=None):
     master_port, slave_port, sync_port = free_port(), free_port(), free_port()
+    if not dedicated:
+        p = subprocess.run([str(TEST_BUILD / "bin/kvstore"), str(master_port), "hash",
+                            "--role", "master", "--replication-secret", TEST_SECRET],
+                           capture_output=True, text=True, timeout=5)
+        assert p.returncode != 0 and "separate replication-port" in p.stderr
+        print("unauthenticated/shared client-listener replication rejected: PASS")
+        return
     extra = ["--ebpf-enabled", "yes", "--ebpf-map", bpf_map] if bpf_map else []
     master_args = ["--role", "master", *extra]
     if dedicated:

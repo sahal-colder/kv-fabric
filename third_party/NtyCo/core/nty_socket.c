@@ -209,21 +209,17 @@ int nty_connect(int fd, struct sockaddr *name, socklen_t namelen) {
 // add epoll first
 //
 ssize_t nty_recv(int fd, void *buf, size_t len, int flags) {
-	
-	struct pollfd fds;
-	fds.fd = fd;
-	fds.events = POLLIN | POLLERR | POLLHUP;
-
-	nty_poll_inner(&fds, 1, 1);
-
-	int ret = recv(fd, buf, len, flags);
-	if (ret < 0) {
-		//if (errno == EAGAIN) return ret;
-		if (errno == ECONNRESET) return -1;
-		//printf("recv error : %d, ret : %d\n", errno, ret);
-		
+	nty_schedule *sched = nty_coroutine_get_sched();
+	if (sched && sched->curr_thread) {
+		struct pollfd fds = {.fd = fd, .events = POLLIN | POLLERR | POLLHUP};
+		nty_poll_inner(&fds, 1, 1);
 	}
-	return ret;
+#ifdef COROUTINE_HOOK
+	if (!recv_f) init_hook();
+	return recv_f(fd, buf, len, flags);
+#else
+	return recv(fd, buf, len, flags);
+#endif
 }
 
 
@@ -408,28 +404,7 @@ ssize_t read(int fd, void *buf, size_t count) {
 }
 
 ssize_t recv(int fd, void *buf, size_t len, int flags) {
-
-	if (!recv_f) init_hook();
-
-	nty_schedule *sched = nty_coroutine_get_sched();
-	if (sched == NULL) {
-		return recv_f(fd, buf, len, flags);
-	}
-
-	struct pollfd fds;
-	fds.fd = fd;
-	fds.events = POLLIN | POLLERR | POLLHUP;
-
-	nty_poll_inner(&fds, 1, 1);
-
-	int ret = recv_f(fd, buf, len, flags);
-	if (ret < 0) {
-		//if (errno == EAGAIN) return ret;
-		if (errno == ECONNRESET) return -1;
-		//printf("recv error : %d, ret : %d\n", errno, ret);
-		
-	}
-	return ret;
+	return nty_recv(fd, buf, len, flags);
 }
 
 

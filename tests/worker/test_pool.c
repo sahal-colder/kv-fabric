@@ -5,6 +5,7 @@
 #include "miniinfer/miniinfer.h"
 #include <assert.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 /* 在固定预算内验证精确切分和左右两侧合并。 */
@@ -72,6 +73,44 @@ static void test_tlsf_bins(void) {
     mi_mempool_destroy(pool);
 }
 
+static void test_mixed_bucket_and_random(void) {
+    mi_mempool *pool;
+    const size_t unit=64, cap=136*unit;
+    assert(mi_mempool_create(MI_MEMORY_CPU,-1,(mi_mempool_config){.alignment=unit,
+        .chunk_bytes=cap,.max_reserved_bytes=cap,.max_cached_bytes=cap},&pool)==MI_OK);
+    void *big,*small,*g[2],*out;
+    assert(mi_mempool_alloc(pool,67*unit,0,&big)==MI_OK);
+    assert(mi_mempool_alloc(pool,unit,0,&g[0])==MI_OK);
+    assert(mi_mempool_alloc(pool,66*unit,0,&small)==MI_OK);
+    assert(mi_mempool_alloc(pool,unit,0,&g[1])==MI_OK);
+    assert(mi_mempool_release(pool,big)==MI_OK);
+    assert(mi_mempool_release(pool,small)==MI_OK); /* smaller head in old mapping */
+    assert(mi_mempool_alloc(pool,67*unit,0,&out)==MI_OK && out==big);
+    assert(mi_mempool_release(pool,out)==MI_OK);
+    assert(mi_mempool_release(pool,g[0])==MI_OK);assert(mi_mempool_release(pool,g[1])==MI_OK);
+    assert(mi_mempool_alloc(pool,cap,0,&out)==MI_OK);assert(mi_mempool_release(pool,out)==MI_OK);
+    mi_mempool_destroy(pool);
+    const size_t budget=8*1024*1024;
+    assert(mi_mempool_create(MI_MEMORY_CPU,-1,(mi_mempool_config){.alignment=unit,
+        .chunk_bytes=budget,.max_reserved_bytes=budget,.max_cached_bytes=budget},&pool)==MI_OK);
+    unsigned char *slots[256]={0};size_t sizes[256]={0};uint32_t rng=913;
+    for(unsigned k=0;k<300000;k++) {
+        rng=rng*1664525u+1013904223u;unsigned i=(rng>>16)%256;
+        if(slots[i]) {
+            for(size_t j=0;j<sizes[i];j++)assert(slots[i][j]==(unsigned char)i);
+            assert(mi_mempool_release(pool,slots[i])==MI_OK);slots[i]=NULL;
+        } else {
+            rng=rng*1664525u+1013904223u;sizes[i]=1+(rng%16384);
+            assert(mi_mempool_alloc(pool,sizes[i],0,(void **)&slots[i])==MI_OK);
+            assert((uintptr_t)slots[i]%unit==0);
+            memset(slots[i],(int)i,sizes[i]);
+        }
+    }
+    for(unsigned i=0;i<256;i++)if(slots[i])assert(mi_mempool_release(pool,slots[i])==MI_OK);
+    assert(mi_mempool_alloc(pool,budget,0,&out)==MI_OK);assert(mi_mempool_release(pool,out)==MI_OK);
+    mi_mempool_destroy(pool);
+}
+
 /* 验证分桶地址复用、内存预算和锁页路径。 */
 int main(void) {
     mi_mempool *pool;
@@ -117,6 +156,7 @@ int main(void) {
         assert(mi_mempool_release(pool, b) == MI_OK);
     }
     mi_mempool_destroy(pool);
+    test_mixed_bucket_and_random();
     test_exact_split();
     test_tlsf_bins();
     puts("pool ok");

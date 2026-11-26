@@ -10,10 +10,24 @@
 
 static kvf_status export_page(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
                               kvf_page_key key, kvf_hash parent, const kvf_manifest *verified,
-                              uint64_t order, const atomic_bool *cancel) {
+                              const atomic_bool *cancel) {
     mi_remote_export *entry = mi_remote_find_export(w, key);
-    if (entry && entry->state != EXPORT_FAILED)
-        return entry->state == EXPORT_RETIRING ? KVF_UNAVAILABLE : KVF_OK;
+    if (entry && entry->state != EXPORT_FAILED) {
+        pthread_mutex_lock(&w->exports_lock);
+        int hidden = entry->hidden || entry->state == EXPORT_RETIRING;
+        if (hidden)
+            entry->state = EXPORT_RETIRING;
+        pthread_mutex_unlock(&w->exports_lock);
+        if (!hidden)
+            return KVF_OK;
+        kvf_status retired = kvf_client_invalidate(w->control, &entry->manifest);
+        if (retired != KVF_OK && retired != KVF_NOT_FOUND && retired != KVF_STALE)
+            return retired;
+        mi_remote_drop_export(w, entry, EXPORT_EMPTY);
+    }
+    if (w->publication_order == UINT64_MAX)
+        return KVF_LIMIT;
+    uint64_t order = ++w->publication_order;
     for (uint32_t i = 0; !entry && i < w->exports_capacity; ++i) {
         if (w->exports[i].state == EXPORT_EMPTY || w->exports[i].state == EXPORT_FAILED) {
             entry = &w->exports[i];
@@ -86,7 +100,7 @@ kvf_status mi_remote_publish(mi_remote_worker *w, mi_kv_sequence *s,
         kvf_hash parent = key.page;
         st = kvf_page_hash(&w->identity, parent, tokens + page * n, n, &key.page);
         if (st == KVF_OK)
-            st = export_page(w, s, page, key, parent, NULL, 0, NULL);
+            st = export_page(w, s, page, key, parent, NULL, NULL);
     }
     kvf_status sync = mi_remote_sync_locked(w);
     pthread_mutex_unlock(&w->updates);
@@ -154,7 +168,7 @@ kvf_status mi_remote_publish_page_guarded(mi_remote_worker *w, mi_kv_sequence *s
     if (st == KVF_OK && !mi_remote_find_export(w, key))
         st = make_export_room(w);
     if (st == KVF_OK)
-        st = export_page(w, s, 0, key, parent, NULL, ++w->publication_order, cancel);
+        st = export_page(w, s, 0, key, parent, NULL, cancel);
     if (st == KVF_OK) {
         kvf_status sync = mi_remote_sync_locked(w);
         mi_remote_export *entry = mi_remote_find_export(w, key);
@@ -176,32 +190,47 @@ kvf_status mi_remote_publish_page(mi_remote_worker *w, mi_kv_sequence *s,
     return mi_remote_publish_page_guarded(w, s, parent, tokens, NULL, NULL);
 }
 
-void mi_remote_hide_page(mi_remote_worker *w, kvf_hash page) {
+uint64_t mi_remote_hide_page_revision(mi_remote_worker *w, kvf_hash page) {
+    if (!w || kvf_hash_zero(page))
+        return 0;
     pthread_mutex_lock(&w->exports_lock);
     mi_remote_export *entry = mi_remote_find_export(w, (kvf_page_key){w->space, page});
-    if (entry && entry->order)
+    uint64_t revision = entry ? entry->order : 0;
+    if (entry)
         entry->hidden = 1;
     pthread_mutex_unlock(&w->exports_lock);
+    return revision;
 }
 
-kvf_status mi_remote_invalidate_page(mi_remote_worker *w, kvf_hash page) {
+void mi_remote_hide_page(mi_remote_worker *w, kvf_hash page) {
+    (void)mi_remote_hide_page_revision(w, page);
+}
+
+/* revision=0 keeps the synchronous legacy API; queued work must pass its
+ * captured nonzero revision and cannot invalidate a replacement publication. */
+kvf_status mi_remote_invalidate_page_revision(mi_remote_worker *w, kvf_hash page, uint64_t revision) {
     if (!w || kvf_hash_zero(page))
         return KVF_INVALID;
     pthread_mutex_lock(&w->updates);
     mi_remote_export *e = mi_remote_find_export(w, (kvf_page_key){w->space, page});
     kvf_status st = KVF_NOT_FOUND;
-    if (e && e->order) {
-        if (e->state != EXPORT_RETIRING && e->state != EXPORT_FAILED)
-            mi_remote_drop_export(w, e, EXPORT_RETIRING);
-        st = e->state == EXPORT_FAILED ? KVF_NOT_FOUND : kvf_client_invalidate(w->control, &e->manifest);
-        if (st == KVF_OK || st == KVF_NOT_FOUND || st == KVF_STALE) {
-            pthread_mutex_lock(&w->exports_lock);
-            e->state = EXPORT_EMPTY;
-            pthread_mutex_unlock(&w->exports_lock);
-        }
+    if (e && (!revision || revision == e->order) && e->state != EXPORT_FAILED) {
+        pthread_mutex_lock(&w->exports_lock);
+        e->state = EXPORT_RETIRING;
+        e->hidden = 1;
+        pthread_mutex_unlock(&w->exports_lock);
+        st = kvf_client_invalidate(w->control, &e->manifest);
+        if (st == KVF_OK || st == KVF_NOT_FOUND || st == KVF_STALE)
+            mi_remote_drop_export(w, e, EXPORT_EMPTY);
+    } else if (e && revision && revision != e->order) {
+        st = KVF_STALE;
     }
     pthread_mutex_unlock(&w->updates);
     return st;
+}
+
+kvf_status mi_remote_invalidate_page(mi_remote_worker *w, kvf_hash page) {
+    return mi_remote_invalidate_page_revision(w, page, 0);
 }
 
 uint64_t mi_remote_worker_evictions(const mi_remote_worker *w) {
@@ -326,7 +355,7 @@ static kvf_status import_page(mi_remote_worker *w, mi_kv_sequence *s, size_t pag
         st = mi_remote_cancelled(cancel) ? KVF_CANCELLED
             : mi_remote_from_storage(mi_kv_sequence_publish(s, tokens, count, page + 1));
         if (st == KVF_OK &&
-            export_page(w, s, page, g.manifest.key, parent, &g.manifest, 0, NULL) == KVF_OK)
+            export_page(w, s, page, g.manifest.key, parent, &g.manifest, NULL) == KVF_OK)
             pthread_cond_signal(&w->wake);
         pthread_mutex_unlock(&w->updates);
     }
@@ -447,7 +476,6 @@ static kvf_status resolve_batch(mi_remote_worker *w, mi_kv_sequence *s, const in
         }
         kvf_grant grants[KVF_MAX_BATCH_PAGES];
         uint32_t matched = 0;
-        uint64_t sent_ms = kvf_now_ms();
         if (st == KVF_OK) {
             ++result->lookup_requests;
             st = kvf_client_acquire_batch(client, w->space, candidates, ask, grants, &matched);
@@ -467,9 +495,6 @@ static kvf_status resolve_batch(mi_remote_worker *w, mi_kv_sequence *s, const in
             kvf_status digest = kvf_manifest_digest(m, &fetch[i].manifest_digest);
             if (digest != KVF_OK)
                 st = digest;
-            uint64_t expiry = sent_ms + grants[i].ttl_ms;
-            if (!result->valid_until_ms || expiry < result->valid_until_ms)
-                result->valid_until_ms = expiry;
         }
         timing->dir_lookup_ns += kvf_now_ns() - start;
 
@@ -520,8 +545,9 @@ static kvf_status resolve_batch(mi_remote_worker *w, mi_kv_sequence *s, const in
             return st;
         if (result->admission_skipped)
             return KVF_OK;
-        if (kvf_now_ms() >= result->valid_until_ms)
-            return KVF_STALE;
+        /* FINISH validated and released this batch. Committed local snapshots
+         * no longer borrow a remote lease; only the request deadline remains. */
+        result->valid_until_ms = 0;
         result->remote_tokens += (size_t)matched * n;
         page += matched;
         parent = candidates[matched - 1];

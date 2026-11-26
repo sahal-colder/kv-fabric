@@ -34,6 +34,7 @@ typedef struct kvs_replication_config_s {
 	int ebpf_enabled;
 	char ebpf_object[1024];
 	char ebpf_map[1024];
+	char secret[129]; /* 32..128 bytes; append-only layout extension, rebuild callers. */
 } kvs_replication_config_t;
 
 /* Apply a complete startup configuration before replication threads start. */

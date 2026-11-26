@@ -34,6 +34,8 @@ kvf_status kvf_client_unregister(kvf_client c, const kvf_owner *owner) {
 }
 
 kvf_status kvf_client_worker_status(kvf_client c, const char *name, kvf_worker_info *out, int *online) {
+    if (!name || !out || !online)
+        return KVF_INVALID;
     size_t len = strnlen(name, KVF_WORKER_NAME);
     if (!len || len >= KVF_WORKER_NAME)
         return KVF_INVALID;
@@ -112,6 +114,8 @@ static int get_grant(kvf_reader *r, kvf_page_key key, int leased, kvf_grant *out
 
 static kvf_status page_call(kvf_client c, kvf_opcode op, kvf_page_key key, const kvf_hash *pages,
                              uint32_t count, kvf_grant *out) {
+    if (!out)
+        return KVF_INVALID;
     uint8_t bytes[KVF_METADATA_BYTES];
     kvf_writer w = {.buffer = bytes, .capacity = sizeof(bytes)};
     if (op == KVF_ACQUIRE_PREFIX)
@@ -127,6 +131,8 @@ static kvf_status page_call(kvf_client c, kvf_opcode op, kvf_page_key key, const
 }
 
 kvf_status kvf_client_lookup_page(kvf_client c, kvf_page_key key, kvf_manifest *out, kvf_endpoint *endpoint) {
+    if (!out || !endpoint)
+        return KVF_INVALID;
     kvf_grant g;
     kvf_status st = page_call(c, KVF_LOOKUP_PAGE, key, NULL, 0, &g);
     if (st == KVF_OK) {

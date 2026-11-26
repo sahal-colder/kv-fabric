@@ -36,7 +36,7 @@ typedef struct peer {
 	kvs_transport_t io;
 	pthread_t thread;
 	int state; /* 0 unused, 1 running, 2 joinable. Protected by mutex. */
-	int failed, ready, inline_hello;
+	int failed, ready;
 	pending_t *head, *tail;
 	size_t queued;
 	kvs_sync_frame_t snapshot;
@@ -67,13 +67,7 @@ static void *send_updates(void *arg) {
 	peer_t *p = arg;
 	uint64_t sent = p->snapshot.sequence;
 	time_t heartbeat = time(NULL);
-	int result = 0;
-	if (p->inline_hello)
-		result = kvs_transport_write(&p->io, KVS_MASTER_HANDSHAKE_ACK,
-		                             sizeof(KVS_MASTER_HANDSHAKE_ACK) - 1,
-		                             kvs_replication_config()->timeout_ms);
-	if (!result)
-		result = kvs_sync_send(&p->io, &p->snapshot);
+	int result = kvs_sync_send(&p->io, &p->snapshot);
 	kvs_free(p->snapshot.data);
 	p->snapshot.data = NULL;
 	if (!result)
@@ -135,10 +129,17 @@ static void *send_updates(void *arg) {
 }
 
 /* A read lock establishes the snapshot/delta barrier without holding a lock over I/O. */
-static int register_peer(kvs_transport_t io, int inline_hello) {
+static int register_peer(kvs_transport_t io) {
 	char *snapshot = NULL;
 	size_t length = 0;
 	int result = -1;
+	pthread_mutex_lock(&mutex);
+	int room = 0;
+	for (size_t i = 0; i < MAX_SLAVES; ++i)
+		room |= peers[i].state != 1;
+	pthread_mutex_unlock(&mutex);
+	if (!room)
+		return -1; /* No snapshot allocation when the authenticated quota is full. */
 	if (!io.rdma) {
 		int flags = fcntl(io.fd, F_GETFL, 0);
 		if (flags < 0 || fcntl(io.fd, F_SETFL, flags | O_NONBLOCK) < 0 || kvs_bpf_add(io.fd))
@@ -159,7 +160,6 @@ static int register_peer(kvs_transport_t io, int inline_hello) {
 		memset(p, 0, sizeof(*p));
 		p->io = io;
 		p->state = 1;
-		p->inline_hello = inline_hello;
 		p->snapshot = (kvs_sync_frame_t){KVS_SYNC_SNAPSHOT, sequence, snapshot, length};
 		if (pthread_create(&p->thread, NULL, send_updates, p)) {
 			p->state = 0;
@@ -184,7 +184,8 @@ int kvs_master_register_slave(int fd) {
 	kvs_transport_t io = {.fd = fcntl(fd, F_DUPFD_CLOEXEC, 0)};
 	if (io.fd < 0)
 		return -1;
-	if (!register_peer(io, 1))
+	const kvs_replication_config_t *c = kvs_replication_config();
+	if (!kvs_transport_authenticate(&io, c->secret, 1, c->timeout_ms) && !register_peer(io))
 		return 0;
 	kvs_transport_close(&io);
 	return -1;
@@ -280,7 +281,6 @@ static void *accept_slaves(void *unused) {
 	(void)unused;
 	for (;;) {
 		kvs_transport_t io;
-		char hello[sizeof(KVS_SLAVE_HANDSHAKE) - 1];
 		pthread_mutex_lock(&mutex);
 		int stop = stopping;
 		pthread_mutex_unlock(&mutex);
@@ -288,11 +288,7 @@ static void *accept_slaves(void *unused) {
 			break;
 		if (kvs_transport_accept(&listener, &io, 100))
 			continue;
-		if (!kvs_transport_read(&io, hello, sizeof(hello), c->timeout_ms) &&
-		    !memcmp(hello, KVS_SLAVE_HANDSHAKE, sizeof(hello)) &&
-		    !kvs_transport_write(&io, KVS_MASTER_HANDSHAKE_ACK,
-		                         sizeof(KVS_MASTER_HANDSHAKE_ACK) - 1, c->timeout_ms) &&
-		    !register_peer(io, 0))
+		if (!kvs_transport_authenticate(&io, c->secret, 1, c->timeout_ms) && !register_peer(io))
 			continue;
 		kvs_transport_close(&io);
 	}

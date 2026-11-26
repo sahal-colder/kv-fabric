@@ -21,6 +21,8 @@ typedef struct {
     uint32_t peer_connections; /* Zero requests short connections, useful as the baseline. */
     uint32_t peer_idle_ms;     /* Upper bound for idle socket retention. */
     mi_location location;
+    kvf_transport transport_mode;
+    int rdma_strict;           /* Require RDMA if selected, with no TCP fallback. */
 } mi_remote_config;
 
 typedef struct {
@@ -34,7 +36,7 @@ typedef struct {
     size_t local_tokens, remote_tokens;
     uint64_t lookup_requests, lookup_hits;
     uint64_t transfer_ns, transfer_samples;
-    uint64_t ready_ns, valid_until_ms;
+    uint64_t ready_ns, valid_until_ms; /* Zero after FINISH: local snapshot owns its data. */
     int admission_skipped;
     mi_remote_timing timing;
 } mi_remote_result;
@@ -51,11 +53,15 @@ typedef struct {
 
 /* Storage is borrowed. The Worker owns its Paged KV and one cache namespace. */
 void mi_remote_config_defaults(mi_remote_config *config);
+kvf_status mi_remote_transport_parse(const char *name, kvf_transport *out);
+const char *mi_remote_transport_name(kvf_transport transport);
 kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config config,
                                     mi_remote_worker **out);
 mi_paged_kv *mi_remote_worker_cache(mi_remote_worker *worker);
 void mi_remote_worker_info(mi_remote_worker *worker, kvf_worker_info *info);
 kvf_endpoint mi_remote_worker_listen_endpoint(const mi_remote_worker *worker);
+/* Last successful outbound data transfer, or the startup transport before any fetch. */
+kvf_transport mi_remote_worker_active_transport(const mi_remote_worker *worker);
 /* Call after joining local callers and destroying sequences and page leases. */
 void mi_remote_worker_stop(mi_remote_worker *worker);
 
@@ -72,6 +78,10 @@ kvf_status mi_remote_publish_page_guarded(mi_remote_worker *worker, mi_kv_sequen
                                            const atomic_bool *cancelled, int *retained);
 /* Gate local serving immediately. Follow with invalidate off the scheduling thread. */
 void mi_remote_hide_page(mi_remote_worker *worker, kvf_hash page);
+/* Capture an export revision at hide time for delayed invalidation. Zero means
+ * no export existed; do not enqueue a revision=0 invalidation in that case. */
+uint64_t mi_remote_hide_page_revision(mi_remote_worker *worker, kvf_hash page);
+kvf_status mi_remote_invalidate_page_revision(mi_remote_worker *worker, kvf_hash page, uint64_t revision);
 /* Close a detached export and invalidate its replica. Heartbeat retries failed RPCs. */
 kvf_status mi_remote_invalidate_page(mi_remote_worker *worker, kvf_hash page);
 uint64_t mi_remote_worker_evictions(const mi_remote_worker *worker);
@@ -79,6 +89,11 @@ uint64_t mi_remote_worker_evictions(const mi_remote_worker *worker);
 kvf_status mi_remote_append_page(mi_remote_worker *worker, mi_kv_sequence *sequence);
 /* Close source publication before releasing the cache's prefix references. */
 kvf_status mi_remote_evict_prefixes(mi_remote_worker *worker);
+/* Read a locally owned active export using the same snapshot and CRC checks
+ * as the socket server. A miss leaves the caller free to fetch by lease. */
+kvf_status mi_remote_read_owned_page(mi_remote_worker *worker, kvf_hash page,
+                                     uint64_t deadline_ms, void *data);
+
 /* On remote failure, return the longest already verified prefix for recompute. */
 kvf_status mi_remote_resolve(mi_remote_worker *worker, const int32_t *tokens, size_t token_count,
                               mi_kv_sequence **out, mi_remote_result *result);

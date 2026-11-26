@@ -73,7 +73,10 @@ mi_status mi_storage_create_block(mi_tiered_storage *storage, size_t bytes,
 /* 获取内存块租约。读要求已提交，写要求独占，GPU 访问须提供流。 */
 mi_status mi_storage_acquire(mi_tiered_storage *storage, mi_block_id id,
                              mi_access_mode mode, mi_stream stream, mi_lease *out);
-/* 结束租约。写入成功时提交数据并递增版本。 */
+/* 结束租约。写入成功时提交数据并递增版本。
+ * 无法确认 GPU 完成时返回 MI_EIO，并由 Storage 接管隔离资源；租约仍会清空。
+ * 此后该 Storage 拒绝数据操作，资源保留至进程退出，不能原地复用设备。 */
+/* 同一流使用的外部资源仍由调用者隔离至确认完成或进程退出。 */
 mi_status mi_lease_finish(mi_lease *lease);
 /* 结束租约。取消原地写入会使块变为未初始化。 */
 mi_status mi_lease_abort(mi_lease *lease);
@@ -112,7 +115,8 @@ mi_status mi_storage_erase(mi_tiered_storage *storage, mi_block_id id);
 
 /* 查询指定层当前是否还有空闲槽。 */
 int mi_storage_has_room(mi_tiered_storage *storage, mi_location location);
-/* 等待后台迁移结束，释放内部资源并解除后端绑定。 */
+/* 等待后台迁移结束，释放内部资源并解除后端绑定。
+ * 未确认 DMA 完成的隔离实例保留自身、后端和内存池，需重启进程恢复。 */
 void mi_tiered_storage_destroy(mi_tiered_storage *storage);
 
 #ifdef __cplusplus

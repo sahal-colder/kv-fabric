@@ -4,6 +4,7 @@
  */
 #ifndef KVS_STORE_H
 #define KVS_STORE_H
+#include <stddef.h>
 
 #include "kvs_mutation.h"
 
@@ -170,6 +171,9 @@ void kvs_store_unlock(void);
 extern kvs_store_t kvs_store;
 
 int kvs_store_create(kvs_store_t *store);
+/* Caller holds the write lock. Preparation failure never mutates dst. */
+int kvs_store_mset(kvs_store_t *dst, int engine, const char *const *keys,
+                   const char *const *values, size_t count, int only_missing);
 void kvs_store_destroy(kvs_store_t *store);
 /* Caller holds the write lock. After the swap, staged owns the old data. */
 void kvs_store_swap(kvs_store_t *staged);

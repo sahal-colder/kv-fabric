@@ -114,6 +114,7 @@ mi_status mi_backend_write_record(mi_storage_backend *backend, mi_storage_handle
 mi_status mi_backend_read_validated(mi_storage_backend *backend, mi_storage_handle handle,
                                     const mi_block_meta *expected, void *host);
 /* 关闭 I/O 资源或向内存池归还 Slab。 */
+/* Storage仍绑定时延后销毁。无法确认GPU DMA完成时保留资源至进程退出。 */
 void mi_backend_destroy(mi_storage_backend *backend);
 
 #ifdef __cplusplus

@@ -65,6 +65,10 @@ int kvf_reader_done(const kvf_reader *r) {
 }
 
 void kvf_put_identity(kvf_writer *w, const kvf_identity *i) {
+    if (!i) {
+        w->failed = 1;
+        return;
+    }
     kvf_put_bytes(w, i->model.bytes, 32);
     kvf_put_bytes(w, i->tokenizer.bytes, 32);
     kvf_put_bytes(w, i->layout.bytes, 32);
@@ -131,6 +135,10 @@ void kvf_get_endpoint(kvf_reader *r, kvf_endpoint *ep) {
 }
 
 void kvf_put_worker(kvf_writer *w, const kvf_worker_info *worker) {
+    if (!worker) {
+        w->failed = 1;
+        return;
+    }
     kvf_put_owner(w, &worker->owner);
     kvf_put_endpoint(w, worker->endpoint);
     kvf_put_u32(w, worker->capacity_pages);
@@ -181,7 +189,7 @@ void kvf_get_layer(kvf_reader *r, kvf_layer *layer) {
 }
 
 void kvf_put_manifest(kvf_writer *w, const kvf_manifest *m) {
-    if (m->layer_count > KVF_MAX_LAYERS) {
+    if (!m || m->layer_count > KVF_MAX_LAYERS) {
         w->failed = 1;
         return;
     }

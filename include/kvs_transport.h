@@ -21,6 +21,7 @@ int kvs_transport_wait(kvs_transport_t *io, short events, unsigned int timeout_m
 int kvs_transport_read(kvs_transport_t *io, void *data, size_t bytes, unsigned int timeout_ms);
 int kvs_transport_write(kvs_transport_t *io, const void *data, size_t bytes,
                         unsigned int timeout_ms);
+int kvs_transport_authenticate(kvs_transport_t *io, const char *secret, int server, unsigned int timeout_ms);
 void kvs_transport_shutdown(kvs_transport_t *io);
 void kvs_transport_close(kvs_transport_t *io);
 

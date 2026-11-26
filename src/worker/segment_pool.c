@@ -4,7 +4,11 @@
  */
 #include "segment_pool.h"
 #include <stdint.h>
+#include <pthread.h>
 #include <stdlib.h>
+
+static pthread_mutex_t retired_mutex = PTHREAD_MUTEX_INITIALIZER;
+static mi_segment_pool *retired_pools;
 
 mi_status mi_segment_pool_create(int device, size_t bytes, unsigned count, int streams, mi_segment_pool **out) {
     const size_t mask = MI_SEGMENT_ALIGNMENT - 1;
@@ -31,6 +35,7 @@ mi_status mi_segment_pool_create(int device, size_t bytes, unsigned count, int s
     for (unsigned i = 0; i < count; ++i) {
         mi_segment *slot = &pool->slots[i];
         atomic_init(&slot->ref_count, 0);
+        atomic_init(&slot->quarantined, 0);
         slot->data = base + i * stride;
         ++pool->count;
         if (streams && device >= 0) {
@@ -53,6 +58,18 @@ void mi_segment_pool_destroy(mi_segment_pool *pool) {
     if (!pool)
         return;
     for (unsigned i = 0; i < pool->count; ++i) {
+        if (!atomic_load_explicit(&pool->slots[i].quarantined, memory_order_acquire))
+            continue;
+        pthread_mutex_lock(&retired_mutex);
+        if (!pool->retired) {
+            pool->retired = 1;
+            pool->retired_next = retired_pools;
+            retired_pools = pool;
+        }
+        pthread_mutex_unlock(&retired_mutex);
+        return;
+    }
+    for (unsigned i = 0; i < pool->count; ++i) {
         (void)mi_device_event_destroy(pool->device, pool->slots[i].event);
         (void)mi_device_stream_destroy(pool->device, pool->slots[i].stream);
     }
@@ -73,6 +90,11 @@ mi_segment *mi_segment_acquire(mi_segment_pool *pool, unsigned first, unsigned e
 }
 
 void mi_segment_release(mi_segment *segment) {
-    if (segment)
+    if (segment && !atomic_load_explicit(&segment->quarantined, memory_order_acquire))
         atomic_store_explicit(&segment->ref_count, 0, memory_order_release);
+}
+
+void mi_segment_quarantine(mi_segment *segment) {
+    if (segment)
+        atomic_store_explicit(&segment->quarantined, 1, memory_order_release);
 }

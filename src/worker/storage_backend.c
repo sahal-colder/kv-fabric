@@ -5,10 +5,12 @@
 #define _FILE_OFFSET_BITS 64
 #define _POSIX_C_SOURCE 200809L
 #include "storage_internal.h"
+#include "allocator_internal.h"
 #include "miniinfer/device_transfer.h"
 #include "direct_io.h"
 #include "storage_crc.h"
 #include "io_transfer.h"
+#include "segment_pool.h"
 #ifdef MINIINFER_WITH_SPDK
 #include "spdk_bridge.h"
 #endif
@@ -18,7 +20,8 @@
 #include <string.h>
 #include <unistd.h>
 
-enum { HEADER_BYTES = 64, SLOT_ALIGNMENT = 256, SPDK_SECTOR = 4096 };
+enum { HEADER_BYTES = 64, SLOT_ALIGNMENT = 256, SPDK_SECTOR = 4096,
+       GPU_TRANSFER_SLOTS = 64 }; /* Match the maximum concurrent Worker lanes. */
 typedef enum { BACKEND_MEMORY, BACKEND_POSIX, BACKEND_URING, BACKEND_SPDK, BACKEND_DIRECT } backend_kind;
 static const char ssd_magic[8] = "MIFSSD1";
 
@@ -45,6 +48,7 @@ struct mi_storage_backend {
         struct {
             mi_mempool *pool;
             unsigned char *base;
+            mi_segment_pool *transfers;
         } memory;
         struct {
             ssd_slot *records;
@@ -59,7 +63,14 @@ struct mi_storage_backend {
 #endif
         } ssd;
     };
+    /* Keep fault-only state away from the CPU slot/mutex cache lines. */
+    atomic_bool gpu_pending;
+    struct mi_storage_backend *retired_next;
+    int retired, destroy_requested;
 };
+
+static pthread_mutex_t retired_mutex = PTHREAD_MUTEX_INITIALIZER;
+static mi_storage_backend *retired_backends;
 
 static size_t slot_index(mi_storage_handle handle) {
     return (uint32_t)handle - 1u;
@@ -92,6 +103,7 @@ static mi_status backend_create(backend_kind kind, mi_location location, size_t 
     b->kind = kind;
     b->location = location;
     b->device = -1;
+    atomic_init(&b->gpu_pending, 0);
     b->slot_bytes = slot_bytes;
     b->stride = stride;
     b->capacity = b->limit = b->free_count = count;
@@ -137,8 +149,18 @@ mi_status mi_memory_backend_create(mi_location location, size_t bytes, mi_mempoo
         return st;
     }
     b->memory.pool = pool;
+    mi_mempool_hold(pool);
     b->memory.base = slab;
     b->device = mi_mempool_device(pool);
+    if (location == MI_LOCATION_GPU) {
+        /* Fixed, bounded ownership: no DMA ever outlives borrowed host memory.
+         * Cover every serving lane without reducing existing concurrency. */
+        st = mi_segment_pool_create(b->device, bytes, GPU_TRANSFER_SLOTS, 0, &b->memory.transfers);
+        if (st != MI_OK) {
+            mi_backend_destroy(b);
+            return st;
+        }
+    }
     *out = b;
     return MI_OK;
 }
@@ -314,6 +336,78 @@ int mi_backend_is_direct(const mi_storage_backend *b) {
     return b && b->kind == BACKEND_DIRECT;
 }
 
+int mi_backend_gpu_pending(const mi_storage_backend *b) {
+    return b && ((b->location == MI_LOCATION_GPU &&
+        atomic_load_explicit(&b->gpu_pending, memory_order_acquire)) ||
+        (b->kind == BACKEND_DIRECT && mi_direct_gpu_pending(b->ssd.direct)));
+}
+
+static mi_status gpu_transfer(mi_storage_backend *b, void *ptr, void *host,
+                               size_t bytes, int write, mi_stream stream, mi_event event) {
+    mi_status st = write
+        ? mi_device_copy_from_host(b->device, ptr, host, bytes, stream)
+        : mi_device_copy_to_host(b->device, host, ptr, bytes, stream);
+    int complete = 0;
+    if (st == MI_OK && event) {
+        st = mi_device_event_record(b->device, event, stream);
+        if (st == MI_OK)
+            st = mi_device_event_wait(b->device, event);
+        complete = st == MI_OK;
+    }
+    if (!complete) {
+        mi_status waited = mi_device_stream_wait(b->device, stream);
+        complete = waited == MI_OK;
+        if (st == MI_OK)
+            st = waited;
+    }
+    if (!complete) {
+        mi_event fence = NULL;
+        mi_status fenced = mi_device_event_create(b->device, &fence);
+        if (fenced == MI_OK)
+            fenced = mi_device_event_record(b->device, fence, stream);
+        if (fenced == MI_OK)
+            fenced = mi_device_event_wait(b->device, fence);
+        complete = fenced == MI_OK;
+        if (fence)
+            (void)mi_device_event_destroy(b->device, fence);
+    }
+    if (!complete)
+        atomic_store_explicit(&b->gpu_pending, 1, memory_order_release);
+    return st;
+}
+
+mi_status mi_backend_gpu_copy(mi_storage_backend *b, mi_storage_handle handle,
+                               size_t offset, void *host, size_t bytes, int write,
+                               mi_stream stream, mi_event event) {
+    if (mi_backend_gpu_pending(b))
+        return MI_EIO;
+    mi_segment_pool *pool = b->memory.transfers;
+    mi_segment *scratch = mi_segment_acquire(pool, 0, pool->count);
+    if (!scratch)
+        return MI_EBUSY;
+    if (write)
+        memcpy(scratch->data, host, bytes);
+    mi_status st = gpu_transfer(b, mi_backend_reserved_ptr(b, handle) + offset,
+                                scratch->data, bytes, write, stream, event);
+    int complete = !mi_backend_gpu_pending(b);
+    if (complete) {
+        if (!write && st == MI_OK)
+            memcpy(host, scratch->data, bytes);
+        mi_segment_release(scratch);
+    } else {
+        mi_segment_quarantine(scratch);
+        if (st == MI_OK)
+            st = MI_EIO;
+    }
+    return st;
+}
+
+mi_status mi_backend_gpu_copy_owned(mi_storage_backend *b, mi_storage_handle handle,
+                                     void *host, size_t bytes, int write) {
+    return mi_backend_gpu_pending(b) ? MI_EIO
+        : gpu_transfer(b, mi_backend_reserved_ptr(b, handle), host, bytes, write, NULL, NULL);
+}
+
 mi_status mi_backend_attach(mi_storage_backend *b, size_t limit, size_t *slots) {
     pthread_mutex_lock(&b->mutex);
     if (b->attached || b->free_count != b->capacity) {
@@ -331,7 +425,10 @@ void mi_backend_detach(mi_storage_backend *b) {
     pthread_mutex_lock(&b->mutex);
     b->attached = 0;
     b->limit = b->capacity;
+    int destroy = b->destroy_requested;
     pthread_mutex_unlock(&b->mutex);
+    if (destroy)
+        mi_backend_destroy(b);
 }
 
 static size_t available(const mi_storage_backend *b) {
@@ -340,7 +437,8 @@ static size_t available(const mi_storage_backend *b) {
 
 size_t mi_backend_available(mi_storage_backend *b) {
     pthread_mutex_lock(&b->mutex);
-    size_t count = available(b);
+    size_t count = mi_backend_gpu_pending(b) ||
+        (b->kind == BACKEND_DIRECT && mi_direct_failed(b->ssd.direct)) ? 0 : available(b);
     pthread_mutex_unlock(&b->mutex);
     return count;
 }
@@ -349,6 +447,10 @@ mi_status mi_backend_reserve(mi_storage_backend *b, size_t bytes, mi_storage_han
     if (!b || !out || !bytes || bytes > b->slot_bytes)
         return MI_EINVAL;
     pthread_mutex_lock(&b->mutex);
+    if (mi_backend_gpu_pending(b) || (b->kind == BACKEND_DIRECT && mi_direct_failed(b->ssd.direct))) {
+        pthread_mutex_unlock(&b->mutex);
+        return MI_EIO;
+    }
     if (!available(b)) {
         pthread_mutex_unlock(&b->mutex);
         return MI_ENOMEM;
@@ -366,6 +468,8 @@ mi_status mi_backend_reserve(mi_storage_backend *b, size_t bytes, mi_storage_han
 mi_status mi_backend_release(mi_storage_backend *b, mi_storage_handle handle) {
     if (!b)
         return MI_EINVAL;
+    if (mi_backend_gpu_pending(b))
+        return MI_EIO;
     pthread_mutex_lock(&b->mutex);
     if (!owns_slot(b, handle)) {
         pthread_mutex_unlock(&b->mutex);
@@ -387,6 +491,8 @@ unsigned char *mi_backend_reserved_ptr(const mi_storage_backend *b, mi_storage_h
 mi_status mi_backend_memory_view(mi_storage_backend *b, mi_storage_handle handle, mi_memory_view *out) {
     if (!b || !out)
         return MI_EINVAL;
+    if (mi_backend_gpu_pending(b))
+        return MI_EIO;
     pthread_mutex_lock(&b->mutex);
     int found = owns_slot(b, handle);
     if (found) {
@@ -469,9 +575,7 @@ static mi_status data_transfer(mi_storage_backend *b, mi_storage_handle handle,
             memmove(data, ptr, bytes);
         return MI_OK;
     }
-    mi_status st = write ? mi_device_copy_from_host(b->device, ptr, data, bytes, NULL)
-                         : mi_device_copy_to_host(b->device, data, ptr, bytes, NULL);
-    return st == MI_OK ? mi_device_stream_wait(b->device, NULL) : st;
+    return mi_backend_gpu_copy(b, handle, offset, data, bytes, write, NULL, NULL);
 }
 
 mi_status mi_backend_read(mi_storage_backend *b, mi_storage_handle handle, size_t offset,
@@ -650,9 +754,29 @@ mi_status mi_backend_direct_move(mi_storage_backend *b, mi_storage_handle handle
 void mi_backend_destroy(mi_storage_backend *b) {
     if (!b)
         return;
+    pthread_mutex_lock(&b->mutex);
+    if (b->attached) {
+        b->destroy_requested = 1;
+        pthread_mutex_unlock(&b->mutex);
+        return;
+    }
+    pthread_mutex_unlock(&b->mutex);
+    if (mi_backend_gpu_pending(b)) {
+        pthread_mutex_lock(&retired_mutex);
+        if (!b->retired) {
+            b->retired = 1;
+            b->retired_next = retired_backends;
+            retired_backends = b;
+        }
+        pthread_mutex_unlock(&retired_mutex);
+        return;
+    }
     if (b->kind == BACKEND_MEMORY) {
+        mi_segment_pool_destroy(b->memory.transfers);
         if (b->memory.base)
             (void)mi_mempool_release(b->memory.pool, b->memory.base);
+        if (b->memory.pool)
+            mi_mempool_drop(b->memory.pool);
     } else {
         mi_direct_destroy(b->ssd.direct);
 #ifdef MINIINFER_WITH_URING

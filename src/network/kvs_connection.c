@@ -11,14 +11,20 @@
 #include <errno.h>
 #include <netinet/tcp.h>
 #include <string.h>
+#include <stdint.h>
 #include <unistd.h>
 
 static int grow(char **buffer, size_t *capacity, size_t needed) {
 	if (needed <= *capacity)
 		return 0;
 	size_t next = *capacity ? *capacity : BUFFER_LENGTH;
-	while (next < needed)
+	while (next < needed) {
+		if (next > SIZE_MAX / 2) {
+			next = needed;
+			break;
+		}
 		next *= 2;
+	}
 	char *new_buffer = kvs_realloc(*buffer, next);
 	if (!new_buffer)
 		return -1;
@@ -61,8 +67,13 @@ void kvs_connection_remove(kvs_connection_t *conn) {
 }
 
 int kvs_connection_queue_output(kvs_connection_t *conn, const char *data, size_t length) {
+	if (!conn || (length && !data))
+		return -1;
+	if (!length)
+		return 0;
 	/* Protocol runs only when the previous batch has drained. */
-	if (grow(&conn->wbuffer, &conn->wsize, conn->wlength + length))
+	if ((length && !data) || length > SIZE_MAX - conn->wlength ||
+	    grow(&conn->wbuffer, &conn->wsize, conn->wlength + length))
 		return -1;
 	memcpy(conn->wbuffer + conn->wlength, data, length);
 	conn->wlength += length;

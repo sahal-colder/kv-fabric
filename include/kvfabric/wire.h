@@ -10,7 +10,14 @@
 #define KVF_HEADER_BYTES 36u
 #define KVF_WIRE_VERSION 3u
 #define KVF_METADATA_BYTES 8192u
-#define KVF_BATCH_GRANT_BYTES (4u + KVF_MAX_BATCH_PAGES * (384u + KVF_MAX_LAYERS * 28u))
+/* Exact V3 field sizes, independent of C struct padding. */
+#define KVF_OWNER_BYTES (2u + (KVF_WORKER_NAME - 1u) + 16u)
+#define KVF_IDENTITY_BYTES (5u * 32u + 3u * 4u + 5u * 2u)
+#define KVF_LAYER_BYTES (2u * 8u + 3u * 4u)
+#define KVF_TICKET_BYTES (2u * 16u + 8u + 4u)
+#define KVF_MANIFEST_BYTES (2u * 32u + 32u + KVF_OWNER_BYTES + KVF_IDENTITY_BYTES + 2u * 4u + KVF_MAX_LAYERS * KVF_LAYER_BYTES)
+#define KVF_GRANT_BYTES (KVF_MANIFEST_BYTES + 6u + KVF_TICKET_BYTES + 4u)
+#define KVF_BATCH_GRANT_BYTES (4u + KVF_MAX_BATCH_PAGES * KVF_GRANT_BYTES)
 #define KVF_DEFAULT_TIMEOUT_MS 3000u
 
 typedef enum {
@@ -88,6 +95,10 @@ kvf_status kvf_manifest_digest(const kvf_manifest *manifest, kvf_hash *out);
 void kvf_put_batch(kvf_writer *w, const kvf_batch_page *pages, uint32_t count);
 uint32_t kvf_get_batch(kvf_reader *r, kvf_batch_page pages[KVF_MAX_BATCH_PAGES]);
 
+/* Wire V3 framing shared by the TCP RPC and Worker data transports. */
+kvf_status kvf_frame_encode_header(kvf_frame frame, const void *payload, uint8_t header[KVF_HEADER_BYTES]);
+kvf_status kvf_frame_decode_header(const uint8_t header[KVF_HEADER_BYTES], kvf_frame *frame,
+                                   uint32_t *payload_crc, uint64_t *crc_verify_ns);
 uint64_t kvf_now_ns(void);
 uint64_t kvf_now_ms(void);
 kvf_status kvf_connect(kvf_endpoint endpoint, uint64_t deadline, int *fd);
