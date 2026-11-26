@@ -65,7 +65,14 @@ def main():
         run("nsys-" + label, cmd)
         run("export-" + label, ["nsys", "export", "--type=sqlite", "--output",
             target / "trace.sqlite", target / "trace.nsys-rep"])
-    # Unprofiled endpoints use the established benchmark and exact historical prompts.
+    # Generate a cold reference in this run. A fresh public checkout does not
+    # contain the private historical raw archive.
+    run("matrix-reference", ["python3", ROOT / "scripts/bench_vllm_kv.py",
+        "--model", a.model, "--lengths", "16384", "--shared", "0.5",
+        "--modes", "recompute", "--out", out / "matrix-reference",
+        "--cache-gib", "1.5", "--gpu-gib", "1", "--concurrency", "1",
+        "--requests", "15", "--output-tokens", "16", "--warmup-requests", "3"])
+    # Unprofiled endpoints use identical deterministic prompts and this reference.
     for label, build in (("before", a.before), ("final", a.after)):
         run("matrix-" + label, ["python3", ROOT / "scripts/bench_vllm_kv.py",
             "--model", a.model, "--lengths", "16384", "--shared", "0.5",
@@ -75,7 +82,7 @@ def main():
             "--cache-gib", "1.5", "--gpu-gib", "1", "--concurrency", "1",
             "--requests", "15", "--output-tokens", "16", "--warmup-requests", "3",
             "--expected-io-mode", "direct-uring-fixed", "--require-cache-write-success", "--reference",
-            ROOT / "docs/benchmarks/native-linux-final/matrix-c1/recompute/requests.jsonl"])
+            out / "matrix-reference/recompute/requests.jsonl"])
     # Same per-file eviction, no global cache drops. Report cold start and hot-cache mix.
     for repeat, modes in enumerate((("fixed", "direct", "buffered"), ("buffered", "direct", "fixed"))):
         for lanes in (1, 4):
