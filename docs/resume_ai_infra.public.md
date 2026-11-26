@@ -19,13 +19,12 @@
 
 **技术栈**：C11 / CUDA / Python / vLLM V1 / 物理 NVMe / ext4｜个人项目
 
-RTX 4060 Laptop 8 GiB、Qwen2.5-3B BF16；16K / 50% 共享前缀、16 输出 Token，统一 eager / batch-invariant；每格预热 3 次、测量 15 请求。
+RTX 4060 Laptop 8 GiB、Qwen2.5-3B BF16；下列 TTFT 对应 16K 输入、8K 共享前缀、16 输出 Token。RDMA 为独立的 Storage / Nano-VLLM 数据面验证，不混用 Qwen TTFT。
 
-- **引擎集成与生命周期**：Scheduler 异步匹配前缀，Worker 经 C ABI 完成整批装载门控、分页导入及后台写回；以发布代数、块版本、租约和引用计数保护复用，超时或校验失败回退 Prefill。
-- **`nsys` 归因与流水线**：将独立 Device 快照经 Event 交接 D2H 流与发布线程；H2D 调用 **18,432 → 4 次/请求**，Host 提交与同步 **432.2 → 30.6 ms**，D2H 与模型计算重叠 **99.4%**。
-- **首 Token 优化**：批量搬运及后台发布后，16K CPU 热回源 TTFT P50 **3.287 s**，较逐段 Connector 的 25.657 s 降 **87.2%**，较原生重算 5.647 s 降 **41.8%**。
-- **向量化 Gather / Scatter**：按物理页与 stride 打包离散 KV，校验 16-byte 对齐、末维连续及尾批；`ncu` DRAM 利用率 **90.26% / 90.04%**，实测 **214.99 / 187.66 GiB/s**。
-- **物理 NVMe 与验证**：实现 `O_DIRECT + io_uring` 固定缓冲、CRC32C 与旧槽防读；72 MiB 回源 **P50 58.83 ms、有效吞吐 1.195 GiB/s**；16K fixed / POSIX TTFT **5.006 s / 5.034 s**。历史 345 条请求 Token ID 对照通过；当前 24/24 CTest、完整 vLLM 回归及 CPU/CUDA 严格 RDMA 各 30 轮通过。
+- **前缀复用与首 Token**：显存受限导致共享前缀重复 Prefill → 通过 vLLM V1 异步匹配、批量导入和后台发布复用 CPU KV → TTFT P50 **5.647 → 3.287 s，下降 41.8%**，输出 Token ID 与冷算一致。
+- **CUDA 数据路径**：离散 KV 的逐段提交开销高 → 按物理页与 stride 实现 `uint4` Gather/Scatter、pinned 批量搬运及 Event 交接 → 288 MiB 回传的 H2D payload 拷贝 **18,432 → 4 次**、Host 提交＋同步 **432.2 → 30.6 ms**；72 MiB 核函数单向有效载荷带宽 **119.13 / 103.54 GiB/s**。
+- **NVMe 回源**：16 KiB 逐层记录串行读取阻塞首 Token → 以 `O_DIRECT + io_uring` fixed buffer 承载校验后的 owned snapshot，按深度并发读取并为后台写回预留容量 → 同负载 TTFT P50 **4.961 → 3.675 s，下降 25.9%**，load/save error 均为 0；独立文件对照中避免 **160 MiB Page Cache** 驻留。
+- **跨 Worker RDMA 数据面**：跨实例 KV 复用需要一致性与失败收敛 → 实现 rsockets、连接池、批量 CRC/租约校验及回退 → 单机 Soft-RoCE（MTU 9000）的 **16 MiB CUDA KV 恢复 P50 30.20 ms、有效 0.517 GiB/s**；小模型前缀复用跳过 **120/124 Token 的 Prefill**，断链/超时后的本地重算与重连恢复均保持 Token 一致。
 
 ### nano-vLLM-C｜C11/CUDA 推理执行与 Paged Decode Attention
 

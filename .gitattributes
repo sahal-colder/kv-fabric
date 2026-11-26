@@ -23,3 +23,6 @@ CMakeLists.txt text eol=lf
 
 # Vendored archives must never be line-ending normalized.
 *.gz binary
+
+# Performance evidence manifest hashes exact exported bytes.
+docs/benchmarks/perf-attribution-2026-11-26/** -text

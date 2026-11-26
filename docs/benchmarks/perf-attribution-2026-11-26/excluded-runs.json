@@ -1,0 +1,7 @@
+{
+  "nsys-after-disk": "Excluded: a diagnostic service attempted GPU initialization before this service exited; rerun serially as nsys-after-disk-serial.",
+  "before-diagnostic-unprofiled": "Failed startup due to overlapping GPU allocation; no request sample used.",
+  "nsys-before-disk.log": "First nsys launch failed because shared temporary directory was not writable; rerun with private NSYS_TMPDIR.",
+  "matrix-after": "Rejected: 51 background save failures; four foreground readers exhausted four Direct slots. Final patch adds one publisher slot and is rerun.",
+  "nsys-after-disk-serial": "Superseded by final five-slot build; retained as diagnostic evidence only."
+}
