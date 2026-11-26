@@ -73,6 +73,16 @@ cmake --install build-release --prefix "$PWD/build-release/install"
 | `-DKVF_SANITIZE=ON` | 启用 ASan 和 UBSan，Linux 可同时检查泄漏 |
 | `-DMINIINFER_WITH_KVFABRIC=OFF` | 构建单机存储或推理组件 |
 
+## 数据路径与性能归因图
+
+![分层缓存与跨 Worker 数据面](docs/benchmarks/perf-attribution-2026-11-26/figures/architecture.png)
+
+![真实 nsys 回源时间线对比](docs/benchmarks/perf-attribution-2026-11-26/figures/nsys-read-concurrency.png)
+
+![ncu 载荷与物理 DRAM 带宽口径](docs/benchmarks/perf-attribution-2026-11-26/figures/ncu-bandwidth-accounting.png)
+
+图片由代码与真实 profiler 区间/计数生成。完整报告本地保留；[公开逐请求测量、计数与导出边界](docs/benchmarks/perf-attribution-2026-11-26/README.md)可复核收益和单位。
+
 ## Nano-VLLM 远程 KV
 
 `nanovllm` 和 `miniinfer` 默认只用本地前缀缓存。在同时构建 KV-Fabric 与 MiniInfer Storage 时，可用 `--remote-kv` 加入目录。使用 `--stdin` 可在每次生成结束后保持 Worker 在线，继续接收提示词并服务已发布的完整页。
