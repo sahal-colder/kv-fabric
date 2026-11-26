@@ -47,14 +47,18 @@ class CudaPages:
         if status:
             raise RuntimeError(f"KV-Fabric CUDA {function.__name__} failed with status {status}")
 
-    def load(self, slot, blocks, stream):
+    def load_async(self, slot, blocks, stream):
         host, device, _, _ = slot
         with nvtx.annotate("kvfabric.h2d"):
             device[:len(blocks)].copy_(host[:len(blocks)], non_blocking=True)
         with nvtx.annotate("kvfabric.scatter"):
             self.launch(slot, blocks, stream, gather=False)
+        return stream.record_event()
+
+    def load(self, slot, blocks, stream):
+        ready = self.load_async(slot, blocks, stream)
         with nvtx.annotate("kvfabric.sync.load"):
-            stream.synchronize()
+            ready.synchronize()
 
     def snapshot(self, slot, blocks, stream, copy_stream):
         host, device, _, _ = slot

@@ -10,6 +10,7 @@ typedef struct {
     kvf_transport transport;
 } mi_remote_socket;
 
+unsigned remote_rdma_pending_closes(void);
 const char *remote_rdma_unavailable(void);
 kvf_status remote_listen(kvf_endpoint *endpoint, unsigned lanes, kvf_transport transport,
                           mi_remote_socket *out);

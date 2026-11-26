@@ -82,7 +82,9 @@ static kvf_status remote_recv_frame(mi_remote_socket s, kvf_frame *f, void *payl
                                     uint64_t end, kvf_receive_timing *timing) {
     uint8_t header[KVF_HEADER_BYTES];
     uint64_t start = timing ? kvf_now_ns() : 0;
+    MI_REMOTE_RANGE_BEGIN("kvfabric.wire.header_wait");
     kvf_status st = remote_recv_all(s, header, sizeof(header), end, NULL);
+    MI_REMOTE_RANGE_END();
     if (timing) {
         uint64_t ns = kvf_now_ns() - start;
         timing->reply_wait_ns += ns;
@@ -97,13 +99,17 @@ static kvf_status remote_recv_frame(mi_remote_socket s, kvf_frame *f, void *payl
     if (f->size > capacity)
         return KVF_PROTOCOL;
     start = timing ? kvf_now_ns() : 0;
+    MI_REMOTE_RANGE_BEGIN("kvfabric.wire.body_receive");
     st = remote_recv_all(s, payload, f->size, end, timing ? &timing->received_bytes : NULL);
+    MI_REMOTE_RANGE_END();
     if (timing)
         timing->net_recv_ns += kvf_now_ns() - start;
     if (st != KVF_OK)
         return st;
     start = timing ? kvf_now_ns() : 0;
+    MI_REMOTE_RANGE_BEGIN("kvfabric.wire.payload_crc");
     uint32_t actual = kvf_crc32c(payload, f->size);
+    MI_REMOTE_RANGE_END();
     if (timing)
         timing->crc_verify_ns += kvf_now_ns() - start;
     return actual == payload_crc ? KVF_OK : KVF_CRC;
@@ -369,6 +375,14 @@ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, 
             return KVF_LIMIT;
         w->batch_recv = (mi_batch_buffer){data, size};
     }
+    return mi_remote_receive_batch_into(w, grant, pages, count, size, deadline_ms, cancel,
+                                        timing, w->batch_recv.data);
+}
+
+kvf_status mi_remote_receive_batch_into(mi_remote_worker *w, const kvf_grant *grant,
+                                   const kvf_batch_page *pages, uint32_t count, size_t size,
+                                   uint64_t deadline_ms, const atomic_bool *cancel,
+                                   mi_remote_timing *timing, void *destination) {
     uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
     kvf_writer request = {.buffer = bytes, .capacity = sizeof(bytes)};
     kvf_put_batch(&request, pages, count);
@@ -384,15 +398,22 @@ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, 
         uint64_t start = kvf_now_ns();
         kvf_status st = borrow_peer(w, grant, mode, end, &peer, &socket, &reused);
         timing->conn_acquire_ns += kvf_now_ns() - start;
-        if (st != KVF_OK)
+        if (st != KVF_OK) {
+            /* CM/idle FIN races can fail before any request body exists.
+             * One reconnect is safe for this read-only lease, with no budget extension. */
+            if (mode == KVF_TRANSPORT_RDMA_RSOCKET && st == KVF_IO && !reconnected && kvf_now_ms() < end) {
+                reconnected = 1;
+                continue;
+            }
             return st;
+        }
         mode = socket.transport;
         kvf_receive_timing wire = {0};
         if (mi_remote_cancelled(cancel)) {
             st = KVF_CANCELLED;
         } else {
             ++timing->data_requests;
-            st = remote_fetch(socket, KVF_FETCH_BATCH, &request, w->batch_recv.data, size, end, &wire);
+            st = remote_fetch(socket, KVF_FETCH_BATCH, &request, destination, size, end, &wire);
         }
         timing->net_recv_ns += wire.net_recv_ns;
         timing->reply_wait_ns += wire.reply_wait_ns;
@@ -409,7 +430,7 @@ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, 
          * received body can reconnect once, under the same deadline and lease. */
         if (wire.received_bytes)
             return st;
-        if (st == KVF_IO && reused && !reconnected) {
+        if (st == KVF_IO && (reused || mode == KVF_TRANSPORT_RDMA_RSOCKET) && !reconnected) {
             reconnected = 1;
             continue;
         }

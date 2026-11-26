@@ -1,0 +1,10 @@
+{
+  "cuda_ctest": 24,
+  "cpu_public_ctest": 18,
+  "python_methods": 10,
+  "full_prefix_bytes": 301989888,
+  "final_hit_requests": 15,
+  "generated_tokens_verified": 240,
+  "root_ctest_log": "validation/ctest-delivery.log",
+  "public_ctest_log": "validation/public-ctest.log"
+}

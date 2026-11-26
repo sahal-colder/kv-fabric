@@ -1,0 +1,67 @@
+{
+  "rows": [
+    {
+      "index": 0,
+      "receive_ns": 505157998,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 1,
+      "receive_ns": 513526170,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 2,
+      "receive_ns": 497087506,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 3,
+      "receive_ns": 490409078,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 4,
+      "receive_ns": 490846319,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 5,
+      "receive_ns": 482463708,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 6,
+      "receive_ns": 461964988,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 7,
+      "receive_ns": 459180002,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 8,
+      "receive_ns": 469906856,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 9,
+      "receive_ns": 468000750,
+      "verified": true,
+      "payload_bytes": 301989888
+    }
+  ],
+  "rounds": 10,
+  "p50_ms": 486.436393,
+  "environment": {}
+}

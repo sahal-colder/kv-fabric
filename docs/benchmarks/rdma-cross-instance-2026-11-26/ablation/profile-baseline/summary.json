@@ -1,0 +1,21 @@
+{
+  "mode": "baseline",
+  "requests": 3,
+  "ttft_p50_ms": 3615.015409,
+  "token_sources": {
+    "local_compute": 24576,
+    "local_cache_hit": 0,
+    "external_kv_transfer": 24576
+  },
+  "load_failures": 0,
+  "workload": {
+    "input_tokens": 16384,
+    "prefix_tokens": 8192,
+    "kv_bytes": 301989888,
+    "output_tokens": 16,
+    "eager": true,
+    "batch_invariant": true
+  },
+  "reference_verified": true,
+  "profile": true
+}

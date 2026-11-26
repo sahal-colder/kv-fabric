@@ -40,18 +40,37 @@ class Bridge:
             function.restype = result
         self.lib.kvf_status_string.argtypes = [C.c_int]
         self.lib.kvf_status_string.restype = C.c_char_p
+        if hasattr(self.lib, "kvf_vllm_open_remote"):
+            self.lib.kvf_vllm_open_remote.argtypes = [C.POINTER(Spec), C.c_char_p, C.c_char_p,
+                C.c_size_t, C.c_uint32, C.c_char_p, C.c_char_p, C.c_uint32, C.POINTER(C.c_void_p)]
+            self.lib.kvf_vllm_open_remote.restype = C.c_int
+        if hasattr(self.lib, "kvf_vllm_load_direct"):
+            self.lib.kvf_vllm_load_direct.argtypes = self.lib.kvf_vllm_load.argtypes
+            self.lib.kvf_vllm_load_direct.restype = C.c_int
         self.window = min(8, (8 * 1024 * 1024) // (spec.layers * spec.layer_bytes))
 
     def describe(self, status):
         return self.lib.kvf_status_string(status).decode()
 
-    def open(self, name, disk_path, pages, depth):
-        status = self.lib.kvf_vllm_open(
-            C.byref(self.spec), name.encode(), disk_path, pages, depth, C.byref(self.worker)
-        )
+    def open(self, name, disk_path, pages, depth, listen=None, transport=None, timeout_ms=0):
+        if hasattr(self.lib, "kvf_vllm_open_remote"):
+            status = self.lib.kvf_vllm_open_remote(
+                C.byref(self.spec), name.encode(), disk_path, pages, depth,
+                listen.encode() if listen else None, transport.encode() if transport else None,
+                timeout_ms, C.byref(self.worker)
+            )
+        else:
+            if listen or transport:
+                raise RuntimeError("library lacks explicit remote transport ABI")
+            status = self.lib.kvf_vllm_open(C.byref(self.spec), name.encode(), disk_path,
+                                          pages, depth, C.byref(self.worker))
         if status:
             raise RuntimeError(f"KV-Fabric bridge open: {self.describe(status)}")
         return self.lib.kvf_vllm_io_mode(self.worker).decode()
+
+    def pending_closes(self):
+        function = getattr(self.lib, "kvf_vllm_pending_closes", None)
+        return int(function()) if function else 0
 
     def close(self):
         self.lib.kvf_vllm_close(self.worker)
@@ -82,11 +101,12 @@ class Bridge:
             self.worker, C.byref(hashes, (first + 1) * C.sizeof(Hash)), pages, timeout_ms, pointer
         )
 
-    def transfer(self, ids, hashes, first, pages, pointer, timeout_ms=None):
+    def transfer(self, ids, hashes, first, pages, pointer, timeout_ms=None, direct=False):
         args = (
             self.worker, hashes[first],
             C.byref(ids, first * self.spec.block_tokens * C.sizeof(C.c_int32)), pages,
         )
         if timeout_ms is None:
             return self.lib.kvf_vllm_publish(*args, pointer)
-        return self.lib.kvf_vllm_load(*args, timeout_ms, pointer)
+        fn = self.lib.kvf_vllm_load_direct if direct else self.lib.kvf_vllm_load
+        return fn(*args, timeout_ms, pointer)

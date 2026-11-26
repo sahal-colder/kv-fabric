@@ -1,0 +1,13 @@
+{
+  "failures": [
+    {
+      "event": "load_failure",
+      "tier": "cpu",
+      "request_id": "cmpl-8faeefc5c2a69f95-0-8002a11a",
+      "status": "timeout"
+    }
+  ],
+  "active_leases": 0,
+  "fallback_tokens_match": true,
+  "kind": "fault-delay"
+}

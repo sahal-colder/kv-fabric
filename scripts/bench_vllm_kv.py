@@ -119,25 +119,33 @@ def generate(url, ids, new, seed=123):
         "stream_options": {"include_usage": True},
     }).encode()
     request = urllib.request.Request(f"{url}/v1/completions", body, {"Content-Type": "application/json"})
+    ttft_scope = ExitStack()
+    if os.environ.get("KVF_CLIENT_TRACE") == "1":
+        import nvtx
+        ttft_scope.enter_context(nvtx.annotate("rdma.client.ttft"))
     start = time.monotonic_ns()
     stamps, output, chunks = [], [], []
     request_id = None
-    with HTTP.open(request, timeout=180) as response:
-        for line in response:
-            if not line.startswith(b"data: ") or line.startswith(b"data: [DONE]"):
-                continue
-            event = json.loads(line[6:])
-            request_id = event["id"]
-            for choice in event["choices"]:
-                tokens = choice.get("token_ids") or []
-                if tokens:
-                    stamps.append(time.monotonic_ns())
-                    chunks.append(len(tokens))
-                    output.extend(tokens)
+    with ttft_scope:
+        with HTTP.open(request, timeout=180) as response:
+            for line in response:
+                if not line.startswith(b"data: ") or line.startswith(b"data: [DONE]"):
+                    continue
+                event = json.loads(line[6:])
+                request_id = event["id"]
+                for choice in event["choices"]:
+                    tokens = choice.get("token_ids") or []
+                    if tokens:
+                        stamps.append(time.monotonic_ns())
+                        if len(stamps) == 1:
+                            ttft_scope.close()
+                        chunks.append(len(tokens))
+                        output.extend(tokens)
     if len(output) != new:
         raise RuntimeError(f"{request_id}: expected {new} output IDs, got {len(output)}")
     return {
         "request_id": request_id, "prompt_tokens": len(ids), "output_ids": output,
+        "start_monotonic_ns": start, "first_token_monotonic_ns": stamps[0],
         "prompt_sha256": hashlib.sha256(json.dumps(ids, separators=(",", ":")).encode()).hexdigest(),
         "ttft_ms": (stamps[0] - start) / 1e6, "tpot_ms": (stamps[-1] - stamps[0]) / (new - 1) / 1e6
         if new > 1 else None, "itl_ms": [(b - a) / 1e6 for a, b in zip(stamps, stamps[1:])],

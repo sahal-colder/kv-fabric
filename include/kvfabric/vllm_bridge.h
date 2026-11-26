@@ -24,6 +24,15 @@ kvf_status kvf_vllm_lookup(const kvf_vllm_spec *spec, const kvf_hash *hashes,
 kvf_status kvf_vllm_open(const kvf_vllm_spec *spec, const char *name,
                         const char *disk_path, size_t cache_pages,
                         uint32_t io_depth, kvf_vllm_worker **out);
+/* Additive ABI: explicit strict transport and routable namespace listener. */
+kvf_status kvf_vllm_open_remote(const kvf_vllm_spec *spec, const char *name,
+                        const char *disk, size_t pages, uint32_t depth,
+                        const char *listen, const char *transport, uint32_t timeout_ms,
+                        kvf_vllm_worker **out);
+kvf_status kvf_vllm_load_direct(kvf_vllm_worker *worker, const kvf_hash *parent,
+                        const int32_t *tokens, size_t pages, uint32_t timeout_ms, void *data);
+/* Process-wide bounded retire queue; holds no page/lease or caller buffer. */
+unsigned kvf_vllm_pending_closes(void);
 const char *kvf_vllm_io_mode(const kvf_vllm_worker *worker);
 void kvf_vllm_close(kvf_vllm_worker *worker);
 

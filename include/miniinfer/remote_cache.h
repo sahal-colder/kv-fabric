@@ -93,6 +93,12 @@ kvf_status mi_remote_evict_prefixes(mi_remote_worker *worker);
  * as the socket server. A miss leaves the caller free to fetch by lease. */
 kvf_status mi_remote_read_owned_page(mi_remote_worker *worker, kvf_hash page,
                                      uint64_t deadline_ms, void *data);
+/* Caller-owned staging, no destination Trie publication or intermediate copies.
+ * Serialized by the caller. Data is usable only on KVF_OK, after FINISH.
+ * A failed call may have written a partial body; discard the complete window. */
+kvf_status mi_remote_snapshot_into(mi_remote_worker *worker, kvf_hash parent,
+                                  const int32_t *tokens, size_t pages, uint64_t deadline_ms,
+                                  void *data, mi_remote_timing *timing);
 
 /* On remote failure, return the longest already verified prefix for recompute. */
 kvf_status mi_remote_resolve(mi_remote_worker *worker, const int32_t *tokens, size_t token_count,
