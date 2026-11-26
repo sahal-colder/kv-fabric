@@ -155,6 +155,9 @@ typedef struct _nty_schedule {
 	uint64_t birth;
 #ifdef _USE_UCONTEXT
 	ucontext_t ctx;
+	void *asan_fake_stack;
+	const void *asan_stack_bottom;
+	size_t asan_stack_size;
 #else
 	nty_cpu_ctx ctx;
 #endif
@@ -191,6 +194,7 @@ typedef struct _nty_coroutine {
 	
 #ifdef _USE_UCONTEXT
 	ucontext_t ctx;
+	void *asan_fake_stack;
 #else
 	nty_cpu_ctx ctx;
 #endif

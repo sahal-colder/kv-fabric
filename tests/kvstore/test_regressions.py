@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from test_sync_e2e import ROOT, Server, eventually, free_port, request
+from test_sync_e2e import ROOT, Server, eventually, free_port, request, TEST_BUILD
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
     try:
         for name in ("array", "rbtree", "hash", "skiptable", "protocol", "redis"):
             completed = subprocess.run(
-                [str(ROOT / f"build/bin/test_{name}"), "127.0.0.1", str(server.port)],
+                [str(TEST_BUILD / f"bin/test_{name}"), "127.0.0.1", str(server.port)],
                 capture_output=True,
                 check=False,
                 text=True,
@@ -34,7 +34,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix="kvstore-full-") as directory:
             path = str(Path(directory) / "snapshot")
             assert request(server.port, "SET", "checkpoint", "original") == b"OK"
-            assert request(server.port, "SAVE", path) == b"OK"
+            assert request(server.port, "SAVE", path).startswith(b"NOPERM")
             follower = Server(
                 free_port(),
                 "--role",
@@ -49,12 +49,13 @@ def main():
             )
             assert request(server.port, "SET", "checkpoint", "new") == b"OK"
             eventually(lambda: request(follower.port, "GET", "checkpoint") == b"new")
-            assert request(server.port, "LOAD", path) == b"OK"
-            assert request(server.port, "GET", "checkpoint") == b"original"
-            eventually(
-                lambda: request(follower.port, "GET", "checkpoint") == b"original"
-            )
-        print("runtime full persistence / LOAD resync: PASS")
+            assert request(server.port, "LOAD", path).startswith(b"NOPERM")
+            assert request(server.port, "GET", "checkpoint") == b"new"
+            eventually(lambda: request(follower.port, "GET", "checkpoint") == b"new")
+            assert not Path(path).exists()
+            (Path(directory) / "build").mkdir()
+            subprocess.run([str(TEST_BUILD / "bin/test_snapshot_resp")], cwd=directory, check=True)
+        print("authenticated sync / remote file rejection / internal snapshot restore: PASS")
     finally:
         if follower:
             follower.stop()
@@ -69,8 +70,8 @@ def main():
         )
         try:
             assert request(server.port, "SET", "checkpoint", "original") == b"OK"
-            assert request(server.port, "SAVE") == b"OK"
-            assert request(server.port, "LOAD") == b"OK"
+            assert request(server.port, "SAVE").startswith(b"NOPERM")
+            assert request(server.port, "LOAD").startswith(b"NOPERM")
             assert request(server.port, "GET", "checkpoint") == b"original"
             print("runtime AOF persistence: PASS")
         finally:

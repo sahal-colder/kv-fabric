@@ -5,6 +5,9 @@
 #define _POSIX_C_SOURCE 200809L
 #include "nano_cache.h"
 #include "nano_cli.h"
+#ifdef NANO_WITH_REMOTE_KV
+#include "miniinfer/remote_cache.h"
+#endif
 #ifdef NANO_WITH_STORAGE
 #include "miniinfer/model_mapping.h"
 #include "miniinfer/storage_backend.h"
@@ -72,6 +75,8 @@ static void usage(FILE *file) {
         "  --kv-control-endpoint IP:PORT    directory (default 127.0.0.1:9000)\n"
         "  --kv-listen-endpoint IP:PORT     worker bind (default 127.0.0.1:0)\n"
         "  --kv-advertise-endpoint IP:PORT  reachable worker address\n"
+        "  --kv-transport tcp|rdma  worker data transport (default tcp)\n"
+        "  --[no-]kv-rdma-fallback  allow TCP fallback when RDMA is selected (default on)\n"
         "  --kv-tenant NAME           cache namespace (default default)\n"
         "  --kv-page-size N           tokens per page, same as --block-size\n"
         "  --kv-cache-capacity N      worker export pages (default --blocks)\n"
@@ -108,6 +113,10 @@ static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value)
         o->listen_endpoint = value;
     else if (strcmp(flag, "--kv-advertise-endpoint") == 0)
         o->advertise_endpoint = value;
+    else if (strcmp(flag, "--kv-transport") == 0) {
+        if (mi_remote_transport_parse(value, &o->transport_mode) != KVF_OK)
+            nv_fatal("--kv-transport must be tcp or rdma");
+    }
     else if (strcmp(flag, "--kv-tenant") == 0)
         o->tenant = value;
     else if (strcmp(flag, "--kv-page-size") == 0)
@@ -127,10 +136,13 @@ static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value)
     return 1;
 }
 
-static void print_remote_stats(NvEngine *engine) {
+static void print_remote_stats(NvEngine *engine, int trace) {
     NvRemoteStats stats;
     nv_engine_remote_flush(engine);
     nv_engine_remote_stats(engine, &stats);
+    const char *active = stats.active_transport ? stats.active_transport : "OFF";
+    if (trace)
+        fprintf(stderr, "active_transport: %s\n", active);
     fprintf(stderr,
             "remote_lookup_requests=%" PRIu64 " remote_lookup_hits=%" PRIu64
             " remote_hit_pages=%" PRIu64 " remote_hit_tokens=%" PRIu64
@@ -139,14 +151,14 @@ static void print_remote_stats(NvEngine *engine) {
             " remote_admission_skips=%" PRIu64 " remote_publish_retries=%" PRIu64 " remote_publish_failures=%" PRIu64
             " remote_prefill_skipped_tokens=%" PRIu64 " remote_prefill_fallbacks=%" PRIu64
             " remote_cache_evictions=%" PRIu64 " remote_transfer_latency_ns=%" PRIu64
-            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 "\n",
+            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 " active_transport=%s\n",
             stats.remote_lookup_requests, stats.remote_lookup_hits, stats.remote_hit_pages,
             stats.remote_hit_tokens, stats.remote_import_bytes, stats.remote_prefetch_requests,
             stats.remote_prefetch_failures, stats.remote_prefetch_cancelled,
             stats.remote_admission_skips, stats.remote_publish_retries, stats.remote_publish_failures,
             stats.remote_prefill_skipped_tokens, stats.remote_prefill_fallbacks,
             stats.remote_cache_evictions, stats.remote_transfer_latency_ns, stats.remote_transfer_samples,
-            stats.remote_published_pages);
+            stats.remote_published_pages, active);
 }
 #endif
 
@@ -387,6 +399,11 @@ int nv_cli_run(int argc, char **argv) {
             remote.publish_generated = remote_configured = 1;
             continue;
         }
+        if (!strcmp(flag, "--kv-rdma-fallback") || !strcmp(flag, "--no-kv-rdma-fallback")) {
+            remote.rdma_strict = !strcmp(flag, "--no-kv-rdma-fallback");
+            remote_configured = 1;
+            continue;
+        }
 #endif
         if (strcmp(flag, "--remote-kv") == 0) {
 #ifdef NANO_WITH_REMOTE_KV
@@ -484,11 +501,18 @@ int nv_cli_run(int argc, char **argv) {
 #ifdef NANO_WITH_STORAGE
     attach_ssd(&engine.cache, &storage);
 #endif
+    char *line = NULL;
+    int ok;
 #ifdef NANO_WITH_REMOTE_KV
     if (remote_enabled) {
         int status = nv_engine_enable_remote(&engine, &tokenizer, remote);
         if (status < 0)
             nv_fatal("invalid remote KV options or unsupported layout; see --help");
+        if (!status && remote.transport_mode == KVF_TRANSPORT_RDMA_RSOCKET && remote.rdma_strict) {
+            fputs("remote KV could not start with required RDMA transport\n", stderr);
+            ok = 0;
+            goto done;
+        }
         if (!status)
             fputs("remote KV unavailable; using local prefill\n", stderr);
     }
@@ -503,7 +527,6 @@ int nv_cli_run(int argc, char **argv) {
     fprintf(stderr, "KV pool: %.2f MiB; requests=%d device=%s\n",
             (double)kv_bytes / 1048576.0, options.max_requests, device);
 
-    char *line = NULL;
     size_t line_capacity = 0;
     do {
         if (read_stdin) {
@@ -527,13 +550,16 @@ int nv_cli_run(int argc, char **argv) {
 #endif
 #ifdef NANO_WITH_REMOTE_KV
         if (remote_enabled)
-            print_remote_stats(&engine);
+            print_remote_stats(&engine, trace);
 #endif
         fflush(stdout);
         (void)nv_engine_clear_requests(&engine);
     } while (read_stdin);
 
-    int ok = !read_stdin || !ferror(stdin);
+    ok = !read_stdin || !ferror(stdin);
+#ifdef NANO_WITH_REMOTE_KV
+done:
+#endif
     free(line);
     nv_engine_free(&engine);
     nv_tokenizer_free(&tokenizer);

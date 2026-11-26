@@ -1,0 +1,90 @@
+{
+  "scope": "deidentified synthetic/aggregate measurements",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 2423,
+      "sha256": "db3131cd15b3caaeb927918afce0c631d981bcfcaf00ca0cb92f867984a73ba8"
+    },
+    {
+      "file": "current-connector.json",
+      "bytes": 2591,
+      "sha256": "0975a42cd57f6b5a22bb55b42f7c51922f7554cea2f977bc6858f82aa86de808"
+    },
+    {
+      "file": "current-nvme.json",
+      "bytes": 5326,
+      "sha256": "e1d3ae870b0b2b7c9523ed12597afefe7ac31be48370a175b9dde6110c6afa4a"
+    },
+    {
+      "file": "current-rdma.json",
+      "bytes": 8921,
+      "sha256": "a2f6e6e6317edb1fe32403756458071e233db0f1393d59547e38dcb4edd21c44"
+    },
+    {
+      "file": "current-source-sha256.json",
+      "bytes": 1410,
+      "sha256": "2ae3add3c9772d4f245fb9e0052e695583433100f100d48cbc72b713ddbf4964"
+    },
+    {
+      "file": "current-token-measurements.json",
+      "bytes": 174925,
+      "sha256": "5582cdfcefe513eaa376447cf31fa9de467f96353c3aaf03f22b6902b0c7d181"
+    },
+    {
+      "file": "current-vllm-matrix.json",
+      "bytes": 12634,
+      "sha256": "3381fde365b2ef73edf49dfc70eef65fa0f1e8af5c318972458a31a463f2832f"
+    },
+    {
+      "file": "current-vs-historical-ttft.json",
+      "bytes": 2593,
+      "sha256": "ec81627c999a3b1e03fc1f6982caebe172dd8f4a1a6f0c73b1c7fd31eaa4b7f8"
+    },
+    {
+      "file": "historical-connector-roundtrip-summary.json",
+      "bytes": 2330,
+      "sha256": "605f7bd4b2d22745944611c6f413aa41f863e0a6839c080ce98f508c38549db7"
+    },
+    {
+      "file": "historical-cuda-summary.json",
+      "bytes": 2735,
+      "sha256": "afb662a19aecbb30d3e831ecd2124cf3a1b08c8948ef948eb7d01eb555890ea5"
+    },
+    {
+      "file": "historical-ncu-summary.json",
+      "bytes": 2655,
+      "sha256": "da3f3ab77a24dfa5e802e0b03decc04b19ee965c520e58b93bc3b92ef3c57e6e"
+    },
+    {
+      "file": "historical-nsys-summary.json",
+      "bytes": 1497,
+      "sha256": "48642493a2b12b224dcdc8c052af24b3ceda9423b0e266d1276d1f8cd8a8143d"
+    },
+    {
+      "file": "historical-rdma-pairs.json",
+      "bytes": 124395,
+      "sha256": "78c5fc7d2fb9705bf04b9bcef9f478e2568e84d008eea1f501988dc35d5d8342"
+    },
+    {
+      "file": "historical-recovery-summary.json",
+      "bytes": 921,
+      "sha256": "37b3f21e1c93359eba0224a80a2ae180b0d74299539802b62c12ecbc100bd72e"
+    },
+    {
+      "file": "historical-token-measurements.json",
+      "bytes": 407370,
+      "sha256": "d5abaf99c5d3de7ed453d5d4e621fcd30338351c4c9a58cb943cd790f686ec65"
+    },
+    {
+      "file": "historical-vllm-matrix.json",
+      "bytes": 27391,
+      "sha256": "2b8a43ac1e6a131df75ede89a3ba066b48601a053c54121c0a7590dedd0b06bb"
+    },
+    {
+      "file": "nano-cuda-summary.json",
+      "bytes": 11197,
+      "sha256": "0c21da263b8196a2abe7e5bae717f9d94395e5244ab0094ef64e1104e82e4816"
+    }
+  ]
+}

@@ -102,59 +102,110 @@ int kvs_resp_build_record(
 	return 0;
 }
 
-int kvs_resp_append(
-	char *response,
-	size_t *used,
-	const char *format,
-	...
-) {
-	va_list args;
-	int written;
-
-	if (*used >= BUFFER_LENGTH) return -1;
-	va_start(args, format);
-	written = vsnprintf(
-		response + *used,
-		BUFFER_LENGTH - *used,
-		format,
-		args
-	);
-	va_end(args);
-
-	if (written < 0 || (size_t)written >= BUFFER_LENGTH - *used) {
-		return -1;
-	}
-	*used += (size_t)written;
-	return 0;
+static int reserve_reply(kvs_resp_buffer *reply, size_t needed) {
+    if (!reply || reply->used > reply->capacity || needed > KVS_RESP_MAX_REPLY)
+        return -1;
+    if (needed <= reply->capacity)
+        return reply->data ? 0 : -1;
+    if (!reply->grow)
+        return -1;
+    size_t next = reply->capacity ? reply->capacity : BUFFER_LENGTH;
+    while (next < needed) {
+        if (next > KVS_RESP_MAX_REPLY / 2) {
+            next = KVS_RESP_MAX_REPLY;
+            break;
+        }
+        next *= 2;
+    }
+    char *data = kvs_malloc(next);
+    if (!data)
+        return -1;
+    if (reply->used)
+        memcpy(data, reply->data, reply->used);
+    if (reply->owned)
+        kvs_free(reply->data);
+    reply->data = data;
+    reply->capacity = next;
+    reply->owned = 1;
+    return 0;
 }
 
-int kvs_resp_append_bulk(
-	char *response,
-	size_t *used,
-	const char *value,
-	size_t length
-) {
-	if (kvs_resp_append(response, used, "$%zu\r\n", length) != 0) {
-		return -1;
-	}
-	if (*used + length + 2 >= BUFFER_LENGTH) return -1;
-	memcpy(response + *used, value, length);
-	*used += length;
-	response[(*used)++] = '\r';
-	response[(*used)++] = '\n';
-	response[*used] = '\0';
-	return 0;
+static int append_reply(kvs_resp_buffer *reply, const char *format, va_list args) {
+    if (!reply || !format || reply->used > reply->capacity || (reply->capacity && !reply->data))
+        return -1;
+    size_t available = reply->capacity - reply->used;
+    va_list copy;
+    va_copy(copy, args);
+    int length = vsnprintf(available ? reply->data + reply->used : NULL, available, format, copy);
+    va_end(copy);
+    if (length < 0)
+        return -1;
+    if ((size_t)length >= available) {
+        if (reply->used > SIZE_MAX - (size_t)length - 1 ||
+            reserve_reply(reply, reply->used + (size_t)length + 1))
+            return -1;
+        int written = vsnprintf(reply->data + reply->used, reply->capacity - reply->used, format, args);
+        if (written != length)
+            return -1;
+    }
+    reply->used += (size_t)length;
+    return 0;
 }
 
-int kvs_resp_append_value(
-	char *response,
-	size_t *used,
-	const char *value
-) {
-	if (value == NULL) {
-		return kvs_resp_append(response, used, "$-1\r\n");
-	}
-	return kvs_resp_append_bulk(response, used, value, strlen(value));
+int kvs_resp_buffer_append(kvs_resp_buffer *reply, const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    int result = append_reply(reply, format, args);
+    va_end(args);
+    return result;
+}
+
+int kvs_resp_buffer_bulk(kvs_resp_buffer *reply, const char *value, size_t length) {
+    char header[32];
+    int prefix = snprintf(header, sizeof(header), "$%zu\r\n", length);
+    if (!reply || (length && !value) || prefix < 0 || (size_t)prefix >= sizeof(header) ||
+        length > SIZE_MAX - (size_t)prefix - 3 ||
+        reply->used > SIZE_MAX - length - (size_t)prefix - 3 ||
+        reserve_reply(reply, reply->used + length + (size_t)prefix + 3))
+        return -1;
+    memcpy(reply->data + reply->used, header, (size_t)prefix);
+    reply->used += (size_t)prefix;
+    if (length)
+        memcpy(reply->data + reply->used, value, length);
+    reply->used += length;
+    memcpy(reply->data + reply->used, "\r\n", 3);
+    reply->used += 2;
+    return 0;
+}
+
+int kvs_resp_buffer_value(kvs_resp_buffer *reply, const char *value) {
+    return value ? kvs_resp_buffer_bulk(reply, value, strlen(value)) :
+                   kvs_resp_buffer_append(reply, "$-1\r\n");
+}
+
+int kvs_resp_append(char *response, size_t *used, const char *format, ...) {
+    if (!response || !used)
+        return -1;
+    kvs_resp_buffer reply = {.data=response, .used=*used, .capacity=BUFFER_LENGTH};
+    va_list args;
+    va_start(args, format);
+    int result = append_reply(&reply, format, args);
+    va_end(args);
+    *used = reply.used;
+    return result;
+}
+
+int kvs_resp_append_bulk(char *response, size_t *used, const char *value, size_t length) {
+    if (!response || !used)
+        return -1;
+    kvs_resp_buffer reply = {.data=response, .used=*used, .capacity=BUFFER_LENGTH};
+    int result = kvs_resp_buffer_bulk(&reply, value, length);
+    *used = reply.used;
+    return result;
+}
+int kvs_resp_append_value(char *response, size_t *used, const char *value) {
+    return value ? kvs_resp_append_bulk(response,used,value,strlen(value)) :
+                   kvs_resp_append(response,used,"$-1\r\n");
 }
 
 int kvs_resp_arg_equals(

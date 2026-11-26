@@ -35,7 +35,9 @@ typedef struct mi_uring mi_uring;
 mi_status mi_uring_create(int fd, unsigned depth, mi_uring **out);
 /* 提交传输并等待完成项。 */
 mi_status mi_uring_transfer(mi_uring *ring, int write, mi_io_range range);
-int mi_uring_register_buffer(mi_uring *ring, void *data, size_t bytes);
+/* The ring owns this CPU/CUDA-pinned fixed allocation, including on failure. */
+int mi_uring_register_buffer(mi_uring *ring, int device, size_t bytes);
+void *mi_uring_buffer(mi_uring *ring);
 mi_status mi_uring_transfer_fixed(mi_uring *ring, int write, mi_io_range range);
 /* 释放队列。文件描述符由后端关闭。 */
 void mi_uring_destroy(mi_uring *ring);

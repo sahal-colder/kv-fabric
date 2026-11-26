@@ -2,11 +2,13 @@
 #define _GNU_SOURCE
 #include "../../src/worker/remote/internal.h"
 #include <assert.h>
+#include <errno.h>
 #include <stdatomic.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <time.h>
+#include <unistd.h>
 
 enum { BYTES = 4096, LAYERS = 2, PAGES = 2, TPP = 2 };
 typedef enum { DISCONNECT, BAD_CRC, EXPIRE, EVICT, PAUSE } fault;
@@ -314,7 +316,7 @@ static void peer_epoch(void) {
     kvf_endpoint loop = {{127, 0, 0, 1}, 0};
     assert(kvf_server_start(loop, 2, 1500, probe_peer, &accepted, &server) == KVF_OK);
     mi_peer_pool *pool;
-    assert(mi_peer_pool_create(1, 200, &pool) == KVF_OK);
+    assert(mi_peer_pool_create(2, 200, &pool) == KVF_OK);
     kvf_grant grant = {.endpoint = kvf_server_endpoint(server)};
     assert(kvf_uuid_new(&grant.manifest.owner.boot) == KVF_OK);
     for (unsigned attempt = 0; attempt < 4; ++attempt) {
@@ -325,16 +327,42 @@ static void peer_epoch(void) {
             mi_peer_pool_reap(pool);
         }
         mi_peer_conn *peer;
-        int fd, reused;
+        mi_remote_socket socket;
+        int reused;
         uint64_t deadline = kvf_now_ms() + 1000;
-        assert(mi_peer_borrow(pool, &grant, deadline, &peer, &fd, &reused) == KVF_OK);
+        if (attempt == 1) {
+            /* Even with the same endpoint and boot, a TCP stream can't satisfy an RDMA checkout. */
+            kvf_status st = mi_peer_borrow(pool, &grant, KVF_TRANSPORT_RDMA_RSOCKET, kvf_now_ms(),
+                                           &peer, &socket, &reused);
+            assert((st == KVF_TIMEOUT || st == KVF_UNAVAILABLE) && !peer && !reused);
+        }
+        assert(mi_peer_borrow(pool, &grant, KVF_TRANSPORT_TCP, deadline, &peer, &socket, &reused) == KVF_OK);
         assert(reused == (attempt == 1));
-        assert(kvf_rpc_on(fd, KVF_STATS, NULL, NULL, 0, NULL, deadline) == KVF_OK);
-        mi_peer_return(pool, peer, 1);
+        assert(socket.transport == KVF_TRANSPORT_TCP);
+        assert(kvf_rpc_on(socket.fd, KVF_STATS, NULL, NULL, 0, NULL, deadline) == KVF_OK);
+        mi_peer_return(pool, peer, socket, 1);
         assert(atomic_load_explicit(&accepted, memory_order_relaxed) == (attempt ? attempt : 1));
     }
     mi_peer_pool_destroy(pool);
     kvf_server_stop(server);
+}
+
+static void rdma_poll_deadline(void) {
+    int ends[2];
+    assert(pipe(ends) == 0);
+    /* rpoll supports ordinary fds, so this exercises the actual library without an IB device. */
+    mi_remote_socket input = {.fd = ends[0], .transport = KVF_TRANSPORT_RDMA_RSOCKET};
+    struct pollfd ready = {.fd = input.fd, .events = POLLIN};
+    int count = remote_poll(input.transport, &ready, 1, 0);
+    assert(count == 0 || (count < 0 && errno == EOPNOTSUPP));
+    if (!count) {
+        for (int i = 0; i < 3; ++i)
+            assert(remote_wait(input, POLLIN, kvf_now_ms() + 10) == KVF_TIMEOUT);
+        assert(write(ends[1], "x", 1) == 1);
+        assert(remote_wait(input, POLLIN, kvf_now_ms() + 100) == KVF_OK);
+    }
+    close(ends[0]);
+    close(ends[1]);
 }
 
 int main(void) {
@@ -345,5 +373,6 @@ int main(void) {
     exercise(PAUSE, "prefetch cancellation and bounded queue", KVF_CANCELLED);
     leaf_pressure();
     peer_epoch();
+    rdma_poll_deadline();
     return 0;
 }

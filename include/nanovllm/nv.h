@@ -8,6 +8,9 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#ifdef NANO_WITH_REMOTE_KV
+#include "kvfabric/kvfabric.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -254,6 +257,10 @@ typedef struct {
     /* Optional capacity for individual verified page transfer samples. */
     size_t transfer_sample_capacity;
     int publish_generated;
+#ifdef NANO_WITH_REMOTE_KV
+    kvf_transport transport_mode;
+    int rdma_strict;
+#endif
 } NvRemoteOptions;
 
 typedef struct {
@@ -264,6 +271,7 @@ typedef struct {
     uint64_t remote_prefill_skipped_tokens, remote_prefill_fallbacks, remote_cache_evictions;
     uint64_t remote_transfer_latency_ns, remote_transfer_samples;
     uint32_t remote_published_pages;
+    const char *active_transport; /* Static name, NULL when remote KV is inactive. */
 } NvRemoteStats;
 
 typedef struct NvRequestSet {

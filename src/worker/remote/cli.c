@@ -7,6 +7,7 @@
 #include "miniinfer/device_transfer.h"
 #include "kvfabric/wire.h"
 #include "../segment_pool.h"
+#include "../tiered_internal.h"
 #include <errno.h>
 #include <signal.h>
 #include <stdio.h>
@@ -135,7 +136,8 @@ static mi_status tensor_io(const char *path, mi_kv_sequence *sequence, size_t pa
 }
 
 static void usage(FILE *out) {
-    fputs("usage: miniinfer_worker serve|pull NAME CONTROL LISTEN cpu|cuda[:ID] NAMESPACE TOKENS TENSORS\n", out);
+    fputs("usage: miniinfer_worker serve|pull NAME CONTROL LISTEN cpu|cuda[:ID] NAMESPACE TOKENS TENSORS\n"
+          "       [--kv-transport tcp|rdma] [--kv-rdma-fallback | --no-kv-rdma-fallback]\n", out);
 }
 
 static uint64_t monotonic_us(void) {
@@ -149,7 +151,7 @@ int main(int argc, char **argv) {
         usage(stdout);
         return 0;
     }
-    if (argc != 9 || (strcmp(argv[1], "serve") && strcmp(argv[1], "pull"))) {
+    if (argc < 9 || (strcmp(argv[1], "serve") && strcmp(argv[1], "pull"))) {
         usage(stderr);
         return 2;
     }
@@ -171,6 +173,21 @@ int main(int argc, char **argv) {
     }
     mi_remote_config c;
     mi_remote_config_defaults(&c);
+    for (int i = 9; i < argc; ++i) {
+        if (!strcmp(argv[i], "--kv-rdma-fallback")) {
+            c.rdma_strict = 0;
+            continue;
+        }
+        if (!strcmp(argv[i], "--no-kv-rdma-fallback")) {
+            c.rdma_strict = 1;
+            continue;
+        }
+        if (!strcmp(argv[i], "--kv-transport") && i + 1 < argc &&
+            mi_remote_transport_parse(argv[++i], &c.transport_mode) == KVF_OK)
+            continue;
+        usage(stderr);
+        return 2;
+    }
     const char *lanes = getenv("MINIINFER_WORKER_LANES");
     const char *peers = getenv("MINIINFER_WORKER_PEERS");
     const char *advertise = getenv("MINIINFER_WORKER_ADVERTISE");
@@ -301,6 +318,7 @@ int main(int argc, char **argv) {
         char endpoint[KVF_ENDPOINT_TEXT];
         mi_remote_worker_info(worker, &info);
         kvf_endpoint_format(info.endpoint, endpoint);
+        fprintf(stderr, "active_transport: %s\n", mi_remote_transport_name(mi_remote_worker_active_transport(worker)));
         printf("READY %s %u\n", endpoint, info.published_pages);
         int signal_number;
         rc = fflush(stdout) != 0 || sigwait(&signals, &signal_number) != 0;
@@ -312,6 +330,7 @@ int main(int argc, char **argv) {
         uint64_t elapsed = monotonic_us() - begin;
         if (remote != KVF_OK)
             goto remote_error;
+        fprintf(stderr, "active_transport: %s\n", mi_remote_transport_name(mi_remote_worker_active_transport(worker)));
         size_t verified = mi_kv_sequence_page_count(seq);
         operation = "write verified layers";
         st = tensor_io(argv[8], seq, verified, &c, 0, device, stream, stage);
@@ -341,6 +360,8 @@ done:
         fprintf(stderr, "miniinfer_worker: %s: %s\n", operation, mi_status_string(st));
     mi_kv_sequence_destroy(seq);
     mi_remote_worker_stop(worker);
+    if (storage && mi_storage_quarantined(storage))
+        mi_segment_quarantine(file_stage);
     mi_segment_release(file_stage);
     mi_segment_pool_destroy(file_pool);
     mi_tiered_storage_destroy(storage);

@@ -9,6 +9,17 @@
 #include <time.h>
 #include <unistd.h>
 
+static int max_uuid;
+kvf_status __real_kvf_uuid_new(kvf_uuid *);
+kvf_status __wrap_kvf_uuid_new(kvf_uuid *out) {
+    if (max_uuid) {
+        memset(out,0xff,sizeof(*out));
+        return KVF_OK;
+    }
+    return __real_kvf_uuid_new(out);
+}
+void kvf_directory_test_counters(kvf_directory *, uint64_t, uint32_t);
+
 static kvf_worker_info make_worker(const char *name) {
     kvf_worker_info info = {.endpoint = {{127, 0, 0, 1}, 9101}, .capacity_pages = 32};
     snprintf(info.owner.name, sizeof(info.owner.name), "%s", name);
@@ -320,7 +331,89 @@ static void test_rpc(void) {
     kvf_directory_destroy(d);
 }
 
+static void test_max_batch_and_null(void) {
+    assert(!kvf_owner_valid(NULL));
+    uint8_t small[KVF_OWNER_BYTES];
+    kvf_writer bad = {.buffer = small, .capacity = sizeof(small)};
+    kvf_put_owner(&bad, NULL);
+    assert(bad.failed);
+    kvf_directory *d;
+    kvf_directory_config cfg;
+    kvf_directory_defaults(&cfg);
+    cfg.max_leases = 65536;
+    cfg.lease_ttl_ms = 600000;
+    max_uuid = 1;
+    assert(kvf_directory_create(cfg, &d) == KVF_OK);
+    kvf_directory_test_counters(d, UINT64_MAX - KVF_MAX_BATCH_PAGES, cfg.max_leases - KVF_MAX_BATCH_PAGES);
+    kvf_worker_info worker = make_worker("max");
+    memset(worker.owner.name, 'x', KVF_WORKER_NAME - 1);
+    assert(kvf_directory_worker_status(d, NULL, &worker, &(int){0}) == KVF_INVALID);
+    assert(kvf_directory_worker_status(NULL, "x", &worker, &(int){0}) == KVF_INVALID);
+    assert(kvf_directory_worker_status(d, "x", NULL, &(int){0}) == KVF_INVALID);
+    assert(kvf_directory_worker_status(d, "x", &worker, NULL) == KVF_INVALID);
+    kvf_server *server;
+    assert(kvf_control_start(d, (kvf_endpoint){{127,0,0,1},0}, 4, 2000, &server) == KVF_OK);
+    kvf_client c = {kvf_server_endpoint(server), 2000};
+    assert(kvf_client_worker_status(c, NULL, &worker, &(int){0}) == KVF_INVALID);
+    assert(kvf_client_register(c, &worker, (kvf_uuid){0}) == KVF_OK);
+    kvf_manifest m = make_page(worker.owner, (kvf_hash){0}, 1);
+    m.layer_count = m.identity.layers = KVF_MAX_LAYERS;
+    assert(kvf_identity_hash(&m.identity, &m.key.space) == KVF_OK);
+    for (unsigned i = 0; i < KVF_MAX_LAYERS; ++i)
+        m.layer[i] = (kvf_layer){.id = UINT64_MAX - i, .version = UINT64_MAX,
+            .generation = UINT32_MAX, .size = m.identity.bytes_per_layer, .checksum = UINT32_MAX};
+    kvf_hash pages[KVF_MAX_BATCH_PAGES];
+    for (unsigned i = 0; i < KVF_MAX_BATCH_PAGES; ++i) {
+        int32_t tokens[] = {1, (int32_t)i};
+        assert(kvf_page_hash(&m.identity, m.parent, tokens, 2, &m.key.page) == KVF_OK);
+        pages[i] = m.key.page;
+        assert(kvf_client_publish(c, &m) == KVF_OK);
+        m.parent = m.key.page;
+    }
+    kvf_grant grants[KVF_MAX_BATCH_PAGES];
+    uint32_t matched;
+    assert(kvf_client_acquire_batch(c, m.key.space, pages, KVF_MAX_BATCH_PAGES, grants, &matched) == KVF_OK);
+    assert(matched == KVF_MAX_BATCH_PAGES);
+    uint8_t bytes[KVF_BATCH_GRANT_BYTES + 1];
+    memset(bytes, 0xa5, sizeof(bytes));
+    kvf_writer w = {.buffer = bytes, .capacity = KVF_BATCH_GRANT_BYTES};
+    kvf_put_u32(&w, matched);
+    for (unsigned i = 0; i < matched; ++i) {
+        assert(grants[i].manifest.layer_count == KVF_MAX_LAYERS);
+        assert(!strcmp(grants[i].manifest.owner.name, worker.owner.name));
+        assert(grants[i].ticket.fence == UINT64_MAX - KVF_MAX_BATCH_PAGES + i + 1);
+        assert(grants[i].ticket.slot == cfg.max_leases - KVF_MAX_BATCH_PAGES + i);
+        for (unsigned j=0;j<16;j++)
+            assert(grants[i].ticket.directory.bytes[j]==0xff && grants[i].ticket.secret.bytes[j]==0xff);
+        kvf_put_manifest(&w, &grants[i].manifest);
+        kvf_put_endpoint(&w, grants[i].endpoint);
+        kvf_ticket max;
+        memset(&max, 0xff, sizeof(max));
+        max.slot = cfg.max_leases - 1;
+        kvf_put_ticket(&w, max);
+        kvf_put_u32(&w, UINT32_MAX);
+        assert(kvf_client_release(c, grants[i].ticket) == KVF_OK);
+    }
+    assert(!w.failed && w.size == KVF_BATCH_GRANT_BYTES && bytes[w.size] == 0xa5);
+    kvf_reader reader = {.buffer=bytes,.size=w.size};
+    assert(kvf_get_u32(&reader)==KVF_MAX_BATCH_PAGES);
+    for (unsigned i=0;i<KVF_MAX_BATCH_PAGES;i++) {
+        kvf_manifest decoded;kvf_endpoint ep;kvf_ticket ticket;
+        kvf_get_manifest(&reader,&decoded);kvf_get_endpoint(&reader,&ep);kvf_get_ticket(&reader,&ticket);
+        assert(ticket.fence==UINT64_MAX && ticket.slot==65535 && kvf_get_u32(&reader)==UINT32_MAX);
+        assert(decoded.layer_count==KVF_MAX_LAYERS && ep.port);
+    }
+    assert(kvf_reader_done(&reader));
+    w = (kvf_writer){.buffer = bytes, .capacity = KVF_BATCH_GRANT_BYTES - 1, .size = KVF_BATCH_GRANT_BYTES - 4};
+    kvf_put_u32(&w, UINT32_MAX);
+    assert(w.failed && bytes[KVF_BATCH_GRANT_BYTES] == 0xa5);
+    kvf_server_stop(server);
+    kvf_directory_destroy(d);
+    max_uuid = 0;
+}
+
 int main(void) {
+    test_max_batch_and_null();
     test_directory();
     test_replicas_and_eviction();
     test_worker_expiry_and_new_epoch();

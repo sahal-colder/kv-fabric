@@ -2,6 +2,7 @@
  * L2-L4 control plane. Directory owns all registry, replica and lease arrays.
  * lock covers every mutation and read snapshot. No calls to sockets or storage under it.
  */
+#define _POSIX_C_SOURCE 200809L
 #include "kvfabric/directory.h"
 #include "kvfabric/wire.h"
 #include <openssl/crypto.h>
@@ -166,7 +167,7 @@ static worker_entry *reserve_worker(kvf_directory *d, uint64_t now) {
 }
 
 static int worker_valid(const kvf_worker_info *info) {
-    return kvf_owner_valid(&info->owner) && info->capacity_pages && info->endpoint.port &&
+    return info && kvf_owner_valid(&info->owner) && info->capacity_pages && info->endpoint.port &&
         (info->endpoint.ipv4[0] || info->endpoint.ipv4[1] || info->endpoint.ipv4[2] || info->endpoint.ipv4[3]);
 }
 
@@ -184,6 +185,8 @@ static void update_worker(kvf_directory *d, worker_entry *w, const kvf_worker_in
 }
 
 kvf_status kvf_directory_register(kvf_directory *d, const kvf_worker_info *info, kvf_uuid replaces) {
+    if (!d)
+        return KVF_INVALID;
     if (!worker_valid(info))
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
@@ -212,6 +215,8 @@ kvf_status kvf_directory_register(kvf_directory *d, const kvf_worker_info *info,
 }
 
 kvf_status kvf_directory_heartbeat(kvf_directory *d, const kvf_worker_info *info) {
+    if (!d)
+        return KVF_INVALID;
     if (!worker_valid(info))
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
@@ -235,6 +240,8 @@ kvf_status kvf_directory_heartbeat(kvf_directory *d, const kvf_worker_info *info
 }
 
 kvf_status kvf_directory_unregister(kvf_directory *d, const kvf_owner *owner) {
+    if (!d)
+        return KVF_INVALID;
     if (!kvf_owner_valid(owner))
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
@@ -248,6 +255,8 @@ kvf_status kvf_directory_unregister(kvf_directory *d, const kvf_owner *owner) {
 }
 
 kvf_status kvf_directory_worker_status(kvf_directory *d, const char *name, kvf_worker_info *out, int *online) {
+    if (!d || !name || !out || !online || !name[0] || strnlen(name, KVF_WORKER_NAME) == KVF_WORKER_NAME)
+        return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
     uint64_t now = kvf_now_ms();
     worker_entry *w = find_worker(d, name);
@@ -314,6 +323,8 @@ static void reclaim_leaf(kvf_directory *d, const kvf_manifest *incoming, uint64_
 }
 
 kvf_status kvf_directory_publish(kvf_directory *d, const kvf_manifest *m) {
+    if (!d)
+        return KVF_INVALID;
     kvf_status st = kvf_manifest_validate(m);
     if (st != KVF_OK)
         return st;
@@ -411,6 +422,8 @@ static int valid_lookup(kvf_hash space, const kvf_hash *pages, uint32_t count) {
 
 kvf_status kvf_directory_lookup_prefix(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                         uint32_t count, uint32_t *matched) {
+    if (!d)
+        return KVF_INVALID;
     if (!matched || !valid_lookup(space, pages, count))
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
@@ -431,6 +444,8 @@ kvf_status kvf_directory_lookup_prefix(kvf_directory *d, kvf_hash space, const k
 
 kvf_status kvf_directory_lookup_page(kvf_directory *d, kvf_page_key key, kvf_manifest *m,
                                       kvf_endpoint *ep) {
+    if (!d || !m || !ep)
+        return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
     uint32_t slot = select_replica(d, key.space, &key.page, 1, kvf_now_ms());
     if (slot) {
@@ -468,6 +483,8 @@ static kvf_status grant_page(kvf_directory *d, uint32_t page, uint64_t now, kvf_
 
 kvf_status kvf_directory_acquire_prefix(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                         uint32_t count, kvf_grant *out) {
+    if (!d)
+        return KVF_INVALID;
     if (!out || !valid_lookup(space, pages, count))
         return KVF_INVALID;
     kvf_uuid secret;
@@ -483,6 +500,8 @@ kvf_status kvf_directory_acquire_prefix(kvf_directory *d, kvf_hash space, const 
 
 kvf_status kvf_directory_acquire_batch(kvf_directory *d, kvf_hash space, const kvf_hash *pages,
                                        uint32_t count, kvf_grant *out, uint32_t *matched) {
+    if (!d)
+        return KVF_INVALID;
     if (!pages || !out || !matched || !count || count > KVF_MAX_BATCH_PAGES || kvf_hash_zero(space))
         return KVF_INVALID;
     kvf_uuid secrets[KVF_MAX_BATCH_PAGES];
@@ -515,6 +534,8 @@ kvf_status kvf_directory_acquire_batch(kvf_directory *d, kvf_hash space, const k
 }
 
 kvf_status kvf_directory_acquire(kvf_directory *d, kvf_page_key key, kvf_grant *out) {
+    if (!d)
+        return KVF_INVALID;
     return kvf_directory_acquire_prefix(d, key.space, &key.page, 1, out);
 }
 
@@ -527,6 +548,8 @@ static lease_entry *find_lease(kvf_directory *d, kvf_ticket t) {
 }
 
 kvf_status kvf_directory_renew(kvf_directory *d, kvf_ticket t, uint32_t *ttl) {
+    if (!d || !ttl)
+        return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
     lease_entry *l = find_lease(d, t);
     uint64_t now = kvf_now_ms();
@@ -541,6 +564,8 @@ kvf_status kvf_directory_renew(kvf_directory *d, kvf_ticket t, uint32_t *ttl) {
 }
 
 kvf_status kvf_directory_release(kvf_directory *d, kvf_ticket t) {
+    if (!d)
+        return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
     lease_entry *l = find_lease(d, t);
     kvf_status st = KVF_STALE;
@@ -553,7 +578,9 @@ kvf_status kvf_directory_release(kvf_directory *d, kvf_ticket t) {
 }
 
 kvf_status kvf_directory_validate(kvf_directory *d, const kvf_fetch_request *r) {
-    if (r->layer_index >= KVF_MAX_LAYERS)
+    if (!d)
+        return KVF_INVALID;
+    if (!r || r->layer_index >= KVF_MAX_LAYERS)
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
     lease_entry *l = find_lease(d, r->ticket);
@@ -569,6 +596,8 @@ kvf_status kvf_directory_validate(kvf_directory *d, const kvf_fetch_request *r) 
 }
 
 kvf_status kvf_directory_check_batch(kvf_directory *d, const kvf_batch_page *pages, uint32_t count, int finish) {
+    if (!d)
+        return KVF_INVALID;
     if (!pages || !count || count > KVF_MAX_BATCH_PAGES)
         return KVF_INVALID;
     pthread_mutex_lock(&d->lock);
@@ -640,10 +669,14 @@ done:
 }
 
 kvf_status kvf_directory_invalidate(kvf_directory *d, const kvf_manifest *m) {
+    if (!d)
+        return KVF_INVALID;
     return invalidate(d, m, 0);
 }
 
 kvf_status kvf_directory_retire(kvf_directory *d, const kvf_manifest *m) {
+    if (!d)
+        return KVF_INVALID;
     return invalidate(d, m, 1);
 }
 
@@ -660,3 +693,13 @@ void kvf_directory_get_stats(kvf_directory *d, kvf_directory_stats *out) {
             ++out->leases;
     pthread_mutex_unlock(&d->lock);
 }
+
+#ifdef KVF_DIRECTORY_TEST
+/* Test-only exhaustion boundary; never present in the installed library. */
+void kvf_directory_test_counters(kvf_directory *d, uint64_t fence, uint32_t slot) {
+    pthread_mutex_lock(&d->lock);
+    d->next_fence = fence;
+    d->next_lease = slot;
+    pthread_mutex_unlock(&d->lock);
+}
+#endif

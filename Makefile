@@ -24,7 +24,7 @@ endif
 
 TARGET_NAME := kvstore
 TEST_NAMES := test_array test_rbtree test_hash test_skiptable test_protocol test_redis test_replication test_snapshot_resp
-UNIT_NAMES := test_config test_sync_wire
+UNIT_NAMES := test_config test_sync_wire test_audit_atomic test_audit_auth
 THIRD_PARTY_DIR := third_party/NtyCo
 INCLUDE_DIR := include
 BUILD_DIR := build
@@ -48,7 +48,7 @@ SRCS := src/main.c src/config/kvs_config.c \
 		src/store/kvs_backend.c src/store/kvs_lock.c src/store/kvs_data.c src/store/kvs_file.c \
 		src/replication/kvs_replication.c src/replication/kvs_master.c \
 		src/replication/kvs_slave.c src/replication/kvs_transport.c \
-		src/replication/kvs_sync_wire.c src/replication/kvs_bpf.c \
+		src/replication/kvs_sync_wire.c src/replication/kvs_auth.c src/replication/kvs_bpf.c \
 		src/network/reactor.c
 
 ifeq ($(PROACTOR),1)
@@ -72,7 +72,7 @@ endif
 CFLAGS += -O1 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-pie
 LDFLAGS += -fsanitize=address,undefined -no-pie
 endif
-LDLIBS := -lpthread -ldl $(ALLOCATOR_LDLIBS)
+LDLIBS := -lpthread -ldl -lcrypto $(ALLOCATOR_LDLIBS)
 ifeq ($(PROACTOR),1)
 LDLIBS += -luring
 endif
@@ -80,6 +80,7 @@ ifeq ($(MYSQL),1)
 LDLIBS += -lmysqlclient
 endif
 ifeq ($(RDMA),1)
+AUTH_TEST_WRAP := -Wl,--wrap=rpoll
 LDLIBS += -lrdmacm -libverbs
 endif
 ifeq ($(BPF),1)
@@ -128,7 +129,7 @@ $(BIN_DIR)/test_snapshot_resp: $(OBJ_DIR)/protocol/kvs_format.o \
 		$(OBJ_DIR)/store/kvs_file.o $(OBJ_DIR)/store/kvs_persistence.o \
 		$(OBJ_DIR)/store/kvs_backend.o $(OBJ_DIR)/store/kvs_mysql.o $(OBJ_DIR)/tests/test_snapshot_resp.o
 	@mkdir -p $(dir $@)
-	$(CC) -o $@ $(filter-out FORCE,$^) $(LDFLAGS) $(filter-out -lntyco,$(LDLIBS))
+	$(CC) -o $@ $(filter-out FORCE,$^) $(LDFLAGS) -Wl,--wrap=writev $(filter-out -lntyco,$(LDLIBS))
 
 $(UNIT_NAMES): %: $(BIN_DIR)/%
 
@@ -143,9 +144,23 @@ $(BIN_DIR)/test_sync_wire: $(OBJ_DIR)/tests/test_sync_wire.o \
 	@mkdir -p $(dir $@)
 	$(CC) -o $@ $(filter-out FORCE,$^) $(LDFLAGS) $(filter-out -lntyco -lmysqlclient,$(LDLIBS))
 
+$(BIN_DIR)/test_audit_atomic: $(OBJ_DIR)/tests/test_audit_atomic.o \
+        $(OBJ_DIR)/store/kvs_array.o $(OBJ_DIR)/store/kvs_hash.o $(OBJ_DIR)/store/kvs_rbtree.o \
+        $(OBJ_DIR)/store/kvs_skiptable.o $(OBJ_DIR)/store/kvs_data.o \
+        $(OBJ_DIR)/protocol/kvs_resp.o $(OBJ_DIR)/memory/kvs_allocator.o $(OBJ_DIR)/memory/kvs_mmpool.o \
+        $(OBJ_DIR)/network/kvs_connection.o $(OBJ_DIR)/config/kvs_config.o $(OBJ_DIR)/replication/kvs_replication.o
+	@mkdir -p $(dir $@)
+	$(CC) -o $@ $(filter-out FORCE,$^) $(LDFLAGS) -Wl,--wrap=kvs_malloc -Wl,--wrap=kvs_calloc -Wl,--wrap=kvs_realloc $(filter-out -lntyco,$(LDLIBS))
+
+$(BIN_DIR)/test_audit_auth: $(OBJ_DIR)/tests/test_audit_auth.o $(OBJ_DIR)/replication/kvs_auth.o $(OBJ_DIR)/replication/kvs_transport.o
+	@mkdir -p $(dir $@)
+	$(CC) -o $@ $(filter-out FORCE,$^) $(LDFLAGS) $(AUTH_TEST_WRAP) $(filter-out -lntyco,$(LDLIBS))
+
 test_unit: $(UNIT_NAMES) test_replication test_snapshot_resp
 	$(BIN_DIR)/test_config
 	$(BIN_DIR)/test_sync_wire
+	$(BIN_DIR)/test_audit_atomic
+	$(BIN_DIR)/test_audit_auth
 	$(BIN_DIR)/test_replication
 	$(BIN_DIR)/test_snapshot_resp
 

@@ -3,6 +3,7 @@
  * 分配器保留内存池中的工作区，图使用者借用。图状态锁不进入 Storage。
  */
 #include "miniinfer/graph_allocator.h"
+#include "allocator_internal.h"
 #include <pthread.h>
 #include <stdlib.h>
 
@@ -25,7 +26,12 @@ struct mi_graph_allocator {
     mi_stream stream;
     pthread_t owner;
     pthread_mutex_t mutex;
+    struct mi_graph_allocator *retired_next;
+    int retired;
 };
+
+static pthread_mutex_t retired_mutex = PTHREAD_MUTEX_INITIALIZER;
+static mi_graph_allocator *retired_graphs;
 
 static size_t graph_bucket(const mi_graph_allocator *g, mi_graph_id id) {
     id ^= id >> 33;
@@ -70,6 +76,7 @@ mi_status mi_graph_allocator_create(mi_mempool *pool, size_t bytes, size_t max_a
         goto failed;
     }
     g->pool = pool;
+    mi_mempool_hold(pool);
     g->workspace = workspace;
     g->bytes = bytes;
     g->max_allocations = max_allocations;
@@ -236,7 +243,28 @@ mi_status mi_graph_release_workspace(mi_graph_allocator *g) {
 void mi_graph_allocator_destroy(mi_graph_allocator *g) {
     if (!g)
         return;
+    pthread_mutex_lock(&g->mutex);
+    pthread_mutex_lock(&retired_mutex);
+    if (g->capture_id || g->graph_count) {
+        if (!g->retired) {
+            g->retired = 1;
+            g->retired_next = retired_graphs;
+            retired_graphs = g;
+        }
+        pthread_mutex_unlock(&retired_mutex);
+        pthread_mutex_unlock(&g->mutex);
+        return;
+    }
+    if (g->retired) {
+        mi_graph_allocator **link = &retired_graphs;
+        while (*link != g)
+            link = &(*link)->retired_next;
+        *link = g->retired_next;
+    }
+    pthread_mutex_unlock(&retired_mutex);
+    pthread_mutex_unlock(&g->mutex);
     (void)mi_mempool_release(g->pool, g->workspace);
+    mi_mempool_drop(g->pool);
     pthread_mutex_destroy(&g->mutex);
     free(g->active);
     free(g->graphs);

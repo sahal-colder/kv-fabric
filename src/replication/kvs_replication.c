@@ -18,6 +18,10 @@ int kvs_replication_configure(const kvs_replication_config_t *config) {
 		 config->role != KVS_ROLE_SLAVE)) {
 		return -1;
 	}
+	if (config->role != KVS_ROLE_STANDALONE &&
+	    (strnlen(config->secret,sizeof(config->secret)) < 32 ||
+	     !memchr(config->secret,0,sizeof(config->secret)))) return -1;
+	if (config->role == KVS_ROLE_MASTER && !config->listen_port) return -1;
 	if (config->role == KVS_ROLE_MASTER &&
 		config->replication_port == 0) return -1;
 	if (config->role == KVS_ROLE_SLAVE &&

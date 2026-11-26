@@ -27,6 +27,7 @@ typedef struct NvRemoteExport {
     struct NvRemoteExport *next;
     unsigned char *snapshot;
     kvf_hash parent, hash;
+    uint64_t revision;
     NvExportState state;
     atomic_bool retired;
     int queued, attempts;
@@ -186,6 +187,8 @@ static int configure_worker(mi_remote_config *cfg, NvRemoteOptions o) {
     cfg->max_exports = o.cache_capacity;
     cfg->timeout_ms = o.prefetch_timeout_ms;
     cfg->location = MI_LOCATION_CPU;
+    cfg->transport_mode = o.transport_mode;
+    cfg->rdma_strict = o.rdma_strict;
     return 1;
 }
 
@@ -326,7 +329,8 @@ static void *publish_pages(void *arg) {
             item->queued = 0;
             if (retiring) {
                 pthread_mutex_unlock(&r->lock);
-                (void)mi_remote_invalidate_page(r->worker, item->hash);
+                if (item->revision)
+                    (void)mi_remote_invalidate_page_revision(r->worker, item->hash, item->revision);
                 free(item);
                 pthread_mutex_lock(&r->lock);
             } else if (status == KVF_OK) {
@@ -363,6 +367,7 @@ int nv_engine_enable_remote(NvEngine *e, const NvTokenizer *tokenizer, NvRemoteO
         !tokenizer->vocab || !tokenizer->scores || tokenizer->vocab_size != e->model->config.vocab_size ||
         !e->cache.enabled || e->remote || e->num_requests || !o.tenant || !*o.tenant ||
         o.tp_size != 1 || o.pp_size != 1 || !o.prefetch_timeout_ms || o.prefetch_timeout_ms > 30000 ||
+        (unsigned)o.transport_mode > KVF_TRANSPORT_RDMA_RSOCKET ||
         (o.page_size && o.page_size != (unsigned)e->cache.block_size))
         return -1;
     if (!o.cache_capacity)
@@ -522,7 +527,7 @@ void nv_remote_evict(NvRemoteKV *r, int block) {
     pthread_mutex_lock(&r->lock);
     item->state = NV_EXPORT_RETIRING;
     atomic_store_explicit(&item->retired, 1, memory_order_relaxed);
-    mi_remote_hide_page(r->worker, item->hash);
+    item->revision = mi_remote_hide_page_revision(r->worker, item->hash);
     if (!item->queued)
         enqueue_export(r, item);
     pthread_mutex_unlock(&r->lock);
@@ -912,6 +917,7 @@ void nv_engine_remote_stats(const NvEngine *e, NvRemoteStats *out) {
         mi_remote_worker_info(e->remote->worker, &info);
         out->remote_published_pages = info.published_pages;
         out->remote_cache_evictions = mi_remote_worker_evictions(e->remote->worker);
+        out->active_transport = mi_remote_transport_name(mi_remote_worker_active_transport(e->remote->worker));
     }
 }
 

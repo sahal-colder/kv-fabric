@@ -51,26 +51,45 @@ static pthread_once_t sched_key_once = PTHREAD_ONCE_INIT;
 
 #ifdef _USE_UCONTEXT
 
+extern void __sanitizer_start_switch_fiber(void **, const void *, size_t) __attribute__((weak));
+extern void __sanitizer_finish_switch_fiber(void *, const void **, size_t *) __attribute__((weak));
+
+/* ASan tracks live frames per fiber. Use private stacks for instrumented runs. */
+static int asan_fibers(void) {
+	return __sanitizer_start_switch_fiber && __sanitizer_finish_switch_fiber;
+}
+
 static void
 _save_stack(nty_coroutine *co) {
-	char* top = co->sched->stack + co->sched->stack_size;
+	uintptr_t bottom = (uintptr_t)co->sched->stack;
+	uintptr_t top = bottom + co->sched->stack_size;
 	char dummy = 0;
-	assert(top - &dummy <= NTY_CO_MAX_STACKSIZE);
-	if (co->stack_size < top - &dummy) {
-		co->stack = realloc(co->stack, top - &dummy);
-		assert(co->stack != NULL);
+	uintptr_t sp = (uintptr_t)&dummy;
+	if (sp < bottom || sp > top || top - sp > NTY_CO_MAX_STACKSIZE)
+		abort();
+	size_t size = top - sp;
+	if (co->stack_size < size) {
+		void *stack = realloc(co->stack, size);
+		if (!stack)
+			abort();
+		co->stack = stack;
 	}
-	co->stack_size = top - &dummy;
-	memcpy(co->stack, &dummy, co->stack_size);
+	co->stack_size = size;
+	memcpy(co->stack, &dummy, size);
 }
 
 static void
 _load_stack(nty_coroutine *co) {
+	if (co->stack_size > co->sched->stack_size)
+		abort();
 	memcpy(co->sched->stack + co->sched->stack_size - co->stack_size, co->stack, co->stack_size);
 }
 
 static void _exec(void *lt) {
 	nty_coroutine *co = (nty_coroutine*)lt;
+	if (asan_fibers())
+		__sanitizer_finish_switch_fiber(co->asan_fake_stack, &co->sched->asan_stack_bottom,
+			&co->sched->asan_stack_size);
 	co->func(co->arg);
 	co->status |= (BIT(NTY_COROUTINE_STATUS_EXITED) | BIT(NTY_COROUTINE_STATUS_FDEOF) | BIT(NTY_COROUTINE_STATUS_DETACH));
 	nty_coroutine_yield(co);
@@ -191,7 +210,7 @@ static void nty_coroutine_init(nty_coroutine *co) {
 
 #ifdef _USE_UCONTEXT
 	getcontext(&co->ctx);
-	co->ctx.uc_stack.ss_sp = co->sched->stack;
+	co->ctx.uc_stack.ss_sp = asan_fibers() ? co->stack : co->sched->stack;
 	co->ctx.uc_stack.ss_size = co->sched->stack_size;
 	co->ctx.uc_link = &co->sched->ctx;
 	// printf("TAG21\n");
@@ -214,10 +233,16 @@ static void nty_coroutine_init(nty_coroutine *co) {
 void nty_coroutine_yield(nty_coroutine *co) {
 	co->ops = 0;
 #ifdef _USE_UCONTEXT
-	if ((co->status & BIT(NTY_COROUTINE_STATUS_EXITED)) == 0) {
+	int alive = (co->status & BIT(NTY_COROUTINE_STATUS_EXITED)) == 0;
+	if (asan_fibers()) {
+		__sanitizer_start_switch_fiber(alive ? &co->asan_fake_stack : NULL,
+			co->sched->asan_stack_bottom, co->sched->asan_stack_size);
+	} else if (alive) {
 		_save_stack(co);
 	}
 	swapcontext(&co->ctx, &co->sched->ctx);
+	if (asan_fibers())
+		__sanitizer_finish_switch_fiber(co->asan_fake_stack, NULL, NULL);
 #else
 	_switch(&co->sched->ctx, &co->ctx);
 #endif
@@ -229,14 +254,19 @@ int nty_coroutine_resume(nty_coroutine *co) {
 		nty_coroutine_init(co);
 	} 
 #ifdef _USE_UCONTEXT	
-	else {
+	else if (!asan_fibers()) {
 		_load_stack(co);
 	}
 #endif
 	nty_schedule *sched = nty_coroutine_get_sched();
 	sched->curr_thread = co;
 #ifdef _USE_UCONTEXT
+	if (asan_fibers())
+		__sanitizer_start_switch_fiber(&sched->asan_fake_stack, co->ctx.uc_stack.ss_sp,
+			co->ctx.uc_stack.ss_size);
 	swapcontext(&sched->ctx, &co->ctx);
+	if (asan_fibers())
+		__sanitizer_finish_switch_fiber(sched->asan_fake_stack, NULL, NULL);
 #else
 	_switch(&co->ctx, &co->sched->ctx);
 	nty_coroutine_madvise(co);
@@ -318,8 +348,14 @@ int nty_coroutine_create(nty_coroutine **new_co, proc_coroutine func, void *arg)
 	}
 
 #ifdef _USE_UCONTEXT
-	co->stack = NULL;
-	co->stack_size = 0;
+	if (asan_fibers()) {
+		co->stack = malloc(sched->stack_size);
+		if (!co->stack) {
+			free(co);
+			return -3;
+		}
+		co->stack_size = sched->stack_size;
+	}
 #else
 	int ret = posix_memalign(&co->stack, getpagesize(), sched->stack_size);
 	if (ret) {

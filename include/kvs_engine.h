@@ -12,6 +12,7 @@ const char *kvs_resp_engine_name(void);
 
 const char *kvs_resp_engine_get(const char *key);
 int kvs_resp_engine_delete(const char *key);
+int kvs_resp_set_many(const char *const *keys, const char *const *values, size_t count, int only_missing);
 int kvs_resp_set_string(const char *key, const char *value);
 int kvs_resp_key_count(void);
 int kvs_resp_engine_clear(void);

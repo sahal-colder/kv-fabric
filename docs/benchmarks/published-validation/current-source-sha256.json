@@ -1,0 +1,17 @@
+{
+  "note": "Local tested input bytes; Git normalization may change line endings only. Benchmark versions are labeled separately.",
+  "sha256": {
+    "src/worker/allocator.c": "8f538d4750dd0fe67b43283e84d61ef1b27fc0a213e7b9360de557bdc14c852b",
+    "src/worker/tiered_storage.c": "27ff9ed767dacbcd687bc786ac694f8933128cab6b4e3c68e715195facf84864",
+    "src/worker/storage_backend.c": "ca38284ba16b5064b9f1bed19953f3345084bdd867f73b8bcc786f297de08d1b",
+    "src/worker/direct_io.c": "fd5715dce08b661761728bf55ffd662436b836c8f880b3e80430fd35e6b0e4c7",
+    "src/worker/uring_io.c": "724f4e1cf374352d3652ca19bb80ba104c2f6ed09cb603830f8c216575b4c38a",
+    "src/worker/remote/cache.c": "9b9ba8581bff12dfd16349756f17c53aa302c37bae637aa7c2919f1c65089f4b",
+    "src/worker/remote/transfer.c": "65cd1caae3dbab43e1aead1a59bdd743c9c64155751076745a5fe9f2a2de4d5c",
+    "src/worker/remote/worker.c": "eff7b932c566d1af438ce425f40c78ec27d21f335dcaad7c0c8deda446876e5b",
+    "src/integration/vllm_bridge.c": "42c1def438e30e9218aee89c19eef609f7cc7b78e6f8214d31d74e120681d6b8",
+    "src/integration/vllm_kv_cuda.cu": "f1096dbaa5d23b7ee7949dcbeb82784e3b85a5d69064da19a917aef76b03bbff",
+    "integrations/vllm/kvfabric_vllm/connector.py": "6b2dd7777f00fc4b1b208aaaa3bff16005936cde4398f6f1de07b0f83acfe675",
+    "integrations/vllm/kvfabric_vllm/cuda_pages.py": "e5b5862516e9707cf957c27d89131025fe7bd98e4580fcdf08593279f4770a8c"
+  }
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "kernel": "gather_kv_pages",
+    "dram_percent": {
+      "metric": "gpu__dram_throughput.avg.pct_of_peak_sustained_elapsed",
+      "value": 90.258455,
+      "unit": "%"
+    },
+    "bandwidth": {
+      "metric": "dram__bytes.sum.per_second",
+      "value": 230.848685,
+      "unit": "Gbyte/s"
+    },
+    "bandwidth_GiB_s": 214.9945916607976,
+    "achieved_occupancy": {
+      "metric": "sm__warps_active.avg.pct_of_peak_sustained_active",
+      "value": 91.321987,
+      "unit": "%"
+    },
+    "global_sectors": {
+      "ld": {
+        "metric": "smsp__sass_average_data_bytes_per_sector_mem_global_op_ld.ratio",
+        "value": 29.885714,
+        "unit": "byte/sector",
+        "sector_utilization_percent": 93.39285625
+      },
+      "st": {
+        "metric": "smsp__sass_average_data_bytes_per_sector_mem_global_op_st.ratio",
+        "value": 32.0,
+        "unit": "byte/sector",
+        "sector_utilization_percent": 100.0
+      }
+    },
+    "dram_clock": {
+      "metric": "dram__cycles_elapsed.avg.per_second",
+      "value": 7.992627,
+      "unit": "Ghz"
+    },
+    "kernel_duration": {
+      "metric": "gpu__time_duration.sum",
+      "value": 590.24,
+      "unit": "us"
+    },
+    "profiled_launches": 1,
+    "replay_passes": 37,
+    "scope": "72 MiB synthetic page packing microbenchmark; not LLM TTFT"
+  },
+  {
+    "kernel": "scatter_kv_pages",
+    "dram_percent": {
+      "metric": "gpu__dram_throughput.avg.pct_of_peak_sustained_elapsed",
+      "value": 90.038389,
+      "unit": "%"
+    },
+    "bandwidth": {
+      "metric": "dram__bytes.sum.per_second",
+      "value": 201.498633,
+      "unit": "Gbyte/s"
+    },
+    "bandwidth_GiB_s": 187.66022566705942,
+    "achieved_occupancy": {
+      "metric": "sm__warps_active.avg.pct_of_peak_sustained_active",
+      "value": 89.913319,
+      "unit": "%"
+    },
+    "global_sectors": {
+      "ld": {
+        "metric": "smsp__sass_average_data_bytes_per_sector_mem_global_op_ld.ratio",
+        "value": 29.885714,
+        "unit": "byte/sector",
+        "sector_utilization_percent": 93.39285625
+      },
+      "st": {
+        "metric": "smsp__sass_average_data_bytes_per_sector_mem_global_op_st.ratio",
+        "value": 32.0,
+        "unit": "byte/sector",
+        "sector_utilization_percent": 100.0
+      }
+    },
+    "dram_clock": {
+      "metric": "dram__cycles_elapsed.avg.per_second",
+      "value": 6.993497,
+      "unit": "Ghz"
+    },
+    "kernel_duration": {
+      "metric": "gpu__time_duration.sum",
+      "value": 679.104,
+      "unit": "us"
+    },
+    "profiled_launches": 1,
+    "replay_passes": 37,
+    "scope": "72 MiB synthetic page packing microbenchmark; not LLM TTFT"
+  }
+]

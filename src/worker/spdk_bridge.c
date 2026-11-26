@@ -24,6 +24,8 @@ struct mi_spdk_device {
     struct spdk_bdev_desc *desc;
     struct spdk_io_channel *channel;
     struct spdk_thread *thread;
+    struct spdk_poller *shutdown_poller;
+    atomic_bool close_requested;
     struct spdk_bdev_io_wait_entry wait;
 
     pthread_t reactor;
@@ -142,6 +144,17 @@ static void stop(void *arg) {
     spdk_app_stop(0);
 }
 
+/* Executed only by the owning SPDK thread, including when its message ring
+ * cannot accept another message. No arbitrary-thread app_stop fallback. */
+static int poll_shutdown(void *arg) {
+    mi_spdk_device *d = arg;
+    if (!atomic_load_explicit(&d->close_requested, memory_order_acquire))
+        return SPDK_POLLER_IDLE;
+    spdk_poller_unregister(&d->shutdown_poller);
+    stop(d);
+    return SPDK_POLLER_BUSY;
+}
+
 static void start(void *arg) {
     mi_spdk_device *d = arg;
     mi_status status = MI_EIO;
@@ -170,6 +183,9 @@ static void start(void *arg) {
     if (!d->dma)
         goto done;
     d->thread = spdk_get_thread();
+    d->shutdown_poller = spdk_poller_register(poll_shutdown, d, 1000);
+    if (!d->shutdown_poller)
+        goto done;
     d->wait = (struct spdk_bdev_io_wait_entry){.bdev = d->bdev, .cb_fn = issue, .cb_arg = d};
     status = MI_OK;
 
@@ -203,10 +219,14 @@ static void *reactor(void *arg) {
 }
 
 mi_status mi_spdk_open(mi_spdk_config config, mi_spdk_device **out) {
+    if (!out || !config.json_config || !config.bdev_name || !config.capacity_bytes)
+        return MI_EINVAL;
+    *out = NULL;
     mi_spdk_device *d = calloc(1, sizeof(*d));
     if (!d)
         return MI_ENOMEM;
     d->config = config;
+    atomic_init(&d->close_requested, false);
     mi_status status = MI_EINTERNAL;
     if (pthread_mutex_init(&d->submit, NULL))
         goto free_device;
@@ -264,13 +284,12 @@ mi_status mi_spdk_transfer(mi_spdk_device *d, int write, mi_io_range range) {
 }
 
 void mi_spdk_close(mi_spdk_device *d) {
-    int rc;
-    do {
-        rc = spdk_thread_send_msg(d->thread, stop, d);
-    } while (rc == -ENOMEM);
-    if (rc)
-        spdk_app_stop(rc);
+    if (!d)
+        return;
+    pthread_mutex_lock(&d->submit);
+    atomic_store_explicit(&d->close_requested, true, memory_order_release);
     pthread_join(d->reactor, NULL);
+    pthread_mutex_unlock(&d->submit);
     pthread_cond_destroy(&d->changed);
     pthread_mutex_destroy(&d->mutex);
     pthread_mutex_destroy(&d->submit);

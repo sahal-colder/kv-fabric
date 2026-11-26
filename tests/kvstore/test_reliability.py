@@ -6,9 +6,10 @@ import os
 import signal
 import socket
 import tempfile
+import subprocess
 from pathlib import Path
 
-from test_sync_e2e import Server, eventually, free_port, request
+from test_sync_e2e import Server, eventually, free_port, request, TEST_BUILD
 
 
 def resp(*args):
@@ -106,7 +107,7 @@ def exercise_aof(directory):
     server = Server(free_port(), *config)
     try:
         assert request(server.port, "SET", "key", "old") == b"OK"
-        assert request(server.port, "SAVE") == b"OK"
+        assert request(server.port, "SAVE").startswith(b"NOPERM")
         server.process.kill()
         server.process.wait()
     finally:
@@ -124,7 +125,7 @@ def exercise_aof(directory):
         for corrupt in (resp("MOD", "absent", "v"), resp("SET", b"k\0y", "v"), b"*x"):
             with path.open("ab") as stream:
                 stream.write(corrupt)
-            assert request(server.port, "LOAD") == b"ERR load failed"
+            assert request(server.port, "LOAD").startswith(b"NOPERM")
             assert request(server.port, "GET", "key") == b"old"
             assert request(server.port, "GET", "live-only") == b"keep"
             assert path.read_bytes() == saved + corrupt
@@ -151,31 +152,12 @@ def exercise_aof(directory):
 
 
 def exercise_snapshot(directory):
-    path = directory / "snapshot"
-    server = Server(free_port(), "--persistence", "full")
-    try:
-        assert request(server.port, "SET", "key", "before") == b"OK"
-        assert request(server.port, "SAVE", str(path)) == b"OK"
-    finally:
-        server.stop()
-    saved = path.read_bytes()
-    assert b"before" in saved
-    server = Server(free_port(), "--persistence", "full", file_limit=len(saved) + 8)
-    try:
-        assert request(server.port, "SET", "key", b"x" * 500) == b"OK"
-        assert request(server.port, "SAVE", str(path)) == b"ERR save failed"
-        assert path.read_bytes() == saved
-        assert not list(directory.glob(".kvs-*"))
-        bad = directory / "bad.snapshot"
-        for content in (saved[:-1], saved.replace(b"before", b"damage")):
-            bad.write_bytes(content)
-            assert request(server.port, "LOAD", str(bad)) == b"ERR load failed"
-            assert request(server.port, "GET", "key") == b"x" * 500
-        assert request(server.port, "LOAD", str(path)) == b"OK"
-        assert request(server.port, "GET", "key") == b"before"
-    finally:
-        server.stop()
-    print("snapshot short write, atomic replacement, truncation and CRC: PASS")
+    # File administration is intentionally absent from the unauthenticated
+    # network protocol. Preserve its failure/corruption coverage through the
+    # internal API, including link-injected short write and atomic replacement.
+    (directory / "build").mkdir(exist_ok=True)
+    subprocess.run([str(TEST_BUILD / "bin/test_snapshot_resp")], cwd=directory, check=True)
+    print("internal snapshot short write, atomic replacement, truncation and CRC: PASS")
 
 
 def exercise_replica_aof(directory):
@@ -201,7 +183,7 @@ def exercise_replica_aof(directory):
         assert request(follower.port, "GET", "stale") is None
         assert request(primary_port, "SET", "delta", "after") == b"OK"
         eventually(lambda: request(follower.port, "GET", "delta") == b"after")
-        assert request(follower.port, "SAVE") == b"OK"
+        assert request(follower.port, "SAVE").startswith(b"NOPERM")
         primary.stop()
         primary = None
         follower.stop()

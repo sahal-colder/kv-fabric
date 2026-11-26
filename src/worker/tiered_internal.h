@@ -6,6 +6,8 @@
 
 /* 发布前检查所有层的块均已初始化、驻留且无租约或迁移。 */
 mi_status mi_storage_blocks_ready(mi_tiered_storage *storage, const mi_block_id *ids, size_t count);
+/* An unconfirmed device operation fences all reuse until process restart. */
+int mi_storage_quarantined(mi_tiered_storage *storage);
 mi_status mi_storage_read_snapshot_event(mi_tiered_storage *storage, mi_block_id id, uint64_t version,
                                          void *dst, size_t capacity, mi_stream stream, mi_event event,
                                          mi_block_meta *out);

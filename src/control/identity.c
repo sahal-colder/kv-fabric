@@ -141,6 +141,8 @@ int kvf_layer_equal(kvf_layer a, kvf_layer b) {
 }
 
 int kvf_owner_valid(const kvf_owner *owner) {
+    if (!owner)
+        return 0;
     size_t n = strnlen(owner->name, sizeof(owner->name));
     if (!n || n == sizeof(owner->name) || kvf_uuid_zero(owner->boot))
         return 0;
@@ -154,7 +156,7 @@ int kvf_owner_valid(const kvf_owner *owner) {
 }
 
 int kvf_owner_equal(const kvf_owner *a, const kvf_owner *b) {
-    return kvf_uuid_equal(a->boot, b->boot) && strcmp(a->name, b->name) == 0;
+    return a && b && kvf_uuid_equal(a->boot, b->boot) && strcmp(a->name, b->name) == 0;
 }
 
 kvf_status kvf_manifest_validate(const kvf_manifest *m) {

@@ -145,7 +145,9 @@ __global__ static void attend(float *out, const float *queries, const float *key
         scores[t] = value;
         maximum = fmaxf(maximum, value);
     }
-    maximum = Reduce(scratch).Reduce(maximum, cub::Max());
+    maximum = Reduce(scratch).Reduce(maximum, [](float left, float right) {
+        return left < right ? right : left;
+    });
     if (threadIdx.x == 0)
         max_score = maximum;
     __syncthreads();

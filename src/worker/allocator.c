@@ -5,6 +5,7 @@
 #define _GNU_SOURCE
 #include "miniinfer/allocator.h"
 #include "miniinfer/device_transfer.h"
+#include "allocator_internal.h"
 #include <errno.h>
 #include <limits.h>
 #include <pthread.h>
@@ -64,7 +65,30 @@ struct mi_mempool {
     unsigned unit_shift, address_shift;
     pool_block *pending_head, *pending_tail;
     size_t pending;
+    size_t owners;
+    int destroy_requested, quarantined, retired, draining;
+    struct mi_mempool *retired_next;
 };
+
+/* Failed DMA completion retains its owner, rather than freeing live memory.
+ * This exceptional list is bounded by the allocations already owned by pools;
+ * a poisoned device requires process restart, not speculative memory reuse. */
+static pthread_mutex_t retired_mutex = PTHREAD_MUTEX_INITIALIZER;
+static mi_mempool *retired_pools;
+
+void mi_mempool_hold(mi_mempool *p) {
+    pthread_mutex_lock(&p->mutex);
+    ++p->owners;
+    pthread_mutex_unlock(&p->mutex);
+}
+
+void mi_mempool_drop(mi_mempool *p) {
+    pthread_mutex_lock(&p->mutex);
+    int destroy = !--p->owners && p->destroy_requested;
+    pthread_mutex_unlock(&p->mutex);
+    if (destroy)
+        mi_mempool_destroy(p);
+}
 
 /* 从最高有效位得到以 2 为底的整数对数。 */
 static unsigned floor_log2(size_t n) {
@@ -242,15 +266,12 @@ static void bin_remove(mi_mempool *p, pool_block *b) {
     b->state = BLOCK_USED;
 }
 
-/* 当前桶只检查桶头。若容量不足，跳到下一个非空桶。 */
+/* Search a size rounded UP to its second-level boundary. Every block in
+ * the selected bin is large enough; bitmap selection never scans a free list. */
 static pool_block *bin_find(mi_mempool *p, size_t bytes) {
     unsigned fl, sl;
     bin_indices(p, bytes, &fl, &sl);
-    pool_block *head = p->bins[fl][sl];
-    if (head && head->bytes >= bytes)
-        return head;
-
-    uint32_t choices = p->sl_bitmap[fl] & (UINT32_MAX << sl) & ~(UINT32_C(1) << sl);
+    uint32_t choices = p->sl_bitmap[fl] & (UINT32_MAX << sl);
     if (!choices) {
         uint64_t larger = p->fl_bitmap & (UINT64_MAX << fl) & ~(UINT64_C(1) << fl);
         if (!larger)
@@ -419,6 +440,8 @@ static mi_status release_block(mi_mempool *p, pool_block *b) {
 
 /* Bounded rotating polls keep an unrelated stream from blocking reuse. */
 static mi_status collect_locked(mi_mempool *p, size_t limit, int synchronized) {
+    if (p->draining)
+        return MI_OK;
     if (limit > p->pending)
         limit = p->pending;
     while (limit--) {
@@ -500,21 +523,39 @@ static mi_status allocate(mi_mempool *p, size_t bytes, size_t alignment, int sla
         alignment = p->unit;
     slab |= alignment > p->unit;
 
+    size_t exact_bytes = bytes;
     size_t unit_mask = p->unit - 1;
     if (!slab) {
         if (bytes > SIZE_MAX - unit_mask)
             return MI_EOVERFLOW;
         bytes = (bytes + unit_mask) & ~unit_mask;
+        exact_bytes = bytes;
+        size_t units = bytes >> p->unit_shift;
+        if (units >= TLSF_SL_COUNT) {
+            unsigned shift = floor_log2(units) - TLSF_SL_BITS;
+            size_t round = ((size_t)1 << shift) - 1;
+            if (units > (SIZE_MAX >> p->unit_shift) - round)
+                return MI_EOVERFLOW;
+            bytes = ((units + round) & ~round) << p->unit_shift;
+        }
     }
     pthread_mutex_lock(&p->mutex);
     pool_block *b = NULL;
-    mi_status st = collect_locked(p, 4, 0);
+    mi_status st = p->quarantined || p->destroy_requested ? MI_EIO : collect_locked(p, 4, 0);
     if (st != MI_OK)
         goto done;
     if (slab) {
         st = new_chunk(p, bytes, alignment, 1, &b);
     } else {
-        b = bin_find(p, bytes);
+        unsigned fl, sl;
+        bin_indices(p, exact_bytes, &fl, &sl);
+        pool_block *exact = p->bins[fl][sl];
+        if (exact && exact->bytes == exact_bytes) {
+            b = exact; /* Preserve exact fits, including a fully coalesced pool. */
+            bytes = exact_bytes;
+        } else {
+            b = bin_find(p, bytes);
+        }
         if (b) {
             if (!b->phys_prev && !b->phys_next)
                 idle_remove(p, b->chunk);
@@ -565,7 +606,8 @@ mi_status mi_mempool_release(mi_mempool *p, void *ptr) {
         return MI_OK;
     pthread_mutex_lock(&p->mutex);
     pool_block *b = address_find(p, ptr);
-    mi_status st = b && b->state == BLOCK_USED ? release_block(p, b) : MI_EINVAL;
+    mi_status st = p->quarantined ? MI_EIO
+        : b && b->state == BLOCK_USED ? release_block(p, b) : MI_EINVAL;
     pthread_mutex_unlock(&p->mutex);
     return st;
 }
@@ -579,11 +621,15 @@ mi_status mi_mempool_release_async(mi_mempool *p, void *ptr, mi_stream stream) {
         pthread_mutex_unlock(&p->mutex);
         return MI_EINVAL;
     }
-    mi_event event;
+    /* Pin metadata before dropping the lock for stream/event operations. */
+    b->state = BLOCK_PENDING;
+    pthread_mutex_unlock(&p->mutex);
+    mi_event event = NULL;
     mi_status st = mi_device_event_create(p->device, &event);
     if (st == MI_OK)
         st = mi_device_event_record(p->device, event, stream);
     if (st == MI_OK) {
+        pthread_mutex_lock(&p->mutex);
         b->event = event;
         /* CUDA 事件完成前，块保持待回收状态。 */
         b->state = BLOCK_PENDING;
@@ -596,8 +642,14 @@ mi_status mi_mempool_release_async(mi_mempool *p, void *ptr, mi_stream stream) {
         ++p->pending;
     } else {
         (void)mi_device_event_destroy(p->device, event);
-        st = mi_device_stream_wait(p->device, stream) == MI_OK
-            ? release_block(p, b) : MI_EIO;
+        mi_status waited = mi_device_stream_wait(p->device, stream);
+        pthread_mutex_lock(&p->mutex);
+        if (waited == MI_OK)
+            st = release_block(p, b);
+        else {
+            p->quarantined = 1;
+            st = MI_EIO;
+        }
     }
     pthread_mutex_unlock(&p->mutex);
     return st;
@@ -607,7 +659,7 @@ mi_status mi_mempool_collect(mi_mempool *p) {
     if (!p)
         return MI_EINVAL;
     pthread_mutex_lock(&p->mutex);
-    mi_status st = collect_locked(p, p->pending, 0);
+    mi_status st = p->quarantined ? MI_EIO : collect_locked(p, p->pending, 0);
     pthread_mutex_unlock(&p->mutex);
     return st;
 }
@@ -616,9 +668,27 @@ mi_status mi_mempool_trim(mi_mempool *p) {
     if (!p)
         return MI_EINVAL;
     pthread_mutex_lock(&p->mutex);
+    if (p->draining || p->quarantined) {
+        mi_status st = p->quarantined ? MI_EIO : MI_EBUSY;
+        pthread_mutex_unlock(&p->mutex);
+        return st;
+    }
+    p->draining = 1;
+    size_t pending = p->pending;
+    pool_block *b = p->pending_head;
+    pthread_mutex_unlock(&p->mutex);
     mi_status st = MI_OK;
-    if (p->pending)
-        st = mi_device_synchronize(p->device) == MI_OK ? collect_locked(p, p->pending, 1) : MI_EIO;
+    for (size_t i = 0; i < pending && st == MI_OK; ++i) {
+        st = mi_device_event_wait(p->device, b->event);
+        if (i + 1 < pending)
+            b = b->next;
+    }
+    pthread_mutex_lock(&p->mutex);
+    p->draining = 0;
+    if (st == MI_OK && !p->quarantined)
+        st = collect_locked(p, pending, 1);
+    else if (p->quarantined)
+        st = MI_EIO;
     while (st == MI_OK && p->idle)
         st = drop_idle(p);
     pthread_mutex_unlock(&p->mutex);
@@ -628,7 +698,31 @@ mi_status mi_mempool_trim(mi_mempool *p) {
 void mi_mempool_destroy(mi_mempool *p) {
     if (!p)
         return;
-    (void)mi_device_synchronize(p->device);
+    pthread_mutex_lock(&p->mutex);
+    p->destroy_requested = 1;
+    if (p->owners || p->retired) {
+        pthread_mutex_unlock(&p->mutex);
+        return;
+    }
+    /* Only pending events require a fence. Never use a device-wide sync to
+     * hide an uncertain stream, or free after a failed completion check. */
+    pool_block *pending = p->pending_head;
+    pthread_mutex_unlock(&p->mutex);
+    int failed = p->quarantined;
+    for (pool_block *b = pending; b && !failed; b = b->next)
+        failed = mi_device_event_wait(p->device, b->event) != MI_OK;
+    pthread_mutex_lock(&p->mutex);
+    p->quarantined |= failed;
+    if (p->quarantined) {
+        p->retired = 1;
+        pthread_mutex_unlock(&p->mutex);
+        pthread_mutex_lock(&retired_mutex);
+        p->retired_next = retired_pools;
+        retired_pools = p;
+        pthread_mutex_unlock(&retired_mutex);
+        return;
+    }
+    pthread_mutex_unlock(&p->mutex);
     while (p->chunks) {
         pool_chunk *chunk = p->chunks;
         p->chunks = chunk->next;
