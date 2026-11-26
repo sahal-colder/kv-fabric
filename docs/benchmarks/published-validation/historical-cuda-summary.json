@@ -1,0 +1,80 @@
+[
+  {
+    "mode": "dma",
+    "direction": "H2D",
+    "warmups": 3,
+    "samples": 15,
+    "payload_bytes": 75497472,
+    "payload_memcpy_count": 1,
+    "p50_ms": 6.089984,
+    "p95_ms": 7.307488,
+    "payload_GiB_s": 11.545596835722392,
+    "byte_validation": "passed at end of each mode/direction (process exit 0)",
+    "timing_scope": "CUDA events around transfer plus gather/scatter; metadata and verification copies excluded from payload count"
+  },
+  {
+    "mode": "dma",
+    "direction": "D2H",
+    "warmups": 3,
+    "samples": 15,
+    "payload_bytes": 75497472,
+    "payload_memcpy_count": 1,
+    "p50_ms": 6.067104,
+    "p95_ms": 7.48816,
+    "payload_GiB_s": 11.589137090776754,
+    "byte_validation": "passed at end of each mode/direction (process exit 0)",
+    "timing_scope": "CUDA events around transfer plus gather/scatter; metadata and verification copies excluded from payload count"
+  },
+  {
+    "mode": "segments",
+    "direction": "H2D",
+    "warmups": 3,
+    "samples": 15,
+    "payload_bytes": 75497472,
+    "payload_memcpy_count": 4608,
+    "p50_ms": 13.674208,
+    "p95_ms": 14.247136,
+    "payload_GiB_s": 5.141979703687409,
+    "byte_validation": "passed at end of each mode/direction (process exit 0)",
+    "timing_scope": "CUDA events around transfer plus gather/scatter; metadata and verification copies excluded from payload count"
+  },
+  {
+    "mode": "segments",
+    "direction": "D2H",
+    "warmups": 3,
+    "samples": 15,
+    "payload_bytes": 75497472,
+    "payload_memcpy_count": 4608,
+    "p50_ms": 11.88224,
+    "p95_ms": 12.361376,
+    "payload_GiB_s": 5.917444858881828,
+    "byte_validation": "passed at end of each mode/direction (process exit 0)",
+    "timing_scope": "CUDA events around transfer plus gather/scatter; metadata and verification copies excluded from payload count"
+  },
+  {
+    "mode": "vector",
+    "direction": "H2D",
+    "warmups": 3,
+    "samples": 15,
+    "payload_bytes": 75497472,
+    "payload_memcpy_count": 1,
+    "p50_ms": 6.838272,
+    "p95_ms": 8.168448,
+    "payload_GiB_s": 10.282202872304582,
+    "byte_validation": "passed at end of each mode/direction (process exit 0)",
+    "timing_scope": "CUDA events around transfer plus gather/scatter; metadata and verification copies excluded from payload count"
+  },
+  {
+    "mode": "vector",
+    "direction": "D2H",
+    "warmups": 3,
+    "samples": 15,
+    "payload_bytes": 75497472,
+    "payload_memcpy_count": 1,
+    "p50_ms": 7.037216,
+    "p95_ms": 8.474784,
+    "payload_GiB_s": 9.991522215603444,
+    "byte_validation": "passed at end of each mode/direction (process exit 0)",
+    "timing_scope": "CUDA events around transfer plus gather/scatter; metadata and verification copies excluded from payload count"
+  }
+]

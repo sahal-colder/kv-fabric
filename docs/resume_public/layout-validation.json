@@ -1,0 +1,41 @@
+{
+  "pages": 1,
+  "full_source_text_match": true,
+  "embedded_fonts": "NotoSansCJKsc-Bold, NotoSansCJKsc-Regular",
+  "source_sha256": "3e105106fc819d9b1ffb989923d41acf4d868c0a9189118ff730495947277b6f",
+  "pdf_sha256": "28b1f46ecb477a67b0bfa24406608422a6e8cfd230c08f4e5f3a6176803c72d3",
+  "settings": {
+    "body_pt": 11,
+    "line_spacing": 1.34,
+    "pages": 1,
+    "vertical_coverage": 0.8646080760095012
+  },
+  "trials": [
+    {
+      "body_pt": 11,
+      "line_spacing": 1.28,
+      "pages": 1,
+      "vertical_coverage": 0.838479809976247
+    },
+    {
+      "body_pt": 11,
+      "line_spacing": 1.3,
+      "pages": 1,
+      "vertical_coverage": 0.8460807600950119
+    },
+    {
+      "body_pt": 11,
+      "line_spacing": 1.32,
+      "pages": 1,
+      "vertical_coverage": 0.8541567695961996
+    },
+    {
+      "body_pt": 11,
+      "line_spacing": 1.34,
+      "pages": 1,
+      "vertical_coverage": 0.8646080760095012
+    }
+  ],
+  "visual_review": "Canonical DOCX render: every page inspected; no clipping, overlap or missing glyphs",
+  "canonical_render_pages": 1
+}

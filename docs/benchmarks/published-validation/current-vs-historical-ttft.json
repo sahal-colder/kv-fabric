@@ -1,0 +1,89 @@
+{
+  "comparison": [
+    {
+      "mode": "recompute",
+      "prompt_tokens": 4096,
+      "historical_ttft_p50_ms": 1102.097472,
+      "current_ttft_p50_ms": 1093.651991,
+      "change_percent": -0.7663098060350149
+    },
+    {
+      "mode": "recompute",
+      "prompt_tokens": 8192,
+      "historical_ttft_p50_ms": 2410.879113,
+      "current_ttft_p50_ms": 2400.987342,
+      "change_percent": -0.4102972623828971
+    },
+    {
+      "mode": "recompute",
+      "prompt_tokens": 16384,
+      "historical_ttft_p50_ms": 5646.547528,
+      "current_ttft_p50_ms": 5615.153656,
+      "change_percent": -0.5559834898107963
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 4096,
+      "historical_ttft_p50_ms": 582.214143,
+      "current_ttft_p50_ms": 579.283785,
+      "change_percent": -0.5033127475915777
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 8192,
+      "historical_ttft_p50_ms": 1310.066423,
+      "current_ttft_p50_ms": 1302.00819,
+      "change_percent": -0.6151011016332197
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 16384,
+      "historical_ttft_p50_ms": 3213.502535,
+      "current_ttft_p50_ms": 3207.027243,
+      "change_percent": -0.20150262616799308
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 4096,
+      "historical_ttft_p50_ms": 589.65991,
+      "current_ttft_p50_ms": 595.275533,
+      "change_percent": 0.9523494653045139
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 8192,
+      "historical_ttft_p50_ms": 1344.582977,
+      "current_ttft_p50_ms": 1342.455972,
+      "change_percent": -0.15819068338539521
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 16384,
+      "historical_ttft_p50_ms": 3287.307012,
+      "current_ttft_p50_ms": 3273.321866,
+      "change_percent": -0.42542865479094916
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 4096,
+      "historical_ttft_p50_ms": 957.3243,
+      "current_ttft_p50_ms": 962.673297,
+      "change_percent": 0.5587445132229529
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 8192,
+      "historical_ttft_p50_ms": 2414.081548,
+      "current_ttft_p50_ms": 2343.223287,
+      "change_percent": -2.9352057745814064
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 16384,
+      "historical_ttft_p50_ms": 5005.882409,
+      "current_ttft_p50_ms": 5057.472387,
+      "change_percent": 1.0305870930417127
+    }
+  ],
+  "note": "Same workload parameters but measurements occurred on separate dates; historical matrix is pre-audit, not a randomized paired performance experiment."
+}

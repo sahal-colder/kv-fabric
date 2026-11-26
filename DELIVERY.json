@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-26",
+  "projects": [
+    {
+      "name": "KV-Fabric",
+      "repository": "https://github.com/sahal-colder/kv-fabric",
+      "branch": "codex/audit-remediation-20261126",
+      "components": [
+        "C11 directory and Wire V3",
+        "TLSF/Paged KV/tiered storage",
+        "TCP and RDMA rsockets",
+        "CUDA/Direct NVMe/io_uring/SPDK adapter",
+        "Nano-VLLM integration",
+        "vLLM V1 Connector",
+        "Legacy compatibility module"
+      ]
+    },
+    {
+      "name": "nano-vLLM-C",
+      "repository": "https://github.com/sahal-colder/nanovllm",
+      "commit": "327ad86c1aa68c6647b331fc03282519ef0adbef",
+      "scope": "separate C11/CUDA decode and operator project"
+    }
+  ],
+  "private_resume": "local delivery only",
+  "public_resume": {
+    "markdown": "docs/resume_ai_infra.public.md",
+    "pdf": "docs/resume_public/AI_Infra_Resume.pdf",
+    "docx": "docs/resume_public/AI_Infra_Resume.docx"
+  },
+  "raw_evidence": "retained locally; reviewed deidentified measurements are under docs/benchmarks/published-validation",
+  "credentials": "never included"
+}

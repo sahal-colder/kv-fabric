@@ -21,6 +21,7 @@ Run from the repository root in a Linux environment with the CUDA NVTX headers,
 liburing and the vLLM runtime installed. Mount the disk directory on ext4.
 
 ```bash
+export VLLM_BATCH_INVARIANT=1
 cmake -S . -B build-vllm -G Ninja -DCMAKE_BUILD_TYPE=Release \
   -DMINIINFER_BUILD_VLLM_BRIDGE=ON -DMINIINFER_WITH_URING=ON
 cmake --build build-vllm
@@ -32,6 +33,12 @@ python3 tests/vllm/test_connector_roundtrip.py \
   --directory "$PWD/build-vllm/bin/kvfabricd" \
   --out /mnt/nvme/kvf-roundtrip
 ```
+
+Strict cold/hot Token ID comparisons use `VLLM_BATCH_INVARIANT=1` in every arm.
+Default BF16 scheduling may produce the same cold/hot numerical differences
+with native vLLM APC; keep the exact output assertions and record the mode.
+The complete reproduction driver and measured scopes are documented in
+[the project delivery guide](../../docs/PROJECT-DELIVERY.md).
 
 Use `--fallback-model /path/to/Qwen2.5-3B-Instruct` for the local fallback. The same
 test with `--bridge-only` checks directory lookup, publish, fetch, exact byte

@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-25",
+  "scope": "2 profiled requests per implementation, 16K input/50% external hit; full H2D payload coverage checked",
+  "versions": {
+    "baseline": {
+      "requests": 2,
+      "h2d": {
+        "copies_per_request": 18432,
+        "bytes_per_request": 301989888,
+        "active_GiB_s": 7.106808163027677,
+        "compute_overlap_percent": 0.0
+      },
+      "d2h": {
+        "copies_per_request": 18432,
+        "bytes_per_request": 301989888,
+        "active_GiB_s": 8.150486289889512,
+        "compute_overlap_percent": 0.0
+      },
+      "h2d_host_sync_ms": 1.1264585,
+      "h2d_submit_sync_ms": 432.2262915,
+      "h2d_host_dispatch_estimate_ms": 320.68348149999997,
+      "foreground_writeback_wait_publish_ms": 18945.948936,
+      "foreground_writeback_all_noncompute_ms": 19320.6884775
+    },
+    "optimized": {
+      "requests": 2,
+      "h2d": {
+        "copies_per_request": 4,
+        "bytes_per_request": 301989888,
+        "active_GiB_s": 10.028245243563168,
+        "compute_overlap_percent": 0.0
+      },
+      "d2h": {
+        "copies_per_request": 2.5,
+        "bytes_per_request": 188743680,
+        "active_GiB_s": 9.843980900416,
+        "compute_overlap_percent": 99.3939490814049
+      },
+      "h2d_host_sync_ms": 30.260154999999997,
+      "h2d_submit_sync_ms": 30.560210499999997,
+      "h2d_host_dispatch_estimate_ms": 0.217383,
+      "foreground_writeback_wait_publish_ms": 0.0,
+      "foreground_writeback_all_noncompute_ms": 0.0
+    }
+  }
+}

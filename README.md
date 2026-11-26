@@ -10,6 +10,8 @@ KV-Fabric 是一套 C11 分布式 KV Cache。目录服务维护 KV 前缀、副�
 | [include](include/) | `kvfabric` 与 `miniinfer` 的 C API |
 | [tests](tests/) | 控制面、Worker 和通用 KVStore 回归 |
 
+完整项目入口：[交付与复现指南](docs/PROJECT-DELIVERY.md) · [验证报告](docs/KV-FABRIC-VALIDATION-REPORT.md) · [脱敏简历](docs/resume_ai_infra.public.md)
+
 ## 构建与测试
 
 在 Linux 或 WSL 上安装 C11 编译器、CMake 3.18+ 和 OpenSSL 开发包。从仓库根目录一次构建目录服务、CPU Worker 和相关工具。
@@ -74,3 +76,6 @@ build-release/bin/nanovllm MODEL -z TOKENIZER -i 'The quick brown fox jumps' -n 
 
 - [全仓审计修复账本](docs/KV-FABRIC-AUDIT-REMEDIATION.md)
 - [构建、Sanitizer、故障与性能验收](docs/KV-FABRIC-VALIDATION-REPORT.md)
+
+- [历史Remote KV优化设计](docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md)
+- [历史阶段测试口径](docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md)
