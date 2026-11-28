@@ -75,6 +75,10 @@ typedef struct mi_spdk_config {
     int no_huge;
     /* 禁用 PCI 枚举。 */
     int no_pci;
+    /* 可选 DMA 地址模式："va" 用于 VFIO/IOMMU；NULL 保留 SDK 默认。 */
+    const char *iova_mode;
+    /* DMA 虚拟地址起点；0 保留 SDK 默认，窄 IOMMU 可指定低地址。 */
+    uint64_t base_virtaddr;
 } mi_spdk_config;
 
 /* 在指定设备区间内创建 SSD 后端。 */

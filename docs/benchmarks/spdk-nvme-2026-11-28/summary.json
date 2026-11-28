@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-28",
+  "timezone": "Australia/Perth",
+  "device_model": "SAMSUNG MZVLQ512HALU-00000",
+  "device_capacity_gib": 476.93978118896484,
+  "gpu": "RTX 4060 Laptop 8 GiB",
+  "backend": "SPDK PCIe bdev / VFIO / IOMMU",
+  "sdk": "SPDK v27.01-pre 4828014 / DPDK 25.11.0",
+  "warmup_rounds_per_mode": 3,
+  "measured_rounds_per_mode": 30,
+  "block_bytes": 524288,
+  "blocks_per_round": 32,
+  "tiered": {
+    "cpu": {
+      "payload_bytes_per_round": 16777216,
+      "verified_bytes_measured": 503316480,
+      "spill_p50_ms": 101.001676,
+      "recovery_p50_ms": 17.5514765,
+      "recovery_p95_ms": 21.253902,
+      "recovery_min_ms": 13.770329,
+      "recovery_max_ms": 21.376457
+    },
+    "cuda": {
+      "payload_bytes_per_round": 16777216,
+      "verified_bytes_measured": 503316480,
+      "spill_p50_ms": 101.99122750000001,
+      "recovery_p50_ms": 18.9515095,
+      "recovery_p95_ms": 23.176393,
+      "recovery_min_ms": 15.173752,
+      "recovery_max_ms": 23.209926
+    }
+  },
+  "ctest": {
+    "passed": 26,
+    "failed": 0
+  },
+  "raw": {
+    "payload_bytes_per_round": 134217728,
+    "rounds": 5,
+    "aligned_and_unaligned_verified": true,
+    "original_scratch_restored_and_readback_verified": true
+  },
+  "inference": {
+    "model_kind": "deterministic Nano-VLLM fixture, dim32/layers2/GQA2",
+    "requests": "A/B/A",
+    "baseline_and_spdk_output_token_ids_equal": true,
+    "ssd_reads": 1,
+    "ssd_writes": 2
+  },
+  "timing_scope": "Sequential validated SPDK SSD-to-CPU or SSD-to-GPU block migration; includes CRC/identity validation, Host staging, H2D and final device synchronize for GPU; post-timing snapshot byte checks excluded. No GDS, device peak bandwidth or vLLM/Qwen TTFT claim.",
+  "quantiles": "P50 uses statistics.median; P95 uses nearest-rank ceil(0.95*n).",
+  "source_sha256": {
+    "tools/kvf_spdk_verify.c": "5e88bf7bcc2b6e48c7b349555a1038b59acf4d36ffbb95d5bb233f2cbd98c885",
+    "src/worker/spdk_bridge.c": "bf0322c0c6d1e3fb9f1fa681ff039c562dfd96bf3d6cd95f45763e057679d9ed",
+    "include/miniinfer/storage_backend.h": "a11b464c7cac5b16f8abffbf6809cd825765d27107d90835986fabde695e7890"
+  }
+}

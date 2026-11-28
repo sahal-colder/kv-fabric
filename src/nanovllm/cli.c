@@ -93,7 +93,9 @@ static void usage(FILE *file) {
             "  --spdk-config PATH --spdk-bdev NAME --spdk-offset BYTES\n"
             "                explicit bdev and dedicated byte region\n"
             "  --spdk-no-pci use the SPDK software bdev environment\n"
-            "  --spdk-reactor-mask MASK (default 0x1)\n", file);
+            "  --spdk-reactor-mask MASK (default 0x1)\n"
+            "  --spdk-iova-mode va|pa (SDK default if omitted)\n"
+            "  --spdk-base-virtaddr BYTES (accepts 0x hexadecimal)\n", file);
 #endif
 }
 
@@ -183,6 +185,19 @@ static int parse_value(StorageOptions *options, const char *flag, const char *va
         options->spdk.bdev_name = value;
     else if (strcmp(flag, "--spdk-reactor-mask") == 0)
         options->spdk.reactor_mask = value;
+    else if (strcmp(flag, "--spdk-iova-mode") == 0) {
+        if (strcmp(value, "va") && strcmp(value, "pa"))
+            nv_fatal("SPDK IOVA mode must be va or pa");
+        options->spdk.iova_mode = value;
+    }
+    else if (strcmp(flag, "--spdk-base-virtaddr") == 0) {
+        char *end;
+        errno = 0;
+        uintmax_t address = strtoumax(value, &end, 0);
+        if (errno || *value < '0' || *value > '9' || *end || address > UINT64_MAX)
+            nv_fatal("expected a nonnegative base virtual address");
+        options->spdk.base_virtaddr = (uint64_t)address;
+    }
     else if (strcmp(flag, "--spdk-offset") == 0) {
         char *end;
         errno = 0;

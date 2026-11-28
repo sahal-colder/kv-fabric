@@ -18,6 +18,6 @@
 
 所有n=15的nearest-rank P95/P99都是样本最大值。eager、batch-invariant、GPU/Host容量、实际命中层与`save_skipped`策略均须一起解释。普通Native Offload可能包含GPU APC，不能一概称为50%纯Host回源。旧Connector到优化版的TTFT差异包括批量搬运、归属页读取快路径、后台发布和槽忙时跳过缓存写入，不只来自一个Kernel。
 
-RDMA功能验证、物理NVMe文件I/O、完整vLLM单机集成均已完成。尚未覆盖物理HCA跨机/GPUDirect、SPDK裸NVMe设备接管与移除、在线GPU故障恢复，以及生产多卡SLA。未知DMA完成时的资源保留单列于验证报告，不冒充零泄漏。
+RDMA功能验证、物理NVMe文件I/O、完整vLLM单机集成均已完成。2026-11-28 补齐 SPDK 裸 NVMe 接管、CPU/GPU 分层回源与小模型推理缓存恢复；[脱敏汇总与 60 个样本](../spdk-nvme-2026-11-28/summary.json)独立记录，不与历史 Qwen TTFT 混用。尚未覆盖物理HCA跨机/GPUDirect、运行中物理NVMe移除、在线GPU故障恢复，以及生产多卡SLA。未知DMA完成时的资源保留单列于验证报告，不冒充零泄漏。
 
 修复后新增12格/180请求结果见`current-vllm-matrix.json`、`current-token-measurements.json`；历史27格405请求另存。`current-vs-historical-ttft.json`保留相同参数跨日期对照，不当作随机配对实验。

@@ -90,7 +90,7 @@ python tests/worker/test_rdma_roundtrip.py --build build-cuda-release \
 
 19项审计缺陷已实施安全修复，Release、CUDA、Sanitizer 及并发故障矩阵见[验证报告](KV-FABRIC-VALIDATION-REPORT.md)。未知 DMA 完成时保留资源并使实例安全失败，需退出进程回收，不称为永久故障也零资源保留。Wire V3 字段保持；Legacy 复制要求双方升级认证 V2，远程 SAVE/LOAD 默认拒绝。
 
-已有实测覆盖 SoftRoCE、物理 NVMe 文件回源和完整 vLLM。尚未执行的范围是物理 HCA 跨机/GPUDirect、SPDK 裸 NVMe 设备接管与设备移除、在线 GPU 故障恢复，以及生产级多卡性能 SLA；它们与已完成项目明确区分。
+已有实测覆盖 SoftRoCE、物理 NVMe 文件回源和完整 vLLM。2026-11-28 补齐 SPDK 裸 NVMe 接管、CPU/GPU 分层回源及小模型缓存恢复，详见[物理盘验收](SPDK-NVME-VALIDATION.md)。尚未执行的范围是物理 HCA 跨机/GPUDirect、运行中物理 NVMe 移除、在线 GPU 故障恢复，以及生产级多卡性能 SLA。
 
 ## 简历
 

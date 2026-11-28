@@ -145,6 +145,14 @@ scratch region. The region starts at `--spdk-offset` and must fit the configured
 slot count, including sector padding. The CLI prints `ssd_reads` and
 `ssd_writes` for completed prefix transfers.
 
+For VFIO on a machine with a narrow IOMMU address range, use
+`--spdk-iova-mode va --spdk-base-virtaddr 0x1000000000`. The optional
+`mi_spdk_config.iova_mode` and `base_virtaddr` fields expose the same settings
+to C callers; zero-initialized fields retain the SDK defaults. The software
+`--spdk-no-pci` path already implies VA addressing. Physical Samsung NVMe
+deployment, the dedicated scratch region, and verified commands are recorded
+in [SPDK NVMe validation](SPDK-NVME-VALIDATION.md).
+
 See [Performance and validation](performance.md) for measured results
 and commands.
 

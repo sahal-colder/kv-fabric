@@ -1,5 +1,7 @@
 # KV-Fabric 验证摘要
 
+> SPDK 更新（2026-11-28）：已完成三星物理 NVMe 的 VFIO 接管、裸盘读写、CPU/GPU 回源、推理缓存恢复、驱动切回与原始区域恢复。CUDA+uring+SPDK 全量 CTest 26/26 PASS。本文历史阶段的“物理 SPDK NVMe BLOCKED”已由[物理盘验收记录](SPDK-NVME-VALIDATION.md)更新；运行中物理拔盘与故障恢复仍未验收。
+
 本文件仅发布非识别性的验证结论。完整命令、环境探测、原始CSV、失败历史和哈希账本保留在本地，没有上传原始审计证据。
 
 | 最终配置 | 结果 |

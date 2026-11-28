@@ -33,6 +33,7 @@ cmake --install build-release --prefix "$PWD/build-release/install"
 | `-DMINIINFER_WITH_CUDA=ON` | 启用 Worker 的 CUDA C Runtime 搬运，需要 CUDA Toolkit |
 | `-DNANO_WITH_CUDA=ON` | 启用 Nano-VLLM 的 CUDA 前向、CUDA Graph 和 KV 页复制 |
 | `-DMINIINFER_WITH_URING=ON` | 启用 io_uring 文件后端，需要 liburing 开发包 |
+| `-DMINIINFER_WITH_SPDK=ON` | 启用 SPDK bdev 后端，需要 SPDK SDK；[物理 NVMe 部署与验收](docs/SPDK-NVME-VALIDATION.md) |
 | `-DKVF_SANITIZE=ON` | 启用 ASan 和 UBSan，Linux 可同时检查泄漏 |
 | `-DMINIINFER_WITH_KVFABRIC=OFF` | 构建单机存储或推理组件 |
 

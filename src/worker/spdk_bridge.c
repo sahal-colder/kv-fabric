@@ -207,6 +207,11 @@ static void *reactor(void *arg) {
     opts.disable_signal_handlers = true;
     opts.no_huge = d->config.no_huge;
     opts.no_pci = d->config.no_pci;
+    /* The SDK already adds --iova-mode=va for no_huge; passing it again is
+     * rejected by newer DPDK argument parsers. */
+    opts.iova_mode = opts.no_huge ? NULL : d->config.iova_mode;
+    if (d->config.base_virtaddr)
+        opts.base_virtaddr = d->config.base_virtaddr;
     opts.mem_size = 256;
     opts.num_entries = 0;
     if (!opts.no_huge)
@@ -222,6 +227,10 @@ mi_status mi_spdk_open(mi_spdk_config config, mi_spdk_device **out) {
     if (!out || !config.json_config || !config.bdev_name || !config.capacity_bytes)
         return MI_EINVAL;
     *out = NULL;
+    if (config.iova_mode &&
+        ((strcmp(config.iova_mode, "va") && strcmp(config.iova_mode, "pa")) ||
+         (config.no_huge && !strcmp(config.iova_mode, "pa"))))
+        return MI_EINVAL;
     mi_spdk_device *d = calloc(1, sizeof(*d));
     if (!d)
         return MI_ENOMEM;
