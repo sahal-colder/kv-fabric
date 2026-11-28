@@ -1,5 +1,11 @@
 # KV-Fabric
 
+> **SPDK 异步数据通路与完整性能证据（2026-11-28）**
+>
+> [全部性能报告与原始数据索引](docs/PERFORMANCE-REPORTS.md) · [当前同盘结果](docs/SPDK-ASYNC-IO-BENCHMARK.md) · [实现和复现](docs/SPDK-ASYNC-IO-IMPLEMENTATION.md)
+>
+> SPDK/io_uring均实测QD128；512 KiB随机读QD32为2210/1681 MiB/s；GPU Recovery并发16为1.807/1.627 GiB/s。SPDK轮询CPU成本更高，不宣称全面领先。大型采集无损压缩，原始SHA及恢复工具一并发布。
+
 KV-Fabric 是一套 C11 分布式 KV Cache。目录服务维护 KV 前缀、副本和租约。Worker 通过 TCP 直接传输 Tensor，使用 CPU 或 NVIDIA CUDA 导入本地分层缓存。
 
 | 路径 | 职责 |

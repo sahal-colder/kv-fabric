@@ -1,0 +1,293 @@
+Start testing: Nov 25 15:25 AWST
+----------------------------------------------------------
+1/17 Testing: kvf_protocol
+1/17 Test: kvf_protocol
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_kvf_protocol"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/control
+"kvf_protocol" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+test_kvf_protocol: /home/wty/Infra/tests/control/test_protocol.c:22: split_send: Assertion `send(s->fd, s->bytes + i, 1, 0) == 1' failed.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Failed.
+"kvf_protocol" end time: Nov 25 15:25 AWST
+"kvf_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/17 Testing: kvf_directory
+2/17 Test: kvf_directory
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_kvf_directory"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/control
+"kvf_directory" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+test_kvf_directory: /home/wty/Infra/tests/control/test_directory.c:282: test_rpc: Assertion `kvf_control_start(d, (kvf_endpoint){{127, 0, 0, 1}, 0}, 8, 2000, &server) == KVF_OK' failed.
+<end of output>
+Test time =   0.52 sec
+----------------------------------------------------------
+Test Failed.
+"kvf_directory" end time: Nov 25 15:25 AWST
+"kvf_directory" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/17 Testing: pool
+3/17 Test: pool
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_pool"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"pool" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+pool ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"pool" end time: Nov 25 15:25 AWST
+"pool" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/17 Testing: graph
+4/17 Test: graph
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_graph"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"graph" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+graph ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"graph" end time: Nov 25 15:25 AWST
+"graph" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/17 Testing: tiered
+5/17 Test: tiered
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_tiered"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"tiered" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+tiered ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"tiered" end time: Nov 25 15:25 AWST
+"tiered" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/17 Testing: kv_cache
+6/17 Test: kv_cache
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_kv_cache"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"kv_cache" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+kv cache ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"kv_cache" end time: Nov 25 15:25 AWST
+"kv_cache" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/17 Testing: paged_kv
+7/17 Test: paged_kv
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_paged_kv"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"paged_kv" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+paged kv ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"paged_kv" end time: Nov 25 15:25 AWST
+"paged_kv" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/17 Testing: gpu_mock
+8/17 Test: gpu_mock
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_gpu_mock"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"gpu_mock" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+No CUDA device available
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"gpu_mock" end time: Nov 25 15:25 AWST
+"gpu_mock" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/17 Testing: direct_io_cpu
+9/17 Test: direct_io_cpu
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_direct_io"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"direct_io_cpu" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+MiniInfer SSD: fixed buffers unavailable (unsupported operation), using O_DIRECT POSIX
+MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=2
+observed file mode: direct-posix
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"direct_io_cpu" end time: Nov 25 15:25 AWST
+"direct_io_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/17 Testing: direct_io_cuda
+10/17 Test: direct_io_cuda
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_direct_io" "cuda"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"direct_io_cuda" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+test_direct_io: /home/wty/Infra/tests/worker/test_direct_io.c:38: main: Assertion `opened == MI_OK' failed.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Failed.
+"direct_io_cuda" end time: Nov 25 15:25 AWST
+"direct_io_cuda" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/17 Testing: remote_lifecycle
+11/17 Test: remote_lifecycle
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_remote_lifecycle"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"remote_lifecycle" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+snapshot, page reference, suffix rollback, and generation reuse: PASS
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"remote_lifecycle" end time: Nov 25 15:25 AWST
+"remote_lifecycle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/17 Testing: remote_faults
+12/17 Test: remote_faults
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_remote_faults"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"remote_faults" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+test_remote_faults: /home/wty/Infra/tests/worker/test_remote_faults.c:164: exercise: Assertion `kvf_control_start(d, loop, 4, 2000, &control) == KVF_OK' failed.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Failed.
+"remote_faults" end time: Nov 25 15:25 AWST
+"remote_faults" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/17 Testing: remote_e2e_cpu
+13/17 Test: remote_e2e_cpu
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_remote_e2e" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/miniinfer_worker" "cpu"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"remote_e2e_cpu" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+kvfabricd: I/O error
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"remote_e2e_cpu" end time: Nov 25 15:25 AWST
+"remote_e2e_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/17 Testing: remote_restart
+14/17 Test: remote_restart
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_remote_e2e" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/miniinfer_worker" "cpu" "restart"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"remote_restart" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+kvfabricd: I/O error
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"remote_restart" end time: Nov 25 15:25 AWST
+"remote_restart" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/17 Testing: remote_e2e_cuda
+15/17 Test: remote_e2e_cuda
+Command: "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_remote_e2e" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/miniinfer_worker" "cuda"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/worker
+"remote_e2e_cuda" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+kvfabricd: I/O error
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"remote_e2e_cuda" end time: Nov 25 15:25 AWST
+"remote_e2e_cuda" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/17 Testing: nano_remote_inference_cpu
+16/17 Test: nano_remote_inference_cpu
+Command: "/home/wty/Documents/Codex/2026-10-26/python-office-python-conda-cuda-cpu/.conda-envs/unified/bin/python3.1" "/home/wty/Infra/tests/nanovllm/test_remote_inference.py" "--directory" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd" "--worker" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_nano_remote_worker" "--cli" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/nanovllm" "--cli" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/miniinfer" "--device" "cpu"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/nanovllm
+"nano_remote_inference_cpu" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 790, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 782, in main
+    integration(runs)
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 575, in integration
+    with runs.directory() as directory:
+         ^^^^^^^^^^^^^^^^
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 103, in __enter__
+    ready = self.receive()
+            ^^^^^^^^^^^^^^
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 96, in receive
+    raise RuntimeError(f"{self.process.args[0]} exited {code}\n{self.errors.read()}")
+RuntimeError: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd exited 1
+kvfabricd: I/O error
+
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Failed.
+"nano_remote_inference_cpu" end time: Nov 25 15:25 AWST
+"nano_remote_inference_cpu" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/17 Testing: nano_remote_inference_cuda
+17/17 Test: nano_remote_inference_cuda
+Command: "/home/wty/Documents/Codex/2026-10-26/python-office-python-conda-cuda-cpu/.conda-envs/unified/bin/python3.1" "/home/wty/Infra/tests/nanovllm/test_remote_inference.py" "--directory" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd" "--worker" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/test_nano_remote_worker" "--cli" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/nanovllm" "--cli" "/tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/miniinfer" "--device" "cuda"
+Directory: /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/nanovllm
+"nano_remote_inference_cuda" start time: Nov 25 15:25 AWST
+Output:
+----------------------------------------------------------
+CUDA Runtime did not report an available device
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"nano_remote_inference_cuda" end time: Nov 25 15:25 AWST
+"nano_remote_inference_cuda" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 25 15:25 AWST

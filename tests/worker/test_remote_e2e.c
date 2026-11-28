@@ -156,7 +156,7 @@ static int failover(child *publisher, child *daemon, char *daemon_path, char *co
 }
 
 static int exercise(const char *dir, char *worker, char *device, char *control, size_t layer_bytes,
-                    child *daemon, char *daemon_path, int restart) {
+                    child *daemon, char *daemon_path, int restart, int rdma_unavailable) {
     child publisher = {0};
     int ok = 0;
     char ns[256], tokens[256], payload[256], result[256];
@@ -169,14 +169,22 @@ static int exercise(const char *dir, char *worker, char *device, char *control, 
         goto done;
 
     char *publish_args[] = {worker, "serve", "source", control, "127.0.0.1:0",
-                            device, ns, tokens, payload, NULL};
+                            device, ns, tokens, payload, rdma_unavailable ? "--kv-transport" : NULL,
+                            "rdma", NULL};
     publisher = spawn(publish_args);
     char line[256];
     if (!read_line(publisher, line, sizeof(line)) || strncmp(line, "READY ", 6))
         goto done;
 
     char *pull_args[] = {worker, "pull", "target", control, "127.0.0.1:0",
-                         device, ns, tokens, result, NULL};
+                         device, ns, tokens, result, rdma_unavailable ? "--kv-transport" : NULL,
+                         "rdma", "--no-kv-rdma-fallback", NULL};
+    if (rdma_unavailable) {
+        child strict = spawn(pull_args);
+        if (!strict.pid || reap(&strict) != 1)
+            goto done;
+        pull_args[11] = "--kv-rdma-fallback";
+    }
     if (!pull(pull_args, 1))
         goto done;
     if (restart) {
@@ -206,7 +214,8 @@ done:
 
 int main(int argc, char **argv) {
     int restart = argc == 5 && !strcmp(argv[4], "restart");
-    if (argc != 4 && !restart)
+    int rdma_unavailable = argc == 5 && !strcmp(argv[4], "rdma-unavailable");
+    if (argc != 4 && !restart && !rdma_unavailable)
         return 2;
     char dir[] = "/tmp/miniinfer-kvf-e2e.XXXXXX";
     if (!mkdtemp(dir))
@@ -217,8 +226,8 @@ int main(int argc, char **argv) {
     int ok = read_line(daemon, line, sizeof(line)) &&
              sscanf(line, "READY %21s", control) == 1;
     const size_t sizes[] = {4096, 65536, 262144, 1048576, 4194304};
-    for (size_t i = 0; ok && i < (restart ? 1 : sizeof(sizes) / sizeof(*sizes)); ++i) {
-        ok = exercise(dir, argv[2], argv[3], control, sizes[i], &daemon, argv[1], restart);
+    for (size_t i = 0; ok && i < (restart || rdma_unavailable ? 1 : sizeof(sizes) / sizeof(*sizes)); ++i) {
+        ok = exercise(dir, argv[2], argv[3], control, sizes[i], &daemon, argv[1], restart, rdma_unavailable);
         if (!ok)
             fprintf(stderr, "multi-process test failed for %s at %zu bytes\n", argv[3], sizes[i]);
     }

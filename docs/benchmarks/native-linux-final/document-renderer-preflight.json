@@ -1,0 +1,6 @@
+{
+  "pages": 1,
+  "embedded_fonts": "NotoSansCJKsc-Bold, NotoSansCJKsc-Regular",
+  "bundled_renderer_private_abi_compat": "pass",
+  "smoke_content": "basic user-provided bio only; no benchmark metrics; not final resume"
+}

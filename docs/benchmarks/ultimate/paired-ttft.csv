@@ -1,0 +1,3 @@
+device,samples,cold_p50_ns,remote_p50_ns,faster_pairs,paired_median_delta_ns,bootstrap_low_ns,bootstrap_high_ns
+cpu,30,145446025,34364815,30,111553813,110587277,112326213
+cuda,30,15667251,12670726,30,3030523,2737014,3131272

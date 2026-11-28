@@ -1,0 +1,9 @@
+libc6 2.39-0ubuntu8.12
+https://security.ubuntu.com/ubuntu/ HTTP Error 403: Forbidden
+https://mirrors.aliyun.com/ubuntu/ verified d821b41fc59cb4978ecd53bc83e5c964ac15d305c8d2ac4c8a35aebe55010fb9
+libstdc++6 14.2.0-4ubuntu2~24.04.1
+https://security.ubuntu.com/ubuntu/ HTTP Error 403: Forbidden
+https://mirrors.aliyun.com/ubuntu/ verified a51f8de7829211db961a31f02158058ad1a95f92ac6d0a5dff6350e2821c54c0
+libgcc-s1 14.2.0-4ubuntu2~24.04.1
+https://security.ubuntu.com/ubuntu/ HTTP Error 403: Forbidden
+https://mirrors.aliyun.com/ubuntu/ verified aa7fadbe33b78bcf99885318040601c550c208929565b179891d9a3cc2aa68cd

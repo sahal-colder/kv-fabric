@@ -32,6 +32,9 @@ mi_status mi_device_synchronize(int device) {
 }
 
 mi_status mi_device_host_alloc(int device, size_t bytes, void **out) {
+    if (!out || !bytes)
+        return MI_EINVAL;
+    *out = NULL;
     if (device >= 0)
         return MI_EUNSUPPORTED;
     return posix_memalign(out, 4096, bytes) == 0 ? MI_OK : MI_ENOMEM;
@@ -53,6 +56,8 @@ mi_status mi_device_free(int device, void *ptr) {
 }
 
 mi_status mi_device_stream_create(int device, mi_stream *out) {
+    if (!out)
+        return MI_EINVAL;
     *out = NULL;
     return mi_device_select(device);
 }
@@ -67,6 +72,8 @@ mi_status mi_device_stream_wait(int device, mi_stream stream) {
 }
 
 mi_status mi_device_event_create(int device, mi_event *out) {
+    if (!out)
+        return MI_EINVAL;
     *out = NULL;
     return mi_device_select(device);
 }
@@ -90,6 +97,10 @@ mi_status mi_device_event_ready(int device, mi_event event) {
 }
 
 static mi_status copy(int device, void *dst, const void *src, size_t bytes) {
+    if (!bytes)
+        return MI_OK;
+    if (!dst || !src)
+        return MI_EINVAL;
     if (device >= 0)
         return MI_EUNSUPPORTED;
     memmove(dst, src, bytes);

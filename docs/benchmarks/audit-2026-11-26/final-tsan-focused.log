@@ -1,0 +1,24 @@
+Internal ctest changing into directory: /home/wty/Infra/build-tsan
+Test project /home/wty/Infra/build-tsan
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.07 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.12 sec
+    Start 11: storage_audit
+1/3 Test #11: storage_audit ....................   Passed    0.12 sec
+    Start 12: uring_faults
+    Test #12: uring_faults .....................   Passed    0.01 sec
+    Start 12: uring_faults
+    Test #12: uring_faults .....................   Passed    0.01 sec
+    Start 12: uring_faults
+2/3 Test #12: uring_faults .....................   Passed    0.01 sec
+    Start 15: remote_audit
+    Test #15: remote_audit .....................   Passed    8.65 sec
+    Start 15: remote_audit
+    Test #15: remote_audit .....................   Passed    9.25 sec
+    Start 15: remote_audit
+3/3 Test #15: remote_audit .....................   Passed    8.95 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =  27.20 sec

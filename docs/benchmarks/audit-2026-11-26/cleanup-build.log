@@ -1,0 +1,63 @@
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/build-release
+Consolidate compiler generated dependencies of target kvfabric
+[  8%] Built target kvfabric
+Consolidate compiler generated dependencies of target test_kvf_protocol
+Consolidate compiler generated dependencies of target test_remote_e2e
+Consolidate compiler generated dependencies of target miniinfer_storage
+Consolidate compiler generated dependencies of target kvfabricd
+Consolidate compiler generated dependencies of target test_kvf_directory
+Consolidate compiler generated dependencies of target kvfctl
+[ 10%] Built target test_kvf_protocol
+[ 13%] Built target test_remote_e2e
+[ 27%] Built target miniinfer_storage
+[ 29%] Built target kvfctl
+[ 31%] Built target kvfabricd
+[ 34%] Built target test_kvf_directory
+Consolidate compiler generated dependencies of target test_kv_cache
+Consolidate compiler generated dependencies of target miniinfer_basic
+Consolidate compiler generated dependencies of target test_pool
+Consolidate compiler generated dependencies of target test_paged_kv
+Consolidate compiler generated dependencies of target test_graph
+Consolidate compiler generated dependencies of target test_tiered
+Consolidate compiler generated dependencies of target test_gpu_mock
+[ 38%] Built target miniinfer_basic
+[ 38%] Built target test_paged_kv
+[ 40%] Built target test_kv_cache
+[ 42%] Built target test_pool
+[ 43%] Building C object src/worker/CMakeFiles/test_allocator_faults.dir/__/__/tests/worker/test_allocator_faults.c.o
+[ 45%] Built target test_tiered
+[ 47%] Built target test_graph
+Consolidate compiler generated dependencies of target test_device_boundaries
+[ 50%] Built target test_gpu_mock
+Consolidate compiler generated dependencies of target test_storage_audit
+Consolidate compiler generated dependencies of target miniinfer_remote
+Consolidate compiler generated dependencies of target test_direct_io
+Consolidate compiler generated dependencies of target test_remote_lifecycle
+[ 51%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 53%] Built target test_device_boundaries
+[ 55%] Built target test_direct_io
+[ 62%] Built target miniinfer_remote
+[ 64%] Built target test_remote_lifecycle
+Consolidate compiler generated dependencies of target test_remote_audit
+Consolidate compiler generated dependencies of target kvf_bench
+Consolidate compiler generated dependencies of target test_remote_faults
+Consolidate compiler generated dependencies of target miniinfer_worker
+Consolidate compiler generated dependencies of target miniinfer_nano
+Consolidate compiler generated dependencies of target miniinfer
+[ 67%] Built target test_remote_audit
+[ 70%] Built target kvf_bench
+[ 72%] Built target test_remote_faults
+[ 82%] Built target miniinfer
+[ 90%] Built target miniinfer_nano
+[ 91%] Linking C executable ../../bin/test_allocator_faults
+[ 93%] Built target miniinfer_worker
+Consolidate compiler generated dependencies of target nanovllm
+Consolidate compiler generated dependencies of target test_nano_remote_worker
+[ 96%] Built target nanovllm
+[ 98%] Built target test_nano_remote_worker
+[ 98%] Built target test_allocator_faults
+[100%] Linking C executable ../../bin/test_storage_audit
+[100%] Built target test_storage_audit

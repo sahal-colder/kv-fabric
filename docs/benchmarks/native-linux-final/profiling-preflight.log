@@ -1,0 +1,17 @@
+$ bash scripts/profile_kv.sh bench /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring unused docs/benchmarks/native-linux-final/cuda
+dma,H2D,1,75497472,6.7129,10.474
+dma,D2H,1,75497472,7.1313,9.860
+segments,H2D,4608,75497472,15.5325,4.527
+segments,D2H,4608,75497472,12.1295,5.797
+vector,H2D,1,75497472,7.6052,9.245
+vector,D2H,1,75497472,7.0477,9.977
+==PROF== Connected to process 61638 (/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_cuda_bench)
+==ERROR== ERR_NVGPUCTRPERM - The user does not have permission to access NVIDIA GPU Performance Counters on the target device 0. For instructions on enabling permissions and to get more information see https://developer.nvidia.com/ERR_NVGPUCTRPERM
+vector,H2D,1,75497472,7.7189,9.109
+vector,D2H,1,75497472,7.2983,9.634
+==PROF== Disconnected from process 61638
+==PROF== Connected to process 61849 (/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_cuda_bench)
+==ERROR== ERR_NVGPUCTRPERM - The user does not have permission to access NVIDIA GPU Performance Counters on the target device 0. For instructions on enabling permissions and to get more information see https://developer.nvidia.com/ERR_NVGPUCTRPERM
+vector,H2D,1,75497472,7.5644,9.295
+vector,D2H,1,75497472,7.6528,9.188
+==PROF== Disconnected from process 61849

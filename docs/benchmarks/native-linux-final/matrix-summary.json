@@ -1,0 +1,1499 @@
+{
+  "run_id": "20261125T153218+0800",
+  "cells": [
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 18.88980471099967,
+      "req_s": 0.7940791463696494,
+      "output_tokens_s": 12.70526634191439,
+      "total_tokens_s": 3265.2534498719983,
+      "ttft_ms": {
+        "p50": 589.65991,
+        "p95": 597.551025,
+        "p99": 597.551025
+      },
+      "tpot_ms": {
+        "p50": 44.56626646666667,
+        "p95": 44.667412533333334,
+        "p99": 44.667412533333334
+      },
+      "itl_ms": {
+        "p50": 44.678876,
+        "p95": 45.564801,
+        "p99": 45.753154
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 30720,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 30720
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 30720,
+        "disk": null,
+        "external": 30720
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 31.04987797799913,
+      "req_s": 0.48309368592779917,
+      "output_tokens_s": 7.729498974844787,
+      "total_tokens_s": 3965.2329740953755,
+      "ttft_ms": {
+        "p50": 1344.582977,
+        "p95": 1350.337374,
+        "p99": 1350.337374
+      },
+      "tpot_ms": {
+        "p50": 48.270104,
+        "p95": 48.76098306666667,
+        "p99": 48.76098306666667
+      },
+      "itl_ms": {
+        "p50": 48.41837,
+        "p95": 49.661753,
+        "p99": 49.869124
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 61440,
+        "disk": null,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 8,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 62.01766564099853,
+      "req_s": 0.24186656890361616,
+      "output_tokens_s": 3.8698651024578585,
+      "total_tokens_s": 3966.611730019305,
+      "ttft_ms": {
+        "p50": 3287.307012,
+        "p95": 3301.170245,
+        "p99": 3301.170245
+      },
+      "tpot_ms": {
+        "p50": 56.51637073333333,
+        "p95": 56.61434366666666,
+        "p99": 56.61434366666666
+      },
+      "itl_ms": {
+        "p50": 56.587154,
+        "p95": 57.77248,
+        "p99": 57.93788
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 122880
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 122880,
+        "disk": null,
+        "external": 122880
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 42,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 24.478046100999563,
+      "req_s": 0.6127940088889477,
+      "output_tokens_s": 9.804704142223164,
+      "total_tokens_s": 2519.8089645513533,
+      "ttft_ms": {
+        "p50": 957.3243,
+        "p95": 1015.840643,
+        "p99": 1015.840643
+      },
+      "tpot_ms": {
+        "p50": 44.795938666666665,
+        "p95": 44.9927446,
+        "p99": 44.9927446
+      },
+      "itl_ms": {
+        "p50": 45.15879,
+        "p95": 45.961135,
+        "p99": 46.103386
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 30720,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 30720
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 30720,
+        "external": 30720
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-uring-fixed",
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 46.22761004499989,
+      "req_s": 0.3244814080891998,
+      "output_tokens_s": 5.191702529427197,
+      "total_tokens_s": 2663.3433975961516,
+      "ttft_ms": {
+        "p50": 2414.081548,
+        "p95": 2604.001452,
+        "p99": 2604.001452
+      },
+      "tpot_ms": {
+        "p50": 48.403940133333336,
+        "p95": 48.502467,
+        "p99": 48.502467
+      },
+      "itl_ms": {
+        "p50": 48.418312,
+        "p95": 49.706515,
+        "p99": 49.951262
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 61440,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 8,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-uring-fixed",
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 87.8893173159995,
+      "req_s": 0.17066920597492657,
+      "output_tokens_s": 2.730707295598825,
+      "total_tokens_s": 2798.9749779887957,
+      "ttft_ms": {
+        "p50": 5005.882409,
+        "p95": 5254.864335,
+        "p99": 5254.864335
+      },
+      "tpot_ms": {
+        "p50": 56.304061133333335,
+        "p95": 56.58235833333334,
+        "p99": 56.58235833333334
+      },
+      "itl_ms": {
+        "p50": 56.505971,
+        "p95": 57.577152,
+        "p99": 57.792197
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 122880
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 122880,
+        "external": 122880
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 39,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-uring-fixed",
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "requests": 15,
+      "wall_s": 18.825568017999103,
+      "req_s": 0.7967887070211384,
+      "output_tokens_s": 12.748619312338214,
+      "total_tokens_s": 3276.395163270921,
+      "ttft_ms": {
+        "p50": 582.214143,
+        "p95": 666.365848,
+        "p99": 666.365848
+      },
+      "tpot_ms": {
+        "p50": 44.44529106666667,
+        "p95": 44.648443799999995,
+        "p99": 44.648443799999995
+      },
+      "itl_ms": {
+        "p50": 44.521349,
+        "p95": 45.313642,
+        "p99": 45.638652
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 30720,
+        "local_cache_hit": 28672,
+        "external_kv_transfer": 2048
+      },
+      "actual_hit_tokens": {
+        "gpu": 28672,
+        "cpu": 2048,
+        "disk": null,
+        "external": 2048
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.4666666666666667,
+        "cpu": 0.03333333333333333,
+        "disk": null,
+        "external": 0.03333333333333333
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/native/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "requests": 15,
+      "wall_s": 30.557876667000528,
+      "req_s": 0.49087180249662143,
+      "output_tokens_s": 7.853948839945943,
+      "total_tokens_s": 4029.075754892269,
+      "ttft_ms": {
+        "p50": 1310.066423,
+        "p95": 1318.517343,
+        "p99": 1318.517343
+      },
+      "tpot_ms": {
+        "p50": 48.38274873333334,
+        "p95": 48.5045244,
+        "p99": 48.5045244
+      },
+      "itl_ms": {
+        "p50": 48.596399,
+        "p95": 49.119713,
+        "p99": 49.383689
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 57344,
+        "external_kv_transfer": 4096
+      },
+      "actual_hit_tokens": {
+        "gpu": 57344,
+        "cpu": 4096,
+        "disk": null,
+        "external": 4096
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.4666666666666667,
+        "cpu": 0.03333333333333333,
+        "disk": null,
+        "external": 0.03333333333333333
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/native/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "requests": 15,
+      "wall_s": 60.86309529100072,
+      "req_s": 0.2464547675119296,
+      "output_tokens_s": 3.9432762801908736,
+      "total_tokens_s": 4041.8581871956458,
+      "ttft_ms": {
+        "p50": 3213.502535,
+        "p95": 3231.725681,
+        "p99": 3231.725681
+      },
+      "tpot_ms": {
+        "p50": 56.1006588,
+        "p95": 56.29320413333333,
+        "p99": 56.29320413333333
+      },
+      "itl_ms": {
+        "p50": 56.410845,
+        "p95": 57.032981,
+        "p99": 57.40452
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 114688,
+        "external_kv_transfer": 8192
+      },
+      "actual_hit_tokens": {
+        "gpu": 114688,
+        "cpu": 8192,
+        "disk": null,
+        "external": 8192
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.4666666666666667,
+        "cpu": 0.03333333333333333,
+        "disk": null,
+        "external": 0.03333333333333333
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/native/summary.jsonl"
+    },
+    {
+      "mode": "recompute",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 0,
+      "requests": 15,
+      "wall_s": 26.43881136699929,
+      "req_s": 0.5673477446388864,
+      "output_tokens_s": 9.077563914222182,
+      "total_tokens_s": 2332.933925955101,
+      "ttft_ms": {
+        "p50": 1102.097472,
+        "p95": 1104.533369,
+        "p99": 1104.533369
+      },
+      "tpot_ms": {
+        "p50": 44.10321966666666,
+        "p95": 44.275836733333335,
+        "p99": 44.275836733333335
+      },
+      "itl_ms": {
+        "p50": 44.207571,
+        "p95": 44.739971,
+        "p99": 44.937173
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 0
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": null,
+        "external": 0
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": null,
+        "external": 0.0
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/recompute/summary.jsonl"
+    },
+    {
+      "mode": "recompute",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 0,
+      "requests": 15,
+      "wall_s": 47.069323364999946,
+      "req_s": 0.31867889588474047,
+      "output_tokens_s": 5.098862334155847,
+      "total_tokens_s": 2615.71637742195,
+      "ttft_ms": {
+        "p50": 2410.879113,
+        "p95": 2415.753915,
+        "p99": 2415.753915
+      },
+      "tpot_ms": {
+        "p50": 48.443217133333334,
+        "p95": 48.58861713333333,
+        "p99": 48.58861713333333
+      },
+      "itl_ms": {
+        "p50": 48.611485,
+        "p95": 49.074572,
+        "p99": 49.237738
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 0
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": null,
+        "external": 0
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": null,
+        "external": 0.0
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/recompute/summary.jsonl"
+    },
+    {
+      "mode": "recompute",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 0,
+      "requests": 15,
+      "wall_s": 97.43407381900033,
+      "req_s": 0.15395024976441962,
+      "output_tokens_s": 2.463203996230714,
+      "total_tokens_s": 2524.784096136482,
+      "ttft_ms": {
+        "p50": 5646.547528,
+        "p95": 5651.397986,
+        "p99": 5651.397986
+      },
+      "tpot_ms": {
+        "p50": 56.65559706666667,
+        "p95": 56.77417213333333,
+        "p99": 56.77417213333333
+      },
+      "itl_ms": {
+        "p50": 56.910377,
+        "p95": 57.472601,
+        "p99": 57.733972
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 245760,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 0
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": null,
+        "external": 0
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": null,
+        "external": 0.0
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-c1/recompute/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 2,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 27.16990524999892,
+      "req_s": 0.5520814247226937,
+      "output_tokens_s": 8.8333027955631,
+      "total_tokens_s": 4531.48433412387,
+      "ttft_ms": {
+        "p50": 1652.051096,
+        "p95": 2850.905699,
+        "p99": 2850.905699
+      },
+      "tpot_ms": {
+        "p50": 87.88101773333334,
+        "p95": 130.41203466666667,
+        "p99": 130.41203466666667
+      },
+      "itl_ms": {
+        "p50": 49.274218,
+        "p95": 629.131668,
+        "p99": 680.107037
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 61440,
+        "disk": null,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 14,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-c2",
+      "source": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 2,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 32.59613279400037,
+      "req_s": 0.4601772883549209,
+      "output_tokens_s": 7.362836613678734,
+      "total_tokens_s": 3777.1351828171905,
+      "ttft_ms": {
+        "p50": 2446.149993,
+        "p95": 3655.520025,
+        "p99": 3655.520025
+      },
+      "tpot_ms": {
+        "p50": 49.17729273333333,
+        "p95": 130.11663233333334,
+        "p99": 130.11663233333334
+      },
+      "itl_ms": {
+        "p50": 49.609539,
+        "p95": 624.186262,
+        "p99": 676.628022
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 61440,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 12,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-uring-fixed",
+      "matrix": "matrix-c2",
+      "source": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 2,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 25.778324947999863,
+      "req_s": 0.5818842003992912,
+      "output_tokens_s": 9.31014720638866,
+      "total_tokens_s": 4776.105516877382,
+      "ttft_ms": {
+        "p50": 1447.28898,
+        "p95": 2669.554653,
+        "p99": 2669.554653
+      },
+      "tpot_ms": {
+        "p50": 87.42754886666665,
+        "p95": 130.0543538,
+        "p99": 130.0543538
+      },
+      "itl_ms": {
+        "p50": 49.07649,
+        "p95": 624.159863,
+        "p99": 678.019604
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 57344,
+        "external_kv_transfer": 4096
+      },
+      "actual_hit_tokens": {
+        "gpu": 57344,
+        "cpu": 4096,
+        "disk": null,
+        "external": 4096
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.4666666666666667,
+        "cpu": 0.03333333333333333,
+        "disk": null,
+        "external": 0.03333333333333333
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c2",
+      "source": "docs/benchmarks/native-linux-final/matrix-c2/native/summary.jsonl"
+    },
+    {
+      "mode": "recompute",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 2,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 0,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 42.23554667700046,
+      "req_s": 0.35515107960395625,
+      "output_tokens_s": 5.6824172736633,
+      "total_tokens_s": 2915.080061389273,
+      "ttft_ms": {
+        "p50": 2576.589247,
+        "p95": 5194.442077,
+        "p99": 5194.442077
+      },
+      "tpot_ms": {
+        "p50": 155.81721453333333,
+        "p95": 218.4606134,
+        "p99": 218.4606134
+      },
+      "itl_ms": {
+        "p50": 49.496194,
+        "p95": 630.785103,
+        "p99": 680.462572
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 0
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": null,
+        "external": 0
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": null,
+        "external": 0.0
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-c2",
+      "source": "docs/benchmarks/native-linux-final/matrix-c2/recompute/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 22.49527431000024,
+      "req_s": 0.6668067165258693,
+      "output_tokens_s": 10.668907464413909,
+      "total_tokens_s": 2741.9092183543744,
+      "ttft_ms": {
+        "p50": 843.146421,
+        "p95": 910.297446,
+        "p99": 910.297446
+      },
+      "tpot_ms": {
+        "p50": 42.93661886666667,
+        "p95": 43.1770226,
+        "p99": 43.1770226
+      },
+      "itl_ms": {
+        "p50": 44.236627,
+        "p95": 44.672972,
+        "p99": 44.872245
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 30720,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 30720
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 30720,
+        "disk": null,
+        "external": 30720
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-legacy-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 109.02926923500127,
+      "req_s": 0.13757773582494676,
+      "output_tokens_s": 2.201243773199148,
+      "total_tokens_s": 1129.238055651163,
+      "ttft_ms": {
+        "p50": 8026.963051,
+        "p95": 8699.877314,
+        "p99": 8699.877314
+      },
+      "tpot_ms": {
+        "p50": 48.0925862,
+        "p95": 49.31644193333333,
+        "p99": 49.31644193333333
+      },
+      "itl_ms": {
+        "p50": 48.106457,
+        "p95": 55.6374,
+        "p99": 55.906529
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 61440,
+        "disk": null,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-legacy-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-cpu",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 389.02377941399936,
+      "req_s": 0.03855805427265923,
+      "output_tokens_s": 0.6169288683625477,
+      "total_tokens_s": 632.3520900716114,
+      "ttft_ms": {
+        "p50": 25657.45656,
+        "p95": 27864.16987,
+        "p99": 27864.16987
+      },
+      "tpot_ms": {
+        "p50": 56.83607753333333,
+        "p95": 57.737394,
+        "p99": 57.737394
+      },
+      "itl_ms": {
+        "p50": 55.624182,
+        "p95": 68.435321,
+        "p99": 68.836149
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 122880
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 122880,
+        "disk": null,
+        "external": 122880
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "cpu",
+      "matrix": "matrix-legacy-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": true,
+      "throughput_scope": "sum of request bursts, excludes GPU reset RPCs",
+      "requests": 15,
+      "wall_s": 18.798586544999125,
+      "req_s": 0.7979323319917561,
+      "output_tokens_s": 12.766917311868097,
+      "total_tokens_s": 3281.0977491501008,
+      "ttft_ms": {
+        "p50": 584.952145,
+        "p95": 588.460624,
+        "p99": 588.460624
+      },
+      "tpot_ms": {
+        "p50": 44.46494886666667,
+        "p95": 44.8627886,
+        "p99": 44.8627886
+      },
+      "itl_ms": {
+        "p50": 44.547386,
+        "p95": 45.629541,
+        "p99": 45.990421
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 30720,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 30720
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 30720,
+        "disk": null,
+        "external": 30720
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-native-external-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-native-external-c1/native/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": true,
+      "throughput_scope": "sum of request bursts, excludes GPU reset RPCs",
+      "requests": 15,
+      "wall_s": 30.670873524000854,
+      "req_s": 0.48906334500913584,
+      "output_tokens_s": 7.8250135201461735,
+      "total_tokens_s": 4014.2319358349873,
+      "ttft_ms": {
+        "p50": 1315.622376,
+        "p95": 1318.796916,
+        "p99": 1318.796916
+      },
+      "tpot_ms": {
+        "p50": 48.5908382,
+        "p95": 48.72291906666667,
+        "p99": 48.72291906666667
+      },
+      "itl_ms": {
+        "p50": 48.830082,
+        "p95": 49.648491,
+        "p99": 49.851469
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 61440,
+        "disk": null,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-native-external-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-native-external-c1/native/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": true,
+      "throughput_scope": "sum of request bursts, excludes GPU reset RPCs",
+      "requests": 15,
+      "wall_s": 61.41309105200344,
+      "req_s": 0.24424759840370655,
+      "output_tokens_s": 3.907961574459305,
+      "total_tokens_s": 4005.6606138207876,
+      "ttft_ms": {
+        "p50": 3248.42544,
+        "p95": 3258.384075,
+        "p99": 3258.384075
+      },
+      "tpot_ms": {
+        "p50": 56.59214693333333,
+        "p95": 57.03692346666667,
+        "p99": 57.03692346666667
+      },
+      "itl_ms": {
+        "p50": 56.831048,
+        "p95": 57.847233,
+        "p99": 58.152382
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 122880
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": 122880,
+        "disk": null,
+        "external": 122880
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": 0.5,
+        "disk": null,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-native-external-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-native-external-c1/native/summary.jsonl"
+    },
+    {
+      "mode": "native",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 2,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": true,
+      "throughput_scope": "sum of request bursts, excludes GPU reset RPCs",
+      "requests": 15,
+      "wall_s": 25.86823756499689,
+      "req_s": 0.5798616918648127,
+      "output_tokens_s": 9.277787069837004,
+      "total_tokens_s": 4759.504766826383,
+      "ttft_ms": {
+        "p50": 1317.064518,
+        "p95": 2679.351175,
+        "p99": 2679.351175
+      },
+      "tpot_ms": {
+        "p50": 48.893371333333334,
+        "p95": 129.95802406666667,
+        "p99": 129.95802406666667
+      },
+      "itl_ms": {
+        "p50": 49.316689,
+        "p95": 617.418882,
+        "p99": 675.187871
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 28672,
+        "external_kv_transfer": 32768
+      },
+      "actual_hit_tokens": {
+        "gpu": 28672,
+        "cpu": 32768,
+        "disk": null,
+        "external": 32768
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.23333333333333334,
+        "cpu": 0.26666666666666666,
+        "disk": null,
+        "external": 0.26666666666666666
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": null,
+      "matrix": "matrix-native-external-c2",
+      "source": "docs/benchmarks/native-linux-final/matrix-native-external-c2/native/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 4096,
+      "shared_tokens_offered": 2048,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 24.980330602000322,
+      "req_s": 0.6004724372542476,
+      "output_tokens_s": 9.607558996067961,
+      "total_tokens_s": 2469.1426619894664,
+      "ttft_ms": {
+        "p50": 990.586287,
+        "p95": 1004.868364,
+        "p99": 1004.868364
+      },
+      "tpot_ms": {
+        "p50": 45.145107466666666,
+        "p95": 45.3147432,
+        "p99": 45.3147432
+      },
+      "itl_ms": {
+        "p50": 45.700173,
+        "p95": 46.330697,
+        "p99": 46.543788
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 30720,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 30720
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 30720,
+        "external": 30720
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 0,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-posix",
+      "matrix": "matrix-posix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 46.730578247001176,
+      "req_s": 0.32098896616933237,
+      "output_tokens_s": 5.135823458709318,
+      "total_tokens_s": 2634.67743431788,
+      "ttft_ms": {
+        "p50": 2426.361555,
+        "p95": 2514.178336,
+        "p99": 2514.178336
+      },
+      "tpot_ms": {
+        "p50": 48.74274226666667,
+        "p95": 48.88113,
+        "p99": 48.88113
+      },
+      "itl_ms": {
+        "p50": 48.75383,
+        "p95": 49.930278,
+        "p99": 50.222113
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 61440,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 9,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-posix",
+      "matrix": "matrix-posix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 16384,
+      "shared_tokens_offered": 8192,
+      "concurrency": 1,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 88.53772993600069,
+      "req_s": 0.16941929740962094,
+      "output_tokens_s": 2.710708758553935,
+      "total_tokens_s": 2778.4764775177837,
+      "ttft_ms": {
+        "p50": 5034.333452,
+        "p95": 5254.279333,
+        "p99": 5254.279333
+      },
+      "tpot_ms": {
+        "p50": 56.49904093333333,
+        "p95": 57.015015866666666,
+        "p99": 57.015015866666666
+      },
+      "itl_ms": {
+        "p50": 56.891908,
+        "p95": 57.848186,
+        "p99": 58.14525
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 122880,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 122880
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 122880,
+        "external": 122880
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 41,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-posix",
+      "matrix": "matrix-posix-c1",
+      "source": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/summary.jsonl"
+    },
+    {
+      "mode": "kvfabric-disk",
+      "prompt_tokens": 8192,
+      "shared_tokens_offered": 4096,
+      "concurrency": 2,
+      "warmup_requests": 3,
+      "output_tokens": 16,
+      "token_id_verified_requests": 15,
+      "gpu_reset_between_batches": false,
+      "throughput_scope": "continuous measured request window",
+      "requests": 15,
+      "wall_s": 33.844296297000255,
+      "req_s": 0.4432061422807454,
+      "output_tokens_s": 7.091298276491926,
+      "total_tokens_s": 3637.8360158403584,
+      "ttft_ms": {
+        "p50": 3364.25494,
+        "p95": 4655.605957,
+        "p99": 4655.605957
+      },
+      "tpot_ms": {
+        "p50": 48.98966586666667,
+        "p95": 129.9611154,
+        "p99": 129.9611154
+      },
+      "itl_ms": {
+        "p50": 49.509233,
+        "p95": 623.429087,
+        "p99": 675.692654
+      },
+      "multi_token_chunks": 0,
+      "token_sources": {
+        "local_compute": 61440,
+        "local_cache_hit": 0,
+        "external_kv_transfer": 61440
+      },
+      "actual_hit_tokens": {
+        "gpu": 0,
+        "cpu": null,
+        "disk": 61440,
+        "external": 61440
+      },
+      "lmcache_metrics_delta": {},
+      "actual_hit_rates": {
+        "gpu": 0.0,
+        "cpu": null,
+        "disk": 0.5,
+        "external": 0.5
+      },
+      "kvfabric_load_failures": 0,
+      "kvfabric_save_skipped": 10,
+      "kvfabric_save_failures": 0,
+      "kvfabric_io_mode": "direct-posix",
+      "matrix": "matrix-posix-c2",
+      "source": "docs/benchmarks/native-linux-final/matrix-posix-c2/kvfabric-disk/summary.jsonl"
+    }
+  ],
+  "limitations": [
+    "P95/P99 with n=15 are both the observed maximum (nearest rank).",
+    "Tokens/s means generated output tokens/s; total logical tokens/s is separate.",
+    "ITL uses streamed chunk arrival times; inspect multi_token_chunks before interpreting as per-token.",
+    "Fixed seeded synthetic token IDs, BF16, eager mode, single GPU; no production-traffic claim."
+  ]
+}

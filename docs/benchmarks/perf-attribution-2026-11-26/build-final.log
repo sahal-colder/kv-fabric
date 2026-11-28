@@ -1,0 +1,36 @@
+[  7%] Built target kvfabric
+[ 11%] Built target kvfabricd
+[ 11%] Built target test_kvf_protocol
+[ 25%] Built target miniinfer_storage
+[ 31%] Built target test_remote_e2e
+[ 31%] Built target test_kvf_directory
+[ 33%] Built target kvfctl
+[ 39%] Built target test_paged_kv
+[ 39%] Built target kvf_nvme_recovery_bench
+[ 39%] Built target test_gpu_mock
+[ 40%] Built target test_graph
+[ 42%] Built target test_tiered
+[ 44%] Built target test_kv_cache
+[ 46%] Built target miniinfer_basic
+[ 48%] Built target test_pool
+[ 50%] Built target test_allocator_faults
+[ 53%] Built target test_uring_faults
+[ 55%] Built target test_device_boundaries
+[ 57%] Built target test_storage_audit
+[ 62%] Built target test_remote_lifecycle
+[ 62%] Built target test_direct_io
+[ 67%] Built target miniinfer_remote
+Consolidate compiler generated dependencies of target kvf_vllm
+[ 71%] Built target test_remote_audit
+[ 75%] Built target miniinfer_nano
+[ 77%] Built target miniinfer_worker
+[ 86%] Built target miniinfer
+[ 88%] Built target test_remote_faults
+[ 90%] Built target kvf_bench
+[ 91%] Building C object src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o
+[ 96%] Built target nanovllm
+[ 96%] Built target test_nano_remote_worker
+[ 97%] Linking CUDA shared library libkvf_vllm.so
+[ 98%] Built target kvf_vllm
+[ 99%] Linking CUDA executable ../../bin/kvf_cuda_bench
+[100%] Built target kvf_cuda_bench

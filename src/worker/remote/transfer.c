@@ -1,12 +1,136 @@
 /*
  * Peer transfer layer. The source owns one staging segment per active request.
  * The destination owns temporary WRITE leases and two DMA segments per importer.
- * Order: exports_lock -> Trie, then release both before Storage snapshot and TCP I/O.
+ * Order: exports_lock -> Trie, then release both before Storage snapshot and network I/O.
  */
 #include "internal.h"
 #include "../tiered_internal.h"
+#include <errno.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/socket.h>
 #include <unistd.h>
+#if KVF_HAS_RSOCKETS
+#include <rdma/rsocket.h>
+#endif
+
+static kvf_status remote_send_all(mi_remote_socket s, const uint8_t *data, size_t size, int flags,
+                                  uint64_t deadline) {
+    while (size) {
+        if (kvf_now_ms() >= deadline)
+            return KVF_TIMEOUT;
+        ssize_t n =
+#if KVF_HAS_RSOCKETS
+            s.transport == KVF_TRANSPORT_RDMA_RSOCKET ? rsend(s.fd, data, size, MSG_DONTWAIT | MSG_NOSIGNAL) :
+#endif
+            send(s.fd, data, size, MSG_DONTWAIT | MSG_NOSIGNAL | flags);
+        if (n > 0) {
+            data += n;
+            size -= (size_t)n;
+            continue;
+        }
+        if (n == 0 || (errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK))
+            return KVF_IO;
+        if (errno != EINTR) {
+            kvf_status st = remote_wait(s, POLLOUT, deadline);
+            if (st != KVF_OK)
+                return st;
+        }
+    }
+    return KVF_OK;
+}
+
+static kvf_status remote_recv_all(mi_remote_socket s, uint8_t *data, size_t size, uint64_t deadline,
+                                  uint64_t *received) {
+    while (size) {
+        if (kvf_now_ms() >= deadline)
+            return KVF_TIMEOUT;
+        ssize_t n =
+#if KVF_HAS_RSOCKETS
+            s.transport == KVF_TRANSPORT_RDMA_RSOCKET ? rrecv(s.fd, data, size, MSG_DONTWAIT) :
+#endif
+            recv(s.fd, data, size, MSG_DONTWAIT);
+        if (n > 0) {
+            data += n;
+            size -= (size_t)n;
+            if (received)
+                *received += (uint64_t)n;
+            continue;
+        }
+        if (n == 0 || (errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK))
+            return KVF_IO;
+        if (errno != EINTR) {
+            kvf_status st = remote_wait(s, POLLIN, deadline);
+            if (st != KVF_OK)
+                return st;
+        }
+    }
+    return KVF_OK;
+}
+
+static kvf_status remote_send_frame(mi_remote_socket s, kvf_frame f, const void *payload, uint64_t end) {
+    uint8_t header[KVF_HEADER_BYTES];
+    kvf_status st = kvf_frame_encode_header(f, payload, header);
+    if (st != KVF_OK)
+        return st;
+    /* Coalesce the TCP header and payload without copying them into one buffer. */
+    st = remote_send_all(s, header, sizeof(header), f.size ? MSG_MORE : 0, end);
+    return st == KVF_OK ? remote_send_all(s, payload, f.size, 0, end) : st;
+}
+
+static kvf_status remote_recv_frame(mi_remote_socket s, kvf_frame *f, void *payload, size_t capacity,
+                                    uint64_t end, kvf_receive_timing *timing) {
+    uint8_t header[KVF_HEADER_BYTES];
+    uint64_t start = timing ? kvf_now_ns() : 0;
+    MI_REMOTE_RANGE_BEGIN("kvfabric.wire.header_wait");
+    kvf_status st = remote_recv_all(s, header, sizeof(header), end, NULL);
+    MI_REMOTE_RANGE_END();
+    if (timing) {
+        uint64_t ns = kvf_now_ns() - start;
+        timing->reply_wait_ns += ns;
+        timing->net_recv_ns += ns;
+    }
+    if (st != KVF_OK)
+        return st;
+    uint32_t payload_crc;
+    st = kvf_frame_decode_header(header, f, &payload_crc, timing ? &timing->crc_verify_ns : NULL);
+    if (st != KVF_OK)
+        return st;
+    if (f->size > capacity)
+        return KVF_PROTOCOL;
+    start = timing ? kvf_now_ns() : 0;
+    MI_REMOTE_RANGE_BEGIN("kvfabric.wire.body_receive");
+    st = remote_recv_all(s, payload, f->size, end, timing ? &timing->received_bytes : NULL);
+    MI_REMOTE_RANGE_END();
+    if (timing)
+        timing->net_recv_ns += kvf_now_ns() - start;
+    if (st != KVF_OK)
+        return st;
+    start = timing ? kvf_now_ns() : 0;
+    MI_REMOTE_RANGE_BEGIN("kvfabric.wire.payload_crc");
+    uint32_t actual = kvf_crc32c(payload, f->size);
+    MI_REMOTE_RANGE_END();
+    if (timing)
+        timing->crc_verify_ns += kvf_now_ns() - start;
+    return actual == payload_crc ? KVF_OK : KVF_CRC;
+}
+
+static kvf_status remote_fetch(mi_remote_socket s, kvf_opcode op, const kvf_writer *request,
+                               void *payload, size_t size, uint64_t end, kvf_receive_timing *timing) {
+    static _Atomic uint64_t next = 1;
+    if (request->failed)
+        return KVF_INVALID;
+    uint64_t id = atomic_fetch_add_explicit(&next, 1, memory_order_relaxed);
+    kvf_frame f = {.opcode = op, .request_id = id, .size = (uint32_t)request->size};
+    kvf_status st = remote_send_frame(s, f, request->buffer, end);
+    if (st == KVF_OK)
+        st = remote_recv_frame(s, &f, payload, size, end, timing);
+    if (st != KVF_OK)
+        return st;
+    if (!f.response || f.opcode != op || f.request_id != id || (f.status == KVF_OK && f.size != size))
+        return KVF_PROTOCOL;
+    return f.status;
+}
 
 static kvf_status copy_export(mi_remote_worker *w, mi_segment *stage, const kvf_fetch_request *r) {
     mi_page_ref ref = {0};
@@ -44,7 +168,7 @@ static kvf_status validate(mi_remote_worker *w, const kvf_fetch_request *r, uint
 }
 
 static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f,
-                              uint8_t *bytes, size_t capacity, int fd, uint64_t deadline) {
+                              uint8_t *bytes, size_t capacity, mi_remote_socket socket, uint64_t deadline) {
     kvf_reader reader = {.buffer = bytes, .size = f.size};
     kvf_fetch_request r;
     kvf_get_fetch(&reader, &r);
@@ -82,19 +206,22 @@ static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f
     }
 reply:
     /* Only the independent staging Segment stays live during socket backpressure. */
-    return kvf_send_frame(fd, f, payload, deadline);
+    return remote_send_frame(socket, f, payload, deadline);
 }
 
 /* A cloned ref pins the block IDs. Snapshot reads verify Storage's live generation,
  * committed version and, on SSD, the stored record checksum. */
-static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, const kvf_batch_page *page,
+static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, kvf_page_key key, const kvf_hash *digest,
                                   unsigned char *dst, uint64_t deadline) {
     mi_page_ref ref = {0};
     kvf_layer layers[KVF_MAX_LAYERS];
     pthread_mutex_lock(&w->exports_lock);
-    mi_remote_export *e = mi_remote_find_export(w, page->key);
+    mi_remote_export *e = mi_remote_find_export(w, key);
     kvf_status st = KVF_STALE;
-    if (mi_remote_export_visible(e) && kvf_hash_equal(e->digest, page->manifest_digest)) {
+    /* Self-reads only see committed local exports. Network reads can also
+     * serve an acknowledged Directory lease during publication retries. */
+    if (mi_remote_export_visible(e) &&
+        (digest ? kvf_hash_equal(e->digest, *digest) : e->state == EXPORT_ACTIVE)) {
         st = mi_remote_from_storage(mi_page_ref_clone(&e->ref, &ref));
         for (uint32_t i = 0; i < w->identity.layers; ++i)
             layers[i] = e->manifest.layer[i];
@@ -111,7 +238,7 @@ static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, const 
             st = KVF_STALE;
         else
             st = mi_remote_from_storage(mi_storage_read_snapshot_event(w->storage, id, layer.version,
-                                             dst, layer.size, stage->stream, stage->event, &meta));
+                                             dst, layer.size, stage ? stage->stream : NULL, stage ? stage->event : NULL, &meta));
         if (st == KVF_OK && kvf_crc32c(dst, layer.size) != layer.checksum)
             st = KVF_CRC;
         dst += layer.size;
@@ -120,8 +247,15 @@ static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, const 
     return st;
 }
 
+kvf_status mi_remote_read_owned_page(mi_remote_worker *w, kvf_hash page,
+                                     uint64_t deadline, void *data) {
+    if (!w || !data || w->location != MI_LOCATION_CPU)
+        return KVF_INVALID;
+    return copy_batch_page(w, NULL, (kvf_page_key){w->space, page}, NULL, data, deadline);
+}
+
 static kvf_status send_batch(mi_remote_worker *w, mi_segment *stage, mi_batch_buffer *buffer, kvf_frame f,
-                              const uint8_t *bytes, int fd, uint64_t deadline) {
+                              const uint8_t *bytes, mi_remote_socket socket, uint64_t deadline) {
     kvf_reader reader = {.buffer = bytes, .size = f.size};
     kvf_batch_page pages[KVF_MAX_BATCH_PAGES];
     uint32_t count = kvf_get_batch(&reader, pages);
@@ -147,7 +281,7 @@ static kvf_status send_batch(mi_remote_worker *w, mi_segment *stage, mi_batch_bu
         }
     }
     for (uint32_t i = 0; st == KVF_OK && i < count; ++i)
-        st = copy_batch_page(w, stage, &pages[i], (unsigned char *)buffer->data + i * page_bytes, deadline);
+        st = copy_batch_page(w, stage, pages[i].key, &pages[i].manifest_digest, (unsigned char *)buffer->data + i * page_bytes, deadline);
     if (st == KVF_OK)
         st = kvf_client_validate_batch_on(control_fd, deadline, pages, count);
     if (control_fd >= 0)
@@ -166,14 +300,13 @@ static kvf_status send_batch(mi_remote_worker *w, mi_segment *stage, mi_batch_bu
     f.response = 1;
     f.status = st;
     f.size = st == KVF_OK ? (uint32_t)size : 0;
-    return kvf_send_frame(fd, f, buffer->data, deadline);
+    return remote_send_frame(socket, f, buffer->data, deadline);
 }
 
-void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline) {
-    mi_remote_worker *w = context;
+void mi_remote_serve(mi_remote_worker *w, unsigned lane, mi_remote_socket socket, uint64_t deadline) {
     uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
     kvf_frame f;
-    while (kvf_recv_frame(fd, &f, bytes, sizeof(bytes), deadline) == KVF_OK && !f.response) {
+    while (remote_recv_frame(socket, &f, bytes, sizeof(bytes), deadline, NULL) == KVF_OK && !f.response) {
         if (f.opcode < KVF_FETCH || f.opcode > KVF_FETCH_BATCH)
             return;
         mi_segment *stage = mi_segment_acquire(w->segments, lane, lane + 1);
@@ -182,8 +315,8 @@ void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline) {
         atomic_fetch_add_explicit(&w->active_transfers, 1, memory_order_relaxed);
         uint64_t end = kvf_now_ms() + w->control.timeout_ms;
         kvf_status st = f.opcode == KVF_FETCH_BATCH
-            ? send_batch(w, stage, &w->batch_send[lane], f, bytes, fd, end)
-            : send_layer(w, stage, f, bytes, sizeof(bytes), fd, end);
+            ? send_batch(w, stage, &w->batch_send[lane], f, bytes, socket, end)
+            : send_layer(w, stage, f, bytes, sizeof(bytes), socket, end);
         atomic_fetch_sub_explicit(&w->active_transfers, 1, memory_order_relaxed);
         mi_segment_release(stage);
         if (st != KVF_OK || (f.opcode != KVF_FETCH_STREAM && f.opcode != KVF_FETCH_BATCH))
@@ -206,6 +339,31 @@ static uint64_t transfer_deadline(kvf_client client, uint64_t deadline) {
     return deadline && deadline < end ? deadline : end;
 }
 
+static int tcp_fallback(mi_remote_worker *w, kvf_transport mode, kvf_status st, uint64_t deadline) {
+    if (mode != KVF_TRANSPORT_RDMA_RSOCKET || w->rdma_strict || kvf_now_ms() >= deadline ||
+        (st != KVF_IO && st != KVF_TIMEOUT && st != KVF_UNAVAILABLE))
+        return 0;
+    if (!atomic_exchange_explicit(&w->warned_peer_fallback, 1, memory_order_relaxed))
+        fprintf(stderr, "kv-fabric: warning: RDMA_RSOCKET peer transfer failed (%s). Retrying over TCP.\n",
+                kvf_status_string(st));
+    return 1;
+}
+
+static kvf_status borrow_peer(mi_remote_worker *w, const kvf_grant *g, kvf_transport mode, uint64_t end,
+                              mi_peer_conn **peer, mi_remote_socket *socket, int *reused) {
+    uint64_t connect_end = end;
+    if (mode == KVF_TRANSPORT_RDMA_RSOCKET && !w->rdma_strict) {
+        /* Leave room in the original request budget for a failed CM connection. */
+        uint64_t now = kvf_now_ms();
+        if (end > now)
+            connect_end = now + (end - now) / 2;
+    }
+    kvf_status st = mi_peer_borrow(w->peers, g, mode, connect_end, peer, socket, reused);
+    if (tcp_fallback(w, mode, st, end))
+        st = mi_peer_borrow(w->peers, g, KVF_TRANSPORT_TCP, end, peer, socket, reused);
+    return st;
+}
+
 kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, const kvf_batch_page *pages,
                                    uint32_t count, size_t size, uint64_t deadline_ms,
                                    const atomic_bool *cancel, mi_remote_timing *timing) {
@@ -217,38 +375,69 @@ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, 
             return KVF_LIMIT;
         w->batch_recv = (mi_batch_buffer){data, size};
     }
+    return mi_remote_receive_batch_into(w, grant, pages, count, size, deadline_ms, cancel,
+                                        timing, w->batch_recv.data);
+}
+
+kvf_status mi_remote_receive_batch_into(mi_remote_worker *w, const kvf_grant *grant,
+                                   const kvf_batch_page *pages, uint32_t count, size_t size,
+                                   uint64_t deadline_ms, const atomic_bool *cancel,
+                                   mi_remote_timing *timing, void *destination) {
+    uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
+    kvf_writer request = {.buffer = bytes, .capacity = sizeof(bytes)};
+    kvf_put_batch(&request, pages, count);
     uint64_t end = transfer_deadline(w->control, deadline_ms);
-    kvf_status st;
-    for (int attempt = 0; attempt < 2; ++attempt) {
+    kvf_transport mode = w->transport_mode;
+    int reconnected = 0;
+    for (;;) {
         if (mi_remote_cancelled(cancel))
             return KVF_CANCELLED;
-        int fd = -1, reused = 0;
-        mi_peer_conn *peer = NULL;
+        mi_remote_socket socket;
+        int reused;
+        mi_peer_conn *peer;
         uint64_t start = kvf_now_ns();
-        st = w->peers ? mi_peer_borrow(w->peers, grant, end, &peer, &fd, &reused)
-                       : kvf_connect(grant->endpoint, end, &fd);
+        kvf_status st = borrow_peer(w, grant, mode, end, &peer, &socket, &reused);
         timing->conn_acquire_ns += kvf_now_ns() - start;
-        if (st != KVF_OK)
+        if (st != KVF_OK) {
+            /* CM/idle FIN races can fail before any request body exists.
+             * One reconnect is safe for this read-only lease, with no budget extension. */
+            if (mode == KVF_TRANSPORT_RDMA_RSOCKET && st == KVF_IO && !reconnected && kvf_now_ms() < end) {
+                reconnected = 1;
+                continue;
+            }
             return st;
+        }
+        mode = socket.transport;
         kvf_receive_timing wire = {0};
-        ++timing->data_requests;
-        st = kvf_client_fetch_batch_on(fd, end, pages, count, w->batch_recv.data, size, &wire);
+        if (mi_remote_cancelled(cancel)) {
+            st = KVF_CANCELLED;
+        } else {
+            ++timing->data_requests;
+            st = remote_fetch(socket, KVF_FETCH_BATCH, &request, destination, size, end, &wire);
+        }
         timing->net_recv_ns += wire.net_recv_ns;
         timing->reply_wait_ns += wire.reply_wait_ns;
         timing->received_bytes += wire.received_bytes;
         timing->crc_verify_ns += wire.crc_verify_ns;
         if (mi_remote_cancelled(cancel))
             st = KVF_CANCELLED;
-        if (peer)
-            mi_peer_return(w->peers, peer, st == KVF_OK);
-        else
-            close(fd);
+        mi_peer_return(w->peers, peer, socket, st == KVF_OK);
+        if (st == KVF_OK) {
+            atomic_store_explicit(&w->active_transport, mode, memory_order_relaxed);
+            return KVF_OK;
+        }
         /* FIN can race a healthy idle check. A read-only request without a
          * received body can reconnect once, under the same deadline and lease. */
-        if (st != KVF_IO || !reused || wire.received_bytes)
-            break;
+        if (wire.received_bytes)
+            return st;
+        if (st == KVF_IO && (reused || mode == KVF_TRANSPORT_RDMA_RSOCKET) && !reconnected) {
+            reconnected = 1;
+            continue;
+        }
+        if (!tcp_fallback(w, mode, st, end))
+            return st;
+        mode = KVF_TRANSPORT_TCP;
     }
-    return st;
 }
 
 kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
@@ -259,7 +448,7 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
     mi_segment *stage[2] = {0};
     mi_page_lease leases[2] = {0};
     mi_peer_conn *peer = NULL;
-    int fd = -1;
+    mi_remote_socket socket = {.fd = -1};
     kvf_client client;
     kvf_status st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
     if (st != KVF_OK)
@@ -275,11 +464,12 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
         }
     }
     if (w->peers) {
-        st = mi_peer_borrow(w->peers, g, transfer_deadline(client, deadline_ms), &peer, &fd, NULL);
+        st = borrow_peer(w, g, w->transport_mode, transfer_deadline(client, deadline_ms), &peer, &socket, NULL);
         if (st != KVF_OK)
             goto done;
     }
 
+    kvf_transport mode = peer ? socket.transport : w->transport_mode;
     uint64_t renew_at = kvf_now_ms() + g->ttl_ms / 2;
     for (uint32_t i = 0; i < g->manifest.layer_count; ++i) {
         st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
@@ -303,15 +493,44 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
             goto done;
         r.layer_index = i;
         r.layer = g->manifest.layer[i];
+        if (r.layer.size > lease->lease.size) {
+            st = KVF_INVALID;
+            goto done;
+        }
         void *dst = stage[slot] ? stage[slot]->data : lease->lease.data;
         st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
         if (st != KVF_OK)
             goto done;
-        st = fd >= 0 ? kvf_client_fetch_on(fd, transfer_deadline(client, deadline_ms),
-                                           &r, dst, lease->lease.size)
-                     : kvf_client_fetch(g->endpoint, client.timeout_ms, &r, dst, lease->lease.size);
+        uint64_t end = transfer_deadline(client, deadline_ms);
+        if (!peer) {
+            st = borrow_peer(w, g, mode, end, &peer, &socket, NULL);
+            if (st != KVF_OK)
+                goto done;
+        }
+        uint8_t bytes[156];
+        kvf_writer request = {.buffer = bytes, .capacity = sizeof(bytes)};
+        kvf_put_fetch(&request, &r);
+        st = remote_fetch(socket, peer ? KVF_FETCH_STREAM : KVF_FETCH, &request, dst, r.layer.size, end, NULL);
+        mode = socket.transport;
+        if (tcp_fallback(w, mode, st, end)) {
+            mi_peer_return(w->peers, peer, socket, 0);
+            peer = NULL;
+            socket.fd = -1;
+            st = borrow_peer(w, g, KVF_TRANSPORT_TCP, end, &peer, &socket, NULL);
+            if (st == KVF_OK)
+                st = remote_fetch(socket, peer ? KVF_FETCH_STREAM : KVF_FETCH,
+                                  &request, dst, r.layer.size, end, NULL);
+            mode = socket.transport;
+        }
+        if (!peer) {
+            remote_close(socket);
+            socket.fd = -1;
+        }
+        if (st == KVF_OK && kvf_crc32c(dst, r.layer.size) != r.layer.checksum)
+            st = KVF_CRC;
         if (st != KVF_OK)
             goto done;
+        atomic_store_explicit(&w->active_transport, mode, memory_order_relaxed);
         if (stream) {
             mi_status local = mi_device_copy_from_host(w->device, lease->lease.data, dst, lease->lease.size, stream);
             if (local == MI_OK)
@@ -337,8 +556,10 @@ done:
     for (unsigned i = 0; i < 2; ++i) {
         if (leases[i].kv)
             (void)mi_page_lease_abort(&leases[i]);
+        if (stage[i] && mi_storage_quarantined(w->storage))
+            mi_segment_quarantine(stage[i]);
         mi_segment_release(stage[i]);
     }
-    mi_peer_return(w->peers, peer, st == KVF_OK);
+    mi_peer_return(w->peers, peer, socket, st == KVF_OK);
     return st;
 }

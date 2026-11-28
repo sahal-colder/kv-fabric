@@ -1,0 +1,14 @@
+warning: config/miniinfer-master.conf 中的 CRLF 将被 LF 替换。<
+在工作区中该文件仍保持原有的换行符。
+warning: config/miniinfer-slave.conf 中的 CRLF 将被 LF 替换。<
+在工作区中该文件仍保持原有的换行符。
+warning: config/rdma-master.conf 中的 CRLF 将被 LF 替换。<
+在工作区中该文件仍保持原有的换行符。
+warning: config/rdma-slave.conf 中的 CRLF 将被 LF 替换。<
+在工作区中该文件仍保持原有的换行符。
+src/nanovllm/nano_cuda.cu:148: trailing whitespace.
++    maximum = Reduce(scratch).Reduce(maximum, [](float left, float right) {
+src/nanovllm/nano_cuda.cu:149: trailing whitespace.
++        return left < right ? right : left;
+src/nanovllm/nano_cuda.cu:150: trailing whitespace.
++    });

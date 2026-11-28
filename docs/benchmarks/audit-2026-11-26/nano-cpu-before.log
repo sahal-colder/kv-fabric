@@ -1,0 +1,27 @@
+COMMAND python3 /home/wty/Infra/tests/nanovllm/test_remote_inference.py --directory /home/wty/Infra/build-baseline/bin/kvfabricd --worker /home/wty/Infra/build-baseline/bin/test_nano_remote_worker --device cpu --benchmark /tmp/kvf-audit/nano-cpu-before.csv --samples 12 --warmup 1
+cold ttft_ns P50=1700335.000 P95=1727403.000 P99=1727403.000
+cold prefill_ns P50=1682022.000 P95=1708515.000 P99=1708515.000
+cold decode_tokens_per_s P50=22707.662 P95=40437.184 P99=40437.184
+cold local P50=0.000 P95=0.000 P99=0.000
+cold remote_prefill_skipped_tokens P50=0.000 P95=0.000 P99=0.000
+cold cpu_ns P50=2010000.000 P95=2039000.000 P99=2039000.000
+cold rss_kib P50=18240.000 P95=18240.000 P99=18240.000
+local ttft_ns P50=336857.000 P95=348445.000 P99=348445.000
+local prefill_ns P50=318258.000 P95=334740.000 P99=334740.000
+local decode_tokens_per_s P50=22845.207 P95=39432.621 P99=39432.621
+local local P50=80.000 P95=80.000 P99=80.000
+local remote_prefill_skipped_tokens P50=0.000 P95=0.000 P99=0.000
+local cpu_ns P50=522000.000 P95=654000.000 P99=654000.000
+local rss_kib P50=18240.000 P95=18240.000 P99=18240.000
+remote ttft_ns P50=1316050.000 P95=1504117.000 P99=1504117.000
+remote prefill_ns P50=1297018.000 P95=1491887.000 P99=1491887.000
+remote decode_tokens_per_s P50=22272.494 P95=39383.591 P99=39383.591
+remote local P50=0.000 P95=0.000 P99=0.000
+remote remote_prefill_skipped_tokens P50=80.000 P95=80.000 P99=80.000
+remote cpu_ns P50=1492000.000 P95=1610000.000 P99=1610000.000
+remote rss_kib P50=18240.000 P95=18240.000 P99=18240.000
+remote publisher_cpu_ns P50=0.000 P95=0.000 P99=0.000
+remote publisher_rss_kib P50=10956.000 P95=10996.000 P99=10996.000
+remote directory_cpu_ns P50=0.000 P95=0.000 P99=0.000
+remote directory_rss_kib P50=11472.000 P95=11488.000 P99=11488.000
+remote transfer_ns P50=705 P95=3774 P99=4806 pages=240

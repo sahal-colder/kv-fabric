@@ -1,0 +1,7 @@
+profile raw open status=6 errno=13 (Permission denied) path=/dev/nvme0n1
+mi_ssd_raw_uring_backend_create(argv[2],offset,capacity,bytes,MI_SSD_VERIFY_ON_READ,concurrency,device,3,&ssd): I/O error
+Collecting data...
+Generating '/tmp/nsys-root/nsys-report-f282.qdstrm'
+[1/1] [0%                          ] uring-trace.nsys-rep[1/1] [0%                          ] uring-trace.nsys-rep[1/1] [1%                          ] uring-trace.nsys-rep[1/1] [2%                          ] uring-trace.nsys-rep[1/1] [5%                          ] uring-trace.nsys-rep[1/1] [==18%                       ] uring-trace.nsys-rep[1/1] [==19%                       ] uring-trace.nsys-rep[1/1] [==20%                       ] uring-trace.nsys-rep[1/1] [====25%                     ] uring-trace.nsys-rep[1/1] [=======36%                  ] uring-trace.nsys-rep[1/1] [=======================96%  ] uring-trace.nsys-rep[1/1] [========================98% ] uring-trace.nsys-rep[1/1] [========================100%] uring-trace.nsys-rep[1/1] [========================100%] uring-trace.nsys-rep
+Generated:
+	/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace3/uring-trace.nsys-rep

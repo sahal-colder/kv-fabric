@@ -1,0 +1,10 @@
+{
+  "initial_trace": "nsys-baseline/baseline.sqlite",
+  "expected_h2d_payload_bytes_per_request": 301989888,
+  "observed_attributed_bytes": [
+    301989888,
+    97304576
+  ],
+  "validation": "failed: second request lacks GPU memcpy activities in raw trace, not just attribution",
+  "resolution": "recapture with CUDA Profiler API range and flush on stop, excluding warmup activity volume"
+}

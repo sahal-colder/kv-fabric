@@ -3,6 +3,7 @@
 import argparse
 import contextlib
 import csv
+import ipaddress
 import json
 import math
 import os
@@ -269,14 +270,14 @@ class Runs:
 
     def worker(self, mode, directory=None, *, tenant="integration", files=None, page=PAGE,
                blocks=48, capacity=48, timeout=2000, new=4, name=None, listen=0, advertise="-", device=None,
-               publish_generated=False):
+               publish_generated=False, transport="tcp", listen_ip="127.0.0.1"):
         self.name += 1
         model, tokenizer = files or self.files
         return Child([
             self.args.worker, model, tokenizer, device or self.args.device, mode,
-            directory.endpoint if directory else "-", f"127.0.0.1:{listen}", advertise,
+            directory.endpoint if directory else "-", f"{listen_ip}:{listen}", advertise,
             name or f"nano-test-{self.name}", tenant, page, blocks, capacity, timeout, new,
-        ], env=dict(self.env, NV_TEST_PUBLISH_GENERATED=str(int(publish_generated))))
+        ], env=dict(self.env, NV_TEST_PUBLISH_GENERATED=str(int(publish_generated)), NV_TEST_KV_TRANSPORT=transport))
 
 
 def match(output, expected, *, skip=None):
@@ -345,10 +346,24 @@ def positive(runs, directory, cold):
             with Child(persistent, env=runs.env, wait_ready=False) as publisher:
                 publisher.send(SOURCE)
                 assert publisher.receive().startswith("[0] ")
-                cli = subprocess.run(cmd + prompt, check=True, capture_output=True, timeout=25, env=runs.env)
+                cli = subprocess.run(cmd + prompt + ["--kv-transport", "tcp", "--trace"],
+                                     check=True, capture_output=True, timeout=25, env=runs.env)
                 assert cli.stdout == local.stdout, (cli.stdout, local.stdout)
                 assert re.search(rb"\bremote_prefill_skipped_tokens=20\b", cli.stderr), cli.stderr
+                assert b"active_transport: TCP\n" in cli.stderr and b"active_transport=TCP\n" in cli.stderr, cli.stderr
                 expected = "[0] " + " ".join(map(str, cold[TARGET]["tokens"][0]))
+                if runs.args.rdma_unavailable:
+                    rdma = cmd + prompt + ["--kv-transport", "rdma", "--trace", "--ids"]
+                    fallback = subprocess.run(rdma + ["--kv-rdma-fallback"], check=True, capture_output=True,
+                                              timeout=25, env=runs.env)
+                    assert fallback.stdout == (expected + "\n").encode(), fallback
+                    assert b"Falling back to TCP." in fallback.stderr, fallback.stderr
+                    assert b"active_transport: TCP\n" in fallback.stderr, fallback.stderr
+                    assert re.search(rb"\bremote_prefill_skipped_tokens=20\b", fallback.stderr), fallback.stderr
+                    strict = subprocess.run(rdma + ["--no-kv-rdma-fallback"], capture_output=True,
+                                            timeout=25, env=runs.env)
+                    assert strict.returncode == 1 and not strict.stdout, strict
+                    assert b"TCP fallback is disabled." in strict.stderr, strict.stderr
                 with Child(persistent, env=runs.env, wait_ready=False) as consumer:
                     for _ in range(2):
                         consumer.send(TARGET)
@@ -681,6 +696,55 @@ def benchmark(runs, output, samples, warmup=0, offset=0):
     print(f"remote transfer_ns P50={p50} P95={p95} P99={p99} pages={len(transfers)}")
 
 
+def benchmark_transports(runs, output, samples, warmup):
+    address = str(runs.args.rdma_address)
+    modes = ("tcp", "rdma")
+    active = {"tcp": "TCP", "rdma": "RDMA_RSOCKET"}
+    rows = []
+    for repeats, skipped in ((4, 20), (24, 120)):
+        prefix = (SOURCE + " ") * repeats
+        target = prefix + "jumps high"
+        size = skipped * 13824  # stories15M FP32 K+V bytes per token
+        with runs.worker("cold", new=8) as cold:
+            reference = cold.infer(target, command="inspect")
+        with runs.directory() as directory, contextlib.ExitStack() as publishers:
+            for mode in modes:
+                worker = publishers.enter_context(runs.worker("remote", directory, tenant=mode, new=8,
+                                                              transport=mode, listen_ip=address))
+                published = worker.infer(prefix + "walks away")
+                assert published["remote_published_pages"] >= skipped // PAGE, published
+                assert published["active_transport"] == active[mode], published
+            for sample in range(samples):
+                for position, mode in enumerate(modes if sample % 2 == 0 else modes[::-1], 1):
+                    with runs.worker("remote", directory, tenant=mode, new=8, transport=mode,
+                                     listen_ip=address) as consumer:
+                        for _ in range(warmup):
+                            consumer.infer("A different story begins in a quiet valley.")
+                        result = consumer.infer(target, command="inspect")
+                    match(result, reference, skip=skipped)
+                    assert result["active_transport"] == active[mode], result
+                    assert result["kv_page_hashes"] == reference["kv_page_hashes"], result
+                    assert result["remote_import_bytes"] == result["received_bytes"] == size, result
+                    assert result["data_requests"] == (skipped // PAGE + 7) // 8, result
+                    assert result["remote_prefetch_failures"] == 0, result
+                    rows.append(dict(
+                        sample=sample + 1, position=position, address=address, device=runs.args.device,
+                        generated_token_ids=" ".join(map(str, result["tokens"][0])),
+                        **{name: result[name] for name in (
+                            "active_transport", "prompt_tokens", "remote_prefill_skipped_tokens",
+                            "received_bytes", "data_requests", "ttft_ns", "conn_acquire_ns", "net_recv_ns",
+                            "reply_wait_ns", "crc_verify_ns", "cpu_stage_ns", "kv_commit_ns",
+                        )},
+                    ))
+    write_csv(output, rows)
+    for skipped in (20, 120):
+        for mode in modes:
+            ttft = [row["ttft_ns"] for row in rows if row["remote_prefill_skipped_tokens"] == skipped
+                    and row["active_transport"] == active[mode]]
+            p50, p95, p99 = percentiles(ttft)
+            print(f"{skipped} tokens {active[mode]} TTFT ns P50={p50} P95={p95} P99={p99}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--directory", type=Path, required=True)
@@ -688,7 +752,9 @@ def main():
     parser.add_argument("--cli", type=Path, action="append", default=[])
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     parser.add_argument("--benchmark", type=Path, help="write raw loopback samples to this CSV")
+    parser.add_argument("--rdma-address", type=ipaddress.IPv4Address, help="pair TCP and strict RDMA on this local IPv4")
     parser.add_argument("--conversation", action="store_true", help="run three workers on canonical chat history")
+    parser.add_argument("--rdma-unavailable", action="store_true", help="check CLI fallback on a host without rsockets")
     parser.add_argument("--samples", type=int, default=30)
     parser.add_argument("--warmup", type=int, default=0, help="independent warmup requests per consumer")
     parser.add_argument("--sample-offset", type=int, default=0, help="global sample offset for interleaved shards")
@@ -700,10 +766,14 @@ def main():
     if (args.samples <= 0 or args.warmup < 0 or args.sample_offset < 0 or bool(args.model) != bool(args.tokenizer)
             or (args.model and not (args.benchmark or args.conversation))):
         parser.error("provide a positive sample count and pair --model/--tokenizer for benchmark or chat")
+    if args.rdma_address and (not args.benchmark or not args.model or args.samples < 30 or args.sample_offset):
+        parser.error("--rdma-address requires --benchmark, stories15M model/tokenizer and at least 30 pairs")
     try:
         with tempfile.TemporaryDirectory(prefix="nano-kv-") as tmp:
             runs = Runs(args, Path(tmp))
-            if args.benchmark:
+            if args.rdma_address:
+                benchmark_transports(runs, args.benchmark, args.samples, args.warmup)
+            elif args.benchmark:
                 benchmark(runs, args.benchmark, args.samples, args.warmup, args.sample_offset)
             elif args.conversation:
                 with runs.directory() as directory:

@@ -1,0 +1,308 @@
+--- a/src/integration/vllm_bridge.c
++++ b/src/integration/vllm_bridge.c
+@@ -2,6 +2,8 @@
+ #include "kvfabric/vllm_bridge.h"
+ #include "miniinfer/remote_cache.h"
+ #include <nvtx3/nvToolsExt.h>
++#include <pthread.h>
++#include <stdatomic.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -13,6 +15,7 @@
+     mi_remote_worker *remote;
+     kvf_identity identity;
+     size_t window;
++    unsigned read_lanes;
+ };
+ 
+ static kvf_status identity_for(const kvf_vllm_spec *spec, kvf_identity *identity) {
+@@ -126,6 +129,9 @@
+         return KVF_LIMIT;
+     w->identity = identity;
+     w->window = window;
++    /* The background publisher needs a file slot even while all foreground
++     * readers are active. Keep the total bounded by Direct's 64-slot limit. */
++    w->read_lanes = disk_path ? (io_depth < 64 ? io_depth : 63) : 1;
+     mi_status status = mi_mempool_create(MI_MEMORY_CPU, -1, (mi_mempool_config){0}, &w->pool);
+     if (status == MI_OK)
+         status = mi_memory_backend_create(MI_LOCATION_CPU, identity.bytes_per_layer,
+@@ -133,7 +139,7 @@
+     size_t disk_bytes = disk_path ? (cache_pages + 1) * identity.layers * stride : 0;
+     if (status == MI_OK && disk_path) {
+         status = mi_ssd_direct_backend_create(disk_path, identity.bytes_per_layer, disk_bytes,
+-                                               MI_SSD_VERIFY_ON_READ, io_depth, -1, &w->disk);
++                                               MI_SSD_VERIFY_ON_READ, w->read_lanes + 1, -1, &w->disk);
+         if (status == MI_OK && strncmp(mi_ssd_file_io_name(w->disk), "direct-", 7))
+             status = MI_EUNSUPPORTED;
+     }
+@@ -238,9 +244,20 @@
+     nvtxRangePushA("kvfabric.fetch");
+     kvf_status st = mi_remote_prefetch_async_after(w->remote, suffix, tokens, total, &job);
+     mi_kv_sequence *seq = NULL;
+-    mi_remote_result result;
++    mi_remote_result result = {0};
+     if (st == KVF_OK) {
+         st = mi_remote_prefetch_wait(job, &seq, &result);
++        if (getenv("KVF_PERF_TRACE") && result.ready_ns) {
++            fprintf(stderr, "KVF_FETCH {\"pages\":%zu,\"queue_ns\":%llu,\"completion_to_wait_return_ns\":%llu,\"crc_ns\":%llu,\"cpu_stage_ns\":%llu,\"commit_ns\":%llu,\"directory_ns\":%llu,\"lease_ns\":%llu,\"net_recv_ns\":%llu}\n",
++                pages, (unsigned long long)result.timing.prefetch_queue_ns,
++                (unsigned long long)(kvf_now_ns() - result.ready_ns),
++                (unsigned long long)result.timing.crc_verify_ns,
++                (unsigned long long)result.timing.cpu_stage_ns,
++                (unsigned long long)result.timing.kv_commit_ns,
++                (unsigned long long)result.timing.dir_lookup_ns,
++                (unsigned long long)result.timing.lease_check_ns,
++                (unsigned long long)result.timing.net_recv_ns);
++        }
+         mi_remote_prefetch_destroy(job);
+         if (st == KVF_OK)
+             st = result.remote_status;
+@@ -248,9 +265,11 @@
+             st = KVF_NOT_FOUND;
+     }
+     size_t stride = w->identity.layers * (size_t)w->identity.bytes_per_layer;
++    nvtxRangePushA("kvfabric.fetch.bridge_stage");
+     for (size_t i = 0; st == KVF_OK && i < pages; ++i)
+         if (copy_page(seq, i, &w->identity, (unsigned char *)data + i * stride, MI_ACCESS_READ) != MI_OK)
+             st = KVF_IO;
++    nvtxRangePop();
+     if (st == KVF_OK && kvf_now_ms() >= suffix.deadline_ms)
+         st = KVF_TIMEOUT;
+     mi_kv_sequence_destroy(seq);
+@@ -258,14 +277,67 @@
+     return st;
+ }
+ 
++/* Each reader pins a committed export before touching Storage. Direct's slots
++ * own their registered buffers until CQE completion. A batch is visible only
++ * after every reader has joined; on failure the caller retries the suffix. */
++typedef struct {
++    kvf_vllm_worker *worker;
++    const kvf_hash *hashes;
++    unsigned char *data;
++    size_t pages, stride;
++    uint64_t deadline;
++    atomic_size_t next, first_failed;
++} owned_read;
++
++static void *read_owned_lane(void *arg) {
++    owned_read *read = arg;
++    for (;;) {
++        size_t i = atomic_fetch_add_explicit(&read->next, 1, memory_order_relaxed);
++        if (i >= read->pages)
++            break;
++        nvtxRangePushA("kvfabric.fetch.owned.page");
++        kvf_status st = mi_remote_read_owned_page(read->worker->remote, read->hashes[i],
++                          read->deadline, read->data + read->stride * i);
++        nvtxRangePop();
++        if (st != KVF_OK) {
++            size_t first = atomic_load_explicit(&read->first_failed, memory_order_relaxed);
++            while (i < first && !atomic_compare_exchange_weak_explicit(&read->first_failed,
++                        &first, i, memory_order_relaxed, memory_order_relaxed)) {}
++        }
++    }
++    return NULL;
++}
++
+ size_t kvf_vllm_load_owned(kvf_vllm_worker *w, const kvf_hash *hashes,
+                           size_t pages, uint32_t timeout_ms, void *data) {
+-    if (!w || !hashes || !data || !timeout_ms || w->disk)
++    if (!w || !hashes || !data || !timeout_ms)
+         return 0;
+     uint64_t deadline = kvf_now_ms() + timeout_ms;
+     size_t stride = w->identity.layers * (size_t)w->identity.bytes_per_layer;
+     size_t loaded = 0;
+     nvtxRangePushA("kvfabric.fetch.owned");
++    if (w->disk) {
++        owned_read read = {.worker = w, .hashes = hashes, .data = data,
++            .pages = pages, .stride = stride, .deadline = deadline};
++        atomic_init(&read.next, 0);
++        atomic_init(&read.first_failed, pages);
++        pthread_t readers[63];
++        unsigned count = 0;
++        unsigned lanes = pages < w->read_lanes ? (unsigned)pages : w->read_lanes;
++        for (unsigned i = 1; i < lanes; ++i) {
++            if (pthread_create(&readers[count], NULL, read_owned_lane, &read))
++                break; /* The calling thread drains the remaining work. */
++            ++count;
++        }
++        read_owned_lane(&read);
++        nvtxRangePushA("kvfabric.fetch.owned.join");
++        for (unsigned i = 0; i < count; ++i)
++            pthread_join(readers[i], NULL);
++        nvtxRangePop();
++        loaded = atomic_load_explicit(&read.first_failed, memory_order_relaxed);
++        nvtxRangePop();
++        return loaded;
++    }
+     while (loaded < pages &&
+            mi_remote_read_owned_page(w->remote, hashes[loaded], deadline,
+                                      (unsigned char *)data + stride * loaded) == KVF_OK)
+--- a/src/worker/direct_io.c
++++ b/src/worker/direct_io.c
+@@ -199,7 +199,13 @@
+         return MI_EINVAL;
+     if (mi_direct_failed(io))
+         return MI_EIO;
++#ifdef MINIINFER_WITH_NVTX
++    nvtxRangePushA("kvfabric.disk_slot.acquire");
++#endif
+     mi_segment *slot = mi_segment_acquire(io->pool, 0, io->pool->count);
++#ifdef MINIINFER_WITH_NVTX
++    nvtxRangePop();
++#endif
+     if (!slot)
+         return MI_EBUSY;
+     unsigned char *p = slot->data;
+@@ -234,11 +240,23 @@
+             goto done;
+     }
+     st = record_io(io, slot, p, 0, offset);
++#ifdef MINIINFER_WITH_NVTX
++    nvtxRangePushA("kvfabric.disk_crc.read");
++#endif
+     if (st == MI_OK && !valid_record(p, meta, verify))
+         st = MI_ECRC;
++#ifdef MINIINFER_WITH_NVTX
++    nvtxRangePop();
++#endif
+     if (st == MI_OK && !write) {
++#ifdef MINIINFER_WITH_NVTX
++        nvtxRangePushA("kvfabric.disk_stage.read");
++#endif
+         st = mi_device_copy_from_host(device, data, payload, meta->size, slot->stream);
+         st = finish_copy(io, slot, device, st);
++#ifdef MINIINFER_WITH_NVTX
++        nvtxRangePop();
++#endif
+     }
+ 
+ done:
+--- a/integrations/vllm/kvfabric_vllm/connector.py
++++ b/integrations/vllm/kvfabric_vllm/connector.py
+@@ -262,6 +262,7 @@
+         window = self._cuda.pages if self._cuda else self._bridge.window
+         with gpu_sync_allowed(), torch.cuda.device(self._device), torch.cuda.stream(self._load_stream):
+             for start in range(0, len(item.blocks), window):
++                fetch_start = time.perf_counter()
+                 blocks = item.blocks[start:start + window]
+                 loaded = 0
+                 if self._cuda:
+@@ -277,6 +278,7 @@
+                     )
+                     if status:
+                         return self._bridge.describe(status), blocks_checked
++                fetch_end = time.perf_counter()
+                 if self._cuda:
+                     self._cuda.load(self._read_slot, blocks, self._load_stream)
+                 else:
+@@ -286,6 +288,11 @@
+                                 dst[block].copy_(stage[i, layer], non_blocking=True)
+                     with nvtx.annotate("kvfabric.sync.load"):
+                         self._load_stream.synchronize()
++                if os.environ.get("KVF_PERF_TRACE") == "1":
++                    self._record("load_window", request_id=item.request_id, start=start,
++                                 pages=len(blocks), payload_bytes=len(blocks) * page_bytes,
++                                 fetch_ms=(fetch_end - fetch_start) * 1000,
++                                 h2d_scatter_sync_ms=(time.perf_counter() - fetch_end) * 1000)
+                 if self._verify:
+                     for i, block in enumerate(blocks):
+                         for layer, dst in enumerate(self._tensors):
+--- a/scripts/profile_vllm_kv.py
++++ b/scripts/profile_vllm_kv.py
+@@ -22,7 +22,9 @@
+     parser.add_argument("out", type=Path)
+     parser.add_argument("--profile", action="store_true")
+     parser.add_argument("--reference", type=Path, help="same workload from the recompute mode")
+-    parser.add_argument("--requests", type=int, choices=(2, 3, 4), default=2)
++    parser.add_argument("--requests", type=int, default=2)
++    parser.add_argument("--disk-dir", type=Path, help="profile the physical file-backed NVMe tier")
++    parser.add_argument("--io-depth", type=int, default=4)
+     parser.add_argument("--warmup-requests", type=int, default=5,
+                         help="full-length warmups; five fill the bounded 1.5GiB external cache")
+     args = parser.parse_args()
+@@ -47,6 +49,8 @@
+         config = dict(library=str((args.build / "src/integration/libkvf_vllm.so").resolve()),
+                       control=ctl, cache_pages=2730, load_timeout_ms=30000,
+                       metrics_file=str(events_path), cuda_batch=args.mode == "optimized")
++        if args.disk_dir:
++            config.update(disk_dir=str(args.disk_dir.resolve()), io_depth=args.io_depth)
+         options = ["--no-enable-prefix-caching"]
+         if args.mode != "recompute":
+             options += kvfabric_config(config)
+--- a/scripts/summarize_native_ncu.py
++++ b/scripts/summarize_native_ncu.py
+@@ -4,6 +4,7 @@
+ import argparse
+ import io
+ import json
++import re
+ from pathlib import Path
+ 
+ OUT = Path(__file__).resolve().parents[1] / "docs/benchmarks/native-linux-final"
+@@ -26,7 +27,9 @@
+     global OUT
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--archive", type=Path, default=OUT)
+-    OUT = parser.parse_args().archive.resolve()
++    parser.add_argument("--payload-bytes", type=int, default=72 * 1024**2)
++    args = parser.parse_args()
++    OUT = args.archive.resolve()
+     results = []
+     for name in ("gather", "scatter"):
+         path = OUT / "ncu-root" / f"{name}.csv"
+@@ -54,13 +57,31 @@
+             if metric in metrics:
+                 value = measured(metric)
+                 sector[op] = {**value, "sector_utilization_percent": value["value"] / 32 * 100}
++        elapsed = measured("gpu__time_duration.sum")
++        seconds = elapsed["value"] * {"ns": 1e-9, "us": 1e-6, "ms": 1e-3, "s": 1}[elapsed["unit"]]
++        traffic = {}
++        for op in ("read", "write"):
++            key = f"dram__bytes_{op}.sum"
++            if key in metrics:
++                value = measured(key)
++                traffic[op] = {**value, "bytes": value["value"] *
++                              {"byte": 1, "Kbyte": 1e3, "Mbyte": 1e6, "Gbyte": 1e9}[value["unit"]]}
++        log = path.with_suffix(".log")
++        passes = re.search(r"(\d+) passes", log.read_text()) if log.exists() else None
+         results.append({"kernel": name + "_kv_pages", "source": str(path), "dram_percent": dram,
+                         "bandwidth": bandwidth,
++                        "bandwidth_kind": "physical DRAM read + write traffic, not effective payload",
+                         "bandwidth_GiB_s": bandwidth["value"] * factors[bandwidth["unit"]] / 2**30,
++                        "dram_traffic": traffic,
++                        "payload_bytes": args.payload_bytes,
++                        "effective_payload_GiB_s": args.payload_bytes / seconds / 2**30,
++                        "logical_read_plus_write_GiB_s": 2 * args.payload_bytes / seconds / 2**30,
++                        "store_sectors": measured("l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum")
++                        if "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum" in metrics else None,
+                         "achieved_occupancy": occupancy, "global_sectors": sector,
+                         "dram_clock": measured("dram__cycles_elapsed.avg.per_second"),
+-                        "kernel_duration": measured("gpu__time_duration.sum"),
+-                        "profiled_launches": 1, "replay_passes": 37,
++                        "kernel_duration": elapsed,
++                        "profiled_launches": 1, "replay_passes": int(passes[1]) if passes else None,
+                         "scope": "72 MiB synthetic page packing microbenchmark; not LLM TTFT"})
+     (OUT / "ncu-summary.json").write_text(json.dumps(results, indent=2))
+     print(json.dumps(results, indent=2))
+--- a/scripts/bench_vllm_kv.py
++++ b/scripts/bench_vllm_kv.py
+@@ -488,6 +488,8 @@
+                         summaries.write(json.dumps(result) + "\n")
+                         summaries.flush()
+                         print(json.dumps(result), flush=True)
++                        if args.require_cache_write_success and result["kvfabric_save_failures"]:
++                            raise RuntimeError("Cache write failures invalidate this performance result; raw rows preserved")
+                         if mode.startswith("kvfabric"):
+                             wait_kvf_idle(run / "kvfabric.jsonl")
+ 
+@@ -520,6 +522,8 @@
+     parser.add_argument("--reference", type=Path, help="recompute requests.jsonl from an identical workload")
+     parser.add_argument("--legacy-cuda", action="store_true", help="measure the original per-segment connector")
+     parser.add_argument("--expected-io-mode", choices=("direct-uring-fixed", "direct-posix"))
++    parser.add_argument("--require-cache-write-success", action="store_true",
++                        help="reject performance claims with backend publication errors; best-effort skips remain counted")
+     parser.add_argument("--reset-gpu-between-batches", action="store_true",
+                         help="force Host/offload imports between measured bursts; excludes reset RPCs from throughput")
+     parser.add_argument("--resume", action="store_true", help="retain complete modes from an identical workload")

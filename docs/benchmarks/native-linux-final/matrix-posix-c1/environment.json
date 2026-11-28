@@ -1,0 +1,198 @@
+{
+  "model": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+  "args": {
+    "model": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+    "fallback_model": null,
+    "lengths": [
+      4096,
+      8192,
+      16384
+    ],
+    "shared": [
+      0.5
+    ],
+    "modes": [
+      "kvfabric-disk"
+    ],
+    "out": "/home/wty/Infra/docs/benchmarks/native-linux-final/matrix-posix-c1",
+    "disk_dir": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+    "require_native_nvme": true,
+    "library": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix/src/integration/libkvf_vllm.so",
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix/bin/kvfabricd",
+    "lmcache": "lmcache",
+    "lmcache_chunk": 256,
+    "lmcache_transfer_mode": "auto",
+    "disk_cpu_gib": 2.5,
+    "cache_gib": 1.5,
+    "gpu_gib": 1.0,
+    "concurrency": 1,
+    "requests": 15,
+    "output_tokens": 16,
+    "load_timeout_ms": 30000,
+    "seed": 123,
+    "warmup_requests": 3,
+    "reference": "/home/wty/Infra/docs/benchmarks/native-linux-final/matrix-c1/recompute/requests.jsonl",
+    "legacy_cuda": false,
+    "expected_io_mode": "direct-posix",
+    "reset_gpu_between_batches": false,
+    "resume": true
+  },
+  "kv_bytes_per_token": 36864,
+  "vllm": "0.31.0",
+  "torch": "2.13.0",
+  "kernel": "6.8.0-138-generic",
+  "batch_invariant": "1",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 615.71.09",
+  "disk_mount": "/dev/nvme0n1p6 ext4",
+  "block_devices": {
+    "blockdevices": [
+      {
+        "name": "loop0",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop1",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop2",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop3",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop4",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop5",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop6",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop7",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop8",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop9",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop10",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop11",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop12",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop13",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop14",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "loop15",
+        "type": "loop",
+        "tran": null,
+        "model": null
+      },
+      {
+        "name": "nvme0n1",
+        "type": "disk",
+        "tran": "nvme",
+        "model": "UMIS RPEYJ1T24MKN2QWY",
+        "children": [
+          {
+            "name": "nvme0n1p1",
+            "type": "part",
+            "tran": "nvme",
+            "model": null
+          },
+          {
+            "name": "nvme0n1p2",
+            "type": "part",
+            "tran": "nvme",
+            "model": null
+          },
+          {
+            "name": "nvme0n1p3",
+            "type": "part",
+            "tran": "nvme",
+            "model": null
+          },
+          {
+            "name": "nvme0n1p4",
+            "type": "part",
+            "tran": "nvme",
+            "model": null
+          },
+          {
+            "name": "nvme0n1p5",
+            "type": "part",
+            "tran": "nvme",
+            "model": null
+          },
+          {
+            "name": "nvme0n1p6",
+            "type": "part",
+            "tran": "nvme",
+            "model": null
+          }
+        ]
+      },
+      {
+        "name": "nvme1n1",
+        "type": "disk",
+        "tran": "nvme",
+        "model": "SAMSUNG MZVLQ512HALU-00000"
+      }
+    ]
+  },
+  "native_nvme": true
+}

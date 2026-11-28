@@ -1,0 +1,2 @@
+/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd --config /home/wty/Infra/docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/directory.conf
+READY 127.0.0.1:38147

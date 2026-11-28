@@ -1,0 +1,7 @@
+AF_UNIX socketpair creation: PASS
+AF_UNIX socketpair send: [Errno 1] Operation not permitted
+AF_UNIX socketpair write: PASS
+Qwen3-0.6B weights: /home/wty/models/Qwen3-0.6B/model.safetensors
+Safetensors header dtypes and tensor counts: {'BF16': 311}
+Strict mode rejects direct-posix: Expected direct-uring-fixed, got direct-posix
+Strict mode rejects buffered-aligned: Expected direct-uring-fixed, got buffered-aligned

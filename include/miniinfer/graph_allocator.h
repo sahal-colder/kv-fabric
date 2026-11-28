@@ -40,6 +40,8 @@ mi_status mi_graph_forget(mi_graph_allocator *ga, mi_graph_id id);
 /* 归还工作区。仍有捕获或登记的图时返回 MI_EBUSY。 */
 mi_status mi_graph_release_workspace(mi_graph_allocator *ga);
 /* 释放分配器。销毁前须结束工作区使用。 */
+/* 活跃捕获或未forget的Graph仍拥有workspace。此时保留allocator；
+ * 销毁Graph执行对象并forget后可再次destroy，借用的池不会提前销毁。 */
 void mi_graph_allocator_destroy(mi_graph_allocator *ga);
 
 #ifdef __cplusplus

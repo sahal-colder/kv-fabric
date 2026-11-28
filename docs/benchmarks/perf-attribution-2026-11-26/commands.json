@@ -1,0 +1,449 @@
+[
+  {
+    "name": "nsys-before-diagnostic",
+    "command": [
+      "nsys",
+      "profile",
+      "--trace=cuda,nvtx,osrt",
+      "--sample=none",
+      "--cpuctxsw=none",
+      "--capture-range=cudaProfilerApi",
+      "--capture-range-end=stop",
+      "--trace-fork-before-exec=true",
+      "--cuda-flush-interval=0",
+      "--osrt-threshold=1000",
+      "-o",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic/trace",
+      "python3",
+      "/home/wty/Infra/scripts/profile_vllm_kv.py",
+      "optimized",
+      ".kvfabric-local/perf-attribution/build-before",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic",
+      "--disk-dir",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "--requests",
+      "3",
+      "--warmup-requests",
+      "3",
+      "--profile",
+      "--reference",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-disk/requests.json"
+    ],
+    "start": 1795677719.0261014,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795677807.5657747
+  },
+  {
+    "name": "export-before-diagnostic",
+    "command": [
+      "nsys",
+      "export",
+      "--type=sqlite",
+      "--output",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic/trace.sqlite",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic/trace.nsys-rep"
+    ],
+    "start": 1795677807.5661135,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795677810.4855528
+  },
+  {
+    "name": "nsys-after-disk-serial",
+    "command": [
+      "nsys",
+      "profile",
+      "--trace=cuda,nvtx,osrt",
+      "--sample=none",
+      "--cpuctxsw=none",
+      "--capture-range=cudaProfilerApi",
+      "--capture-range-end=stop",
+      "--trace-fork-before-exec=true",
+      "--cuda-flush-interval=0",
+      "--osrt-threshold=1000",
+      "-o",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-after-disk-serial/trace",
+      "python3",
+      "/home/wty/Infra/scripts/profile_vllm_kv.py",
+      "optimized",
+      ".kvfabric-local/perf-attribution/build-after",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-after-disk-serial",
+      "--disk-dir",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "--requests",
+      "3",
+      "--warmup-requests",
+      "3",
+      "--profile",
+      "--reference",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-disk/requests.json"
+    ],
+    "start": 1795677810.485811,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795677889.8842626
+  },
+  {
+    "name": "export-after-disk-serial",
+    "command": [
+      "nsys",
+      "export",
+      "--type=sqlite",
+      "--output",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-after-disk-serial/trace.sqlite",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-after-disk-serial/trace.nsys-rep"
+    ],
+    "start": 1795677889.884561,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795677892.196853
+  },
+  {
+    "name": "matrix-before",
+    "command": [
+      "python3",
+      "/home/wty/Infra/scripts/bench_vllm_kv.py",
+      "--model",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+      "--lengths",
+      "16384",
+      "--shared",
+      "0.5",
+      "--modes",
+      "kvfabric-disk",
+      "--out",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/matrix-before",
+      "--disk-dir",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "--require-native-nvme",
+      "--library",
+      ".kvfabric-local/perf-attribution/build-before/src/integration/libkvf_vllm.so",
+      "--directory",
+      ".kvfabric-local/perf-attribution/build-before/bin/kvfabricd",
+      "--cache-gib",
+      "1.5",
+      "--gpu-gib",
+      "1",
+      "--concurrency",
+      "1",
+      "--requests",
+      "15",
+      "--output-tokens",
+      "16",
+      "--warmup-requests",
+      "3",
+      "--expected-io-mode",
+      "direct-uring-fixed",
+      "--reference",
+      "/home/wty/Infra/docs/benchmarks/native-linux-final/matrix-c1/recompute/requests.jsonl"
+    ],
+    "start": 1795677892.197117,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678034.6599224
+  },
+  {
+    "name": "matrix-after",
+    "command": [
+      "python3",
+      "/home/wty/Infra/scripts/bench_vllm_kv.py",
+      "--model",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+      "--lengths",
+      "16384",
+      "--shared",
+      "0.5",
+      "--modes",
+      "kvfabric-disk",
+      "--out",
+      "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/matrix-after",
+      "--disk-dir",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "--require-native-nvme",
+      "--library",
+      ".kvfabric-local/perf-attribution/build-after/src/integration/libkvf_vllm.so",
+      "--directory",
+      ".kvfabric-local/perf-attribution/build-after/bin/kvfabricd",
+      "--cache-gib",
+      "1.5",
+      "--gpu-gib",
+      "1",
+      "--concurrency",
+      "1",
+      "--requests",
+      "15",
+      "--output-tokens",
+      "16",
+      "--warmup-requests",
+      "3",
+      "--expected-io-mode",
+      "direct-uring-fixed",
+      "--reference",
+      "/home/wty/Infra/docs/benchmarks/native-linux-final/matrix-c1/recompute/requests.jsonl"
+    ],
+    "start": 1795678034.6602015,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678154.8109453
+  },
+  {
+    "name": "io-r0-c1-fixed",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "fixed",
+      "1",
+      "200"
+    ],
+    "start": 1795678154.8112369,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678162.328341
+  },
+  {
+    "name": "io-r0-c1-direct",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "direct",
+      "1",
+      "200"
+    ],
+    "start": 1795678162.3287976,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678169.8386865
+  },
+  {
+    "name": "io-r0-c1-buffered",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "buffered",
+      "1",
+      "200"
+    ],
+    "start": 1795678169.8391654,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678170.3164694
+  },
+  {
+    "name": "io-r0-c4-fixed",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "fixed",
+      "4",
+      "200"
+    ],
+    "start": 1795678170.3168857,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678172.4657576
+  },
+  {
+    "name": "io-r0-c4-direct",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "direct",
+      "4",
+      "200"
+    ],
+    "start": 1795678172.4660308,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678174.6517897
+  },
+  {
+    "name": "io-r0-c4-buffered",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "buffered",
+      "4",
+      "200"
+    ],
+    "start": 1795678174.652061,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678174.9808378
+  },
+  {
+    "name": "io-r1-c1-buffered",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "buffered",
+      "1",
+      "200"
+    ],
+    "start": 1795678174.9811037,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678175.4591393
+  },
+  {
+    "name": "io-r1-c1-direct",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "direct",
+      "1",
+      "200"
+    ],
+    "start": 1795678175.4595463,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678182.986822
+  },
+  {
+    "name": "io-r1-c1-fixed",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "fixed",
+      "1",
+      "200"
+    ],
+    "start": 1795678182.9871423,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678190.2416863
+  },
+  {
+    "name": "io-r1-c4-buffered",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "buffered",
+      "4",
+      "200"
+    ],
+    "start": 1795678190.2422059,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678190.562158
+  },
+  {
+    "name": "io-r1-c4-direct",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "direct",
+      "4",
+      "200"
+    ],
+    "start": 1795678190.562456,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678192.7208004
+  },
+  {
+    "name": "io-r1-c4-fixed",
+    "command": [
+      ".kvfabric-local/perf-attribution/kvf_io_compare",
+      ".kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+      "fixed",
+      "4",
+      "200"
+    ],
+    "start": 1795678192.72109,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678194.9112864
+  },
+  {
+    "name": "ctest-after",
+    "command": [
+      "ctest",
+      "--test-dir",
+      ".kvfabric-local/perf-attribution/build-after",
+      "--output-on-failure"
+    ],
+    "start": 1795678194.9115741,
+    "env": {
+      "VLLM_BATCH_INVARIANT": "1",
+      "KVF_PERF_TRACE": "1",
+      "NSYS_TMPDIR": "/home/wty/Infra/.kvfabric-local/perf-attribution/nsys-tmp"
+    },
+    "returncode": 0,
+    "end": 1795678218.962435
+  }
+]

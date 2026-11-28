@@ -1,0 +1,83 @@
+[  8%] Built target kvfabric
+Consolidate compiler generated dependencies of target miniinfer_storage
+[ 10%] Built target test_kvf_protocol
+[ 12%] Built target kvfctl
+[ 14%] Built target kvfabricd
+[ 17%] Built target test_remote_e2e
+[ 21%] Built target test_kvf_directory
+[ 22%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[ 23%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[ 24%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 25%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[ 26%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[ 27%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[ 28%] Linking C static library libminiinfer_storage.a
+[ 34%] Built target miniinfer_storage
+[ 37%] Building C object src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o
+[ 37%] Building C object src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o
+[ 38%] Building C object src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o
+[ 38%] Building C object src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o
+[ 43%] Building C object src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o
+[ 43%] Building C object src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o
+[ 43%] Building C object src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o
+[ 43%] Linking C executable ../../bin/test_allocator_faults
+[ 44%] Linking C executable ../../bin/test_gpu_mock
+[ 45%] Linking C executable ../../bin/miniinfer_basic
+[ 46%] Linking C executable ../../bin/test_paged_kv
+[ 47%] Linking C executable ../../bin/test_graph
+[ 48%] Built target test_allocator_faults
+[ 49%] Linking C executable ../../bin/test_tiered
+[ 50%] Linking C executable ../../bin/test_kv_cache
+[ 50%] Built target miniinfer_basic
+[ 51%] Linking C executable ../../bin/test_device_boundaries
+[ 51%] Built target test_gpu_mock
+Consolidate compiler generated dependencies of target test_storage_audit
+[ 51%] Built target test_paged_kv
+[ 53%] Linking C executable ../../bin/test_pool
+[ 53%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 54%] Building C object src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o
+[ 55%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[ 55%] Built target test_graph
+[ 56%] Built target test_device_boundaries
+[ 57%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[ 57%] Built target test_tiered
+[ 58%] Building C object src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o
+[ 60%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[ 60%] Built target test_kv_cache
+[ 60%] Built target test_pool
+[ 61%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[ 62%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[ 63%] Linking C executable ../../bin/test_remote_lifecycle
+[ 64%] Linking C executable ../../bin/test_direct_io
+[ 64%] Built target test_remote_lifecycle
+[ 64%] Built target test_direct_io
+[ 65%] Linking C executable ../../bin/test_storage_audit
+[ 65%] Built target test_storage_audit
+[ 66%] Linking C static library libminiinfer_remote.a
+[ 67%] Built target miniinfer_remote
+[ 70%] Building C object src/worker/CMakeFiles/test_remote_audit.dir/__/__/tests/worker/test_remote_audit.c.o
+[ 70%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o
+[ 70%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o
+[ 71%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o
+[ 72%] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o
+[ 73%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o
+[ 74%] Building C object src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o
+[ 75%] Building C object src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o
+[ 76%] Linking C executable ../../bin/test_remote_audit
+[ 77%] Linking C executable ../../bin/test_remote_faults
+[ 78%] Linking C executable ../../bin/kvf_bench
+[ 78%] Built target test_remote_audit
+[ 80%] Linking C executable ../../bin/miniinfer_worker
+[ 80%] Built target test_remote_faults
+[ 81%] Built target kvf_bench
+[ 81%] Built target miniinfer_worker
+[ 82%] Linking C executable ../../bin/miniinfer
+[ 83%] Linking C static library libminiinfer_nano.a
+[ 88%] Built target miniinfer_nano
+[ 89%] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o
+[ 90%] Building C object src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o
+[ 96%] Built target miniinfer
+[ 97%] Linking C executable ../../bin/test_nano_remote_worker
+[ 98%] Linking C executable ../../bin/nanovllm
+[ 98%] Built target test_nano_remote_worker
+[100%] Built target nanovllm

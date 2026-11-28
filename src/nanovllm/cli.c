@@ -5,6 +5,9 @@
 #define _POSIX_C_SOURCE 200809L
 #include "nano_cache.h"
 #include "nano_cli.h"
+#ifdef NANO_WITH_REMOTE_KV
+#include "miniinfer/remote_cache.h"
+#endif
 #ifdef NANO_WITH_STORAGE
 #include "miniinfer/model_mapping.h"
 #include "miniinfer/storage_backend.h"
@@ -38,7 +41,9 @@ static const char cli_name[] = "miniinfer";
 typedef struct {
     const char *ssd_mode;
     const char *ssd_dir;
+    const char *ssd_device;
     int ssd_slots;
+    unsigned ssd_io_cpu_plus_one;
     int spdk_offset_set;
     mi_spdk_config spdk;
 } StorageOptions;
@@ -72,6 +77,8 @@ static void usage(FILE *file) {
         "  --kv-control-endpoint IP:PORT    directory (default 127.0.0.1:9000)\n"
         "  --kv-listen-endpoint IP:PORT     worker bind (default 127.0.0.1:0)\n"
         "  --kv-advertise-endpoint IP:PORT  reachable worker address\n"
+        "  --kv-transport tcp|rdma  worker data transport (default tcp)\n"
+        "  --[no-]kv-rdma-fallback  allow TCP fallback when RDMA is selected (default on)\n"
         "  --kv-tenant NAME           cache namespace (default default)\n"
         "  --kv-page-size N           tokens per page, same as --block-size\n"
         "  --kv-cache-capacity N      worker export pages (default --blocks)\n"
@@ -83,12 +90,15 @@ static void usage(FILE *file) {
 #ifdef NANO_WITH_STORAGE
     fputs(
             "  --ssd-slots N number of spill slots (default 0, disabled)\n"
-            "  --ssd-mode posix|uring|spdk (default posix)\n"
+            "  --ssd-mode posix|uring|spdk|raw-uring (default posix)\n"
             "  --ssd-dir DIR directory for the private POSIX/io_uring spill file\n"
+            "  --ssd-device PATH --ssd-offset BYTES (raw-uring dedicated backed-up region)\n"
             "  --spdk-config PATH --spdk-bdev NAME --spdk-offset BYTES\n"
             "                explicit bdev and dedicated byte region\n"
             "  --spdk-no-pci use the SPDK software bdev environment\n"
-            "  --spdk-reactor-mask MASK (default 0x1)\n", file);
+            "  --spdk-reactor-mask MASK (default 0x1)\n"
+            "  --spdk-iova-mode va|pa (SDK default if omitted)\n"
+            "  --spdk-base-virtaddr BYTES (accepts 0x hexadecimal)\n", file);
 #endif
 }
 
@@ -108,6 +118,10 @@ static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value)
         o->listen_endpoint = value;
     else if (strcmp(flag, "--kv-advertise-endpoint") == 0)
         o->advertise_endpoint = value;
+    else if (strcmp(flag, "--kv-transport") == 0) {
+        if (mi_remote_transport_parse(value, &o->transport_mode) != KVF_OK)
+            nv_fatal("--kv-transport must be tcp or rdma");
+    }
     else if (strcmp(flag, "--kv-tenant") == 0)
         o->tenant = value;
     else if (strcmp(flag, "--kv-page-size") == 0)
@@ -127,10 +141,13 @@ static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value)
     return 1;
 }
 
-static void print_remote_stats(NvEngine *engine) {
+static void print_remote_stats(NvEngine *engine, int trace) {
     NvRemoteStats stats;
     nv_engine_remote_flush(engine);
     nv_engine_remote_stats(engine, &stats);
+    const char *active = stats.active_transport ? stats.active_transport : "OFF";
+    if (trace)
+        fprintf(stderr, "active_transport: %s\n", active);
     fprintf(stderr,
             "remote_lookup_requests=%" PRIu64 " remote_lookup_hits=%" PRIu64
             " remote_hit_pages=%" PRIu64 " remote_hit_tokens=%" PRIu64
@@ -139,14 +156,14 @@ static void print_remote_stats(NvEngine *engine) {
             " remote_admission_skips=%" PRIu64 " remote_publish_retries=%" PRIu64 " remote_publish_failures=%" PRIu64
             " remote_prefill_skipped_tokens=%" PRIu64 " remote_prefill_fallbacks=%" PRIu64
             " remote_cache_evictions=%" PRIu64 " remote_transfer_latency_ns=%" PRIu64
-            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 "\n",
+            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 " active_transport=%s\n",
             stats.remote_lookup_requests, stats.remote_lookup_hits, stats.remote_hit_pages,
             stats.remote_hit_tokens, stats.remote_import_bytes, stats.remote_prefetch_requests,
             stats.remote_prefetch_failures, stats.remote_prefetch_cancelled,
             stats.remote_admission_skips, stats.remote_publish_retries, stats.remote_publish_failures,
             stats.remote_prefill_skipped_tokens, stats.remote_prefill_fallbacks,
             stats.remote_cache_evictions, stats.remote_transfer_latency_ns, stats.remote_transfer_samples,
-            stats.remote_published_pages);
+            stats.remote_published_pages, active);
 }
 #endif
 
@@ -165,13 +182,33 @@ static int parse_value(StorageOptions *options, const char *flag, const char *va
         options->ssd_mode = value;
     else if (strcmp(flag, "--ssd-dir") == 0)
         options->ssd_dir = value;
+    else if (strcmp(flag, "--ssd-io-cpu") == 0) {
+        int cpu = integer(value);
+        if (cpu < 0 || cpu >= 1024) nv_fatal("invalid SSD I/O CPU");
+        options->ssd_io_cpu_plus_one = (unsigned)cpu + 1;
+    }
+    else if (strcmp(flag, "--ssd-device") == 0)
+        options->ssd_device = value;
     else if (strcmp(flag, "--spdk-config") == 0)
         options->spdk.json_config = value;
     else if (strcmp(flag, "--spdk-bdev") == 0)
         options->spdk.bdev_name = value;
     else if (strcmp(flag, "--spdk-reactor-mask") == 0)
         options->spdk.reactor_mask = value;
-    else if (strcmp(flag, "--spdk-offset") == 0) {
+    else if (strcmp(flag, "--spdk-iova-mode") == 0) {
+        if (strcmp(value, "va") && strcmp(value, "pa"))
+            nv_fatal("SPDK IOVA mode must be va or pa");
+        options->spdk.iova_mode = value;
+    }
+    else if (strcmp(flag, "--spdk-base-virtaddr") == 0) {
+        char *end;
+        errno = 0;
+        uintmax_t address = strtoumax(value, &end, 0);
+        if (errno || *value < '0' || *value > '9' || *end || address > UINT64_MAX)
+            nv_fatal("expected a nonnegative base virtual address");
+        options->spdk.base_virtaddr = (uint64_t)address;
+    }
+    else if ((strcmp(flag, "--spdk-offset") == 0 || strcmp(flag, "--ssd-offset") == 0)) {
         char *end;
         errno = 0;
         uintmax_t offset = strtoumax(value, &end, 10);
@@ -187,8 +224,11 @@ static int parse_value(StorageOptions *options, const char *flag, const char *va
 
 static void validate(const StorageOptions *options) {
     const char *mode = options->ssd_mode;
-    if (strcmp(mode, "posix") && strcmp(mode, "uring") && strcmp(mode, "spdk"))
-        nv_fatal("SSD mode must be posix, uring, or spdk");
+    if (strcmp(mode, "posix") && strcmp(mode, "uring") && strcmp(mode, "spdk") && strcmp(mode, "raw-uring"))
+        nv_fatal("SSD mode must be posix, uring, spdk, or raw-uring");
+    if (options->ssd_slots && !strcmp(mode, "raw-uring") &&
+        (!options->ssd_device || !options->spdk_offset_set))
+        nv_fatal("raw-uring requires --ssd-device and --ssd-offset for a dedicated region");
     if (options->ssd_slots && !strcmp(mode, "spdk") &&
         (!options->spdk.json_config || !options->spdk.bdev_name || !options->spdk_offset_set))
         nv_fatal("SPDK requires --spdk-config, --spdk-bdev and --spdk-offset for a dedicated region");
@@ -205,8 +245,9 @@ static void attach_ssd(NvCache *cache, const StorageOptions *storage) {
         nv_fatal("SSD slot size overflow");
     int is_spdk = strcmp(storage->ssd_mode, "spdk") == 0;
     size_t record = payload + 64;
-    if (is_spdk)
-        record = (record + 4095) & ~(size_t)4095;
+    int raw_uring = strcmp(storage->ssd_mode, "raw-uring") == 0;
+    if (is_spdk || raw_uring)
+        record = 4096 + ((payload + 4095) & ~(size_t)4095);
     if ((size_t)storage->ssd_slots > SIZE_MAX / record)
         nv_fatal("SSD capacity overflow");
 
@@ -216,6 +257,10 @@ static void attach_ssd(NvCache *cache, const StorageOptions *storage) {
         mi_spdk_config config = storage->spdk;
         config.capacity_bytes = record * storage->ssd_slots;
         status = mi_ssd_spdk_backend_create(config, payload, MI_SSD_VERIFY_ON_READ, &backend);
+    } else if (raw_uring) {
+        status = mi_ssd_raw_uring_backend_create(storage->ssd_device, storage->spdk.offset_bytes,
+            record * storage->ssd_slots, payload, MI_SSD_VERIFY_ON_READ, 8,
+            -1, storage->ssd_io_cpu_plus_one, &backend);
     } else {
         mi_ssd_file_mode mode = strcmp(storage->ssd_mode, "uring") == 0 ? MI_SSD_FILE_URING : MI_SSD_FILE_POSIX;
         status = mi_ssd_temp_backend_create(storage->ssd_dir, payload, record * storage->ssd_slots,
@@ -231,7 +276,8 @@ static void print_stats(const StorageOptions *options, const NvCache *cache) {
         return;
     uint64_t reads, writes;
     nv_spill_stats(cache, &reads, &writes);
-    fprintf(stderr, "ssd_mode=%s ssd_reads=%" PRIu64 " ssd_writes=%" PRIu64 "\n", options->ssd_mode, reads, writes);
+    fprintf(stderr, "ssd_mode=%s ssd_reads=%" PRIu64 " ssd_writes=%" PRIu64 " ssd_restore_wait_ns=%" PRIu64 "\n",
+            options->ssd_mode, reads, writes, nv_spill_wait_ns(cache));
 }
 
 #endif
@@ -387,6 +433,11 @@ int nv_cli_run(int argc, char **argv) {
             remote.publish_generated = remote_configured = 1;
             continue;
         }
+        if (!strcmp(flag, "--kv-rdma-fallback") || !strcmp(flag, "--no-kv-rdma-fallback")) {
+            remote.rdma_strict = !strcmp(flag, "--no-kv-rdma-fallback");
+            remote_configured = 1;
+            continue;
+        }
 #endif
         if (strcmp(flag, "--remote-kv") == 0) {
 #ifdef NANO_WITH_REMOTE_KV
@@ -484,11 +535,18 @@ int nv_cli_run(int argc, char **argv) {
 #ifdef NANO_WITH_STORAGE
     attach_ssd(&engine.cache, &storage);
 #endif
+    char *line = NULL;
+    int ok;
 #ifdef NANO_WITH_REMOTE_KV
     if (remote_enabled) {
         int status = nv_engine_enable_remote(&engine, &tokenizer, remote);
         if (status < 0)
             nv_fatal("invalid remote KV options or unsupported layout; see --help");
+        if (!status && remote.transport_mode == KVF_TRANSPORT_RDMA_RSOCKET && remote.rdma_strict) {
+            fputs("remote KV could not start with required RDMA transport\n", stderr);
+            ok = 0;
+            goto done;
+        }
         if (!status)
             fputs("remote KV unavailable; using local prefill\n", stderr);
     }
@@ -503,7 +561,6 @@ int nv_cli_run(int argc, char **argv) {
     fprintf(stderr, "KV pool: %.2f MiB; requests=%d device=%s\n",
             (double)kv_bytes / 1048576.0, options.max_requests, device);
 
-    char *line = NULL;
     size_t line_capacity = 0;
     do {
         if (read_stdin) {
@@ -527,13 +584,16 @@ int nv_cli_run(int argc, char **argv) {
 #endif
 #ifdef NANO_WITH_REMOTE_KV
         if (remote_enabled)
-            print_remote_stats(&engine);
+            print_remote_stats(&engine, trace);
 #endif
         fflush(stdout);
         (void)nv_engine_clear_requests(&engine);
     } while (read_stdin);
 
-    int ok = !read_stdin || !ferror(stdin);
+    ok = !read_stdin || !ferror(stdin);
+#ifdef NANO_WITH_REMOTE_KV
+done:
+#endif
     free(line);
     nv_engine_free(&engine);
     nv_tokenizer_free(&tokenizer);

@@ -1,0 +1,50 @@
+{
+  "scope": "128 x 512 KiB Pages, concurrency16, 3 warmups + 3 instrumented rounds",
+  "interpretation": "CUDA device memcpy intervals overlap other Pages' outstanding SSD API calls. SSD calls include queues, CPU copies and completion wait; not a measurement of pure NVMe DMA service overlap.",
+  "results": {
+    "uring": [
+      {
+        "scope": "D2H while another Page awaits SSD write",
+        "cuda_copy_count": 768,
+        "copy_bytes": 402653184,
+        "distinct_cuda_streams": 16,
+        "copies_with_cross_page_overlap": 718,
+        "cuda_device_copy_total_ms": 41.502798,
+        "overlap_with_other_page_ssd_call_ms": 38.977805,
+        "fraction_cuda_copy_time_covered_by_other_page_ssd_call": 0.9391608970556635
+      },
+      {
+        "scope": "H2D while another Page awaits SSD read",
+        "cuda_copy_count": 768,
+        "copy_bytes": 402653184,
+        "distinct_cuda_streams": 16,
+        "copies_with_cross_page_overlap": 719,
+        "cuda_device_copy_total_ms": 46.626819,
+        "overlap_with_other_page_ssd_call_ms": 43.816131,
+        "fraction_cuda_copy_time_covered_by_other_page_ssd_call": 0.9397194992006639
+      }
+    ],
+    "spdk": [
+      {
+        "scope": "D2H while another Page awaits SSD write",
+        "cuda_copy_count": 768,
+        "copy_bytes": 402653184,
+        "distinct_cuda_streams": 3,
+        "copies_with_cross_page_overlap": 718,
+        "cuda_device_copy_total_ms": 40.101294,
+        "overlap_with_other_page_ssd_call_ms": 37.933059,
+        "fraction_cuda_copy_time_covered_by_other_page_ssd_call": 0.9459310465143593
+      },
+      {
+        "scope": "H2D while another Page awaits SSD read",
+        "cuda_copy_count": 768,
+        "copy_bytes": 402653184,
+        "distinct_cuda_streams": 2,
+        "copies_with_cross_page_overlap": 720,
+        "cuda_device_copy_total_ms": 44.442923,
+        "overlap_with_other_page_ssd_call_ms": 41.660588,
+        "fraction_cuda_copy_time_covered_by_other_page_ssd_call": 0.9373953193852709
+      }
+    ]
+  }
+}

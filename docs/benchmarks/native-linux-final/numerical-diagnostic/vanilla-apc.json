@@ -1,0 +1,80 @@
+{
+  "cold": {
+    "request_id": "cmpl-aa7d18bb615cef60",
+    "prompt_tokens": 512,
+    "output_ids": [
+      78,
+      13,
+      220,
+      16,
+      15,
+      15,
+      15,
+      15
+    ],
+    "prompt_sha256": "ff360c4a6d954ab8333515cc5de4d96f33ad9dee6683ff74ad14436759e46e95",
+    "ttft_ms": 357.557694,
+    "tpot_ms": 25.730654,
+    "itl_ms": [
+      20.821693,
+      27.250431,
+      26.022496,
+      26.394613,
+      26.455358,
+      26.375772,
+      26.794215
+    ],
+    "output_chunk_sizes": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "gpu_cached_hot": {
+    "request_id": "cmpl-b36f8d126775b1e5",
+    "prompt_tokens": 512,
+    "output_ids": [
+      78,
+      13,
+      220,
+      17,
+      15,
+      17,
+      18,
+      12
+    ],
+    "prompt_sha256": "ff360c4a6d954ab8333515cc5de4d96f33ad9dee6683ff74ad14436759e46e95",
+    "ttft_ms": 33.758361,
+    "tpot_ms": 26.169061,
+    "itl_ms": [
+      25.383503,
+      26.22951,
+      26.456125,
+      26.599501,
+      25.734815,
+      26.295214,
+      26.484759
+    ],
+    "output_chunk_sizes": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "token_ids_equal": false,
+  "sources": {
+    "local_compute": 528,
+    "local_cache_hit": 496,
+    "external_kv_transfer": 0
+  }
+}

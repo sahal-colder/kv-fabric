@@ -1,0 +1,5 @@
+========= COMPUTE-SANITIZER
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+observed file mode: direct-uring-fixed
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

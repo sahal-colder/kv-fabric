@@ -6,6 +6,7 @@
 #define MINIINFER_IO_TRANSFER_H
 #include "miniinfer/common.h"
 #include <sys/uio.h>
+#include "io_metrics.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,11 +32,31 @@ mi_status mi_posix_transfer_direct(int fd, int write, mi_io_range range);
 
 #ifdef MINIINFER_WITH_URING
 typedef struct mi_uring mi_uring;
-/* 创建关联到 fd 的 io_uring 队列。 */
+typedef struct mi_uring_request mi_uring_request;
+typedef struct mi_uring_options {
+    unsigned queue_depth, submit_batch, worker_cpu_plus_one;
+    size_t buffer_bytes;
+    int fixed_buffers, fixed_file, iopoll, sqpoll;
+} mi_uring_options;
+typedef struct mi_uring_stats {
+    uint64_t submitted, completed, queue_waits, copy_ns;
+    unsigned inflight, max_inflight;
+    int fixed_buffers, fixed_file, iopoll, sqpoll;
+} mi_uring_stats;
 mi_status mi_uring_create(int fd, unsigned depth, mi_uring **out);
-/* 提交传输并等待完成项。 */
+/* Requested registration/poll flags must succeed, otherwise creation fails. */
+mi_status mi_uring_create_ex(int fd, mi_uring_options options, mi_uring **out);
+mi_status mi_uring_submit(mi_uring *ring, int write, mi_io_range range, mi_uring_request **out);
+mi_status mi_uring_wait(mi_uring_request *request);
+mi_status mi_uring_wait_metrics(mi_uring_request *request, mi_io_metrics *metrics);
+void mi_uring_cancel(mi_uring_request *request);
 mi_status mi_uring_transfer(mi_uring *ring, int write, mi_io_range range);
-int mi_uring_register_buffer(mi_uring *ring, void *data, size_t bytes);
+mi_status mi_uring_transfer_batch(mi_uring *ring, int write, const mi_io_range *ranges,
+                                  size_t count, mi_status *results);
+void mi_uring_get_stats(mi_uring *ring, mi_uring_stats *out);
+/* Legacy direct slot owns a single CUDA-pinned buffer until completion. */
+int mi_uring_register_buffer(mi_uring *ring, int device, size_t bytes);
+void *mi_uring_buffer(mi_uring *ring);
 mi_status mi_uring_transfer_fixed(mi_uring *ring, int write, mi_io_range range);
 /* 释放队列。文件描述符由后端关闭。 */
 void mi_uring_destroy(mi_uring *ring);

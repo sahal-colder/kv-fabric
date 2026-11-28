@@ -1,0 +1,95 @@
+[  7%] Built target kvfabric
+Consolidate compiler generated dependencies of target miniinfer_storage
+[  9%] Built target test_remote_e2e
+[ 11%] Built target test_kvf_protocol
+[ 13%] Built target kvfabricd
+[ 15%] Built target test_kvf_directory
+[ 17%] Built target kvfctl
+[ 18%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[ 19%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[ 20%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 21%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[ 21%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[ 22%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[ 23%] Linking CUDA static library libminiinfer_storage.a
+[ 31%] Built target miniinfer_storage
+[ 33%] Building C object src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o
+[ 33%] Building C object src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o
+[ 34%] Building C object src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o
+[ 35%] Building C object src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o
+[ 36%] Building C object src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o
+[ 37%] Building C object src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o
+[ 38%] Linking CUDA executable ../../bin/test_graph
+[ 39%] Linking CUDA executable ../../bin/test_kv_cache
+[ 40%] Linking CUDA executable ../../bin/test_tiered
+[ 41%] Linking CUDA executable ../../bin/miniinfer_basic
+[ 42%] Linking CUDA executable ../../bin/kvf_nvme_recovery_bench
+[ 42%] Built target test_kv_cache
+[ 42%] Built target test_graph
+[ 43%] Building C object src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o
+[ 44%] Linking CUDA executable ../../bin/test_pool
+[ 45%] Building C object src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o
+[ 45%] Built target miniinfer_basic
+[ 45%] Built target test_tiered
+[ 46%] Linking CUDA executable ../../bin/test_allocator_faults
+[ 47%] Linking CUDA executable ../../bin/test_device_boundaries
+[ 48%] Linking CUDA executable ../../bin/test_paged_kv
+[ 48%] Built target kvf_nvme_recovery_bench
+[ 48%] Built target test_pool
+Consolidate compiler generated dependencies of target test_storage_audit
+[ 49%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 50%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/__/__/tests/worker/test_uring_faults.c.o
+[ 51%] Built target test_allocator_faults
+[ 51%] Built target test_device_boundaries
+[ 52%] Linking CUDA executable ../../bin/test_gpu_mock
+[ 52%] Built target test_paged_kv
+[ 53%] Building C object src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o
+[ 54%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[ 55%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[ 55%] Built target test_gpu_mock
+[ 56%] Linking CUDA executable ../../bin/test_uring_faults
+[ 57%] Building C object src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o
+[ 58%] Linking CUDA executable ../../bin/test_direct_io
+[ 59%] Built target test_uring_faults
+[ 60%] Linking CUDA executable ../../bin/test_remote_lifecycle
+[ 61%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[ 62%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[ 62%] Built target test_direct_io
+[ 63%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[ 64%] Linking CUDA executable ../../bin/test_storage_audit
+[ 64%] Built target test_remote_lifecycle
+[ 64%] Built target test_storage_audit
+[ 65%] Linking CUDA static library libminiinfer_remote.a
+[ 65%] Built target miniinfer_remote
+[ 66%] Building C object src/worker/CMakeFiles/test_remote_audit.dir/__/__/tests/worker/test_remote_audit.c.o
+[ 67%] Building C object src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o
+[ 68%] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o
+[ 68%] Building C object src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o
+[ 69%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o
+[ 70%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o
+[ 71%] Linking CUDA executable ../../bin/miniinfer_worker
+[ 72%] Linking CUDA executable ../../bin/test_remote_audit
+[ 73%] Linking CUDA executable ../../bin/kvf_bench
+[ 74%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o
+[ 74%] Built target test_remote_audit
+[ 75%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o
+[ 75%] Built target miniinfer_worker
+[ 76%] Building CUDA object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_cuda.cu.o
+[ 77%] Linking CUDA executable ../../bin/test_remote_faults
+[ 78%] Building C object src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o
+[ 79%] Built target kvf_bench
+[ 80%] Linking CUDA static library libminiinfer_nano.a
+[ 85%] Built target miniinfer_nano
+[ 86%] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o
+[ 87%] Building C object src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o
+[ 87%] Built target test_remote_faults
+[ 88%] Linking CUDA executable ../../bin/test_nano_remote_worker
+[ 89%] Linking CUDA executable ../../bin/nanovllm
+[ 90%] Linking CUDA shared library libkvf_vllm.so
+[ 91%] Built target kvf_vllm
+[ 91%] Built target test_nano_remote_worker
+[ 92%] Linking CUDA executable ../../bin/kvf_cuda_bench
+[ 93%] Built target nanovllm
+[ 94%] Built target kvf_cuda_bench
+[ 95%] Linking CUDA executable ../../bin/miniinfer
+[100%] Built target miniinfer

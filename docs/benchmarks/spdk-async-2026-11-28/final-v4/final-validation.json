@@ -1,0 +1,67 @@
+{
+  "network_sources_match_start": true,
+  "runs": {
+    "raw": {
+      "finished": "2026-11-28T13:47:40.227958+08:00",
+      "all_regions_sha256_restored": true,
+      "regions": 3,
+      "driver": "vfio-pci",
+      "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+    },
+    "migration": {
+      "finished": "2026-11-28T14:16:30.071490+08:00",
+      "all_regions_sha256_restored": true,
+      "regions": 4,
+      "driver": "vfio-pci",
+      "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+    },
+    "inference": {
+      "finished": "2026-11-28T14:17:37.823381+08:00",
+      "all_regions_sha256_restored": true,
+      "regions": 3,
+      "driver": "vfio-pci",
+      "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+    },
+    "iopoll": {
+      "finished": "2026-11-28T14:19:25.945266+08:00",
+      "all_regions_sha256_restored": true,
+      "regions": 3,
+      "driver": "vfio-pci",
+      "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+    },
+    "sqpoll": {
+      "finished": "2026-11-28T14:20:18.428000+08:00",
+      "all_regions_sha256_restored": true,
+      "regions": 3,
+      "driver": "vfio-pci",
+      "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+    },
+    "pipeline-trace4": {
+      "finished": "2026-11-28T14:24:36.647757+08:00",
+      "all_regions_sha256_restored": true,
+      "regions": 3,
+      "driver": "vfio-pci",
+      "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+    }
+  },
+  "tests": {
+    "release": {
+      "passed": 48,
+      "log": "release-cuda-spdk-ctest.log"
+    },
+    "asan_ubsan_cuda_spdk": {
+      "passed": 48,
+      "log": "asan-spdk-cuda-exclusive-ctest.log"
+    },
+    "tsan_spdk": {
+      "passed": 43,
+      "log": "tsan-spdk-ctest.log"
+    }
+  },
+  "current_state": {
+    "driver": "vfio-pci",
+    "hugepages_2m": 256,
+    "nvme_poll_queues": "0",
+    "service": "ActiveState=active\nSubState=exited\n"
+  }
+}

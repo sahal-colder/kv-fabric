@@ -1,0 +1,183 @@
+========= COMPUTE-SANITIZER
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=1
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=1
+CUDA lease/snapshot/Direct retirement survives all parent destructors: PASS
+========= Leaked 4096 bytes at 0x1000ae00000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemAlloc_v2 [0x390089] in libcuda.so.1
+=========         Host Frame:  [0x4cf7d] in libcudart.so.13
+=========         Host Frame:  [0x16372] in libcudart.so.13
+=========         Host Frame: cudaMalloc [0x5cfc6] in libcudart.so.13
+=========         Host Frame: mi_device_alloc [0x1404a] in test_storage_audit
+=========         Host Frame: new_chunk [0x78cc] in test_storage_audit
+=========         Host Frame: allocate.part.0 [0x87e9] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb6aa] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a50] in test_storage_audit
+========= 
+========= Leaked 4096 bytes at 0x1000ae01000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemAlloc_v2 [0x390089] in libcuda.so.1
+=========         Host Frame:  [0x4cf7d] in libcudart.so.13
+=========         Host Frame:  [0x16372] in libcudart.so.13
+=========         Host Frame: cudaMalloc [0x5cfc6] in libcudart.so.13
+=========         Host Frame: mi_device_alloc [0x1404a] in test_storage_audit
+=========         Host Frame: new_chunk [0x78cc] in test_storage_audit
+=========         Host Frame: allocate.part.0 [0x87e9] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb6aa] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a5c] in test_storage_audit
+========= 
+========= Leaked 4096 bytes at 0x1000ae02000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemAlloc_v2 [0x390089] in libcuda.so.1
+=========         Host Frame:  [0x4cf7d] in libcudart.so.13
+=========         Host Frame:  [0x16372] in libcudart.so.13
+=========         Host Frame: cudaMalloc [0x5cfc6] in libcudart.so.13
+=========         Host Frame: mi_device_alloc [0x1404a] in test_storage_audit
+=========         Host Frame: new_chunk [0x78cc] in test_storage_audit
+=========         Host Frame: allocate.part.0 [0x87e9] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb6aa] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a68] in test_storage_audit
+========= 
+========= Leaked 4096 bytes at 0x1000ae03000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemAlloc_v2 [0x390089] in libcuda.so.1
+=========         Host Frame:  [0x4cf7d] in libcudart.so.13
+=========         Host Frame:  [0x16372] in libcudart.so.13
+=========         Host Frame: cudaMalloc [0x5cfc6] in libcudart.so.13
+=========         Host Frame: mi_device_alloc [0x1404a] in test_storage_audit
+=========         Host Frame: new_chunk [0x78cc] in test_storage_audit
+=========         Host Frame: allocate.part.0 [0x87e9] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb6aa] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a74] in test_storage_audit
+========= 
+========= Leaked 4096 bytes at 0x1000ae04000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemAlloc_v2 [0x390089] in libcuda.so.1
+=========         Host Frame:  [0x4cf7d] in libcudart.so.13
+=========         Host Frame:  [0x16372] in libcudart.so.13
+=========         Host Frame: cudaMalloc [0x5cfc6] in libcudart.so.13
+=========         Host Frame: mi_device_alloc [0x1404a] in test_storage_audit
+=========         Host Frame: new_chunk [0x78cc] in test_storage_audit
+=========         Host Frame: allocate.part.0 [0x87e9] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb6aa] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a80] in test_storage_audit
+========= 
+========= Leaked 266239 bytes at 0x1000b000000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb71f] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a50] in test_storage_audit
+========= 
+========= Leaked 266239 bytes at 0x1000b041000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb71f] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a5c] in test_storage_audit
+========= 
+========= Leaked 266239 bytes at 0x1000b082000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb71f] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a68] in test_storage_audit
+========= 
+========= Leaked 266239 bytes at 0x1000b0c3000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb71f] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a74] in test_storage_audit
+========= 
+========= Leaked 12287 bytes at 0x1000b104000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_direct_create [0x10dd0] in test_storage_audit
+=========         Host Frame: mi_ssd_direct_backend_create [0xbc03] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x67a6] in test_storage_audit
+=========         Host Frame: main [0x3a74] in test_storage_audit
+========= 
+========= Leaked 12287 bytes at 0x1000b107000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_uring_register_buffer [0x13ca8] in test_storage_audit
+=========         Host Frame: mi_direct_create [0x10fb1] in test_storage_audit
+=========         Host Frame: mi_ssd_direct_backend_create [0xbc03] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x67a6] in test_storage_audit
+=========         Host Frame: main [0x3a74] in test_storage_audit
+========= 
+========= Leaked 266239 bytes at 0x1000b10a000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_memory_backend_create [0xb71f] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x64bc] in test_storage_audit
+=========         Host Frame: main [0x3a80] in test_storage_audit
+========= 
+========= Leaked 12287 bytes at 0x1000b14b000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_segment_pool_create [0x1482f] in test_storage_audit
+=========         Host Frame: mi_direct_create [0x10dd0] in test_storage_audit
+=========         Host Frame: mi_ssd_direct_backend_create [0xbc03] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x67a6] in test_storage_audit
+=========         Host Frame: main [0x3a80] in test_storage_audit
+========= 
+========= Leaked 12287 bytes at 0x1000b14e000
+=========     Saved host backtrace up to driver entry point at allocation time
+=========         Host Frame: cuMemHostAlloc [0x390269] in libcuda.so.1
+=========         Host Frame:  [0x4d07d] in libcudart.so.13
+=========         Host Frame:  [0x1641c] in libcudart.so.13
+=========         Host Frame: cudaMallocHost [0x5d1c6] in libcudart.so.13
+=========         Host Frame: mi_device_host_alloc [0x13f6a] in test_storage_audit
+=========         Host Frame: mi_uring_register_buffer [0x13ca8] in test_storage_audit
+=========         Host Frame: mi_direct_create [0x10fb1] in test_storage_audit
+=========         Host Frame: mi_ssd_direct_backend_create [0xbc03] in test_storage_audit
+=========         Host Frame: cuda_retirement [0x67a6] in test_storage_audit
+=========         Host Frame: main [0x3a80] in test_storage_audit
+========= 
+========= LEAK SUMMARY: 1400823 bytes leaked in 14 allocations
+========= ERROR SUMMARY: 14 errors

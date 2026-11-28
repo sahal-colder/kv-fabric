@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="19"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="47"
+	timestamp="2026-11-26T11:00:07"
+	>
+	<testcase name="kvf_protocol" classname="kvf_protocol" time="0.117255" status="run">
+		<system-out>KV-Fabric protocol: PASS
+</system-out>
+	</testcase>
+	<testcase name="kvf_directory" classname="kvf_directory" time="0.73657" status="run">
+		<system-out>KV-Fabric directory and control RPC: PASS
+</system-out>
+	</testcase>
+	<testcase name="pool" classname="pool" time="21.3422" status="run">
+		<system-out>pool ok
+</system-out>
+	</testcase>
+	<testcase name="graph" classname="graph" time="0.00726729" status="run">
+		<system-out>graph ok
+</system-out>
+	</testcase>
+	<testcase name="tiered" classname="tiered" time="0.0115354" status="run">
+		<system-out>tiered ok
+</system-out>
+	</testcase>
+	<testcase name="kv_cache" classname="kv_cache" time="0.00727673" status="run">
+		<system-out>kv cache ok
+</system-out>
+	</testcase>
+	<testcase name="paged_kv" classname="paged_kv" time="0.00573664" status="run">
+		<system-out>paged kv ok
+</system-out>
+	</testcase>
+	<testcase name="gpu_mock" classname="gpu_mock" time="0.00688349" status="run">
+		<system-out>CUDA-disabled contract ok
+</system-out>
+	</testcase>
+	<testcase name="allocator_faults" classname="allocator_faults" time="0.00849232" status="run">
+		<system-out>allocator metadata allocation failure recovery: 10 points PASS
+</system-out>
+	</testcase>
+	<testcase name="device_boundaries_cpu" classname="device_boundaries_cpu" time="0.031359" status="run">
+		<system-out>device boundaries + 4 streams x 100 bidirectional copies: PASS
+</system-out>
+	</testcase>
+	<testcase name="storage_audit" classname="storage_audit" time="0.0767269" status="run">
+		<system-out>MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=1
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=64
+migration rollback + replica preservation; lease wait/fence failures; direct boundaries/CRC: PASS
+</system-out>
+	</testcase>
+	<testcase name="uring_faults" classname="uring_faults" time="0.0084725" status="run">
+		<system-out>uring SQE NULL, submit/wait EINTR/errors, CQE errors/zero, accepted submit failure: PASS
+</system-out>
+	</testcase>
+	<testcase name="direct_io_cpu" classname="direct_io_cpu" time="0.0118982" status="run">
+		<system-out>MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+observed file mode: direct-uring-fixed
+</system-out>
+	</testcase>
+	<testcase name="remote_lifecycle" classname="remote_lifecycle" time="0.00635209" status="run">
+		<system-out>snapshot, page reference, suffix rollback, and generation reuse: PASS
+</system-out>
+	</testcase>
+	<testcase name="remote_audit" classname="remote_audit" time="8.2508" status="run">
+		<system-out>kv-fabric: warning: RDMA_RSOCKET peer transfer failed (I/O error). Retrying over TCP.
+4 threads x 10000 generation races; expired finished batch + live second batch: PASS
+</system-out>
+	</testcase>
+	<testcase name="remote_faults" classname="remote_faults" time="2.81947" status="run">
+		<system-out>partial TCP response: safe prefix retained and failed suffix rolled back
+layer CRC32C: safe prefix retained and failed suffix rolled back
+expired directory lease: safe prefix retained and failed suffix rolled back
+eviction and generation reuse: safe prefix retained and failed suffix rolled back
+prefetch cancellation and bounded queue: safe prefix retained and failed suffix rolled back
+</system-out>
+	</testcase>
+	<testcase name="remote_e2e_cpu" classname="remote_e2e_cpu" time="2.06756" status="run">
+		<system-out>active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+device=cpu layer_bytes=4096 pages=2 layers=2 sha256=515b34bb2aba41bd83679c6d9c37666a189206164ce91be5e4c56b2f1b0ccb2d fp32_attention=byte-identical
+device=cpu layer_bytes=65536 pages=2 layers=2 sha256=4eb07d3b7c05d8cdff658d0e43226df6716482e37a6d02f0f518c3eeb779def0 fp32_attention=byte-identical
+device=cpu layer_bytes=262144 pages=2 layers=2 sha256=c4a93f71a680a3e2110fc38e5af67bc8637e8ee68e3b0efc8c8806e77bd4d84f fp32_attention=byte-identical
+device=cpu layer_bytes=1048576 pages=2 layers=2 sha256=464ae2b56e1fb276acab946f667cfc209947b9dd21d6bac775a8de1a8e640ff0 fp32_attention=byte-identical
+device=cpu layer_bytes=4194304 pages=2 layers=2 sha256=c21a3e21f3324d65b5c4df975d0833413c2833e2be7b9c93a3abf9c0fe5e45f3 fp32_attention=byte-identical
+</system-out>
+	</testcase>
+	<testcase name="remote_restart" classname="remote_restart" time="1.69468" status="run">
+		<system-out>active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+active_transport: TCP
+SIGKILL and Worker restart: old boot denied, fresh import verified
+Directory restart: new epoch, Worker republish, old lease denied
+device=cpu layer_bytes=4096 pages=2 layers=2 sha256=515b34bb2aba41bd83679c6d9c37666a189206164ce91be5e4c56b2f1b0ccb2d fp32_attention=byte-identical
+</system-out>
+	</testcase>
+	<testcase name="nano_remote_inference_cpu" classname="nano_remote_inference_cpu" time="10.2291" status="run">
+		<system-out>turn 1: prompt=73 reused=0 published=20 data_requests=0
+turn 2: prompt=109 reused=80 published=9 data_requests=3
+turn 3: prompt=140 reused=116 published=7 data_requests=5
+Nano-VLLM cpu: independent workers matched cold outputs and exercised fallback
+</system-out>
+	</testcase>
+</testsuite>

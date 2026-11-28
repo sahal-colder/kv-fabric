@@ -1,0 +1,146 @@
+{
+  "cpu": {
+    "before": {
+      "cold": {
+        "ttft_ns": 1700522.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 92.0,
+        "local": 0.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 1727403.0,
+        "ttft_p99_ns": 1727403.0
+      },
+      "local": {
+        "ttft_ns": 337294.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 80.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 348445.0,
+        "ttft_p99_ns": 348445.0
+      },
+      "remote": {
+        "ttft_ns": 1323720.0,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 0.0,
+        "remote_hit_tokens": 80.0,
+        "remote_prefill_skipped_tokens": 80.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 1504117.0,
+        "ttft_p99_ns": 1504117.0
+      }
+    },
+    "after": {
+      "cold": {
+        "ttft_ns": 942205.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 92.0,
+        "local": 0.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 1706422.0,
+        "ttft_p99_ns": 1706422.0
+      },
+      "local": {
+        "ttft_ns": 186902.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 80.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 354057.0,
+        "ttft_p99_ns": 354057.0
+      },
+      "remote": {
+        "ttft_ns": 1249287.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 0.0,
+        "remote_hit_tokens": 80.0,
+        "remote_prefill_skipped_tokens": 80.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 1473722.0,
+        "ttft_p99_ns": 1473722.0
+      }
+    }
+  },
+  "cuda": {
+    "before": {
+      "cold": {
+        "ttft_ns": 5916816.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 92.0,
+        "local": 0.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 6131634.0,
+        "ttft_p99_ns": 6131634.0
+      },
+      "local": {
+        "ttft_ns": 1063383.0,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 80.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 1098876.0,
+        "ttft_p99_ns": 1098876.0
+      },
+      "remote": {
+        "ttft_ns": 2235508.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 0.0,
+        "remote_hit_tokens": 80.0,
+        "remote_prefill_skipped_tokens": 80.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 2498945.0,
+        "ttft_p99_ns": 2498945.0
+      }
+    },
+    "after": {
+      "cold": {
+        "ttft_ns": 5919524.0,
+        "prompt_tokens": 92.0,
+        "prefilled": 92.0,
+        "local": 0.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 6103158.0,
+        "ttft_p99_ns": 6103158.0
+      },
+      "local": {
+        "ttft_ns": 1084002.0,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 80.0,
+        "remote_hit_tokens": 0.0,
+        "remote_prefill_skipped_tokens": 0.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 1115014.0,
+        "ttft_p99_ns": 1115014.0
+      },
+      "remote": {
+        "ttft_ns": 2251439.5,
+        "prompt_tokens": 92.0,
+        "prefilled": 12.0,
+        "local": 0.0,
+        "remote_hit_tokens": 80.0,
+        "remote_prefill_skipped_tokens": 80.0,
+        "remote_prefetch_failures": 0.0,
+        "ttft_p95_ns": 2596012.0,
+        "ttft_p99_ns": 2596012.0
+      }
+    }
+  }
+}

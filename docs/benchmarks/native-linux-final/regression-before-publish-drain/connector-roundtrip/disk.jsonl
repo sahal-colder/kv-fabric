@@ -1,0 +1,13 @@
+{"event": "backend", "tier": "disk", "io_mode": "direct-uring-fixed"}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-84b7a1a8d033ec42-0-ad2c3ca5", "tokens": 128}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-84b7a1a8d033ec42-0-ad2c3ca5", "tokens": 128}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-84b7a1a8d033ec42-0-ad2c3ca5", "tokens": 128}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-84b7a1a8d033ec42-0-ad2c3ca5", "tokens": 128}
+{"event": "hit", "tier": "disk", "request_id": "cmpl-a1e9da19e81a4de9-0-9e3d6c3c", "tokens": 496, "blocks_checked": 1116}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-a1e9da19e81a4de9-0-9e3d6c3c", "tokens": 16}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-a11d4200f8399f10-0-a5a3af18", "tokens": 128}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-a11d4200f8399f10-0-a5a3af18", "tokens": 128}
+{"event": "hit", "tier": "disk", "request_id": "cmpl-a70c8754cd2964d0-0-a9cb7090", "tokens": 256, "blocks_checked": 576}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-a70c8754cd2964d0-0-a9cb7090", "tokens": 128}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-a70c8754cd2964d0-0-a9cb7090", "tokens": 128}
+{"event": "stored", "tier": "disk", "request_id": "cmpl-a70c8754cd2964d0-0-a9cb7090", "tokens": 64}

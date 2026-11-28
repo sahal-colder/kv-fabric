@@ -1,0 +1,14 @@
+{"event": "backend", "tier": "cpu", "io_mode": "cpu"}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-ac3d632a60fa0865-0-b7af6d45", "first": 0, "tokens": 512}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-ac3d632a60fa0865-0-b7af6d45", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-ac3d632a60fa0865-0-b7af6d45", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-ac3d632a60fa0865-0-b7af6d45", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-ac3d632a60fa0865-0-b7af6d45", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-ac3d632a60fa0865-0-b7af6d45", "first": 0, "tokens": 512}
+{"event": "load_failure", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "status": "timeout"}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "first": 0, "tokens": 512}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b30b977f54223376-0-8a609aa8", "first": 0, "tokens": 512}

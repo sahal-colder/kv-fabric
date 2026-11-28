@@ -1,0 +1,21 @@
+{"event": "backend", "tier": "cpu", "io_mode": "cpu"}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-966df62d106b38b9-0-a403cf15", "first": 0, "tokens": 512}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-966df62d106b38b9-0-a403cf15", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-966df62d106b38b9-0-a403cf15", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-966df62d106b38b9-0-a403cf15", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-966df62d106b38b9-0-a403cf15", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-966df62d106b38b9-0-a403cf15", "first": 0, "tokens": 512}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-af96744bc44d5d4f-0-ab09de17", "tokens": 496, "blocks_checked": 1116}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-af96744bc44d5d4f-0-ab09de17", "first": 31, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-af96744bc44d5d4f-0-ab09de17", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-af96744bc44d5d4f-0-ab09de17", "first": 31, "tokens": 16}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a94902744a62f0ba-0-bd687b9e", "first": 0, "tokens": 256}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a94902744a62f0ba-0-bd687b9e", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a94902744a62f0ba-0-bd687b9e", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a94902744a62f0ba-0-bd687b9e", "first": 0, "tokens": 256}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-a6b10eb561d61a68-0-a9e7acdd", "tokens": 256, "blocks_checked": 576}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a6b10eb561d61a68-0-a9e7acdd", "first": 16, "tokens": 320}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a6b10eb561d61a68-0-a9e7acdd", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a6b10eb561d61a68-0-a9e7acdd", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a6b10eb561d61a68-0-a9e7acdd", "tokens": 64}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a6b10eb561d61a68-0-a9e7acdd", "first": 16, "tokens": 320}

@@ -1,0 +1,103 @@
+Timestamp: 2026-11-24T12:03:40+08:00
+Topology: same WSL2 instance; separate kvfabricd, publisher and consumer processes.
+Data address: eth0 IPv4, local routing on the same host. Control RPC: TCP 127.0.0.1.
+Workload: stories15M, FP32 KV, 4 tokens per page, 20 and 120 remotely reused tokens.
+Sampling: 8 generated IDs, seed=1234, temperature=0.7, top-p=0.95, ignore EOS.
+One unrelated warmup per consumer. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1.
+Strict mode: RDMA publication and consumption require rsockets.
+
+$ uname -a
+Linux sahal 6.18.54.1-microsoft-standard-WSL2-rdma #1 SMP PREEMPT_DYNAMIC Tue Nov 24 11:46:50 CST 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+$ grep PRETTY_NAME /etc/os-release
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+
+Linux WSL kernel tag: linux-msft-wsl-6.18.54.1 (d504d40ab83839cb61942a812a99d183c42227b9)
+
+$ zgrep RDMA config /proc/config.gz
+CONFIG_NET_UDP_TUNNEL=y
+CONFIG_INFINIBAND=y
+CONFIG_INFINIBAND_USER_MAD=y
+CONFIG_INFINIBAND_USER_ACCESS=y
+CONFIG_INFINIBAND_ADDR_TRANS=y
+CONFIG_RDMA_RXE=y
+CONFIG_CRYPTO_CRC32C=y
+CONFIG_CRYPTO_CRC32=y
+
+$ lscpu
+Architecture:                            x86_64
+CPU(s):                                  16
+Model name:                              Intel(R) Core(TM) Ultra 7 265KF
+Thread(s) per core:                      1
+
+$ grep ^MemTotal /proc/meminfo
+MemTotal:       10183656 kB
+
+$ nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader
+NVIDIA GeForce RTX 5060 Ti, 610.88, 16311 MiB
+
+$ gcc --version
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+
+$ cmake --version
+cmake version 3.22.1
+
+$ nvcc --version
+Cuda compilation tools, release 12.8, V12.8.93
+Build cuda_12.8.r12.8/compiler.35583870_0
+
+$ dpkg-query -W rdma-core libibverbs-dev librdmacm-dev ibverbs-utils perftest libopenblas-dev liburing-dev
+ibverbs-utils	39.0-1
+libibverbs-dev:amd64	39.0-1
+libopenblas-dev:amd64	0.3.20+ds-1
+librdmacm-dev:amd64	39.0-1
+liburing-dev:amd64	2.1-2build1
+perftest	4.4+0.37-1
+rdma-core	39.0-1
+
+$ rdma link show rxe0/1
+link rxe0/1 state ACTIVE physical_state LINK_UP netdev eth0 
+
+$ ibv_devices
+    device          	   node GUID
+    ------          	----------------
+    rxe0            	02155dfffedd6128
+
+$ ip -4 -o addr show dev eth0
+2: eth0    inet 198.18.0.1/30 brd 198.18.0.3 scope global noprefixroute eth0\       valid_lft forever preferred_lft forever
+
+$ ip route get 198.18.0.1
+local 198.18.0.1 dev lo table local src 198.18.0.1 uid 1000 
+    cache <local> 
+
+$ sha256sum model tokenizer
+cd590644d963867a2b6e5a1107f51fad663c41d79c149fbecbbb1f95fa81f49a  stories15M.bin
+50a52ef822ee9e83de5ce9d0be0a025a773d019437f58b5ff9dcafb063ece361  tokenizer.bin
+
+CMake release
+CMAKE_BUILD_TYPE:STRING=Release
+MINIINFER_WITH_CUDA:BOOL=OFF
+MINIINFER_WITH_RDMA:STRING=ON
+MINIINFER_WITH_URING:BOOL=ON
+NANO_WITH_CUDA:BOOL=OFF
+KVF_RSOCKETS_LINKS:INTERNAL=1
+41e8259e48a05da5ca616f82715fdb02d8d0a83342f0ce520fa8850c44b60e07  miniinfer
+4b2834983d931999c052bf19ad8761e035b3fa62345eb42b23783650c995685b  test_nano_remote_worker
+4092b783551787c427ff4fd9e052ad197a99f54fdbbf8355dd0ea18be03b3577  kvfabricd
+
+CMake cuda
+CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_CUDA_ARCHITECTURES:UNINITIALIZED=120
+MINIINFER_WITH_CUDA:BOOL=ON
+MINIINFER_WITH_RDMA:STRING=ON
+MINIINFER_WITH_URING:BOOL=ON
+NANO_WITH_CUDA:BOOL=ON
+KVF_RSOCKETS_LINKS:INTERNAL=1
+97610fd11248816f173cae5342de947d67f30613208ff717ef9ae54f1b96f296  miniinfer
+012deb6f06be4fe9ae3a07a0c87b3733ea4e0530df1d47cb97b8ed92b05ad5e5  test_nano_remote_worker
+4092b783551787c427ff4fd9e052ad197a99f54fdbbf8355dd0ea18be03b3577  kvfabricd
+
+KV-Fabric Git HEAD: 06b7f286d13c20c26e01803d7c43fb09adcd83eb
+Production RDMA code was present in the working tree, tracked and untracked.
+The scratch benchmark drops the unavailable reply_wait_ns column.
+Repository test and Worker sources were used without edits.

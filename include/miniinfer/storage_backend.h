@@ -10,6 +10,11 @@ extern "C" {
 #endif
 
 typedef struct mi_storage_backend mi_storage_backend;
+typedef struct mi_storage_metrics {
+    uint64_t io_ns, crc_ns, host_copy_ns, d2h_ns, h2d_ns;
+} mi_storage_metrics;
+/* Cumulative stage wall time. Concurrent stages can overlap and must not be summed as elapsed time. */
+void mi_backend_get_metrics(mi_storage_backend *backend, mi_storage_metrics *out);
 
 typedef struct mi_memory_view {
     /* 槽的内存地址。SSD 槽返回 NULL。 */
@@ -58,6 +63,12 @@ mi_status mi_ssd_temp_backend_create(const char *dir, size_t slot_bytes, size_t 
 mi_status mi_ssd_direct_backend_create(const char *path, size_t slot_bytes, size_t max_bytes,
                                        mi_ssd_verify verify, unsigned depth, int device,
                                        mi_storage_backend **out);
+/* Existing, unmounted raw block device only; never creates/truncates/formats.
+ * Region identity and durable backup are established by the external hardware runner. */
+mi_status mi_ssd_raw_uring_backend_create(const char *path, uint64_t offset, size_t capacity,
+                                          size_t slot_bytes, mi_ssd_verify verify,
+                                          unsigned depth, int device, unsigned io_cpu_plus_one,
+                                          mi_storage_backend **out);
 const char *mi_ssd_file_io_name(const mi_storage_backend *backend);
 
 typedef struct mi_spdk_config {
@@ -75,8 +86,20 @@ typedef struct mi_spdk_config {
     int no_huge;
     /* 禁用 PCI 枚举。 */
     int no_pci;
+    /* 可选 DMA 地址模式："va" 用于 VFIO/IOMMU；NULL 保留 SDK 默认。 */
+    const char *iova_mode;
+    /* DMA 虚拟地址起点；0 保留 SDK 默认，窄 IOMMU 可指定低地址。 */
+    uint64_t base_virtaddr;
 } mi_spdk_config;
 
+/* Additional entry point preserves the layout of mi_spdk_config. */
+typedef struct mi_spdk_options {
+    unsigned queue_depth, buffer_count, submit_batch;
+    size_t max_transfer_bytes;
+} mi_spdk_options;
+mi_status mi_ssd_spdk_backend_create_ex(mi_spdk_config config, mi_spdk_options options,
+                                        size_t slot_bytes, mi_ssd_verify verify,
+                                        mi_storage_backend **out);
 /* 在指定设备区间内创建 SSD 后端。 */
 mi_status mi_ssd_spdk_backend_create(mi_spdk_config config, size_t slot_bytes,
                                      mi_ssd_verify verify, mi_storage_backend **out);
@@ -114,6 +137,7 @@ mi_status mi_backend_write_record(mi_storage_backend *backend, mi_storage_handle
 mi_status mi_backend_read_validated(mi_storage_backend *backend, mi_storage_handle handle,
                                     const mi_block_meta *expected, void *host);
 /* 关闭 I/O 资源或向内存池归还 Slab。 */
+/* Storage仍绑定时延后销毁。无法确认GPU DMA完成时保留资源至进程退出。 */
 void mi_backend_destroy(mi_storage_backend *backend);
 
 #ifdef __cplusplus

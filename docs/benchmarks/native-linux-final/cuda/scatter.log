@@ -1,0 +1,5 @@
+==PROF== Connected to process 61849 (/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_cuda_bench)
+==ERROR== ERR_NVGPUCTRPERM - The user does not have permission to access NVIDIA GPU Performance Counters on the target device 0. For instructions on enabling permissions and to get more information see https://developer.nvidia.com/ERR_NVGPUCTRPERM
+vector,H2D,1,75497472,7.5644,9.295
+vector,D2H,1,75497472,7.6528,9.188
+==PROF== Disconnected from process 61849

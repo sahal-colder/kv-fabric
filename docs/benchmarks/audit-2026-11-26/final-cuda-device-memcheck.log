@@ -1,0 +1,4 @@
+========= COMPUTE-SANITIZER
+device boundaries + 4 streams x 100 bidirectional copies: PASS
+========= LEAK SUMMARY: 0 bytes leaked in 0 allocations
+========= ERROR SUMMARY: 0 errors

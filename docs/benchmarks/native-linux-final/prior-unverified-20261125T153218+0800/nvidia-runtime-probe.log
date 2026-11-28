@@ -1,0 +1,29 @@
++ ldd /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/integration/libkvf_vllm.so
+	linux-vdso.so.1 (0x00007ffee7771000)
+	libcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007d2a29400000)
+	liburing.so.2 => /usr/local/lib/liburing.so.2 (0x00007d2a298cf000)
+	libcudart.so.13 => /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.13 (0x00007d2a29000000)
+	librdmacm.so.1 => /lib/x86_64-linux-gnu/librdmacm.so.1 (0x00007d2a298b0000)
+	libibverbs.so.1 => /lib/x86_64-linux-gnu/libibverbs.so.1 (0x00007d2a2988d000)
+	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007d2a28c00000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007d2a2986b000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007d2a28800000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007d2a29866000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007d2a29861000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007d2a2985c000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007d2a29319000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007d2a29931000)
+	libnl-3.so.200 => /lib/x86_64-linux-gnu/libnl-3.so.200 (0x00007d2a292f6000)
+	libnl-route-3.so.200 => /lib/x86_64-linux-gnu/libnl-route-3.so.200 (0x00007d2a28f7d000)
++ /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvf_cuda_bench
+no CUDA-capable device is detected
++ printf 'kvf_cuda_bench exit=%s\n' 1
+kvf_cuda_bench exit=1
++ timeout 25s ncu --kernel-name regex:gather_kv_pages --launch-count 1 /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvf_cuda_bench vector
+==WARNING== Could not deploy stock section files to "/home/wty/Documents/NVIDIA Nsight Compute/2026.3.1/Sections".
+Set the HOME environment variable to a writable directory.
+==WARNING== Using "/opt/nvidia/nsight-compute/2026.3.1/target/linux-desktop-glibc_2_11_3-x64/../../sections" instead.
+==WARNING== See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#faq.
+==WARNING== No kernels were profiled.
++ printf 'ncu exit=%s\n' 124
+ncu exit=124

@@ -1,0 +1,6 @@
+==PROF== Connected to process 410892 (/home/wty/Infra/build-cuda-release/bin/kvf_cuda_bench)
+==PROF== Profiling "gather_kv_pages": 0%....50%....100% - 3 passes
+vector,H2D,1,75497472,7.0564,9.964
+vector,D2H,1,75497472,6.7583,10.404
+==PROF== Disconnected from process 410892
+==PROF== Report: /home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/ncu/gather.ncu-repz

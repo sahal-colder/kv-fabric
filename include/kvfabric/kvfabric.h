@@ -38,8 +38,13 @@ typedef struct { uint8_t bytes[32]; } kvf_hash;
 
 typedef struct {
     uint8_t ipv4[4];      /* Network-order address octets. */
-    uint16_t port;       /* Host-order TCP port. Zero is allowed only when binding. */
+    uint16_t port;       /* Host-order port. Zero is allowed only when binding. */
 } kvf_endpoint;
+
+typedef enum {
+    KVF_TRANSPORT_TCP = 0,
+    KVF_TRANSPORT_RDMA_RSOCKET
+} kvf_transport;
 
 typedef enum {
     KVF_F32 = 1,

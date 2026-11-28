@@ -1,0 +1,6 @@
+{
+  "verified_originals": 520,
+  "verified_original_bytes": 3017923114,
+  "all_gzip_original_sha256_match": true,
+  "all_release_tar_members_match_compressed_part_sha256": true
+}

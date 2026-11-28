@@ -1,0 +1,56 @@
+{
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+  "files": {
+    "model-00001-of-00002.safetensors": {
+      "bytes": 3968658944,
+      "sha256": "67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2"
+    },
+    "model-00002-of-00002.safetensors": {
+      "bytes": 2203268048,
+      "sha256": "a40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d"
+    }
+  },
+  "dtypes": {
+    "BF16": 434
+  },
+  "config": {
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ],
+    "attention_dropout": 0.0,
+    "bos_token_id": 151643,
+    "eos_token_id": 151645,
+    "hidden_act": "silu",
+    "hidden_size": 2048,
+    "initializer_range": 0.02,
+    "intermediate_size": 11008,
+    "max_position_embeddings": 32768,
+    "max_window_layers": 70,
+    "model_type": "qwen2",
+    "num_attention_heads": 16,
+    "num_hidden_layers": 36,
+    "num_key_value_heads": 2,
+    "rms_norm_eps": 1e-06,
+    "rope_theta": 1000000.0,
+    "sliding_window": 32768,
+    "tie_word_embeddings": true,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.43.1",
+    "use_cache": true,
+    "use_sliding_window": false,
+    "vocab_size": 151936
+  },
+  "all_indexed_shards_present": true,
+  "download_metadata": {
+    "vocab.json.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n4783fe10ac3adce15ac8f358ef5462739852c569\n1795592016.7251189\n",
+    "model.safetensors.index.json.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n38047c6284a25427043f0ab040f623a2a20dd093\n1795592015.9453588\n",
+    "merges.txt.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0\n1795592016.6711373\n",
+    "config.json.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n51b83fbd4e2d363b60235b9c8d494046a83c1cbf\n1795592015.7915206\n",
+    "tokenizer.json.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n443909a61d429dff23010e5bddd28ff530edda00\n1795592016.5680056\n",
+    "generation_config.json.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\nbf077f03dc569cfb8a90b3ec1ad20365a620bad6\n1795592015.9241934\n",
+    "model-00002-of-00002.safetensors.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\na40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d\n1795592548.8205838\n",
+    "model-00001-of-00002.safetensors.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2\n1795592619.4862857\n",
+    "tokenizer_config.json.metadata": "aa8e72537993ba99e69dfaafa59ed015b17504d1\n07bfe0640cb5a0037f9322287fbfc682806cf672\n1795592015.9772031\n"
+  }
+}

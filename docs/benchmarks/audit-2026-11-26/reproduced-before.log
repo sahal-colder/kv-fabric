@@ -1,0 +1,5 @@
+batch exit=0
+8 x 128 layers, max worker name: acquire_batch=internal error, matched=0
+null exit=-11
+tlsf exit=0
+same-bin available 4288-byte block, alloc returned out of memory

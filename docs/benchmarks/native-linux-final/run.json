@@ -1,0 +1,20 @@
+{
+  "run_id": "20261125T153218+0800",
+  "started_at": "2026-11-25T15:32:18.392930+08:00",
+  "archive": "/home/wty/Infra/docs/benchmarks/native-linux-final",
+  "work": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800",
+  "build": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+  "build_posix": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix",
+  "model_candidates": [
+    "Qwen/Qwen3-4B",
+    "Qwen/Qwen2.5-3B-Instruct"
+  ],
+  "historical_files_excluded": "/home/wty/Infra/docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800",
+  "status": "complete",
+  "connector_roundtrip": "passed_with_batch_invariant_1",
+  "finished_at": "2026-11-25T20:20:31.441668+08:00",
+  "measured_cells": 27,
+  "measured_requests": 405,
+  "all_required_final_steps_passed": true,
+  "pdf_pages": 1
+}

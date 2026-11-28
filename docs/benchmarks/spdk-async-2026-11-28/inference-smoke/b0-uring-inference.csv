@@ -1,0 +1,7 @@
+layer,backend,batch,sample,request,cache_case,ttft_ns,ssd_reads,token_ids_equal
+C-inference,uring,0,-1,0,cold-A,1667462,1,True
+C-inference,uring,0,-1,0,cold-B,9952619,1,True
+C-inference,uring,0,-1,0,ssd-return-A,388191,1,True
+C-inference,uring,0,0,0,cold-A,1482208,1,True
+C-inference,uring,0,0,0,cold-B,9826362,1,True
+C-inference,uring,0,0,0,ssd-return-A,182142,1,True

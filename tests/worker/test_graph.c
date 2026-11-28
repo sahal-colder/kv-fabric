@@ -22,6 +22,9 @@ int main(void) {
     assert(mi_graph_end_capture(g, 7) == MI_OK);
     assert(mi_graph_workspace_used(g, 7, &used) == MI_OK && used == 768);
     assert(mi_graph_release_workspace(g) == MI_EBUSY);
+    /* Destruction cannot invalidate an executable graph's borrowed workspace. */
+    mi_graph_allocator_destroy(g);
+    assert(mi_graph_workspace_used(g, 7, &used) == MI_OK && used == 768);
     void *same;
     assert(mi_graph_begin_capture(g, 8, &stream_token) == MI_OK);
     assert(mi_graph_alloc(g, 100, &stream_token, &same) == MI_OK && same == p);
@@ -29,8 +32,9 @@ int main(void) {
     assert(mi_graph_abort_capture(g, 8) == MI_OK);
     assert(mi_graph_forget(g, 7) == MI_OK);
     assert(mi_graph_release_workspace(g) == MI_OK);
-    mi_graph_allocator_destroy(g);
+    /* Parent teardown is deferred until the graph owner releases its hold. */
     mi_mempool_destroy(pool);
+    mi_graph_allocator_destroy(g);
     puts("graph ok");
     return 0;
 }

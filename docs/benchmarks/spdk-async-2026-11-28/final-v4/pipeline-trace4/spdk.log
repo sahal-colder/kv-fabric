@@ -1,0 +1,11 @@
+[2026-11-28 14:24:33.278332] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-28 14:24:33.278377] [ DPDK EAL parameters: miniinfer_storage --no-shconf -l 2 -m 272 --huge-unlink --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --iova-mode=va --base-virtaddr=0x1000000000 --file-prefix=spdk_pid246113 --legacy-mem ]
+[2026-11-28 14:24:33.350641] app.c: 993:spdk_app_start: *NOTICE*: Total cores available: 1
+[2026-11-28 14:24:33.353903] reactor.c: 996:reactor_run: *NOTICE*: Reactor started on core 2
+[2026-11-28 14:24:33.644256] nvme_qpair.c: 310:spdk_nvme_qpair_print_command: *NOTICE*: [0000:07:00.0,cntlid:5,qid:0,qpair:0x100d1d3760,ENABLED] IDENTIFY (06) qid:0 cid:191 nsid:0 cdw10:00000006 cdw11:00000000 PRP1 0x100a03d000 PRP2 0x0
+[2026-11-28 14:24:33.644282] nvme_qpair.c: 543:spdk_nvme_qpair_print_completion_ext: *NOTICE*: [0000:07:00.0,cntlid:5,qid:0,qpair:0x100d1d3760,ENABLED] INVALID FIELD (00/02) qid:0 cid:191 cdw0:00000000 sqhd:0007 p:1 m:1 dnr:0
+Collecting data...
+Generating '/tmp/nsys-root/nsys-report-91b0.qdstrm'
+[1/1] [0%                          ] spdk-trace.nsys-rep[1/1] [0%                          ] spdk-trace.nsys-rep[1/1] [1%                          ] spdk-trace.nsys-rep[1/1] [2%                          ] spdk-trace.nsys-rep[1/1] [5%                          ] spdk-trace.nsys-rep[1/1] [7%                          ] spdk-trace.nsys-rep[1/1] [==19%                       ] spdk-trace.nsys-rep[1/1] [==20%                       ] spdk-trace.nsys-rep[1/1] [================69%         ] spdk-trace.nsys-rep[1/1] [==================75%       ] spdk-trace.nsys-rep[1/1] [==================77%       ] spdk-trace.nsys-rep[1/1] [=======================96%  ] spdk-trace.nsys-rep[1/1] [========================98% ] spdk-trace.nsys-rep[1/1] [========================100%] spdk-trace.nsys-rep[1/1] [========================100%] spdk-trace.nsys-rep
+Generated:
+	/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace4/spdk-trace.nsys-rep

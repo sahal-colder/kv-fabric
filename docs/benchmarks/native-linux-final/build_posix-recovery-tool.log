@@ -1,0 +1,7 @@
+[0/1] Re-running CMake...
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix
+[1/3] Building C object src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o
+[2/3] Linking CUDA executable bin/kvf_nvme_recovery_bench

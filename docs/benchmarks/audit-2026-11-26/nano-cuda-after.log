@@ -1,0 +1,35 @@
+COMMAND python3 /home/wty/Infra/tests/nanovllm/test_remote_inference.py --directory /home/wty/Infra/build-cuda-release/bin/kvfabricd --worker /home/wty/Infra/build-cuda-release/bin/test_nano_remote_worker --device cuda --benchmark /tmp/kvf-audit/nano-cuda-after.csv --samples 12 --warmup 1
+cold ttft_ns P50=5919199.000 P95=6103158.000 P99=6103158.000
+cold prefill_ns P50=5905616.000 P95=6089415.000 P99=6089415.000
+cold decode_tokens_per_s P50=9977.266 P95=10062.314 P99=10062.314
+cold local P50=0.000 P95=0.000 P99=0.000
+cold remote_prefill_skipped_tokens P50=0.000 P95=0.000 P99=0.000
+cold cpu_ns P50=6617000.000 P95=6867000.000 P99=6867000.000
+cold rss_kib P50=204228.000 P95=204500.000 P99=204500.000
+cold gpu_mib P50=98.000 P95=98.000 P99=98.000
+cold gpu_device_delta_bytes P50=4194304.000 P95=4194304.000 P99=4194304.000
+local ttft_ns P50=1079651.000 P95=1115014.000 P99=1115014.000
+local prefill_ns P50=1065645.000 P95=1091428.000 P99=1091428.000
+local decode_tokens_per_s P50=9598.811 P95=9998.600 P99=9998.600
+local local P50=80.000 P95=80.000 P99=80.000
+local remote_prefill_skipped_tokens P50=0.000 P95=0.000 P99=0.000
+local cpu_ns P50=1789000.000 P95=1894000.000 P99=1894000.000
+local rss_kib P50=204252.000 P95=204356.000 P99=204356.000
+local gpu_mib P50=98.000 P95=98.000 P99=98.000
+local gpu_device_delta_bytes P50=4194304.000 P95=4194304.000 P99=4194304.000
+remote ttft_ns P50=2223506.000 P95=2596012.000 P99=2596012.000
+remote prefill_ns P50=2196827.000 P95=2569064.000 P99=2569064.000
+remote decode_tokens_per_s P50=9875.554 P95=9936.492 P99=9936.492
+remote local P50=0.000 P95=0.000 P99=0.000
+remote remote_prefill_skipped_tokens P50=80.000 P95=80.000 P99=80.000
+remote cpu_ns P50=2832000.000 P95=3035000.000 P99=3035000.000
+remote rss_kib P50=207924.000 P95=208340.000 P99=208340.000
+remote gpu_mib P50=98.000 P95=98.000 P99=98.000
+remote gpu_device_delta_bytes P50=4194304.000 P95=4194304.000 P99=4194304.000
+remote publisher_cpu_ns P50=0.000 P95=10000000.000 P99=10000000.000
+remote publisher_rss_kib P50=227960.000 P95=228008.000 P99=228008.000
+remote publisher_gpu_mib P50=98.000 P95=98.000 P99=98.000
+remote publisher_gpu_device_delta_bytes P50=4194304.000 P95=4194304.000 P99=4194304.000
+remote directory_cpu_ns P50=0.000 P95=10000000.000 P99=10000000.000
+remote directory_rss_kib P50=11456.000 P95=11468.000 P99=11468.000
+remote transfer_ns P50=718 P95=3668 P99=5207 pages=240

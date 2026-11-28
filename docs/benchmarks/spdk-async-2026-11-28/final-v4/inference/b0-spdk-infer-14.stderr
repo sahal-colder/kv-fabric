@@ -1,0 +1,38 @@
+[2026-11-28 14:16:49.491916] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-28 14:16:49.491958] [ DPDK EAL parameters: miniinfer_storage --no-shconf -l 2 -m 288 --huge-unlink --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --iova-mode=va --base-virtaddr=0x1000000000 --file-prefix=spdk_pid239076 --legacy-mem ]
+[2026-11-28 14:16:49.559558] app.c: 993:spdk_app_start: *NOTICE*: Total cores available: 1
+[2026-11-28 14:16:49.562147] reactor.c: 996:reactor_run: *NOTICE*: Reactor started on core 2
+[2026-11-28 14:16:49.851412] nvme_qpair.c: 310:spdk_nvme_qpair_print_command: *NOTICE*: [0000:07:00.0,cntlid:5,qid:0,qpair:0x100e1d3760,ENABLED] IDENTIFY (06) qid:0 cid:191 nsid:0 cdw10:00000006 cdw11:00000000 PRP1 0x100b03d000 PRP2 0x0
+[2026-11-28 14:16:49.851434] nvme_qpair.c: 543:spdk_nvme_qpair_print_completion_ext: *NOTICE*: [0000:07:00.0,cntlid:5,qid:0,qpair:0x100e1d3760,ENABLED] INVALID FIELD (00/02) qid:0 cid:191 cdw0:00000000 sqhd:0007 p:1 m:1 dnr:0
+model: dim=32 layers=2 heads=4 kv_heads=2 vocab=260 context=192
+KV pool: 0.02 MiB; requests=1 device=cuda
+step=1 forwards=32 generated=0 cache_hits=0 preemptions=0
+step=2 forwards=34 generated=1 cache_hits=0 preemptions=0
+step=3 forwards=35 generated=2 cache_hits=0 preemptions=0
+step=4 forwards=36 generated=3 cache_hits=0 preemptions=0
+step=5 forwards=37 generated=4 cache_hits=0 preemptions=0
+request=0 ttft_ns=1707232 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=55605 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=37 reused=0 preemptions=0 elapsed=0.002s output_tok/s=2138.62 prefilled=34
+ssd_mode=spdk ssd_reads=0 ssd_writes=0 ssd_restore_wait_ns=0
+step=6 forwards=39 generated=5 cache_hits=32 preemptions=0
+step=7 forwards=40 generated=6 cache_hits=32 preemptions=0
+step=8 forwards=41 generated=7 cache_hits=32 preemptions=0
+step=9 forwards=42 generated=8 cache_hits=32 preemptions=0
+request=0 ttft_ns=116071 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=55817 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=5 reused=32 preemptions=0 elapsed=0.000s output_tok/s=14262.49 prefilled=2
+ssd_mode=spdk ssd_reads=0 ssd_writes=0 ssd_restore_wait_ns=0
+step=10 forwards=74 generated=8 cache_hits=32 preemptions=0
+step=11 forwards=76 generated=9 cache_hits=32 preemptions=0
+step=12 forwards=77 generated=10 cache_hits=32 preemptions=0
+step=13 forwards=78 generated=11 cache_hits=32 preemptions=0
+step=14 forwards=79 generated=12 cache_hits=32 preemptions=0
+request=0 ttft_ns=1739748 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=55270 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=37 reused=0 preemptions=0 elapsed=0.002s output_tok/s=2097.41 prefilled=34
+ssd_mode=spdk ssd_reads=0 ssd_writes=1 ssd_restore_wait_ns=0
+step=15 forwards=81 generated=13 cache_hits=64 preemptions=0
+step=16 forwards=82 generated=14 cache_hits=64 preemptions=0
+step=17 forwards=83 generated=15 cache_hits=64 preemptions=0
+step=18 forwards=84 generated=16 cache_hits=64 preemptions=0
+request=0 ttft_ns=166072 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=55790 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=5 reused=32 preemptions=0 elapsed=0.000s output_tok/s=12084.59 prefilled=2
+ssd_mode=spdk ssd_reads=1 ssd_writes=2 ssd_restore_wait_ns=29634

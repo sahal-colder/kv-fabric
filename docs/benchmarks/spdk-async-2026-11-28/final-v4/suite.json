@@ -1,0 +1,42 @@
+{
+  "phases": [
+    {
+      "name": "raw",
+      "required": true,
+      "returncode": 0,
+      "reused_from": "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v3/raw",
+      "used_binary_sha256": "0d25cb9d29988b390ceea6acf505f6ed0090e3d8301d110414b9363ef2505fdd",
+      "verification": "980 configs complete; current executable bit-identical; all region hashes restored"
+    },
+    {
+      "name": "migration",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/wty/Infra/scripts/run_spdk_async_ab.py",
+        "--build",
+        "/home/wty/Infra/build-spdk",
+        "--out",
+        "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v4/migration",
+        "--layer",
+        "migration"
+      ],
+      "required": true,
+      "returncode": 0
+    },
+    {
+      "name": "inference",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/wty/Infra/scripts/run_spdk_async_ab.py",
+        "--build",
+        "/home/wty/Infra/build-spdk",
+        "--out",
+        "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v4/inference",
+        "--layer",
+        "inference"
+      ],
+      "required": true,
+      "returncode": 0
+    }
+  ]
+}

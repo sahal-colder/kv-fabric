@@ -1,0 +1,26 @@
+Internal ctest changing into directory: /home/wty/Infra/build-storage-only
+Test project /home/wty/Infra/build-storage-only
+      Start  1: pool
+ 1/10 Test  #1: pool .............................   Passed    0.29 sec
+      Start  2: graph
+ 2/10 Test  #2: graph ............................   Passed    0.00 sec
+      Start  3: tiered
+ 3/10 Test  #3: tiered ...........................   Passed    0.01 sec
+      Start  4: kv_cache
+ 4/10 Test  #4: kv_cache .........................   Passed    0.00 sec
+      Start  5: paged_kv
+ 5/10 Test  #5: paged_kv .........................   Passed    0.00 sec
+      Start  6: gpu_mock
+ 6/10 Test  #6: gpu_mock .........................   Passed    0.00 sec
+      Start  7: allocator_faults
+ 7/10 Test  #7: allocator_faults .................   Passed    0.00 sec
+      Start  8: device_boundaries_cpu
+ 8/10 Test  #8: device_boundaries_cpu ............   Passed    0.00 sec
+      Start  9: storage_audit
+ 9/10 Test  #9: storage_audit ....................   Passed    0.01 sec
+      Start 10: direct_io_cpu
+10/10 Test #10: direct_io_cpu ....................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 10
+
+Total Test time (real) =   0.31 sec

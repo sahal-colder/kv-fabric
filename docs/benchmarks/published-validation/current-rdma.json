@@ -1,0 +1,430 @@
+{
+  "passed": true,
+  "roundtrips": 60,
+  "records": [
+    {
+      "device": "cpu",
+      "round": 0,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 1,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 2,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 3,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 4,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 5,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 6,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 7,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 8,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 9,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 10,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 11,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 12,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 13,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 14,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 15,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 16,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 17,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 18,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 19,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 20,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 21,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 22,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 23,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 24,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 25,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 26,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 27,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 28,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cpu",
+      "round": 29,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 0,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 1,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 2,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 3,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 4,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 5,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 6,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 7,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 8,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 9,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 10,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 11,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 12,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 13,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 14,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 15,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 16,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 17,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 18,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 19,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 20,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 21,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 22,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 23,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 24,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 25,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 26,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 27,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 28,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    },
+    {
+      "device": "cuda",
+      "round": 29,
+      "transport": "RDMA_RSOCKET",
+      "verified_bytes": 262144,
+      "matched": true
+    }
+  ],
+  "date": "2026-11-26",
+  "source_version": "post-audit current build",
+  "rdma_implementation": "Linux RXE SoftRoCE on temporary isolated veth",
+  "scope": "same-host CPU/CUDA; no physical HCA/GPUDirect claim"
+}

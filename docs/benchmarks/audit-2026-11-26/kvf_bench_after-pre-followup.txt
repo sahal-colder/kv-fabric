@@ -1,0 +1,74 @@
+COMMAND cc -std=c11 -O2 -UNDEBUG -Iinclude /tmp/kvf-audit/micro.c /home/wty/Infra/build-release/src/worker/libminiinfer_storage.a /home/wty/Infra/build-release/src/control/libkvfabric.a -lcrypto -lpthread -o /tmp/kvf-audit/after-accepted/micro
+COMMAND /tmp/kvf-audit/after-accepted/micro
+tlsf_pair,0,65.229,ns
+tlsf_pair,1,59.926,ns
+tlsf_pair,2,59.627,ns
+tlsf_pair,3,60.033,ns
+tlsf_pair,4,59.858,ns
+tlsf_pair,5,59.433,ns
+tlsf_pair,6,59.674,ns
+tlsf_after_coalescing_external_fragmentation,0,0,ratio
+page_pair,0,67.455,ns
+page_pair,1,67.895,ns
+page_pair,2,72.519,ns
+page_pair,3,69.956,ns
+page_pair,4,70.518,ns
+page_pair,5,72.152,ns
+page_pair,6,68.502,ns
+COMMAND /home/wty/Infra/build-release/bin/kvf_bench ssd buffered /tmp/kvf-audit/after-accepted 65536 4 /tmp/kvf-audit/after-accepted/buffered-raw.csv /tmp/kvf-audit/after-accepted/buffered-summary.csv
+SSD benchmark statfs=0xef53 mode=buffered-posix
+COMMAND /home/wty/Infra/build-release/bin/kvf_bench ssd direct /tmp/kvf-audit/after-accepted 65536 4 /tmp/kvf-audit/after-accepted/direct-raw.csv /tmp/kvf-audit/after-accepted/direct-summary.csv
+MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=4
+SSD benchmark statfs=0xef53 mode=direct-posix
+COMMAND /home/wty/Infra/build-release/bin/kvf_bench fixture 65536 /tmp/kvf-audit/after-accepted/fixture
+COMMAND /home/wty/Infra/build-release/bin/kvfabricd --listen 127.0.0.1:0
+READY 127.0.0.1:38495
+COMMAND /home/wty/Infra/build-release/bin/miniinfer_worker serve audit-source 127.0.0.1:38495 127.0.0.1:0 cpu /tmp/kvf-audit/after-accepted/fixture/namespace /tmp/kvf-audit/after-accepted/fixture/tokens /tmp/kvf-audit/after-accepted/fixture/tensors
+READY 127.0.0.1:43441 2
+COMMAND /tmp/kvf-audit/after-accepted/micro 127.0.0.1:38495
+directory_rpc,0,29803.183,ns
+directory_rpc,1,16146.269,ns
+directory_rpc,2,21971.547,ns
+directory_rpc,3,19591.116,ns
+directory_rpc,4,18651.191,ns
+directory_rpc,5,27414.862,ns
+directory_rpc,6,16152.846,ns
+COMMAND /home/wty/Infra/build-release/bin/kvf_bench run pooled cpu 127.0.0.1:38495 65536 4 314406 314423 /tmp/kvf-audit/after-accepted/remote-raw.csv /tmp/kvf-audit/after-accepted/remote-summary.csv
+buffered-summary.csv
+buffered-posix,cpu,65536,4,1,64,450909,17741.939,24.734,29.733,38.262,1.641,0.000,0.000,5064,0,0
+buffered-posix,cpu,65536,4,2,64,432147,18512.219,25.080,31.824,34.082,1.690,0.000,0.000,5132,0,0
+buffered-posix,cpu,65536,4,3,64,482035,16596.305,27.460,35.301,52.477,1.866,0.000,0.000,5132,0,0
+
+direct-summary.csv
+direct-posix,cpu,65536,4,1,64,14582425,548.606,627.722,1915.406,2467.616,4.267,0.000,0.000,5308,0,0
+direct-posix,cpu,65536,4,2,64,13994487,571.654,608.917,1965.988,2040.331,4.211,0.000,0.000,5376,0,0
+direct-posix,cpu,65536,4,3,64,13576111,589.270,597.777,1958.467,1991.996,3.895,0.000,0.000,5376,0,0
+
+remote-summary.csv
+pooled,cpu,65536,4,1,64,6605066,1211.192,420.191,512.014,553.301,9.982,9.249,11.453,7776,23608,7208
+pooled,cpu,65536,4,2,64,6807450,1175.183,427.038,520.108,722.218,10.250,9.667,12.136,7780,23612,7208
+pooled,cpu,65536,4,3,64,6581919,1215.451,399.161,472.004,492.786,9.831,9.356,11.591,7780,23616,7208
+
+dma,H2D,1,75497472,6.1034,11.520
+dma,D2H,1,75497472,6.0824,11.560
+segments,H2D,4608,75497472,13.6099,5.166
+segments,D2H,4608,75497472,11.8430,5.937
+vector,H2D,1,75497472,6.8477,10.268
+vector,D2H,1,75497472,6.8268,10.300
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=4
+mode,sample,payload_bytes,blocks,gpu_to_host_ms,host_to_ssd_ms,ssd_to_gpu_ms,effective_recovery_gib_s,verified_bytes
+direct-uring-fixed,0,75497472,144,10.957040,24.414100,58.304617,1.205951,75497472
+direct-uring-fixed,1,75497472,144,10.974142,24.316311,58.740094,1.197010,75497472
+direct-uring-fixed,2,75497472,144,10.897723,24.291570,57.531961,1.222147,75497472
+direct-uring-fixed,3,75497472,144,10.959885,24.563527,58.875710,1.194253,75497472
+direct-uring-fixed,4,75497472,144,11.140140,24.443740,58.205700,1.208000,75497472
+direct-uring-fixed,5,75497472,144,10.945534,23.856639,59.135415,1.189008,75497472
+direct-uring-fixed,6,75497472,144,10.897521,32.424568,58.215327,1.207800,75497472
+direct-uring-fixed,7,75497472,144,10.933156,24.998857,57.577199,1.221187,75497472
+direct-uring-fixed,8,75497472,144,10.999309,30.587351,58.269700,1.206673,75497472
+direct-uring-fixed,9,75497472,144,11.038092,24.287555,58.428814,1.203387,75497472
+direct-uring-fixed,10,75497472,144,11.064174,23.773759,57.110958,1.231156,75497472
+direct-uring-fixed,11,75497472,144,11.078352,24.192884,58.434767,1.203265,75497472
+direct-uring-fixed,12,75497472,144,11.190590,24.219987,57.828707,1.215875,75497472
+direct-uring-fixed,13,75497472,144,11.054033,24.698694,58.765733,1.196488,75497472
+direct-uring-fixed,14,75497472,144,11.188407,23.799351,57.266639,1.227809,75497472

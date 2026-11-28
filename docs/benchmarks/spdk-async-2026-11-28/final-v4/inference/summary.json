@@ -1,0 +1,102 @@
+{
+  "groups": [
+    {
+      "layer": "C-inference",
+      "backend": "spdk",
+      "cache_case": "cold-A",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0,
+      "p50_ttft_ms": 1.6871715,
+      "p95_ttft_ms": 1.7061832000000001,
+      "p99_ttft_ms": 1.70971444,
+      "p999_ttft_ms": 1.711564444
+    },
+    {
+      "layer": "C-inference",
+      "backend": "spdk",
+      "cache_case": "cold-B",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0,
+      "p50_ttft_ms": 1.7483805000000001,
+      "p95_ttft_ms": 1.83418455,
+      "p99_ttft_ms": 3.05538877999999,
+      "p999_ttft_ms": 4.583265878000007
+    },
+    {
+      "layer": "C-inference",
+      "backend": "spdk",
+      "cache_case": "ram-hot-A",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0,
+      "p50_ttft_ms": 0.11667050000000001,
+      "p95_ttft_ms": 0.11890890000000001,
+      "p99_ttft_ms": 0.12010046999999999,
+      "p999_ttft_ms": 0.120985647
+    },
+    {
+      "layer": "C-inference",
+      "backend": "spdk",
+      "cache_case": "ssd-return-A",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0298345,
+      "p50_ttft_ms": 0.166618,
+      "p95_ttft_ms": 0.33742869999999997,
+      "p99_ttft_ms": 0.3535835699999999,
+      "p999_ttft_ms": 0.3699261570000001
+    },
+    {
+      "layer": "C-inference",
+      "backend": "uring",
+      "cache_case": "cold-A",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0,
+      "p50_ttft_ms": 1.443206,
+      "p95_ttft_ms": 1.5196831,
+      "p99_ttft_ms": 1.56286727,
+      "p999_ttft_ms": 1.576592027
+    },
+    {
+      "layer": "C-inference",
+      "backend": "uring",
+      "cache_case": "cold-B",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0,
+      "p50_ttft_ms": 9.7263965,
+      "p95_ttft_ms": 11.296958149999998,
+      "p99_ttft_ms": 12.231462109999997,
+      "p999_ttft_ms": 12.513938711000002
+    },
+    {
+      "layer": "C-inference",
+      "backend": "uring",
+      "cache_case": "ram-hot-A",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.0,
+      "p50_ttft_ms": 0.10026550000000001,
+      "p95_ttft_ms": 0.11584815,
+      "p99_ttft_ms": 0.11757615,
+      "p999_ttft_ms": 0.11816821500000001
+    },
+    {
+      "layer": "C-inference",
+      "backend": "uring",
+      "cache_case": "ssd-return-A",
+      "samples": 60,
+      "token_ids_equal": true,
+      "restore_wait_ms_median": 0.107614,
+      "p50_ttft_ms": 0.26851,
+      "p95_ttft_ms": 0.6800289499999957,
+      "p99_ttft_ms": 2.7576456799999947,
+      "p999_ttft_ms": 3.579712268000004
+    }
+  ],
+  "scope": "generated dim=32, layers=2 CUDA fixture; no production model speedup claim",
+  "wait_scope": "synchronous inference scheduler wait for SSD restore, not GPU hardware idle counter"
+}

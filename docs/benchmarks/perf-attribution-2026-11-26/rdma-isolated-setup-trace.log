@@ -1,0 +1,6 @@
++ ip link set lo up
++ ip link add kvf-rxe-a type veth peer name kvf-rxe-b
++ ip addr add 198.19.77.1/30 dev kvf-rxe-a
++ ip link set kvf-rxe-a up
++ rdma link add kvf-rxe type rxe netdev kvf-rxe-a
+error: Operation not permitted

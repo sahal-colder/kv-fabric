@@ -1,0 +1,7 @@
+engine 0: all 6 preparation allocation failures atomic; duplicate keys/NX PASS
+engine 1: all 8 preparation allocation failures atomic; duplicate keys/NX PASS
+engine 2: all 8 preparation allocation failures atomic; duplicate keys/NX PASS
+engine 3: all 11 preparation allocation failures atomic; duplicate keys/NX PASS
+array capacity rollback; RESP integer overflow + 32KiB bulk + connection overflow: PASS
+snapshot replace: Input/output error
+SNAPSHOT_RESP_PASS

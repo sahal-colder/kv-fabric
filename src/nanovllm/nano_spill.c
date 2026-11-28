@@ -2,7 +2,9 @@
  * 单机推理 SSD 溢写层。维护可恢复的本地前缀和物理槽。
  * 溢写对象拥有中转内存和索引，借用后端。由调度线程串行访问。
  */
+#define _POSIX_C_SOURCE 200809L
 #include "nano_cache.h"
+#include "../worker/io_metrics.h"
 #include "miniinfer/storage_backend.h"
 #include <stdlib.h>
 
@@ -21,7 +23,7 @@ struct NvSpill {
     int count, next;
     size_t half, stride;
     unsigned char *staging;
-    uint64_t reads, writes, version;
+    uint64_t reads, writes, version, restore_wait_ns;
 };
 
 void nv_cache_attach_ssd(NvCache *cache, mi_storage_backend *backend, int count) {
@@ -56,6 +58,9 @@ void nv_spill_stats(const NvCache *cache, uint64_t *reads, uint64_t *writes) {
     *writes = s ? s->writes : 0;
 }
 
+uint64_t nv_spill_wait_ns(const NvCache *cache) {
+    return cache->spill ? cache->spill->restore_wait_ns : 0;
+}
 static mi_block_meta record_meta(int index, uint64_t version, size_t bytes) {
     return (mi_block_meta){.id = (mi_block_id)index + 1, .location = MI_LOCATION_SSD,
                            .size = bytes, .version = version};
@@ -100,16 +105,20 @@ int nv_spill_restore(NvCache *cache, NvPrefixKey key) {
     if (index < 0)
         return -1;
     spill_slot *slot = &s->slots[index];
+    uint64_t started=mi_io_now_ns();
     /* 恢复使用第二块中转区，第一块供分配期间可能触发的写回使用。 */
     unsigned char *data = s->staging + s->stride;
     mi_block_meta meta = record_meta(index, slot->version, 2 * s->half);
-    if (mi_backend_read_validated(s->backend, slot->handle, &meta, data) != MI_OK)
+    if (mi_backend_read_validated(s->backend, slot->handle, &meta, data) != MI_OK) {
+        s->restore_wait_ns += mi_io_now_ns()-started;
         return -1;
+    }
     int block = nv_cache_allocate(cache);
     if (block >= 0) {
         nv_cache_copy_block(cache, block, data, s->half, 1);
         ++s->reads;
     }
+    s->restore_wait_ns += mi_io_now_ns()-started;
     return block;
 }
 

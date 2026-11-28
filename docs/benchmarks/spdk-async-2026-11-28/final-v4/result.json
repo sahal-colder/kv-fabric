@@ -1,0 +1,88 @@
+{
+  "date_local": "2026-11-28",
+  "timezone": "Australia/Perth",
+  "status": "required_matrix_and_regressions_passed",
+  "architecture": "network epoll Reactor / network io_uring Proactor / NtyCo unchanged; SSD engines isolated",
+  "layers": {
+    "raw": {
+      "process_runs": 980,
+      "summary": "raw/summary.json",
+      "summary_csv": "raw/summary.csv",
+      "run": "raw/run.json",
+      "warmup": 3,
+      "measured_rounds_per_process": 30,
+      "all_regions_sha256_restored": true
+    },
+    "migration": {
+      "process_runs": 280,
+      "summary": "migration/summary.json",
+      "summary_csv": "migration/summary.csv",
+      "run": "migration/run.json",
+      "warmup": 3,
+      "measured_rounds_per_process": 30,
+      "all_regions_sha256_restored": true
+    },
+    "inference": {
+      "process_runs": 132,
+      "summary": "inference/summary.json",
+      "summary_csv": "inference/summary.csv",
+      "run": "inference/run.json",
+      "warmup": 3,
+      "measured_rounds_per_process": 30,
+      "all_regions_sha256_restored": true
+    }
+  },
+  "optional_profiles": {
+    "iopoll": {
+      "process_runs": 48,
+      "actual_flag_verified": true,
+      "max_qd": 128,
+      "summary": "iopoll/summary.json",
+      "all_regions_sha256_restored": true
+    },
+    "sqpoll": {
+      "process_runs": 48,
+      "actual_flag_verified": true,
+      "max_qd": 128,
+      "summary": "sqpoll/summary.json",
+      "all_regions_sha256_restored": true
+    }
+  },
+  "limits": [
+    "single-reactor SPDK, no multi-reactor claim",
+    "CPU cycles/IO are in-process PMU counters, do not include external IRQ/kworker cost",
+    "SPDK consumes a polling core; not a universal CPU efficiency win",
+    "Inference uses a tiny random-weight 2-layer dim32 CUDA fixture",
+    "cold-B inference includes first io_uring owner startup; no pure SSD speedup claim",
+    "no production-model multi-request prefetch service SLO, physical RDMA, real hot-unplug, or power-cut recovery validation",
+    "shared CUDA/SPDK memory prototype passed but production pool sharing not enabled"
+  ],
+  "validation": "final-validation.json",
+  "task_files": "task-files.json",
+  "source_sha256": "source-sha256.json",
+  "environment": "raw/environment.json",
+  "toolchain": "toolchain.json",
+  "reports": {
+    "audit": "../../../SPDK-ASYNC-IO-AUDIT.md",
+    "design": "../../../SPDK-ASYNC-IO-DESIGN.md",
+    "implementation": "../../../SPDK-ASYNC-IO-IMPLEMENTATION.md",
+    "benchmark": "../../../SPDK-ASYNC-IO-BENCHMARK.md"
+  },
+  "pipeline_trace": {
+    "run": "pipeline-trace4/run.json",
+    "summary": "pipeline-trace4/overlap.json",
+    "plot": "pipeline-trace4/pipeline-overlap.png",
+    "nsys": [
+      "pipeline-trace4/spdk-trace.nsys-rep",
+      "pipeline-trace4/uring-trace.nsys-rep"
+    ],
+    "scope": "CUDA execution overlapping other-Page outstanding SSD call; not pure NVMe device-service overlap"
+  },
+  "raw_provenance": {
+    "canonical_directory": "../final-v3/raw",
+    "source_archive": "raw/source-snapshot",
+    "current_binary_bit_identical": true,
+    "sha256": "0d25cb9d29988b390ceea6acf505f6ed0090e3d8301d110414b9363ef2505fdd"
+  },
+  "excluded_diagnostics": "Earlier interrupted/preflight/smoke/profile failures remain outside accepted summary, except explicitly final-v4 pipeline-trace4 and optional profiles. final-v3/migration is interrupted and excluded."
+}

@@ -1,0 +1,4 @@
+$ /home/wty/Documents/Codex/2026-10-26/python-office-python-conda-cuda-cpu/.conda-envs/unified/bin/python tests/vllm/test_connector_roundtrip.py --bridge-only --require-uring-fixed --library /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration/libkvf_vllm.so --directory /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd --out /home/wty/Infra/docs/benchmarks/native-linux-final/bridge-roundtrip
+{"bridge": "cpu", "matched_bytes": 12288, "eviction": true}
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+{"bridge": "direct-uring-fixed", "matched_bytes": 12288, "eviction": true}

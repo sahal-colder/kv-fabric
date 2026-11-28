@@ -1,0 +1,73 @@
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Checking for module 'liburing>=2.3'
+--   Found liburing, version 2.9
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/build-baseline-cuda
+Consolidate compiler generated dependencies of target kvfabric
+[  7%] Built target kvfabric
+Consolidate compiler generated dependencies of target test_kvf_directory
+Consolidate compiler generated dependencies of target test_remote_e2e
+Consolidate compiler generated dependencies of target kvfctl
+Consolidate compiler generated dependencies of target kvfabricd
+Consolidate compiler generated dependencies of target test_kvf_protocol
+Consolidate compiler generated dependencies of target miniinfer_storage
+[  9%] Built target test_kvf_directory
+[ 11%] Built target test_remote_e2e
+[ 13%] Built target kvfctl
+[ 27%] Built target miniinfer_storage
+[ 29%] Built target test_kvf_protocol
+[ 31%] Built target kvfabricd
+Consolidate compiler generated dependencies of target kvf_nvme_recovery_bench
+Consolidate compiler generated dependencies of target test_tiered
+Consolidate compiler generated dependencies of target test_kv_cache
+Consolidate compiler generated dependencies of target test_pool
+Consolidate compiler generated dependencies of target test_graph
+Consolidate compiler generated dependencies of target miniinfer_basic
+[ 34%] Built target test_pool
+[ 34%] Built target test_kv_cache
+[ 36%] Built target miniinfer_basic
+[ 39%] Built target kvf_nvme_recovery_bench
+[ 40%] Built target test_tiered
+[ 42%] Built target test_graph
+Consolidate compiler generated dependencies of target test_gpu_mock
+Consolidate compiler generated dependencies of target test_paged_kv
+Consolidate compiler generated dependencies of target test_storage_audit
+Consolidate compiler generated dependencies of target test_device_boundaries
+[ 44%] Built target test_paged_kv
+Consolidate compiler generated dependencies of target test_uring_faults
+[ 46%] Built target test_gpu_mock
+[ 47%] Building C object src/worker/CMakeFiles/test_allocator_faults.dir/__/__/tests/worker/test_allocator_faults.c.o
+[ 49%] Built target test_device_boundaries
+[ 50%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+Consolidate compiler generated dependencies of target test_direct_io
+[ 53%] Built target test_uring_faults
+Consolidate compiler generated dependencies of target miniinfer_remote
+Consolidate compiler generated dependencies of target test_remote_lifecycle
+[ 55%] Built target test_direct_io
+[ 62%] Built target miniinfer_remote
+[ 64%] Built target test_remote_lifecycle
+Consolidate compiler generated dependencies of target miniinfer_worker
+Consolidate compiler generated dependencies of target test_remote_audit
+Consolidate compiler generated dependencies of target kvf_bench
+Consolidate compiler generated dependencies of target test_remote_faults
+[ 65%] Linking CUDA executable ../../bin/test_allocator_faults
+[ 67%] Built target miniinfer_worker
+[ 69%] Built target test_remote_audit
+[ 73%] Built target test_remote_faults
+[ 73%] Built target kvf_bench
+Consolidate compiler generated dependencies of target miniinfer_nano
+Consolidate compiler generated dependencies of target miniinfer
+Consolidate compiler generated dependencies of target kvf_vllm
+[ 83%] Built target miniinfer
+[ 90%] Built target miniinfer_nano
+[ 93%] Built target kvf_vllm
+Consolidate compiler generated dependencies of target test_nano_remote_worker
+Consolidate compiler generated dependencies of target nanovllm
+Consolidate compiler generated dependencies of target kvf_cuda_bench
+[ 97%] Built target nanovllm
+[ 97%] Built target test_nano_remote_worker
+[ 99%] Built target kvf_cuda_bench
+[ 99%] Built target test_allocator_faults
+[100%] Linking CUDA executable ../../bin/test_storage_audit
+[100%] Built target test_storage_audit

@@ -1,0 +1,166 @@
+Internal ctest changing into directory: /home/wty/Infra/build-release
+Test project /home/wty/Infra/build-release
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.31 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.29 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+    Test  #3: pool .............................   Passed    0.28 sec
+    Start  3: pool
+1/4 Test  #3: pool .............................   Passed    0.28 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+    Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start  9: allocator_faults
+2/4 Test  #9: allocator_faults .................   Passed    0.00 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+    Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 11: storage_audit
+3/4 Test #11: storage_audit ....................   Passed    0.01 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.81 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.81 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.82 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.61 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.91 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.72 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.72 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.81 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.72 sec
+    Start 14: remote_audit
+    Test #14: remote_audit .....................   Passed    2.71 sec
+    Start 14: remote_audit
+4/4 Test #14: remote_audit .....................   Passed    2.82 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =  60.82 sec

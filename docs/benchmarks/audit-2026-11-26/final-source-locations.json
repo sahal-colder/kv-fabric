@@ -1,0 +1,250 @@
+{
+  "1": [
+    {
+      "path": "src/control/wire.c",
+      "function": "kvf_put_manifest",
+      "start": 191,
+      "end": 204
+    },
+    {
+      "path": "src/control/control.c",
+      "function": "control_request",
+      "start": 163,
+      "end": 184
+    }
+  ],
+  "2": [
+    {
+      "path": "src/control/identity.c",
+      "function": "kvf_owner_valid",
+      "start": 143,
+      "end": 156
+    },
+    {
+      "path": "src/control/directory.c",
+      "function": "kvf_directory_worker_status",
+      "start": 257,
+      "end": 271
+    }
+  ],
+  "3": [
+    {
+      "path": "src/worker/remote/cache.c",
+      "function": "export_page",
+      "start": 11,
+      "end": 87
+    },
+    {
+      "path": "src/worker/remote/cache.c",
+      "function": "mi_remote_invalidate_page_revision",
+      "start": 211,
+      "end": 230
+    },
+    {
+      "path": "src/nanovllm/nano_remote_kv.c",
+      "function": "nv_remote_evict",
+      "start": 521,
+      "end": 534
+    }
+  ],
+  "4": [
+    {
+      "path": "src/worker/remote/cache.c",
+      "function": "resolve_batch",
+      "start": 451,
+      "end": 558
+    }
+  ],
+  "5": [
+    {
+      "path": "src/worker/remote/transfer.c",
+      "function": "mi_remote_import",
+      "start": 422,
+      "end": 544
+    },
+    {
+      "path": "src/worker/remote/transfer.c",
+      "function": "mi_remote_receive_batch",
+      "start": 361,
+      "end": 420
+    }
+  ],
+  "6": [
+    {
+      "path": "src/worker/remote/worker.c",
+      "function": "serve",
+      "start": 28,
+      "end": 73
+    }
+  ],
+  "7": [
+    {
+      "path": "src/worker/uring_io.c",
+      "function": "transfer",
+      "start": 120,
+      "end": 216
+    },
+    {
+      "path": "src/worker/uring_io.c",
+      "function": "quiesce",
+      "start": 99,
+      "end": 118
+    }
+  ],
+  "8": [
+    {
+      "path": "src/worker/direct_io.c",
+      "function": "mi_direct_create",
+      "start": 42,
+      "end": 92
+    },
+    {
+      "path": "src/worker/direct_io.c",
+      "function": "mi_direct_record",
+      "start": 192,
+      "end": 249
+    }
+  ],
+  "9": [
+    {
+      "path": "src/worker/tiered_storage.c",
+      "function": "lease_complete",
+      "start": 269,
+      "end": 329
+    },
+    {
+      "path": "src/worker/paged_kv.c",
+      "function": "page_complete",
+      "start": 313,
+      "end": 323
+    }
+  ],
+  "10": [
+    {
+      "path": "src/worker/tiered_storage.c",
+      "function": "mi_storage_migrate",
+      "start": 417,
+      "end": 506
+    },
+    {
+      "path": "src/worker/tiered_storage.c",
+      "function": "clear_cleanup",
+      "start": 702,
+      "end": 718
+    }
+  ],
+  "11": [
+    {
+      "path": "src/worker/allocator.c",
+      "function": "bin_find",
+      "start": 271,
+      "end": 283
+    },
+    {
+      "path": "src/worker/allocator.c",
+      "function": "allocate",
+      "start": 519,
+      "end": 592
+    }
+  ],
+  "12": [
+    {
+      "path": "src/worker/device_cuda.cu",
+      "function": "copy",
+      "start": 148,
+      "end": 163
+    },
+    {
+      "path": "src/worker/tiered_storage.c",
+      "function": "mi_storage_read_snapshot_event",
+      "start": 649,
+      "end": 695
+    },
+    {
+      "path": "src/worker/storage_backend.c",
+      "function": "mi_backend_gpu_copy",
+      "start": 379,
+      "end": 403
+    },
+    {
+      "path": "src/worker/graph_allocator.c",
+      "function": "mi_graph_allocator_destroy",
+      "start": 243,
+      "end": 272
+    }
+  ],
+  "13": [
+    {
+      "path": "src/worker/spdk_bridge.c",
+      "function": "poll_shutdown",
+      "start": 149,
+      "end": 156
+    },
+    {
+      "path": "src/worker/spdk_bridge.c",
+      "function": "mi_spdk_close",
+      "start": 286,
+      "end": 297
+    }
+  ],
+  "14": [
+    {
+      "path": "src/integration/vllm_bridge.c",
+      "function": "kvf_vllm_open",
+      "start": 100,
+      "end": 162
+    }
+  ],
+  "15": [
+    {
+      "path": "src/protocol/kvs_text.c",
+      "function": "kvs_text_command",
+      "start": 16,
+      "end": 77
+    }
+  ],
+  "16": [
+    {
+      "path": "src/replication/kvs_auth.c",
+      "function": "kvs_transport_authenticate",
+      "start": 37,
+      "end": 67
+    },
+    {
+      "path": "src/replication/kvs_master.c",
+      "function": "accept_slaves",
+      "start": 279,
+      "end": 296
+    }
+  ],
+  "17": [
+    {
+      "path": "src/protocol/kvs_resp.c",
+      "function": "kvs_resp_buffer_bulk",
+      "start": 163,
+      "end": 179
+    },
+    {
+      "path": "src/network/kvs_connection.c",
+      "function": "grow",
+      "start": 17,
+      "end": 34
+    }
+  ],
+  "18": [
+    {
+      "path": "src/store/kvs_data.c",
+      "function": "kvs_store_mset",
+      "start": 175,
+      "end": 265
+    }
+  ],
+  "19": [
+    {
+      "path": "src/replication/kvs_transport.c",
+      "function": "kvs_transport_wait",
+      "start": 61,
+      "end": 97
+    }
+  ]
+}

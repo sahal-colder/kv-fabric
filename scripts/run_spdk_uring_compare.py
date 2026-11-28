@@ -7,6 +7,7 @@ verifies all three regions by O_DIRECT, and restores the original service state.
 """
 import argparse
 import csv
+import errno
 from datetime import datetime
 import hashlib
 import importlib.util
@@ -70,7 +71,15 @@ def direct_hash(device, region):
 
 
 def restore(device, region):
-    fd = os.open(device,os.O_RDWR|os.O_DIRECT)
+    fd = -1
+    for attempt in range(200):
+        try:
+            fd = os.open(device,os.O_RDWR|os.O_DIRECT|os.O_EXCL)
+            break
+        except OSError as error:
+            if error.errno != errno.EBUSY or attempt == 199:
+                raise
+            time.sleep(0.01)
     try:
         with open(region['backup'],'rb') as source, mmap.mmap(-1,4*1024*1024) as buf:
             for pos in range(0,region['length'],len(buf)):

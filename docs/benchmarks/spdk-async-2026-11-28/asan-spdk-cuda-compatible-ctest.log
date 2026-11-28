@@ -1,0 +1,106 @@
+Internal ctest changing into directory: /home/wty/Infra/build-async-spdk-asan
+Test project /home/wty/Infra/build-async-spdk-asan
+      Start 45: nano_remote_inference_cuda
+      Start 44: nano_remote_inference_cpu
+      Start 39: remote_audit
+      Start 43: remote_e2e_cuda
+      Start  3: pool
+      Start 40: remote_faults
+      Start 13: storage_retirement_cuda
+      Start 37: direct_io_cuda
+ 1/45 Test #37: direct_io_cuda ...................   Passed    0.94 sec
+      Start 42: remote_restart
+ 2/45 Test #13: storage_retirement_cuda ..........   Passed    1.16 sec
+      Start 41: remote_e2e_cpu
+ 3/45 Test #42: remote_restart ...................   Passed    1.71 sec
+      Start  2: kvf_directory
+ 4/45 Test #41: remote_e2e_cpu ...................   Passed    1.57 sec
+      Start  8: gpu_mock
+ 5/45 Test #40: remote_faults ....................   Passed    2.76 sec
+      Start 11: device_boundaries_cuda
+ 6/45 Test  #8: gpu_mock .........................   Passed    0.55 sec
+      Start  1: kvf_protocol
+ 7/45 Test  #1: kvf_protocol .....................   Passed    0.06 sec
+      Start 12: storage_audit
+ 8/45 Test  #2: kvf_directory ....................   Passed    0.71 sec
+      Start 26: uring_async_qd4
+ 9/45 Test #11: device_boundaries_cuda ...........   Passed    0.62 sec
+      Start 25: uring_async_qd1
+10/45 Test #12: storage_audit ....................   Passed    0.05 sec
+      Start 27: uring_async_qd8
+11/45 Test #26: uring_async_qd4 ..................   Passed    0.03 sec
+      Start 31: uring_async_qd128
+12/45 Test #27: uring_async_qd8 ..................   Passed    0.03 sec
+      Start 35: migration_parallel
+13/45 Test #25: uring_async_qd1 ..................   Passed    0.05 sec
+      Start 29: uring_async_qd32
+14/45 Test #31: uring_async_qd128 ................   Passed    0.05 sec
+      Start 16: uring_faults
+15/45 Test #35: migration_parallel ...............   Passed    0.04 sec
+      Start 28: uring_async_qd16
+16/45 Test #29: uring_async_qd32 .................   Passed    0.03 sec
+      Start 30: uring_async_qd64
+17/45 Test #16: uring_faults .....................   Passed    0.03 sec
+      Start 10: device_boundaries_cpu
+18/45 Test #28: uring_async_qd16 .................   Passed    0.04 sec
+      Start 36: direct_io_cpu
+19/45 Test #30: uring_async_qd64 .................   Passed    0.03 sec
+      Start 38: remote_lifecycle
+20/45 Test #10: device_boundaries_cpu ............   Passed    0.04 sec
+      Start  6: kv_cache
+21/45 Test #38: remote_lifecycle .................   Passed    0.02 sec
+      Start  5: tiered
+22/45 Test  #6: kv_cache .........................   Passed    0.02 sec
+      Start  9: allocator_faults
+23/45 Test #36: direct_io_cpu ....................   Passed    0.03 sec
+      Start  4: graph
+24/45 Test  #4: graph ............................   Passed    0.02 sec
+      Start  7: paged_kv
+25/45 Test  #5: tiered ...........................   Passed    0.03 sec
+      Start 32: uring_sqpoll_qd1
+26/45 Test  #9: allocator_faults .................   Passed    0.03 sec
+      Start 33: uring_sqpoll_qd32
+27/45 Test  #7: paged_kv .........................   Passed    0.02 sec
+      Start 34: uring_sqpoll_qd128
+28/45 Test #32: uring_sqpoll_qd1 .................   Passed    0.04 sec
+29/45 Test #34: uring_sqpoll_qd128 ...............   Passed    0.03 sec
+30/45 Test #33: uring_sqpoll_qd32 ................   Passed    0.05 sec
+31/45 Test  #3: pool .............................   Passed    5.13 sec
+32/45 Test #43: remote_e2e_cuda ..................   Passed    6.83 sec
+33/45 Test #39: remote_audit .....................   Passed    7.89 sec
+34/45 Test #44: nano_remote_inference_cpu ........   Passed   10.72 sec
+35/45 Test #45: nano_remote_inference_cuda .......   Passed   23.33 sec
+      Start 17: spdk_faults
+36/45 Test #17: spdk_faults ......................   Passed    0.14 sec
+      Start 14: spdk_lifecycle
+37/45 Test #14: spdk_lifecycle ...................   Passed    0.14 sec
+      Start 15: spdk_init_failure
+38/45 Test #15: spdk_init_failure ................   Passed    0.13 sec
+      Start 24: spdk_async_qd128
+39/45 Test #24: spdk_async_qd128 .................   Passed    0.13 sec
+      Start 21: spdk_async_qd16
+40/45 Test #21: spdk_async_qd16 ..................   Passed    0.14 sec
+      Start 19: spdk_async_qd4
+41/45 Test #19: spdk_async_qd4 ...................   Passed    0.13 sec
+      Start 18: spdk_async_qd1
+42/45 Test #18: spdk_async_qd1 ...................Subprocess aborted***Exception:   0.42 sec
+[2026-11-28 13:07:15.272819] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-28 13:07:15.272953] [ DPDK EAL parameters: miniinfer_storage --no-shconf -l 0 -m 256 --no-pci --no-huge --legacy-mem --iova-mode=va --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --base-virtaddr=0x200000000000 --file-prefix=spdk_pid151461 ]
+[2026-11-28 13:07:15.294549] app.c: 855:claim_cpu_cores: *ERROR*: Cannot create lock on core 0, probably process 151453 has claimed it.
+[2026-11-28 13:07:15.294579] app.c: 986:spdk_app_start: *ERROR*: Unable to acquire lock on assigned core mask - exiting.
+test_spdk_async: /home/wty/Infra/tests/worker/test_async_io.c:54: main: Assertion `mi_spdk_open_ex(cfg,(mi_spdk_options){.queue_depth=qd,.buffer_count=COUNT, .max_transfer_bytes=4096,.submit_batch=qd},&d)==MI_OK' failed.
+
+      Start 22: spdk_async_qd32
+43/45 Test #22: spdk_async_qd32 ..................   Passed    0.14 sec
+      Start 20: spdk_async_qd8
+44/45 Test #20: spdk_async_qd8 ...................   Passed    0.13 sec
+      Start 23: spdk_async_qd64
+45/45 Test #23: spdk_async_qd64 ..................   Passed    0.13 sec
+
+98% tests passed, 1 tests failed out of 45
+
+Total Test time (real) =  24.97 sec
+
+The following tests FAILED:
+	 18 - spdk_async_qd1 (Subprocess aborted)
+Errors while running CTest

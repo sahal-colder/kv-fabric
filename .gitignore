@@ -36,3 +36,11 @@ Thumbs.db
 
 __pycache__/
 *.pyc
+
+# Local models, private resumes, profiler captures and delivery packages.
+/.kvfabric-local/
+/docs/resume_ai_infra.md
+/docs/resume_out/
+/docs/interview_prep_kv_fabric.md
+/resume_build/
+/dist/

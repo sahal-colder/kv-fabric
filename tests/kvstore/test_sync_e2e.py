@@ -97,7 +97,9 @@ class Server:
             self.resources.close()
             raise AssertionError(message) from None
 
-    def stop(self, expected=0):
+    def stop(self, expected=None):
+        if expected is None:
+            expected = -signal.SIGTERM if os.environ.get("KVS_TEST_NETWORK") == "ntyco" else 0
         if self.process.poll() is None:
             self.process.send_signal(signal.SIGCONT)
             self.process.terminate()

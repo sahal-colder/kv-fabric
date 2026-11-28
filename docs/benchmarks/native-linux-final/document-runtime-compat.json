@@ -1,0 +1,28 @@
+{
+  "bundled_libreoffice": "/home/wty/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/libreoffice-headless/libreoffice/program/soffice.bin",
+  "private_libraries": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/render-compat/root",
+  "packages": [
+    {
+      "package": "libc6",
+      "version": "2.39-0ubuntu8.12",
+      "sha256": "d821b41fc59cb4978ecd53bc83e5c964ac15d305c8d2ac4c8a35aebe55010fb9",
+      "url": "https://mirrors.aliyun.com/ubuntu/pool/main/g/glibc/libc6_2.39-0ubuntu8.12_amd64.deb"
+    },
+    {
+      "package": "libstdc++6",
+      "version": "14.2.0-4ubuntu2~24.04.1",
+      "sha256": "a51f8de7829211db961a31f02158058ad1a95f92ac6d0a5dff6350e2821c54c0",
+      "url": "https://mirrors.aliyun.com/ubuntu/pool/main/g/gcc-14/libstdc++6_14.2.0-4ubuntu2~24.04.1_amd64.deb"
+    },
+    {
+      "package": "libgcc-s1",
+      "version": "14.2.0-4ubuntu2~24.04.1",
+      "sha256": "aa7fadbe33b78bcf99885318040601c550c208929565b179891d9a3cc2aa68cd",
+      "url": "https://mirrors.aliyun.com/ubuntu/pool/main/g/gcc-14/libgcc-s1_14.2.0-4ubuntu2~24.04.1_amd64.deb"
+    }
+  ],
+  "system_packages_modified": false,
+  "loader": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/render-compat/root/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+  "wrapper_directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/render-compat/bin",
+  "bundled_poppler": "/home/wty/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/poppler"
+}

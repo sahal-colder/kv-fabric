@@ -1,0 +1,15 @@
++ timeout 5s /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd --config /home/wty/Infra/docs/benchmarks/native-linux-final/directory-probe.conf
+kvfabricd: I/O error
++ printf 'kvfabricd exit=%s\n' 1
+kvfabricd exit=1
++ /usr/bin/python3 -c 'import socket; left, right = socket.socketpair(); print("socketpair AF_UNIX send/recv", left.send(b"x"), right.recv(1))'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+PermissionError: [Errno 1] Operation not permitted
++ printf 'socketpair probe exit=%s\n' 1
+socketpair probe exit=1
++ grep -n -E 'MiniInfer SSD|Operation not permitted|CUDA' /home/wty/Infra/docs/benchmarks/native-linux-final/ctest-raw.log
+122:No CUDA device available
+138:MiniInfer SSD: fixed buffers unavailable (unsupported operation), using O_DIRECT POSIX
+139:MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=2
+284:CUDA Runtime did not report an available device

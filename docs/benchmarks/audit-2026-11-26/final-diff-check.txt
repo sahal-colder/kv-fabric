@@ -1,0 +1,6 @@
+src/nanovllm/nano_cuda.cu:148: trailing whitespace.
++    maximum = Reduce(scratch).Reduce(maximum, [](float left, float right) {
+src/nanovllm/nano_cuda.cu:149: trailing whitespace.
++        return left < right ? right : left;
+src/nanovllm/nano_cuda.cu:150: trailing whitespace.
++    });

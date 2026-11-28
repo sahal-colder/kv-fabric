@@ -54,7 +54,8 @@ mi_status mi_mempool_release_async(mi_mempool *pool, void *ptr, mi_stream stream
 mi_status mi_mempool_collect(mi_mempool *pool);
 /* 清理已空闲的底层分配。 */
 mi_status mi_mempool_trim(mi_mempool *pool);
-/* 释放内存池及其拥有的底层分配。 */
+/* 释放内存池及其拥有的底层分配。后端/Graph仍持有时延后销毁；
+ * DMA完成无法确认时隔离保留资源，需进程退出回收。 */
 void mi_mempool_destroy(mi_mempool *pool);
 
 #ifdef __cplusplus

@@ -20,7 +20,7 @@ typedef struct mi_storage_config {
     size_t gpu_bytes;
     /* SSD 层预算，包含记录头与对齐开销。 */
     size_t ssd_bytes;
-    /* 排队和执行中的异步迁移总数上限。 */
+    /* 同时执行的迁移上限（同步调用也计入）；待执行队列容量为该值的两倍。 */
     size_t max_async_migrations;
     /* 块从 SSD 迁回内存后，保留 SSD 副本。 */
     int retain_ssd_copy;
@@ -56,6 +56,10 @@ typedef struct mi_lease {
 } mi_lease;
 
 typedef struct mi_migration_ticket mi_migration_ticket;
+typedef struct mi_migration_stats {
+    size_t concurrency, running, max_running, queue_capacity, queued;
+} mi_migration_stats;
+void mi_storage_migration_stats(mi_tiered_storage *storage, mi_migration_stats *out);
 
 /* 填入默认块大小与容量配置。 */
 void mi_storage_config_default(mi_storage_config *config);
@@ -73,7 +77,10 @@ mi_status mi_storage_create_block(mi_tiered_storage *storage, size_t bytes,
 /* 获取内存块租约。读要求已提交，写要求独占，GPU 访问须提供流。 */
 mi_status mi_storage_acquire(mi_tiered_storage *storage, mi_block_id id,
                              mi_access_mode mode, mi_stream stream, mi_lease *out);
-/* 结束租约。写入成功时提交数据并递增版本。 */
+/* 结束租约。写入成功时提交数据并递增版本。
+ * 无法确认 GPU 完成时返回 MI_EIO，并由 Storage 接管隔离资源；租约仍会清空。
+ * 此后该 Storage 拒绝数据操作，资源保留至进程退出，不能原地复用设备。 */
+/* 同一流使用的外部资源仍由调用者隔离至确认完成或进程退出。 */
 mi_status mi_lease_finish(mi_lease *lease);
 /* 结束租约。取消原地写入会使块变为未初始化。 */
 mi_status mi_lease_abort(mi_lease *lease);
@@ -85,7 +92,7 @@ mi_status mi_storage_metadata(mi_tiered_storage *storage, mi_block_id id,
 /* 将块迁到目标层，保留逻辑 ID 和数据版本。 */
 mi_status mi_storage_migrate(mi_tiered_storage *storage, mi_block_id id, mi_location target);
 
-/* 顺序迁移各块，逐项写入 results，并返回首个错误。 */
+/* 有界并行迁移各块，逐项写入 results，并返回首个错误。 */
 mi_status mi_storage_migrate_batch(mi_tiered_storage *storage, const mi_block_id *ids,
                                    size_t count, mi_location target, mi_status *results);
 
@@ -94,6 +101,8 @@ mi_status mi_storage_migrate_async(mi_tiered_storage *storage, mi_block_id id,
                                    mi_location target, mi_migration_ticket **out);
 /* 等待票据完成并返回迁移结果。 */
 mi_status mi_migration_wait(mi_migration_ticket *ticket);
+/* Cooperative cancellation: wait still required; an already committed move may succeed. */
+void mi_migration_cancel(mi_migration_ticket *ticket);
 /* 释放调用方持有的票据引用。 */
 void mi_migration_ticket_destroy(mi_migration_ticket *ticket);
 
@@ -112,7 +121,8 @@ mi_status mi_storage_erase(mi_tiered_storage *storage, mi_block_id id);
 
 /* 查询指定层当前是否还有空闲槽。 */
 int mi_storage_has_room(mi_tiered_storage *storage, mi_location location);
-/* 等待后台迁移结束，释放内部资源并解除后端绑定。 */
+/* 等待后台迁移结束，释放内部资源并解除后端绑定。
+ * 未确认 DMA 完成的隔离实例保留自身、后端和内存池，需重启进程恢复。 */
 void mi_tiered_storage_destroy(mi_tiered_storage *storage);
 
 #ifdef __cplusplus

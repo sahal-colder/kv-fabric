@@ -1,0 +1,178 @@
+[
+  {
+    "path": "src/worker/spdk_bridge.c",
+    "sha256": "9c50007bfe1d497f3a13f635f16f4473ebeac54b0fb498a3f082334d3c8577fb",
+    "baseline_sha256": "bf0322c0c6d1e3fb9f1fa681ff039c562dfd96bf3d6cd95f45763e057679d9ed"
+  },
+  {
+    "path": "src/worker/spdk_bridge.h",
+    "sha256": "134e01732f1cf9ee6f22ef45c8803d7d6ea308379d10c7d5b0cb72a09cf3f249",
+    "baseline_sha256": "d8ade93884a3ee2e7f2aee24b68cb041f8a860ddbc8323e9e6119c2bdb7ec408"
+  },
+  {
+    "path": "src/worker/uring_io.c",
+    "sha256": "42f32f5387a260b2b610bc3279b99aecbf8cd97264f8805b6878ba2fee493f2a",
+    "baseline_sha256": "724f4e1cf374352d3652ca19bb80ba104c2f6ed09cb603830f8c216575b4c38a"
+  },
+  {
+    "path": "src/worker/io_transfer.h",
+    "sha256": "de45823bf50c937f6b64f5a6b61df72e12e7a7ea0db31cddec006ed7c31e1f8e",
+    "baseline_sha256": "19dd95e293abe1bad05ac8d00171e891b5c5fb2879349069764b366c8a667e96"
+  },
+  {
+    "path": "src/worker/io_metrics.h",
+    "sha256": "130942c1ed8978d1a2a7077d8e7b83fb63ec576e272bf02ccfa92919d4602862"
+  },
+  {
+    "path": "src/worker/direct_io.c",
+    "sha256": "b7b175546996ca5ce0d60aba9631cee0c67aacad9ddfdd279f6487cc312cf73f",
+    "baseline_sha256": "907a3fa89b2d1a3b219d19c10e832cf9da5fc427158a8c2788150328be2492a0"
+  },
+  {
+    "path": "src/worker/direct_io.h",
+    "sha256": "b1bc078f64fd12e4dbb0b5ead1ec70514a1139f31d9bc3b919d0203ef8b4c3d7"
+  },
+  {
+    "path": "src/worker/storage_backend.c",
+    "sha256": "559e11f1c6a9845fb2ac96f3f664e99374ea84d0ca3540f3ca1c7afc6f7a37b5",
+    "baseline_sha256": "ca38284ba16b5064b9f1bed19953f3345084bdd867f73b8bcc786f297de08d1b"
+  },
+  {
+    "path": "src/worker/storage_record.h",
+    "sha256": "a05e037d9061dfcf3ca22b176e49d839f1dcb7b1340add3c15ef200f9a720a3d"
+  },
+  {
+    "path": "src/worker/tiered_storage.c",
+    "sha256": "b5cb18e8f631269686253fc312386c4b97c14ca038cbfd260f023d7812df9e0f",
+    "baseline_sha256": "27ff9ed767dacbcd687bc786ac694f8933128cab6b4e3c68e715195facf84864"
+  },
+  {
+    "path": "src/worker/CMakeLists.txt",
+    "sha256": "f6812cd7eed1a4779d81c0a9832be8f4627e9503cce0deeaa3941582e17379ea",
+    "baseline_sha256": "c0fcbe9665141cd346b3c8b2ebbd32659d13620156a2d0c0a0c8f67b11ceb26e"
+  },
+  {
+    "path": "include/miniinfer/storage_backend.h",
+    "sha256": "32aa12e32c9fd90afa55eee9b52ee7a1ac621b06b2fd4b88f29c75455c570350",
+    "baseline_sha256": "a11b464c7cac5b16f8abffbf6809cd825765d27107d90835986fabde695e7890"
+  },
+  {
+    "path": "include/miniinfer/tiered_storage.h",
+    "sha256": "72c606075ff7aef0d9962ee4cec763b1b6e6d07415a9284d66b020becbc28d58",
+    "baseline_sha256": "a5e8d046e56ae5d1b9439ccef11186522efcb56714671e7ade82c4ce12333337"
+  },
+  {
+    "path": "src/nanovllm/cli.c",
+    "sha256": "b8dea45e7373702c0b49fae2126483969e2815b78e414f16b89c0d9966bf9443"
+  },
+  {
+    "path": "src/nanovllm/nano_cache.h",
+    "sha256": "7663bbe25510dee140ef39eb1095bc09ca10189e6226e9bf724e4c5ea92ee01e"
+  },
+  {
+    "path": "src/nanovllm/nano_spill.c",
+    "sha256": "cbd0d2899ed810363334f8253a0463bb101759b273691e95a40744bc3400157f"
+  },
+  {
+    "path": "tests/worker/test_async_io.c",
+    "sha256": "8578d28d542ddd3e1ba072c3d4083d234c6224f6b2671a8c7d9a88319ed889e9"
+  },
+  {
+    "path": "tests/worker/test_spdk_faults.c",
+    "sha256": "49a23fe534fa1d2b3710281a972ee59ce1a13186de2cfb91800d23e1643accd3"
+  },
+  {
+    "path": "tests/worker/test_migration_parallel.c",
+    "sha256": "a44a33439dd04b15bf3a3d0812446f01f97e3e9811bb9a0a8cf9425305344dd8"
+  },
+  {
+    "path": "tests/worker/test_uring_faults.c",
+    "sha256": "3a99041080c335b0c1e309ed332e2f8194c9e5414f956ec7e8bf21802e9a5198"
+  },
+  {
+    "path": "tests/worker/test_spdk_lifecycle.c",
+    "sha256": "ad6b40b7f12d11209880b402bf54a0c4beb8ecc5de4965a23b10defa78724369"
+  },
+  {
+    "path": "tests/worker/test_storage_audit.c",
+    "sha256": "23a4874b24cf2fe6053c994572c7506dd7d45e917c96011b1c1f4f4344de2fef"
+  },
+  {
+    "path": "tests/kvstore/test_sync_e2e.py",
+    "sha256": "42d57ecdfc545a3cf8d7b66a5bd27ab7a5926cb52fb55c984dd6fa64fe2b3c1d"
+  },
+  {
+    "path": "tools/kvf_async_bench.c",
+    "sha256": "924c08a8dbdbf25ff223de6eccaf9531ec277c81335065cc6ea718c17d59a860"
+  },
+  {
+    "path": "tools/kvf_migration_bench.c",
+    "sha256": "6ab5924712208833311ca0c3614880187bff357604cca291564944fe84d2e56c"
+  },
+  {
+    "path": "tools/kvf_spdk_pinned_probe.c",
+    "sha256": "93078246b68305812b8cce722ccb6c0fa336a46a62604915314766ceb660e271"
+  },
+  {
+    "path": "tools/kvf_migration_trace.c",
+    "sha256": "11267fabbd6979a1dbfb82a9c09e16bd09ed70119716323f74e06a07c59759e7"
+  },
+  {
+    "path": "scripts/run_spdk_async_ab.py",
+    "sha256": "1f3e924570d9e7b70e758cc867174ae0d586419c0b75671a59e0a3bf468dcaa2"
+  },
+  {
+    "path": "scripts/run_spdk_async_suite.py",
+    "sha256": "77d93e89eaae64aacbef71550155f88b21ef302de3578dbbd6227083d30af328"
+  },
+  {
+    "path": "scripts/summarize_spdk_async.py",
+    "sha256": "9db11970861758e0e93308652cfab83f673684299cc46e4e56285d5ecb60a76b"
+  },
+  {
+    "path": "scripts/summarize_spdk_migration.py",
+    "sha256": "442a9a6818cf3cfc87c805afa858cbcafcb3ceb864aa14a4110c95b846f55e20"
+  },
+  {
+    "path": "scripts/render_spdk_async_report.py",
+    "sha256": "0a4d8a9ca4adf7166244c3c59d4ffeee3c48f48794d15f2a2d9dcefbdc8fdedd"
+  },
+  {
+    "path": "scripts/profile_spdk_async.py",
+    "sha256": "3852c3f2d8002b2fdad65acf2b52ea4bb1bb7e300465ba83f5f929629a878ec4"
+  },
+  {
+    "path": "scripts/summarize_spdk_pipeline_trace.py",
+    "sha256": "2488f50207067013ef719585ec3ab2c77e13461849133ca0b17cbc96285fafba"
+  },
+  {
+    "path": "scripts/spdk_device.py",
+    "sha256": "0127e512c096a1dbb0673afbc3cf58a61cc237cac1d3b610c7687391c73aee1a"
+  },
+  {
+    "path": "scripts/run_spdk_uring_compare.py",
+    "sha256": "6839c00b01693a6061c91213b86688d6f93304b66791ca76fcd6654916058e64",
+    "baseline_sha256": "2f64cb1c20d03a56d0b04e664f6fc247e82da9a15436f0e4d726c97f795f9ee9"
+  },
+  {
+    "path": "config/spdk-samsung.json",
+    "sha256": "0f8c7e1a3f896400da70fdaabf3e34a4123b19bbea8582c53f2574056be4fad6",
+    "baseline_sha256": "31918174d560d5fc4897a7d364b23a13104ab807998e583a57b04f10cf1224b8"
+  },
+  {
+    "path": "docs/SPDK-ASYNC-IO-AUDIT.md",
+    "sha256": "fa3af483cfdbf302133d3696c133cb6beb026b0d07579a98ef0786b8bc2d8d1b"
+  },
+  {
+    "path": "docs/SPDK-ASYNC-IO-DESIGN.md",
+    "sha256": "54a506fa2e6457916a014dfee1def5f4e985507bfa9e18aab36797d99a4bdb86"
+  },
+  {
+    "path": "docs/SPDK-ASYNC-IO-IMPLEMENTATION.md",
+    "sha256": "d066cbd43197e8f0bfd9c7d9df0380364137ae3d6bddb44915b67766cf9964f8"
+  },
+  {
+    "path": "docs/SPDK-ASYNC-IO-BENCHMARK.md",
+    "sha256": "ddaf9882ce98bd81777f4fe13c77a83c033d158ce031e7a481a566d8a7cde307"
+  }
+]

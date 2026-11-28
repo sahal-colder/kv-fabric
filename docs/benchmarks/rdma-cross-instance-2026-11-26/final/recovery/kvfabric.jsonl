@@ -1,0 +1,19 @@
+{"event": "backend", "tier": "cpu", "io_mode": "cpu"}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-bd309ad0da6403a1-0-a3f12db6", "start": 0, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13156452129815, "end_ns": 13156529712368, "receive_ms": 77.582553}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-bd309ad0da6403a1-0-a3f12db6", "start": 128, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13156536828286, "end_ns": 13156612159726, "receive_ms": 75.33144}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-bd309ad0da6403a1-0-a3f12db6", "start": 256, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13156612433091, "end_ns": 13156686671459, "receive_ms": 74.238368}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-bd309ad0da6403a1-0-a3f12db6", "start": 384, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13156686911332, "end_ns": 13156761998287, "receive_ms": 75.086955}
+{"event": "load_total", "tier": "cpu", "request_id": "cmpl-bd309ad0da6403a1-0-a3f12db6", "begin_ns": 13156450854537, "end_ns": 13156769542343, "payload_bytes": 301989888, "status": null, "pending_socket_closes": 0}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-bd309ad0da6403a1-0-a3f12db6", "tokens": 8192, "blocks_checked": 0}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-80005be2eae18f7f-0-842ad5b1", "start": 0, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13160796125425, "end_ns": 13160888651936, "receive_ms": 92.526511}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-80005be2eae18f7f-0-842ad5b1", "start": 128, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13160889390564, "end_ns": 13160968892675, "receive_ms": 79.502111}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-80005be2eae18f7f-0-842ad5b1", "start": 256, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13160969155087, "end_ns": 13161052967650, "receive_ms": 83.812563}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-80005be2eae18f7f-0-842ad5b1", "start": 384, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13161053373071, "end_ns": 13161139746073, "receive_ms": 86.373002}
+{"event": "load_total", "tier": "cpu", "request_id": "cmpl-80005be2eae18f7f-0-842ad5b1", "begin_ns": 13160794599061, "end_ns": 13161147103908, "payload_bytes": 301989888, "status": null, "pending_socket_closes": 0}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-80005be2eae18f7f-0-842ad5b1", "tokens": 8192, "blocks_checked": 0}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-9840ee0a8a52aed6-0-ab455f5c", "start": 0, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13165179183995, "end_ns": 13165256281236, "receive_ms": 77.097241}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-9840ee0a8a52aed6-0-ab455f5c", "start": 128, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13165256654691, "end_ns": 13165336386639, "receive_ms": 79.731948}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-9840ee0a8a52aed6-0-ab455f5c", "start": 256, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13165336940905, "end_ns": 13165415942692, "receive_ms": 79.001787}
+{"event": "rdma_chunk", "tier": "cpu", "request_id": "cmpl-9840ee0a8a52aed6-0-ab455f5c", "start": 384, "pages": 128, "payload_bytes": 75497472, "begin_ns": 13165416371058, "end_ns": 13165499020786, "receive_ms": 82.649728}
+{"event": "load_total", "tier": "cpu", "request_id": "cmpl-9840ee0a8a52aed6-0-ab455f5c", "begin_ns": 13165178453539, "end_ns": 13165506577690, "payload_bytes": 301989888, "status": null, "pending_socket_closes": 0}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-9840ee0a8a52aed6-0-ab455f5c", "tokens": 8192, "blocks_checked": 0}

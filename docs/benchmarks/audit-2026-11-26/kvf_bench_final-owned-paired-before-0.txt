@@ -1,0 +1,51 @@
+COMMAND cc -std=c11 -O2 -UNDEBUG -Iinclude /tmp/kvf-audit/micro.c /home/wty/Infra/build-baseline/src/worker/libminiinfer_storage.a /home/wty/Infra/build-baseline/src/control/libkvfabric.a -lcrypto -lpthread -o /tmp/kvf-audit/final-owned-paired-before-0/micro
+COMMAND /tmp/kvf-audit/final-owned-paired-before-0/micro
+tlsf_pair,0,62.002,ns
+tlsf_pair,1,59.709,ns
+tlsf_pair,2,59.556,ns
+tlsf_pair,3,61.428,ns
+tlsf_pair,4,62.459,ns
+tlsf_pair,5,62.658,ns
+tlsf_pair,6,60.035,ns
+tlsf_after_coalescing_external_fragmentation,0,0,ratio
+page_pair,0,68.330,ns
+page_pair,1,72.044,ns
+page_pair,2,71.344,ns
+page_pair,3,69.736,ns
+page_pair,4,71.297,ns
+page_pair,5,76.437,ns
+page_pair,6,70.287,ns
+COMMAND /home/wty/Infra/build-baseline/bin/kvf_bench ssd buffered /tmp/kvf-audit/final-owned-paired-before-0 65536 4 /tmp/kvf-audit/final-owned-paired-before-0/buffered-raw.csv /tmp/kvf-audit/final-owned-paired-before-0/buffered-summary.csv
+SSD benchmark statfs=0xef53 mode=buffered-posix
+COMMAND /home/wty/Infra/build-baseline/bin/kvf_bench ssd direct /tmp/kvf-audit/final-owned-paired-before-0 65536 4 /tmp/kvf-audit/final-owned-paired-before-0/direct-raw.csv /tmp/kvf-audit/final-owned-paired-before-0/direct-summary.csv
+MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=4
+SSD benchmark statfs=0xef53 mode=direct-posix
+COMMAND /home/wty/Infra/build-baseline/bin/kvf_bench fixture 65536 /tmp/kvf-audit/final-owned-paired-before-0/fixture
+COMMAND /home/wty/Infra/build-baseline/bin/kvfabricd --listen 127.0.0.1:0
+READY 127.0.0.1:38739
+COMMAND /home/wty/Infra/build-baseline/bin/miniinfer_worker serve audit-source 127.0.0.1:38739 127.0.0.1:0 cpu /tmp/kvf-audit/final-owned-paired-before-0/fixture/namespace /tmp/kvf-audit/final-owned-paired-before-0/fixture/tokens /tmp/kvf-audit/final-owned-paired-before-0/fixture/tensors
+READY 127.0.0.1:38781 2
+COMMAND /tmp/kvf-audit/final-owned-paired-before-0/micro 127.0.0.1:38739
+directory_rpc,0,39339.513,ns
+directory_rpc,1,34717.440,ns
+directory_rpc,2,24272.043,ns
+directory_rpc,3,30443.196,ns
+directory_rpc,4,27094.088,ns
+directory_rpc,5,28838.874,ns
+directory_rpc,6,29090.897,ns
+COMMAND /home/wty/Infra/build-baseline/bin/kvf_bench run pooled cpu 127.0.0.1:38739 65536 4 350796 350813 /tmp/kvf-audit/final-owned-paired-before-0/remote-raw.csv /tmp/kvf-audit/final-owned-paired-before-0/remote-summary.csv
+buffered-summary.csv
+buffered-posix,cpu,65536,4,1,64,434980,18391.650,24.463,31.020,47.872,1.680,0.000,0.000,4984,0,0
+buffered-posix,cpu,65536,4,2,64,423381,18895.510,24.638,32.355,42.462,1.640,0.000,0.000,5052,0,0
+buffered-posix,cpu,65536,4,3,64,414318,19308.840,23.821,27.153,43.372,1.616,0.000,0.000,5052,0,0
+
+direct-summary.csv
+direct-posix,cpu,65536,4,1,64,13580204,589.093,634.960,1836.055,1973.244,4.793,0.000,0.000,5368,0,0
+direct-posix,cpu,65536,4,2,64,12261075,652.471,557.926,1485.724,1580.852,3.563,0.000,0.000,5436,0,0
+direct-posix,cpu,65536,4,3,64,13659457,585.675,572.374,1302.682,1826.667,3.346,0.000,0.000,5436,0,0
+
+remote-summary.csv
+pooled,cpu,65536,4,1,64,6857799,1166.555,439.983,505.459,511.468,10.345,10.116,12.475,7916,23608,7204
+pooled,cpu,65536,4,2,64,7279343,1099.000,447.163,518.964,565.302,11.177,10.515,13.229,7920,23612,7204
+pooled,cpu,65536,4,3,64,7138938,1120.615,437.307,510.930,532.113,10.899,9.931,12.603,7920,23616,7204
+

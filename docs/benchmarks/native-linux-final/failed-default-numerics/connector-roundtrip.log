@@ -1,0 +1,16 @@
+COMMAND ["/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/venv/bin/python", "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", "--model", "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct", "--library", "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration/libkvf_vllm.so", "--directory", "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd", "--require-uring-fixed", "--out", "/home/wty/Infra/docs/benchmarks/native-linux-final/connector-roundtrip"]
+{"bridge": "cpu", "matched_bytes": 12288, "eviction": true}
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+{"bridge": "direct-uring-fixed", "matched_bytes": 12288, "eviction": true}
+{"variant": "cpu", "case": "cold", "output_ids": [78, 13, 220, 16, 15, 15, 15, 15], "hit_tokens": 0, "checked_gpu_layer_blocks": 0}
+Traceback (most recent call last):
+  File "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", line 140, in <module>
+    main()
+  File "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", line 136, in main
+    exercise_vllm(args, model_path(args), control, args.out, args.variants)
+  File "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", line 111, in exercise_vllm
+    run("hot", reference["cold"], len(whole) - 16)
+  File "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", line 93, in run
+    assert result["output_ids"] == expected, (label, result, expected)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('hot', {'request_id': 'cmpl-b657ece98718d4fe', 'prompt_tokens': 512, 'output_ids': [78, 13, 220, 17, 15, 17, 18, 12], 'prompt_sha256': 'ff360c4a6d954ab8333515cc5de4d96f33ad9dee6683ff74ad14436759e46e95', 'ttft_ms': 74.193472, 'tpot_ms': 26.22319542857143, 'itl_ms': [25.574895, 26.108318, 26.511742, 26.228455, 26.236795, 26.61885, 26.283313], 'output_chunk_sizes': [1, 1, 1, 1, 1, 1, 1, 1]}, [78, 13, 220, 16, 15, 15, 15, 15])

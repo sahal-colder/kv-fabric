@@ -1,0 +1,114 @@
+{
+  "profiled_requests": [
+    {
+      "ttft_ms": 22809.316306,
+      "phase_ms": {
+        "scheduler_directory_lookup": 2.178187,
+        "bridge_fetch_wall": 240.245073,
+        "owned_fetch_wall": 0.0,
+        "fetch_directory_nested": 0.0,
+        "fetch_crc_nested": 0.0,
+        "fetch_bridge_copy_nested": 0.0,
+        "fetch_other": 240.245073,
+        "h2d_submit": 432.855312,
+        "h2d_cuda_api_nested": 111.638717,
+        "h2d_host_dispatch_estimate": 321.216595,
+        "h2d_host_sync": 1.166292,
+        "save_d2h_submit": 389.408103,
+        "save_d2h_cuda_api_nested": 108.270856,
+        "save_d2h_host_dispatch_estimate": 281.137247,
+        "save_host_sync": 3130.105901,
+        "save_publish_wall": 18483.14628,
+        "save_background_publish_wall": 0.0,
+        "save_sync_model_kernel_overlap": 3109.495065,
+        "save_sync_other": 20.610836,
+        "save_wait_publish_excluding_model_compute": 18503.757116,
+        "save_foreground_excluding_model_compute": 18874.114535,
+        "save_publish_rpc_nested": 0.0,
+        "save_publish_crc_nested": 0.0,
+        "save_publish_bridge_copy_nested": 0.0,
+        "model_gpu_kernel_active": 3221.163804,
+        "unmarked_ttft": 130.211158
+      },
+      "cuda_kv": {
+        "h2d": {
+          "count": 18432,
+          "bytes": 301989888,
+          "active_ms": 39.674417,
+          "active_within_ttft_ms": 39.674417,
+          "active_gib_s": 7.088951048732487,
+          "model_compute_overlap_ratio": 0.0,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        },
+        "d2h": {
+          "count": 18432,
+          "bytes": 301989888,
+          "active_ms": 34.522183,
+          "active_within_ttft_ms": 34.522183,
+          "active_gib_s": 8.146935551555359,
+          "model_compute_overlap_ratio": 0.0,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        }
+      }
+    },
+    {
+      "ttft_ms": 23676.138502,
+      "phase_ms": {
+        "scheduler_directory_lookup": 0.908715,
+        "bridge_fetch_wall": 221.952947,
+        "owned_fetch_wall": 0.0,
+        "fetch_directory_nested": 0.0,
+        "fetch_crc_nested": 0.0,
+        "fetch_bridge_copy_nested": 0.0,
+        "fetch_other": 221.952947,
+        "h2d_submit": 429.344354,
+        "h2d_cuda_api_nested": 109.193986,
+        "h2d_host_dispatch_estimate": 320.150368,
+        "h2d_host_sync": 1.086625,
+        "save_d2h_submit": 398.360436,
+        "save_d2h_cuda_api_nested": 110.854066,
+        "save_d2h_host_dispatch_estimate": 287.50637,
+        "save_host_sync": 3118.968819,
+        "save_publish_wall": 19367.328379,
+        "save_background_publish_wall": 0.0,
+        "save_sync_model_kernel_overlap": 3098.156442,
+        "save_sync_other": 20.812377,
+        "save_wait_publish_excluding_model_compute": 19388.140756,
+        "save_foreground_excluding_model_compute": 19767.26242,
+        "save_publish_rpc_nested": 0.0,
+        "save_publish_crc_nested": 0.0,
+        "save_publish_bridge_copy_nested": 0.0,
+        "model_gpu_kernel_active": 3213.735934,
+        "unmarked_ttft": 138.188227
+      },
+      "cuda_kv": {
+        "h2d": {
+          "count": 18432,
+          "bytes": 301989888,
+          "active_ms": 39.475039,
+          "active_within_ttft_ms": 39.475039,
+          "active_gib_s": 7.124755468892633,
+          "model_compute_overlap_ratio": 0.0,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        },
+        "d2h": {
+          "count": 18432,
+          "bytes": 301989888,
+          "active_ms": 34.492104,
+          "active_within_ttft_ms": 34.492104,
+          "active_gib_s": 8.154040124661574,
+          "model_compute_overlap_ratio": 0.0,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        }
+      }
+    }
+  ],
+  "coverage_validation": {
+    "expected_h2d_bytes_per_request": 301989888,
+    "actual_h2d_bytes": [
+      301989888,
+      301989888
+    ],
+    "passed": true
+  }
+}
