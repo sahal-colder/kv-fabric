@@ -1,0 +1,33 @@
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=8
+model: dim=32 layers=2 heads=4 kv_heads=2 vocab=260 context=192
+KV pool: 0.02 MiB; requests=1 device=cuda
+step=1 forwards=32 generated=0 cache_hits=0 preemptions=0
+step=2 forwards=34 generated=1 cache_hits=0 preemptions=0
+step=3 forwards=35 generated=2 cache_hits=0 preemptions=0
+step=4 forwards=36 generated=3 cache_hits=0 preemptions=0
+step=5 forwards=37 generated=4 cache_hits=0 preemptions=0
+request=0 ttft_ns=1470199 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=47441 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=37 reused=0 preemptions=0 elapsed=0.002s output_tok/s=2473.64 prefilled=34
+ssd_mode=raw-uring ssd_reads=0 ssd_writes=0 ssd_restore_wait_ns=0
+step=6 forwards=39 generated=5 cache_hits=32 preemptions=0
+step=7 forwards=40 generated=6 cache_hits=32 preemptions=0
+step=8 forwards=41 generated=7 cache_hits=32 preemptions=0
+step=9 forwards=42 generated=8 cache_hits=32 preemptions=0
+request=0 ttft_ns=100047 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=47804 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=5 reused=32 preemptions=0 elapsed=0.000s output_tok/s=16135.80 prefilled=2
+ssd_mode=raw-uring ssd_reads=0 ssd_writes=0 ssd_restore_wait_ns=0
+step=10 forwards=74 generated=8 cache_hits=32 preemptions=0
+step=11 forwards=76 generated=9 cache_hits=32 preemptions=0
+step=12 forwards=77 generated=10 cache_hits=32 preemptions=0
+step=13 forwards=78 generated=11 cache_hits=32 preemptions=0
+step=14 forwards=79 generated=12 cache_hits=32 preemptions=0
+request=0 ttft_ns=9819503 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=48292 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=37 reused=0 preemptions=0 elapsed=0.010s output_tok/s=400.93 prefilled=34
+ssd_mode=raw-uring ssd_reads=0 ssd_writes=1 ssd_restore_wait_ns=0
+step=15 forwards=81 generated=13 cache_hits=64 preemptions=0
+step=16 forwards=82 generated=14 cache_hits=64 preemptions=0
+step=17 forwards=83 generated=15 cache_hits=64 preemptions=0
+step=18 forwards=84 generated=16 cache_hits=64 preemptions=0
+request=0 ttft_ns=365586 dir_lookup_ns=0 conn_acquire_ns=0 net_recv_ns=0 crc_verify_ns=0 cpu_stage_ns=0 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=0 sched_resume_ns=0 first_decode_ns=48542 prefetch_queue_ns=0 lease_check_ns=0 received_bytes=0 data_requests=0
+generated=4 forwards=5 reused=32 preemptions=0 elapsed=0.001s output_tok/s=7825.25 prefilled=2
+ssd_mode=raw-uring ssd_reads=1 ssd_writes=2 ssd_restore_wait_ns=165061

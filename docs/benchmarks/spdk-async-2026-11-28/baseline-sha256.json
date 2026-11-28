@@ -1,0 +1,20 @@
+{
+  "src/worker/spdk_bridge.c": "bf0322c0c6d1e3fb9f1fa681ff039c562dfd96bf3d6cd95f45763e057679d9ed",
+  "src/worker/spdk_bridge.h": "d8ade93884a3ee2e7f2aee24b68cb041f8a860ddbc8323e9e6119c2bdb7ec408",
+  "src/worker/uring_io.c": "724f4e1cf374352d3652ca19bb80ba104c2f6ed09cb603830f8c216575b4c38a",
+  "src/worker/storage_backend.c": "ca38284ba16b5064b9f1bed19953f3345084bdd867f73b8bcc786f297de08d1b",
+  "src/worker/direct_io.c": "907a3fa89b2d1a3b219d19c10e832cf9da5fc427158a8c2788150328be2492a0",
+  "src/worker/tiered_storage.c": "27ff9ed767dacbcd687bc786ac694f8933128cab6b4e3c68e715195facf84864",
+  "src/worker/paged_kv.c": "952f576a6cccbf53df8c67f8b824977f3172bf671768e83e45942b6c5dd2eea8",
+  "src/worker/CMakeLists.txt": "c0fcbe9665141cd346b3c8b2ebbd32659d13620156a2d0c0a0c8f67b11ceb26e",
+  "src/worker/io_transfer.h": "19dd95e293abe1bad05ac8d00171e891b5c5fb2879349069764b366c8a667e96",
+  "include/miniinfer/storage_backend.h": "a11b464c7cac5b16f8abffbf6809cd825765d27107d90835986fabde695e7890",
+  "include/miniinfer/tiered_storage.h": "a5e8d046e56ae5d1b9439ccef11186522efcb56714671e7ade82c4ce12333337",
+  "tools/kvf_spdk_verify.c": "5e88bf7bcc2b6e48c7b349555a1038b59acf4d36ffbb95d5bb233f2cbd98c885",
+  "tools/kvf_nvme_recovery_bench.c": "f7947779502b724bd05bcc705e35ef3418878bd5c6d57bc81ec8eaeca9bbccff",
+  "scripts/test_spdk_nvme.py": "da0b621e856ff617aacc271dd38d6649cd411c90a16182ff2daac292b5a1669c",
+  "config/spdk-samsung.json": "31918174d560d5fc4897a7d364b23a13104ab807998e583a57b04f10cf1224b8",
+  "CMakeLists.txt": "967f9a8549a5ef208eb67c1da295bd95002438a6afe2fb574a23368a25c9a7bf",
+  "Makefile": "4cb2f27db157a5a4ed8bc7ecf69f4f03a6552f4aaca34ed808fa5ae40c589b64",
+  "scripts/run_spdk_uring_compare.py": "2f64cb1c20d03a56d0b04e664f6fc247e82da9a15436f0e4d726c97f795f9ee9"
+}

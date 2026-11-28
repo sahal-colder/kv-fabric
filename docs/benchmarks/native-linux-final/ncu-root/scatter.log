@@ -1,0 +1,6 @@
+==PROF== Connected to process 75474 (/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_cuda_bench)
+==PROF== Profiling "scatter_kv_pages": 0%....50%....100% - 37 passes
+vector,H2D,1,75497472,7.3083,9.621
+vector,D2H,1,75497472,7.2481,9.701
+==PROF== Disconnected from process 75474
+==PROF== Report: /home/wty/Infra/docs/benchmarks/native-linux-final/ncu-root/scatter.ncu-repz

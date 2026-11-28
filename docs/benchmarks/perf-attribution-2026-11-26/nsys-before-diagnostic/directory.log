@@ -1,0 +1,2 @@
+.kvfabric-local/perf-attribution/build-before/bin/kvfabricd --config /home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic/directory.conf
+READY 127.0.0.1:39189

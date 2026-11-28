@@ -1,0 +1,15 @@
+tlsf_pair,0,65.514,ns
+tlsf_pair,1,68.290,ns
+tlsf_pair,2,65.430,ns
+tlsf_pair,3,65.985,ns
+tlsf_pair,4,65.884,ns
+tlsf_pair,5,65.967,ns
+tlsf_pair,6,65.591,ns
+tlsf_after_coalescing_external_fragmentation,0,0,ratio
+page_pair,0,78.184,ns
+page_pair,1,75.090,ns
+page_pair,2,73.215,ns
+page_pair,3,73.990,ns
+page_pair,4,74.589,ns
+page_pair,5,73.026,ns
+page_pair,6,74.225,ns

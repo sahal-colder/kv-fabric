@@ -1,0 +1,2 @@
+48:	protect_shadow_gap
+49-		- If set, mprotect the shadow gap (Current Value: true)

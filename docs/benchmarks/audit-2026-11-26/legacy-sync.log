@@ -1,0 +1,2 @@
+unauthenticated/shared client-listener replication rejected: PASS
+sync e2e: PASS (dedicated=True, ebpf=False)

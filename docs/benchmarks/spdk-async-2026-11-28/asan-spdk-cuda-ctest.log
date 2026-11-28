@@ -1,0 +1,121 @@
+Internal ctest changing into directory: /home/wty/Infra/build-async-spdk-asan
+Test project /home/wty/Infra/build-async-spdk-asan
+      Start  1: kvf_protocol
+      Start  2: kvf_directory
+      Start  3: pool
+      Start  4: graph
+      Start  5: tiered
+      Start  6: kv_cache
+      Start  7: paged_kv
+      Start  8: gpu_mock
+ 1/42 Test  #6: kv_cache .........................   Passed    0.02 sec
+      Start  9: allocator_faults
+ 2/42 Test  #5: tiered ...........................   Passed    0.02 sec
+      Start 10: device_boundaries_cpu
+ 3/42 Test  #7: paged_kv .........................   Passed    0.02 sec
+      Start 11: device_boundaries_cuda
+ 4/42 Test  #4: graph ............................   Passed    0.02 sec
+      Start 12: storage_audit
+ 5/42 Test  #8: gpu_mock .........................***Skipped   0.03 sec
+      Start 13: storage_retirement_cuda
+ 6/42 Test  #9: allocator_faults .................   Passed    0.02 sec
+      Start 14: spdk_lifecycle
+ 7/42 Test #10: device_boundaries_cpu ............   Passed    0.02 sec
+      Start 15: spdk_init_failure
+ 8/42 Test  #1: kvf_protocol .....................   Passed    0.07 sec
+      Start 16: uring_faults
+ 9/42 Test #11: device_boundaries_cuda ...........***Skipped   0.05 sec
+      Start 25: uring_async_qd1
+10/42 Test #12: storage_audit ....................   Passed    0.05 sec
+      Start 26: uring_async_qd4
+11/42 Test #16: uring_faults .....................   Passed    0.03 sec
+      Start 27: uring_async_qd8
+12/42 Test #25: uring_async_qd1 ..................   Passed    0.04 sec
+      Start 28: uring_async_qd16
+13/42 Test #13: storage_retirement_cuda ..........Subprocess aborted***Exception:   0.09 sec
+test_storage_audit: /home/wty/Infra/tests/worker/test_storage_audit.c:157: cuda_parallel_snapshots: Assertion `mi_mempool_create(MI_MEMORY_DEVICE,0,(mi_mempool_config){0},&pool)==MI_OK' failed.
+
+      Start 29: uring_async_qd32
+14/42 Test #26: uring_async_qd4 ..................   Passed    0.05 sec
+      Start 30: uring_async_qd64
+15/42 Test #27: uring_async_qd8 ..................   Passed    0.04 sec
+      Start 31: uring_async_qd128
+16/42 Test #28: uring_async_qd16 .................   Passed    0.03 sec
+      Start 32: migration_parallel
+17/42 Test #30: uring_async_qd64 .................   Passed    0.03 sec
+      Start 33: direct_io_cpu
+18/42 Test #29: uring_async_qd32 .................   Passed    0.04 sec
+      Start 34: direct_io_cuda
+19/42 Test #31: uring_async_qd128 ................   Passed    0.04 sec
+      Start 35: remote_lifecycle
+20/42 Test #33: direct_io_cpu ....................   Passed    0.02 sec
+      Start 36: remote_audit
+21/42 Test #32: migration_parallel ...............   Passed    0.03 sec
+      Start 37: remote_faults
+22/42 Test #34: direct_io_cuda ...................Subprocess aborted***Exception:   0.03 sec
+test_direct_io: /home/wty/Infra/tests/worker/test_direct_io.c:38: main: Assertion `opened == MI_OK' failed.
+
+      Start 38: remote_e2e_cpu
+23/42 Test #15: spdk_init_failure ................   Passed    0.15 sec
+      Start 39: remote_restart
+24/42 Test #35: remote_lifecycle .................   Passed    0.02 sec
+      Start 40: remote_e2e_cuda
+25/42 Test #40: remote_e2e_cuda ..................***Failed    0.13 sec
+miniinfer_worker: create memory pool: out of memory
+multi-process test failed for cuda at 4096 bytes
+
+      Start 41: nano_remote_inference_cpu
+26/42 Test #14: spdk_lifecycle ...................Subprocess aborted***Exception:   0.60 sec
+[2026-11-28 12:58:44.020194] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-28 12:58:44.020344] [ DPDK EAL parameters: miniinfer_storage --no-shconf -l 0 -m 288 --no-pci --no-huge --legacy-mem --iova-mode=va --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --base-virtaddr=0x100000000 --file-prefix=spdk_pid131687 ]
+EAL: WARNING! Base virtual address hint (0x100005000 != 0x74f9b528e000) not respected!
+EAL:    This may cause issues with mapping memory into secondary processes
+EAL: WARNING! Base virtual address hint (0x10000b000 != 0x74f9b029b000) not respected!
+EAL:    This may cause issues with mapping memory into secondary processes
+EAL: WARNING! Base virtual address hint (0x100011000 != 0x74f99e29b000) not respected!
+EAL:    This may cause issues with mapping memory into secondary processes
+[2026-11-28 12:58:44.049803] app.c: 855:claim_cpu_cores: *ERROR*: Cannot create lock on core 0, probably process 131694 has claimed it.
+[2026-11-28 12:58:44.049841] app.c: 986:spdk_app_start: *ERROR*: Unable to acquire lock on assigned core mask - exiting.
+test_spdk_lifecycle: /home/wty/Infra/tests/worker/test_spdk_lifecycle.c:54: main: Assertion `st==MI_OK && d' failed.
+
+      Start 42: nano_remote_inference_cuda
+27/42 Test  #2: kvf_directory ....................   Passed    0.71 sec
+28/42 Test #42: nano_remote_inference_cuda .......***Skipped   0.11 sec
+29/42 Test #38: remote_e2e_cpu ...................   Passed    1.57 sec
+30/42 Test #39: remote_restart ...................   Passed    1.70 sec
+31/42 Test #37: remote_faults ....................   Passed    2.77 sec
+32/42 Test  #3: pool .............................   Passed    4.84 sec
+33/42 Test #36: remote_audit .....................   Passed    7.10 sec
+34/42 Test #41: nano_remote_inference_cpu ........   Passed   10.42 sec
+      Start 17: spdk_faults
+35/42 Test #17: spdk_faults ......................   Passed    0.14 sec
+      Start 18: spdk_async_qd1
+36/42 Test #18: spdk_async_qd1 ...................   Passed    0.13 sec
+      Start 19: spdk_async_qd4
+37/42 Test #19: spdk_async_qd4 ...................   Passed    0.13 sec
+      Start 20: spdk_async_qd8
+38/42 Test #20: spdk_async_qd8 ...................   Passed    0.13 sec
+      Start 21: spdk_async_qd16
+39/42 Test #21: spdk_async_qd16 ..................   Passed    0.13 sec
+      Start 22: spdk_async_qd32
+40/42 Test #22: spdk_async_qd32 ..................   Passed    0.13 sec
+      Start 23: spdk_async_qd64
+41/42 Test #23: spdk_async_qd64 ..................   Passed    0.13 sec
+      Start 24: spdk_async_qd128
+42/42 Test #24: spdk_async_qd128 .................   Passed    0.13 sec
+
+90% tests passed, 4 tests failed out of 42
+
+Total Test time (real) =  11.80 sec
+
+The following tests did not run:
+	  8 - gpu_mock (Skipped)
+	 11 - device_boundaries_cuda (Skipped)
+	 42 - nano_remote_inference_cuda (Skipped)
+
+The following tests FAILED:
+	 13 - storage_retirement_cuda (Subprocess aborted)
+	 14 - spdk_lifecycle (Subprocess aborted)
+	 34 - direct_io_cuda (Subprocess aborted)
+	 40 - remote_e2e_cuda (Failed)
+Errors while running CTest

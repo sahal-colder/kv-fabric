@@ -1,0 +1,86 @@
+Internal ctest changing into directory: /home/wty/Infra/build-cuda-release
+Test project /home/wty/Infra/build-cuda-release
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    2.15 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.17 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.17 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 11: device_boundaries_cuda
+    Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 11: device_boundaries_cuda
+1/4 Test #11: device_boundaries_cuda ...........   Passed    0.16 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.04 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.02 sec
+    Start 12: storage_audit
+    Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 12: storage_audit
+2/4 Test #12: storage_audit ....................   Passed    0.03 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+    Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 13: uring_faults
+3/4 Test #13: uring_faults .....................   Passed    0.00 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.81 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.81 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.81 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.52 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.72 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.82 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.62 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.81 sec
+    Start 17: remote_audit
+    Test #17: remote_audit .....................   Passed    2.81 sec
+    Start 17: remote_audit
+4/4 Test #17: remote_audit .....................   Passed    3.22 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =  31.91 sec

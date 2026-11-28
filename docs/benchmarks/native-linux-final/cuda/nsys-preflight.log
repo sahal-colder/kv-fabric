@@ -1,0 +1,8 @@
+$ nsys profile --trace=cuda,nvtx,osrt --sample=none --cpuctxsw=none --force-overwrite=true -o docs/benchmarks/native-linux-final/cuda/vector-timeline /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_cuda_bench vector
+vector,H2D,1,75497472,7.4120,9.486
+vector,D2H,1,75497472,6.9703,10.087
+Collecting data...
+Generating '/tmp/nsys-wty/nsys-report-ce92.qdstrm'
+[1/1] [0%                          ] vector-timeline.nsys-rep[1/1] [0%                          ] vector-timeline.nsys-rep[1/1] [1%                          ] vector-timeline.nsys-rep[1/1] [2%                          ] vector-timeline.nsys-rep[1/1] [5%                          ] vector-timeline.nsys-rep[1/1] [14%                         ] vector-timeline.nsys-rep[1/1] [=15%                        ] vector-timeline.nsys-rep[1/1] [==19%                       ] vector-timeline.nsys-rep[1/1] [==20%                       ] vector-timeline.nsys-rep[1/1] [=========46%                ] vector-timeline.nsys-rep[1/1] [============54%             ] vector-timeline.nsys-rep[1/1] [=======================96%  ] vector-timeline.nsys-rep[1/1] [========================98% ] vector-timeline.nsys-rep[1/1] [========================100%] vector-timeline.nsys-rep[1/1] [========================100%] vector-timeline.nsys-rep
+Generated:
+	/home/wty/Infra/docs/benchmarks/native-linux-final/cuda/vector-timeline.nsys-rep

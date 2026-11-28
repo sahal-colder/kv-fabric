@@ -1,0 +1,146 @@
+[
+  {
+    "device": "cpu",
+    "payload_bytes": 262144,
+    "active_transport": "TCP",
+    "n": 30,
+    "transfer_us": {
+      "p50": 1055,
+      "p95": 1328,
+      "p99": 1364
+    },
+    "effective_payload_GiB_s_at_p50": 0.23141291469194314
+  },
+  {
+    "device": "cpu",
+    "payload_bytes": 262144,
+    "active_transport": "RDMA_RSOCKET",
+    "n": 30,
+    "transfer_us": {
+      "p50": 3070,
+      "p95": 3532,
+      "p99": 3768
+    },
+    "effective_payload_GiB_s_at_p50": 0.07952463355048861
+  },
+  {
+    "device": "cuda",
+    "payload_bytes": 262144,
+    "active_transport": "TCP",
+    "n": 30,
+    "transfer_us": {
+      "p50": 1151,
+      "p95": 1540,
+      "p99": 1591
+    },
+    "effective_payload_GiB_s_at_p50": 0.2121117506516073
+  },
+  {
+    "device": "cuda",
+    "payload_bytes": 262144,
+    "active_transport": "RDMA_RSOCKET",
+    "n": 30,
+    "transfer_us": {
+      "p50": 3034,
+      "p95": 3500,
+      "p99": 3721
+    },
+    "effective_payload_GiB_s_at_p50": 0.08046823500329599
+  },
+  {
+    "device": "cpu",
+    "payload_bytes": 4194304,
+    "active_transport": "TCP",
+    "n": 30,
+    "transfer_us": {
+      "p50": 3807,
+      "p95": 4646,
+      "p99": 4750
+    },
+    "effective_payload_GiB_s_at_p50": 1.0260703966377727
+  },
+  {
+    "device": "cpu",
+    "payload_bytes": 4194304,
+    "active_transport": "RDMA_RSOCKET",
+    "n": 30,
+    "transfer_us": {
+      "p50": 11344,
+      "p95": 12681,
+      "p99": 12775
+    },
+    "effective_payload_GiB_s_at_p50": 0.3443450282087447
+  },
+  {
+    "device": "cuda",
+    "payload_bytes": 4194304,
+    "active_transport": "TCP",
+    "n": 30,
+    "transfer_us": {
+      "p50": 3426,
+      "p95": 4330,
+      "p99": 4532
+    },
+    "effective_payload_GiB_s_at_p50": 1.14017805020432
+  },
+  {
+    "device": "cuda",
+    "payload_bytes": 4194304,
+    "active_transport": "RDMA_RSOCKET",
+    "n": 30,
+    "transfer_us": {
+      "p50": 11223,
+      "p95": 12200,
+      "p99": 12329
+    },
+    "effective_payload_GiB_s_at_p50": 0.3480575603671033
+  },
+  {
+    "device": "cpu",
+    "payload_bytes": 16777216,
+    "active_transport": "TCP",
+    "n": 30,
+    "transfer_us": {
+      "p50": 12599,
+      "p95": 16866,
+      "p99": 17970
+    },
+    "effective_payload_GiB_s_at_p50": 1.2401777918882453
+  },
+  {
+    "device": "cpu",
+    "payload_bytes": 16777216,
+    "active_transport": "RDMA_RSOCKET",
+    "n": 30,
+    "transfer_us": {
+      "p50": 34840,
+      "p95": 41410,
+      "p99": 42081
+    },
+    "effective_payload_GiB_s_at_p50": 0.4484787600459243
+  },
+  {
+    "device": "cuda",
+    "payload_bytes": 16777216,
+    "active_transport": "TCP",
+    "n": 30,
+    "transfer_us": {
+      "p50": 10510,
+      "p95": 13178,
+      "p99": 13945
+    },
+    "effective_payload_GiB_s_at_p50": 1.4866793529971456
+  },
+  {
+    "device": "cuda",
+    "payload_bytes": 16777216,
+    "active_transport": "RDMA_RSOCKET",
+    "n": 30,
+    "transfer_us": {
+      "p50": 36067,
+      "p95": 38980,
+      "p99": 39219
+    },
+    "effective_payload_GiB_s_at_p50": 0.4332215044223251
+  }
+]

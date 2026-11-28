@@ -1,0 +1,15 @@
++ /usr/bin/python3 tests/vllm/test_connector_roundtrip.py --model /home/wty/models/Qwen3-0.6B --library /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/src/integration/libkvf_vllm.so --directory /tmp/kvf-native-linux-cuda-uring.j8O5Hubg/bin/kvfabricd --out /home/wty/Infra/docs/benchmarks/native-linux-final/connector-roundtrip --require-uring-fixed
+Traceback (most recent call last):
+  File "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", line 140, in <module>
+    main()
+  File "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", line 133, in main
+    with directory(args.directory, args.out / "directory.log") as control:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/wty/Infra/scripts/bench_vllm_kv.py", line 72, in directory
+    port = free_port()
+  File "/home/wty/Infra/scripts/bench_vllm_kv.py", line 29, in free_port
+    with socket.socket() as listener:
+  File "/usr/lib/python3.10/socket.py", line 232, in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+PermissionError: [Errno 1] Operation not permitted

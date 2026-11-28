@@ -1,0 +1,20 @@
+{
+  "connector-roundtrip": {
+    "command": [
+      "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/venv/bin/python",
+      "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py",
+      "--model",
+      "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+      "--library",
+      "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration/libkvf_vllm.so",
+      "--directory",
+      "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd",
+      "--require-uring-fixed",
+      "--out",
+      "/home/wty/Infra/docs/benchmarks/native-linux-final/connector-roundtrip"
+    ],
+    "started": "2026-11-25T15:53:04.424816+08:00",
+    "finished": "2026-11-25T15:53:48.527674+08:00",
+    "exit": 1
+  }
+}

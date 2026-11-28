@@ -1,0 +1,135 @@
+ M .gitattributes
+ M .gitignore
+ M CMakeLists.txt
+ M Makefile
+ M README.md
+ M config/miniinfer-master.conf
+ M config/miniinfer-slave.conf
+ M config/rdma-master.conf
+ M config/rdma-slave.conf
+ M docs/config-sync-miniinfer.md
+ M docs/kvstore.md
+ M include/kvfabric/kvfabric.h
+ M include/kvfabric/wire.h
+ M include/kvs_engine.h
+ M include/kvs_redis.h
+ M include/kvs_replication.h
+ M include/kvs_resp.h
+ M include/kvs_store.h
+ M include/kvs_transport.h
+ M include/miniinfer/allocator.h
+ M include/miniinfer/graph_allocator.h
+ M include/miniinfer/remote_cache.h
+ M include/miniinfer/storage_backend.h
+ M include/miniinfer/tiered_storage.h
+ M include/nanovllm/nv.h
+ M src/config/kvs_config.c
+ M src/control/CMakeLists.txt
+ M src/control/client.c
+ M src/control/directory.c
+ M src/control/identity.c
+ M src/control/net.c
+ M src/control/wire.c
+ M src/engine/kvs_engine.c
+ M src/integration/CMakeLists.txt
+ M src/nanovllm/CMakeLists.txt
+ M src/nanovllm/cli.c
+ M src/nanovllm/nano_cuda.cu
+ M src/nanovllm/nano_remote_kv.c
+ M src/network/kvs_connection.c
+ M src/protocol/kvs_protocol.c
+ M src/protocol/kvs_resp.c
+ M src/protocol/kvs_text.c
+ M src/redis/kvs_redis.c
+ M src/replication/kvs_master.c
+ M src/replication/kvs_replication.c
+ M src/replication/kvs_slave.c
+ M src/replication/kvs_transport.c
+ M src/store/kvs_data.c
+ M src/worker/CMakeLists.txt
+ M src/worker/allocator.c
+ M src/worker/device_cuda.cu
+ M src/worker/device_transfer.c
+ M src/worker/direct_io.c
+ M src/worker/direct_io.h
+ M src/worker/graph_allocator.c
+ M src/worker/io_transfer.h
+ M src/worker/remote/cache.c
+ M src/worker/remote/cli.c
+ M src/worker/remote/internal.h
+ M src/worker/remote/peer.c
+ M src/worker/remote/transfer.c
+ M src/worker/remote/worker.c
+ M src/worker/segment_pool.c
+ M src/worker/segment_pool.h
+ M src/worker/spdk_bridge.c
+ M src/worker/storage_backend.c
+ M src/worker/storage_internal.h
+ M src/worker/tiered_internal.h
+ M src/worker/tiered_storage.c
+ M src/worker/uring_io.c
+ M tests/control/test_directory.c
+ M tests/kvstore/test_regressions.py
+ M tests/kvstore/test_reliability.py
+ M tests/kvstore/test_replication.c
+ M tests/kvstore/test_snapshot_resp.c
+ M tests/kvstore/test_sync_e2e.py
+ M tests/nanovllm/remote_worker.c
+ M tests/nanovllm/test_remote_inference.py
+ M tests/worker/test_graph.c
+ M tests/worker/test_pool.c
+ M tests/worker/test_remote_e2e.c
+ M tests/worker/test_remote_faults.c
+ M third_party/NtyCo/core/nty_coroutine.c
+ M third_party/NtyCo/core/nty_coroutine.h
+ M third_party/NtyCo/core/nty_socket.c
+?? .github/
+?? DELIVERY.json
+?? docs/KV-FABRIC-AUDIT-REMEDIATION.md
+?? docs/KV-FABRIC-RDMA-INTEGRATION.md
+?? docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md
+?? docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md
+?? docs/KV-FABRIC-VALIDATION-REPORT.md
+?? docs/PROJECT-DELIVERY.md
+?? docs/benchmarks/audit-2026-11-26/
+?? docs/benchmarks/native-linux-final/
+?? docs/benchmarks/perf-attribution-2026-11-26/
+?? docs/benchmarks/published-validation/
+?? docs/benchmarks/rdma/
+?? docs/benchmarks/ultimate/
+?? docs/resume_ai_infra.public.md
+?? docs/resume_public/
+?? include/kvfabric/vllm_bridge.h
+?? include/kvfabric/vllm_kv_cuda.h
+?? integrations/
+?? scripts/bench_vllm_kv.py
+?? scripts/build_native_resume_content.py
+?? scripts/export_public_validation.py
+?? scripts/generate_resume.py
+?? scripts/profile_kv.sh
+?? scripts/profile_vllm_kv.py
+?? scripts/render_native_resume.py
+?? scripts/render_resume.py
+?? scripts/run_native_linux_final.py
+?? scripts/summarize_native_linux_final.py
+?? scripts/summarize_native_ncu.py
+?? scripts/summarize_nsys.py
+?? src/integration/vllm_bridge.c
+?? src/integration/vllm_kv_cuda.cu
+?? src/replication/kvs_auth.c
+?? src/worker/allocator_internal.h
+?? src/worker/remote/remote_sock.c
+?? src/worker/remote/remote_sock.h
+?? tests/kvstore/test_audit_atomic.c
+?? tests/kvstore/test_audit_auth.c
+?? tests/kvstore/test_audit_security.py
+?? tests/vllm/
+?? tests/worker/test_allocator_faults.c
+?? tests/worker/test_device_boundaries.c
+?? tests/worker/test_rdma_roundtrip.py
+?? tests/worker/test_remote_audit.c
+?? tests/worker/test_spdk_lifecycle.c
+?? tests/worker/test_storage_audit.c
+?? tests/worker/test_uring_faults.c
+?? tools/kvf_cuda_bench.cu
+?? tools/kvf_nvme_recovery_bench.c

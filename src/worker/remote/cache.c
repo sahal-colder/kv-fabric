@@ -550,6 +550,8 @@ static kvf_status resolve_batch(mi_remote_worker *w, mi_kv_sequence *s, const in
         result->valid_until_ms = 0;
         result->remote_tokens += (size_t)matched * n;
         page += matched;
+        if (!matched)
+            return KVF_NOT_FOUND;
         parent = candidates[matched - 1];
         if (matched < ask)
             return KVF_NOT_FOUND;
@@ -619,4 +621,82 @@ kvf_status mi_remote_resolve_after(mi_remote_worker *w, mi_remote_suffix suffix,
 kvf_status mi_remote_resolve(mi_remote_worker *w, const int32_t *tokens, size_t count,
                               mi_kv_sequence **out, mi_remote_result *result) {
     return mi_remote_resolve_impl(w, tokens, count, out, result, NULL);
+}
+
+/* Direct receive into a bounded caller-owned pinned window. Every lease is
+ * finished on both success and failure; no page is made visible in the Trie. */
+kvf_status mi_remote_snapshot_into(mi_remote_worker *w, kvf_hash parent,
+                                  const int32_t *tokens, size_t pages, uint64_t deadline,
+                                  void *data, mi_remote_timing *timing) {
+    if (!w || !tokens || !data || !timing || !pages || pages > 128 || !deadline ||
+        w->location != MI_LOCATION_CPU)
+        return KVF_INVALID;
+    const size_t bytes = (size_t)w->identity.layers * w->identity.bytes_per_layer;
+    if (!bytes || bytes > KVF_MAX_BATCH_BYTES) return KVF_INVALID;
+    size_t limit = KVF_MAX_BATCH_BYTES / bytes;
+    if (limit > KVF_MAX_BATCH_PAGES) limit = KVF_MAX_BATCH_PAGES;
+    for (size_t done = 0; done < pages;) {
+        kvf_client client;
+        kvf_status st = mi_remote_request_client(w->control, deadline, NULL, &client);
+        if (st != KVF_OK) return st;
+        uint32_t ask = (uint32_t)(pages - done < limit ? pages - done : limit);
+        kvf_hash hashes[KVF_MAX_BATCH_PAGES], tail = parent;
+        for (uint32_t i = 0; i < ask; ++i) {
+            st = kvf_page_hash(&w->identity, tail,
+                 tokens + (done + i) * w->identity.tokens_per_page,
+                 w->identity.tokens_per_page, &hashes[i]);
+            if (st != KVF_OK) return st;
+            tail = hashes[i];
+        }
+        kvf_grant grants[KVF_MAX_BATCH_PAGES];
+        kvf_batch_page fetch[KVF_MAX_BATCH_PAGES] = {0};
+        uint32_t matched = 0;
+        uint64_t start = kvf_now_ns();
+        MI_REMOTE_RANGE_BEGIN("kvfabric.rdma.acquire");
+        st = kvf_client_acquire_batch(client, w->space, hashes, ask, grants, &matched);
+        MI_REMOTE_RANGE_END();
+        timing->dir_lookup_ns += kvf_now_ns() - start;
+        if (st != KVF_OK) return st;
+        if (!matched) return KVF_NOT_FOUND;
+        for (uint32_t i = 0; i < matched; ++i) {
+            const kvf_manifest *m = &grants[i].manifest;
+            fetch[i] = (kvf_batch_page){.key=m->key, .owner_boot=m->owner.boot,
+                                        .ticket=grants[i].ticket};
+            /* Build all FINISH tickets even if an earlier manifest is bad. */
+            kvf_status digest = kvf_manifest_digest(m, &fetch[i].manifest_digest);
+            if (digest != KVF_OK || !kvf_hash_equal(m->parent, i ? hashes[i-1] : parent))
+                st = KVF_PROTOCOL;
+        }
+        for (uint32_t first = 0; st == KVF_OK && first < matched;) {
+            uint32_t end = first + 1;
+            while (end < matched && kvf_uuid_equal(fetch[first].owner_boot, fetch[end].owner_boot)) ++end;
+            st = mi_remote_receive_batch_into(w, &grants[first], fetch + first, end-first,
+                    (end-first)*bytes, deadline, NULL, timing,
+                    (unsigned char *)data + (done+first)*bytes);
+            first = end;
+        }
+        start = kvf_now_ns();
+        MI_REMOTE_RANGE_BEGIN("kvfabric.rdma.manifest_crc");
+        for (uint32_t i = 0; st == KVF_OK && i < matched; ++i)
+            for (uint32_t l = 0; st == KVF_OK && l < w->identity.layers; ++l)
+                if (kvf_crc32c((unsigned char *)data + (done+i)*bytes +
+                            (size_t)l*w->identity.bytes_per_layer, w->identity.bytes_per_layer)
+                        != grants[i].manifest.layer[l].checksum) st = KVF_CRC;
+        MI_REMOTE_RANGE_END();
+        timing->crc_verify_ns += kvf_now_ns() - start;
+        start = kvf_now_ns();
+        client = w->control;
+        kvf_status live = mi_remote_request_client(w->control, deadline, NULL, &client);
+        if (live != KVF_OK && client.timeout_ms > 100) client.timeout_ms = 100;
+        MI_REMOTE_RANGE_BEGIN("kvfabric.rdma.finish");
+        kvf_status finished = kvf_client_check_batch(client, fetch, matched, 1);
+        MI_REMOTE_RANGE_END();
+        timing->lease_check_ns += kvf_now_ns() - start;
+        if (st == KVF_OK) st = live == KVF_OK ? finished : live;
+        if (st != KVF_OK) return st;
+        done += matched;
+        parent = hashes[matched-1];
+        if (matched < ask) return KVF_NOT_FOUND;
+    }
+    return kvf_now_ms() < deadline ? KVF_OK : KVF_TIMEOUT;
 }

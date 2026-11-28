@@ -1,15 +1,12 @@
 # KV-Fabric Remote KV 延迟优化
 
-> 历史阶段报告：本页环境与限制只对应当时的WSL2/RTX5060Ti实验。当前原生Linux、RTX4060、完整vLLM和NVMe/RDMA结果见[完整交付指南](PROJECT-DELIVERY.md)。原始大体积归档本地保留；公开脱敏测量见[验证数据](benchmarks/published-validation/README.md)。
-
-
 ## 工作负载和基线
 
 本轮以 `dev` 的 `02fe2db383bad59dc614d8dd124d21f976ae0869` 为基线。模型使用 `stories15M.bin` 的 FP32 权重，在 RTX 5060 Ti 上执行 CUDA 前向。每次消费请求包含 24 个提示 Token，远程前缀覆盖其中 20 个 Token 和 5 个完整页。每页 6 层，每层 9,216 Bytes，总计 276,480 Bytes。采样固定为 8 个生成 Token、种子 1234、温度 0.7、top-p 0.95 和忽略 EOS。
 
 在同机 TCP 环回的独立预热组中，CUDA 的 Remote TTFT P50 为 **12.67 ms**，Cold 为 **15.67 ms**，下降 **19.1%**。30 轮中 Remote 全部快于同轮 Cold。关闭共同预热的复跑结果为 12.42 ms 对 15.58 ms，下降 20.3%。[正式样本和配对统计](KV-FABRIC-ULTIMATE-TEST-REPORT.md#ttft-结果)
 
-原始记录的 CUDA Cold 与 Remote TTFT P50 分别为 15.56 ms 和 79.58 ms。用原提交、相同模型和参数在当前主机上复测 30 轮，分别为 15.65 ms 和 85.85 ms。复测每个 Remote 样本都实际导入 5 页，生成 Token ID 与同轮的 Cold 和 Local 一致。[原始历史记录](benchmarks/nanovllm-remote-kv-cuda-raw.csv) · [原提交复测记录](benchmarks/published-validation/README.md)
+原始记录的 CUDA Cold 与 Remote TTFT P50 分别为 15.56 ms 和 79.58 ms。用原提交、相同模型和参数在当前主机上复测 30 轮，分别为 15.65 ms 和 85.85 ms。复测每个 Remote 样本都实际导入 5 页，生成 Token ID 与同轮的 Cold 和 Local 一致。[原始历史记录](benchmarks/nanovllm-remote-kv-cuda-raw.csv) · [原提交复测记录](benchmarks/ultimate/baseline/cuda-raw.csv)
 
 ### 原提交分段观察
 
@@ -30,7 +27,7 @@
 | 消费端 | CPU 重排 | 5 | 0.06 |
 | 消费端 | CUDA 页复制及等待 | 5 | 0.40 |
 
-目录校验产生了旧路径的大部分等待。逐页 CUDA 同步和 CLI 的 1 ms 空转轮询也在关键路径上。探针样本和原提交正式复测分开保存。[旧路径分段原始记录](benchmarks/published-validation/README.md)
+目录校验产生了旧路径的大部分等待。逐页 CUDA 同步和 CLI 的 1 ms 空转轮询也在关键路径上。探针样本和原提交正式复测分开保存。[旧路径分段原始记录](benchmarks/ultimate/baseline/cuda-legacy-profile.csv)
 
 ## 新数据路径
 

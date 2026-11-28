@@ -1,0 +1,6 @@
+==PROF== Connected to process 410961 (/home/wty/Infra/build-cuda-release/bin/kvf_cuda_bench)
+==PROF== Profiling "scatter_kv_pages": 0%....50%....100% - 3 passes
+vector,H2D,1,75497472,6.8381,10.282
+vector,D2H,1,75497472,6.8252,10.302
+==PROF== Disconnected from process 410961
+==PROF== Report: /home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/ncu/scatter.ncu-repz

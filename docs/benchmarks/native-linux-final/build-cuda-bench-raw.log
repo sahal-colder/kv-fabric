@@ -1,0 +1,4 @@
+[1/2] Building CUDA object src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o
+[2/2] Linking CUDA executable bin/kvf_cuda_bench
+[1/2] Building CUDA object src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o
+[2/2] Linking CUDA executable bin/kvf_cuda_bench

@@ -1,0 +1,44 @@
+Internal ctest changing into directory: /home/wty/Infra/build-tsan
+Test project /home/wty/Infra/build-tsan
+      Start  1: kvf_protocol
+ 1/19 Test  #1: kvf_protocol .....................   Passed    0.13 sec
+      Start  2: kvf_directory
+ 2/19 Test  #2: kvf_directory ....................   Passed    0.75 sec
+      Start  3: pool
+ 3/19 Test  #3: pool .............................   Passed   21.86 sec
+      Start  4: graph
+ 4/19 Test  #4: graph ............................   Passed    0.00 sec
+      Start  5: tiered
+ 5/19 Test  #5: tiered ...........................   Passed    0.01 sec
+      Start  6: kv_cache
+ 6/19 Test  #6: kv_cache .........................   Passed    0.01 sec
+      Start  7: paged_kv
+ 7/19 Test  #7: paged_kv .........................   Passed    0.01 sec
+      Start  8: gpu_mock
+ 8/19 Test  #8: gpu_mock .........................   Passed    0.01 sec
+      Start  9: allocator_faults
+ 9/19 Test  #9: allocator_faults .................   Passed    0.01 sec
+      Start 10: device_boundaries_cpu
+10/19 Test #10: device_boundaries_cpu ............   Passed    0.04 sec
+      Start 11: storage_audit
+11/19 Test #11: storage_audit ....................   Passed    0.10 sec
+      Start 12: uring_faults
+12/19 Test #12: uring_faults .....................   Passed    0.01 sec
+      Start 13: direct_io_cpu
+13/19 Test #13: direct_io_cpu ....................   Passed    0.01 sec
+      Start 14: remote_lifecycle
+14/19 Test #14: remote_lifecycle .................   Passed    0.01 sec
+      Start 15: remote_audit
+15/19 Test #15: remote_audit .....................   Passed    8.06 sec
+      Start 16: remote_faults
+16/19 Test #16: remote_faults ....................   Passed    2.81 sec
+      Start 17: remote_e2e_cpu
+17/19 Test #17: remote_e2e_cpu ...................   Passed    2.05 sec
+      Start 18: remote_restart
+18/19 Test #18: remote_restart ...................   Passed    1.68 sec
+      Start 19: nano_remote_inference_cpu
+19/19 Test #19: nano_remote_inference_cpu ........   Passed   10.22 sec
+
+100% tests passed, 0 tests failed out of 19
+
+Total Test time (real) =  47.77 sec

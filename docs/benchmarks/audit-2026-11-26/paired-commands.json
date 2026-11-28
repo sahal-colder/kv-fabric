@@ -1,0 +1,146 @@
+[
+  {
+    "label": "before",
+    "round": 0,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-0.txt"
+  },
+  {
+    "label": "after",
+    "round": 0,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-0.txt"
+  },
+  {
+    "label": "after",
+    "round": 1,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-1.txt"
+  },
+  {
+    "label": "before",
+    "round": 1,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-1.txt"
+  },
+  {
+    "label": "before",
+    "round": 2,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-2.txt"
+  },
+  {
+    "label": "after",
+    "round": 2,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-2.txt"
+  },
+  {
+    "label": "after",
+    "round": 3,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-3.txt"
+  },
+  {
+    "label": "before",
+    "round": 3,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-3.txt"
+  },
+  {
+    "label": "before",
+    "round": 4,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-4.txt"
+  },
+  {
+    "label": "after",
+    "round": 4,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-4.txt"
+  },
+  {
+    "label": "after",
+    "round": 5,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-5.txt"
+  },
+  {
+    "label": "before",
+    "round": 5,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-5.txt"
+  },
+  {
+    "label": "before",
+    "round": 6,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-6.txt"
+  },
+  {
+    "label": "after",
+    "round": 6,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-6.txt"
+  },
+  {
+    "label": "after",
+    "round": 7,
+    "build": "build-release",
+    "log": "/tmp/kvf_bench_paired-after-7.txt"
+  },
+  {
+    "label": "before",
+    "round": 7,
+    "build": "build-baseline",
+    "log": "/tmp/kvf_bench_paired-before-7.txt"
+  },
+  {
+    "label": "before",
+    "round": 0,
+    "build": "/tmp/kvf-audit/original-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-before-0"
+  },
+  {
+    "label": "after",
+    "round": 0,
+    "build": "/home/wty/Infra/build-baseline-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-after-0"
+  },
+  {
+    "label": "after",
+    "round": 1,
+    "build": "/home/wty/Infra/build-baseline-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-after-1"
+  },
+  {
+    "label": "before",
+    "round": 1,
+    "build": "/tmp/kvf-audit/original-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-before-1"
+  },
+  {
+    "label": "before",
+    "round": 2,
+    "build": "/tmp/kvf-audit/original-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-before-2"
+  },
+  {
+    "label": "after",
+    "round": 2,
+    "build": "/home/wty/Infra/build-baseline-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-after-2"
+  },
+  {
+    "label": "after",
+    "round": 3,
+    "build": "/home/wty/Infra/build-baseline-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-after-3"
+  },
+  {
+    "label": "before",
+    "round": 3,
+    "build": "/tmp/kvf-audit/original-cuda",
+    "dir": "/tmp/kvf-audit/paired-cuda-before-3"
+  }
+]

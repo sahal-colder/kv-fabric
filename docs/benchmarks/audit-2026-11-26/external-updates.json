@@ -1,0 +1,32 @@
+[
+  {
+    "path": "docs/interview_prep_kv_fabric.md",
+    "original_sha256": "579b97101349f12f17563f4523e54652b220dbb729a4152cf4b8f9215a5b4289",
+    "current_sha256": "70d394d6b672a34b9c728646c21422b77559000d0b1c099c6a28307bd3c19721"
+  },
+  {
+    "path": "docs/resume_ai_infra.md",
+    "original_sha256": "02ca32c9f07a8a7f15e0e74b539d27b3546eb1768a030a5b184cf95baca140fc",
+    "current_sha256": "83557c1c3b99ed9d25f188faf9d1f3b3c34db65a9614414431dbce7366600c3f"
+  },
+  {
+    "path": "docs/resume_out/layout-validation.json",
+    "original_sha256": "d5af8c8d6a01b7a190043f33970887a53f681f023676c55a86c92c7d2d74cb03",
+    "current_sha256": "bf7f40d19ec128b5720c6805aaca921d5477fbb8a418b24696e5a7fdd9e39b88"
+  },
+  {
+    "path": "docs/resume_out/resume_preview.png",
+    "original_sha256": "1393b7f04c9b759bf3f4a2cf43ffb3dae9ad6e8651001153a5680f1ffbca3e7d",
+    "current_sha256": "4fb6abf97d8d46bdc9874b1381828e390a09cc001e7bb267306373c9a6c24e42"
+  },
+  {
+    "path": "docs/resume_out/\u738b\u5ef7\u715c_AI_Infra_\u7814\u53d1\u5b9e\u4e60\u751f.docx",
+    "original_sha256": "f0142bc1e71863ad26ed3ce35866c5bb9268eceb30948f032038aa999eed3395",
+    "current_sha256": "890b045c47d4101c3e081eac0657e5146d45a5c16eb83502b5b1e14f89c5d4a5"
+  },
+  {
+    "path": "docs/resume_out/\u738b\u5ef7\u715c_AI_Infra_\u7814\u53d1\u5b9e\u4e60\u751f.pdf",
+    "original_sha256": "51da81bb25e195963e92011b3b239c2691cb08ebf32576386d3d4f7d73119e0c",
+    "current_sha256": "de78940e92190d3ce34d0617dbd163353c2a28b5f43425ce181075c63d819c37"
+  }
+]

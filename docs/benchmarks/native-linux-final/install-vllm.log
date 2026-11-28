@@ -1,0 +1,10 @@
+$ /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/venv/bin/python -m pip install --disable-pip-version-check vllm==0.31.0
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting vllm==0.31.0
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e1/98/841d1328827dc082492fcbb0f57bdf6a9d35aa0df52bd47b75be3f504804/vllm-0.31.0-cp38-abi3-manylinux_2_28_x86_64.whl (320.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  313.3/320.6 MB 1.2 MB/s eta 0:00:07
+ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
+    vllm==0.31.0 from https://pypi.tuna.tsinghua.edu.cn/packages/e1/98/841d1328827dc082492fcbb0f57bdf6a9d35aa0df52bd47b75be3f504804/vllm-0.31.0-cp38-abi3-manylinux_2_28_x86_64.whl:
+        Expected sha256 39132b433967f0962d03d8a5f633b9bee6b32708f566c7d5637b79f8d0ef3433
+             Got        6403a9103021e1682909edaaf5df7191cb481a6b7c706b61d92e801289468f1d
+

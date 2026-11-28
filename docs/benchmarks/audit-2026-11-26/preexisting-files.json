@@ -1,0 +1,1392 @@
+[
+  {
+    "path": "CMakeLists.txt",
+    "bytes": 3762,
+    "sha256": "967f9a8549a5ef208eb67c1da295bd95002438a6afe2fb574a23368a25c9a7bf"
+  },
+  {
+    "path": "README.md",
+    "bytes": 4172,
+    "sha256": "4c6086f9d45badc1b953bfce82b952ca3d010c8b72aa0763989396a44c0d7e28"
+  },
+  {
+    "path": "include/kvfabric/kvfabric.h",
+    "bytes": 7224,
+    "sha256": "a9d2ce101cef63ca36ef93b3488a273aa75b8906498802e26a46b45727963b12"
+  },
+  {
+    "path": "include/kvfabric/wire.h",
+    "bytes": 4934,
+    "sha256": "9c95e5f47df183ad24588b6e74ffb5cea35324ca98205bd81a325496fa3fea25"
+  },
+  {
+    "path": "include/miniinfer/remote_cache.h",
+    "bytes": 6764,
+    "sha256": "ce3cae3cea1e863408ad0ffe0dedfcea08127eaedb5e7f5213b4dee72729ac31"
+  },
+  {
+    "path": "include/nanovllm/nv.h",
+    "bytes": 14041,
+    "sha256": "95f618c4c77a4f6421f946db368fe3c6e4e47058d6d415f1f67c46cdf3a64353"
+  },
+  {
+    "path": "src/control/net.c",
+    "bytes": 13921,
+    "sha256": "060068a1b127aa7191a71cd2b59c6230ae4731aa07e4d9e47ff775cb998f4c45"
+  },
+  {
+    "path": "src/integration/CMakeLists.txt",
+    "bytes": 4877,
+    "sha256": "7cf247842826cd6065803f1f07e9c7b0ba80665923248363594f3cbf6c651144"
+  },
+  {
+    "path": "src/nanovllm/CMakeLists.txt",
+    "bytes": 3509,
+    "sha256": "9c80aa04f8c4cd97510a7728ec5f78568ed6e7250d9a34cb1c477e65415c2fa4"
+  },
+  {
+    "path": "src/nanovllm/cli.c",
+    "bytes": 22975,
+    "sha256": "6b4172465aff16c6cee95bc96da366231f960b63342b683765536600bde14ebf"
+  },
+  {
+    "path": "src/nanovllm/nano_cuda.cu",
+    "bytes": 20075,
+    "sha256": "4f6d23b57fdeca06b2d567e94026eb8ba7a79a6b546837de537c359821801c9f"
+  },
+  {
+    "path": "src/nanovllm/nano_remote_kv.c",
+    "bytes": 37261,
+    "sha256": "32fc3881aff7ca602c148fe46a8a403fb0fec61a0715460698f2d6897107d93c"
+  },
+  {
+    "path": "src/worker/CMakeLists.txt",
+    "bytes": 7516,
+    "sha256": "876f0a5b6fbba33829dcce122e5c96ed175e754366c81d069d94eb261d5325cc"
+  },
+  {
+    "path": "src/worker/direct_io.c",
+    "bytes": 6648,
+    "sha256": "9ead82a283af2526a8bde10345436a4a5dbf49e139783be3e9a4a00fdb034b7b"
+  },
+  {
+    "path": "src/worker/remote/cli.c",
+    "bytes": 14413,
+    "sha256": "21994ba1fdc55225562825b5b09a4f9ef3aebbacec48f44b6b3c8715448e5c76"
+  },
+  {
+    "path": "src/worker/remote/internal.h",
+    "bytes": 7574,
+    "sha256": "1f9097a0ad5e19ede7eeede8420daef5966e68c6af0c4ba3d6d72a42adab8a25"
+  },
+  {
+    "path": "src/worker/remote/peer.c",
+    "bytes": 5794,
+    "sha256": "65bf596dbe625e2285389b2bb42452c5e098752e854e120653a40ac0965dbf42"
+  },
+  {
+    "path": "src/worker/remote/transfer.c",
+    "bytes": 22666,
+    "sha256": "7c951ba526f3c8ca3b591b691878c6f653228f2b50da99da8967b10f0a7ca4cf"
+  },
+  {
+    "path": "src/worker/remote/worker.c",
+    "bytes": 17108,
+    "sha256": "3c744750d5993a52523b781c6cea3679458c227b0cdb07007878fe0188351d75"
+  },
+  {
+    "path": "tests/nanovllm/remote_worker.c",
+    "bytes": 11662,
+    "sha256": "12aae6d881b3fc26dc55693d6079982a6cada2ffad7c87cd895b86f20b0687c8"
+  },
+  {
+    "path": "tests/nanovllm/test_remote_inference.py",
+    "bytes": 39561,
+    "sha256": "725b4f685a882880af1e2bf2ccac1b32030ef026f389ea3c1557c15306b5cf49"
+  },
+  {
+    "path": "tests/worker/test_remote_e2e.c",
+    "bytes": 8568,
+    "sha256": "96598695d07fb7603d3070b4d04ec055a37affa1c16ed99a4beb6c469410a6b1"
+  },
+  {
+    "path": "tests/worker/test_remote_faults.c",
+    "bytes": 16445,
+    "sha256": "d8e1e2c5d528c1f1c781cc210b5952e9467d6cd465fe111c76bd583cb4edc99c"
+  },
+  {
+    "path": "third_party/NtyCo/core/nty_coroutine.c",
+    "bytes": 12043,
+    "sha256": "7824fc2d999832e3d2d5f3fbbefa78474fc2c5c9ae0cd03159c494ce5b100825"
+  },
+  {
+    "path": "third_party/NtyCo/core/nty_coroutine.h",
+    "bytes": 9939,
+    "sha256": "09d2e5a9744568fb8427f600eef5a75e757367930c0cd5db9537291ac42f7600"
+  },
+  {
+    "path": "third_party/NtyCo/core/nty_socket.c",
+    "bytes": 14045,
+    "sha256": "88b371b2acc4bfae5ad5f6c555bbcb0a4ad0de808b8ff558e28301f694b946c1"
+  },
+  {
+    "path": "docs/KV-FABRIC-RDMA-INTEGRATION.md",
+    "bytes": 12472,
+    "sha256": "4ec9dba9c43e109a71fe290211dd48f3c37dadfea72e40c39e7c6e3135f89184"
+  },
+  {
+    "path": "docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md",
+    "bytes": 10067,
+    "sha256": "f48f6a98d57d7c3c44fdaa63c749a2802853f5655987533f9c763c8d5ba04835"
+  },
+  {
+    "path": "docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md",
+    "bytes": 12283,
+    "sha256": "83eff5752283d89fef36d229b56f2df39d9a72f06d3d54c45245839dbd0b9acf"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/CMakeCache-posix.txt",
+    "bytes": 34874,
+    "sha256": "a7832e46df3af90904040da66605461fbc9fd0db174c88c1fea2d3703c3503b4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/CMakeCache-uring.txt",
+    "bytes": 36515,
+    "sha256": "581bfeed4fc124bfad878248675ce0b73180e3fc1c7c9f3b3763aa71c836572f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/README.md",
+    "bytes": 8864,
+    "sha256": "81b81beb4ff469eba663b25be6c020b8b896d343c0f72205bb86a1e02d6f786d"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/artifact-manifest.json",
+    "bytes": 65528,
+    "sha256": "0651306a8e6e99d74e384dfb32073900e942d3db8195947efeff36b574fcca1c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/bridge-roundtrip/bridge-cache",
+    "bytes": 73728,
+    "sha256": "a944fdc08d9e9b5b8e3f90126b29083c07e4a2b37594952d3b575b02df2239c2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/bridge-roundtrip/directory.conf",
+    "bytes": 42,
+    "sha256": "6181f9a19fb02d08e26a23d266fb535f67b88613ede0daf22c27621afcb91ee1"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/commands.jsonl",
+    "bytes": 19473,
+    "sha256": "21f5d1b23e766f2b4cee039bf18d606b4544ef1717d08ead348c86577f4df537"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/compile-commands-posix.json",
+    "bytes": 99805,
+    "sha256": "6970dc10e5c43d151f56c6ef6258d8180d3948cc1e467380d98c08c813529551"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/compile-commands-uring.json",
+    "bytes": 101880,
+    "sha256": "3895887dbd338ac88e94c6e2d1924bcb002f277e1336bda9d33e71664b9b31cb"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip-gpu-telemetry.csv",
+    "bytes": 8065,
+    "sha256": "1df77101fce04ef6880bfebd0643f79e97d0c809b32c0a1f66fc36bb2bec8fd7"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip-summary.json",
+    "bytes": 2330,
+    "sha256": "605f7bd4b2d22745944611c6f413aa41f863e0a6839c080ce98f508c38549db7"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip/bridge-cache",
+    "bytes": 73728,
+    "sha256": "a944fdc08d9e9b5b8e3f90126b29083c07e4a2b37594952d3b575b02df2239c2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip/cpu.jsonl",
+    "bytes": 2239,
+    "sha256": "12621b444c3e137827d08d25a4b2c15735f9d85e6ef2dc215536842561cf4aa4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip/directory.conf",
+    "bytes": 42,
+    "sha256": "fc10edccfe028ad24128266f69b6b260e5aa39af3224ede8b0f05a095d6e6f1f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip/disk.jsonl",
+    "bytes": 2275,
+    "sha256": "60f6da372f181e14f679b90b58e196393e4d9ac68c3de0667ae1bf8e7fca6b2f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/connector-roundtrip/timeout.jsonl",
+    "bytes": 1438,
+    "sha256": "51f9c21b4ac25f0abf21879912622e2e3edf1f9cd117ba4ec472748e1a4a828e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ctest-posix-final.xml",
+    "bytes": 6009,
+    "sha256": "d26aa2e23c92b2fe2517286faa118a18c7fc0a357c72c21cfe2dd1937dde606d"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ctest-uring-final.xml",
+    "bytes": 6032,
+    "sha256": "b5e93d275cddcde746f67f470ba27c71b37c4f3328686ed35e1ba47192fcfdbc"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ctest.xml",
+    "bytes": 6031,
+    "sha256": "bdf1e2246e883c4382b8866addbf8f4ddcb9773dc6a8607fd70b0a616ca5edce"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/cuda-bench-preflight-7-samples.csv",
+    "bytes": 217,
+    "sha256": "235c01abf15555390614531932e9af810d6120d7f0140a51825f31b2a373a12c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/cuda-bench-raw.csv",
+    "bytes": 3158,
+    "sha256": "c44df8c6e8a11ee85615b2683199ac3ca5904f5ec12db4bd4608e04003da858b"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/cuda-bench.csv",
+    "bytes": 219,
+    "sha256": "4c8d6c8d42df010c534cd56df8d4d0775bfe657310d998e5670e833a98867d3f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/cuda-summary.json",
+    "bytes": 2735,
+    "sha256": "afb662a19aecbb30d3e831ecd2124cf3a1b08c8948ef948eb7d01eb555890ea5"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/vector-timeline-validation.json",
+    "bytes": 428,
+    "sha256": "41c9ded415f7c6a4f759db9e9abee50341809b9226479cb17c8b99b669552b1e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/vector-timeline.nsys-rep",
+    "bytes": 199069,
+    "sha256": "2d981747f59db05ea1c4e8a83bed7ae2739ac0e7e5083e034da59330c49c994f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/cuda/vector-timeline.sqlite",
+    "bytes": 851968,
+    "sha256": "5a821be61e93cd986d07284c779e4d478a0ff56b117c2281f21fc24d7a4003d8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/direct-posix-recovery.csv",
+    "bytes": 1262,
+    "sha256": "dc59169f531946d93aed4af7f2c8212ea0ce79505027621d520017ca359806f8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/direct-uring-fixed-recovery.csv",
+    "bytes": 1352,
+    "sha256": "5c9a34e6bdb37e38c62a054498887e89c7796bc9ae3fe7d4f8995672aff2bca1"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/document-renderer-preflight.json",
+    "bytes": 221,
+    "sha256": "29cb7e3a686bfb4411619c52c5f699f1df45d22386a2e0c81af35df6ec151e99"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/document-runtime-compat.json",
+    "bytes": 1541,
+    "sha256": "faf78b8f005dad0b67c3eee4badb9f5ab5bbc88b948e7d99a7581f282ecea733"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/env.txt",
+    "bytes": 19285,
+    "sha256": "14dadfe604ad508d4ff19cb5ecf1bb746c76aeaf0c1325eaae27800d86a3b1f6"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/execution-status.json",
+    "bytes": 14955,
+    "sha256": "e857045a6b74a4d2941b352c3799d9b5c3fa3f478926946d7bc3855128e24851"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-busy-prefix/kvfabric-cpu/directory.conf",
+    "bytes": 42,
+    "sha256": "6249e64732334eb9da41dec1f841ec2531f395b86af8f03a153fdda10eb49cad"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-busy-prefix/kvfabric-cpu/kvfabric.jsonl",
+    "bytes": 81024,
+    "sha256": "bd886505465c9740b2fe83cad0f056127893dc4ba96603cb9ac038bdc9b72b91"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-busy-prefix/kvfabric-cpu/requests.jsonl",
+    "bytes": 16789,
+    "sha256": "48da8b1b1d3b1a98f31b643b8e876816e4e8dd728a95047be75540426c528781"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-busy-prefix/kvfabric-cpu/summary.jsonl",
+    "bytes": 2021,
+    "sha256": "48a667bbb43065a490882bf319bb882628092d6899ba56198fc33d28c9e43dec"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-default-numerics/connector-roundtrip-gpu-telemetry.csv",
+    "bytes": 4955,
+    "sha256": "894407a674db0872b558efc17823b761f2cc6c997639d6680ff68279e4e0d901"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-default-numerics/connector-roundtrip/bridge-cache",
+    "bytes": 73728,
+    "sha256": "a944fdc08d9e9b5b8e3f90126b29083c07e4a2b37594952d3b575b02df2239c2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-default-numerics/connector-roundtrip/cpu.jsonl",
+    "bytes": 674,
+    "sha256": "32a153b618be414ab51577a772af52e5d34f3f0bdd4fad2830a0071854068490"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-default-numerics/connector-roundtrip/directory.conf",
+    "bytes": 42,
+    "sha256": "395a5527ad9f11d0897d1e9d191de6b0534f6756601ced6b8fd7860136e10619"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-default-numerics/execution-status.json",
+    "bytes": 867,
+    "sha256": "f3a453a4965dea4eae26ae1a7b036aa04ecb446a819959b9456882d914135753"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-warmup-accounting/kvfabric-cpu/directory.conf",
+    "bytes": 42,
+    "sha256": "2df7704fb4677c5931e573c0694d2160ab98f1f7ced1d5c83b4a12414ecceb8a"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-warmup-accounting/kvfabric-cpu/kvfabric.jsonl",
+    "bytes": 3472,
+    "sha256": "35706c170336c2dbf9cf099128acbbabee0574d414dd84212a0293b9ae62a738"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-warmup-accounting/kvfabric-cpu/requests.jsonl",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/failed-warmup-accounting/kvfabric-cpu/summary.jsonl",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1-failed-20261125T160710-gpu-telemetry.csv",
+    "bytes": 50040,
+    "sha256": "cd7d026c19da31f0922229e95bbfe19461e50eb37db9a2669aef8a87cfce69b4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1-failed-20261125T161613-gpu-telemetry.csv",
+    "bytes": 9764,
+    "sha256": "28e32d1af19c96c260cc8f341339c3fdd955528fd3d95d0e04cd8eafe7792a61"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1-gpu-telemetry.csv",
+    "bytes": 56460,
+    "sha256": "9c079bd156e46fbd106de19fd3e22c3a8218bfee89d4daae79bdb415ecbf881b"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/environment-resume-1795594033384184870.json",
+    "bytes": 4607,
+    "sha256": "435219c0b41151f76945259489be35f6cb6e63b06ccd92d153827f5854a9f6cf"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/environment-resume-1795594575529351674.json",
+    "bytes": 4607,
+    "sha256": "435219c0b41151f76945259489be35f6cb6e63b06ccd92d153827f5854a9f6cf"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/environment.json",
+    "bytes": 4547,
+    "sha256": "02e3b4d409ffc22dfbafb3f3efec7cfb1fcdaf9ea9ed7cb4171b0c221a223e20"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/directory.conf",
+    "bytes": 42,
+    "sha256": "d00e5adb8c36eb46f88dd3e7c82ff5183a73ce9a8d50bda596a3edaa5d931083"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/kvfabric.jsonl",
+    "bytes": 165537,
+    "sha256": "ba3b14368580c408225730713c79e455f48d12d3b8b20bccabb4e868f160346c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/requests.jsonl",
+    "bytes": 25264,
+    "sha256": "b338bec744e3dc0dfdb82088d7bd4543f0514c8468178571d3e5300659d2a60a"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-cpu/summary.jsonl",
+    "bytes": 3199,
+    "sha256": "35d44b323d9fc0bde41988c29eea343a814fea254f3213eafd9c9336e6489f40"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/directory.conf",
+    "bytes": 42,
+    "sha256": "b0d2436b78d1575708abaef0ce05f9bb19ec8f2f71895bc3fd94dc89f7f5c0cb"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/kvfabric.jsonl",
+    "bytes": 172380,
+    "sha256": "968fa2612ba7dcac5652f60d65262348442ff9df591b18e7535784ea7bb3d806"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/requests.jsonl",
+    "bytes": 25206,
+    "sha256": "139da8197047d7f462887dc46d3b390a726113aad8a8843d43825547bca10256"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/kvfabric-disk/summary.jsonl",
+    "bytes": 3228,
+    "sha256": "e0ab728c6396792488bd7e935fcb697c8d88a59549b9e9b4a2c79d88676b6138"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/native/requests.jsonl",
+    "bytes": 25241,
+    "sha256": "4f412f9d2d33a40848ee8105b41a6fa5057c005c1b47af67e1c42918a235eaf4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/native/summary.jsonl",
+    "bytes": 2870,
+    "sha256": "9530aec8ea0b0d06064ef57d2a006a37715f0ad1772a750467a94c4eb8486a9e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/recompute/requests.jsonl",
+    "bytes": 25262,
+    "sha256": "923affcce597023d3bd0d49bc93dc3d4a6b9710a9cff0fe8de73564fb1b2fd36"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/recompute/summary.jsonl",
+    "bytes": 2717,
+    "sha256": "164c04ae19c973b03b1c6c0d177d1e9271035e77f4e709cfedc7cfbdf608b47a"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2-gpu-telemetry.csv",
+    "bytes": 27681,
+    "sha256": "885417bf1fc62eb7ac2d5f5e20bbd2a708307bc7f51786ac34a003f7bfd13825"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/environment.json",
+    "bytes": 4582,
+    "sha256": "b1fffda8a1d8328007b9a7234404b1d29a8cb43f2b210ea626fa31b69aa1e78c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-cpu/directory.conf",
+    "bytes": 42,
+    "sha256": "7de0db71529b19f4f7c6e9d9e942165783344ee0fbf1dac7c24a9a91764c0e41"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-cpu/kvfabric.jsonl",
+    "bytes": 60277,
+    "sha256": "df0d9dff3bf71b24082794e6d8128ee8448633c09f73d5399674a4d4cd2505b2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-cpu/requests.jsonl",
+    "bytes": 8433,
+    "sha256": "addbf643d9bdfed409aff6514c9d5c4769ce2b414d9d2c7dc23564701d9b09b3"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-cpu/summary.jsonl",
+    "bytes": 1069,
+    "sha256": "be9c1a3deca26e6aca418b7b9bd98a512078b93bd08ca62890054d5a07d3e665"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-disk/directory.conf",
+    "bytes": 42,
+    "sha256": "1f065580aa4161f554657687eb590c075bcbbb06c8eb624e3ae5ed99e06fdf56"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-disk/kvfabric.jsonl",
+    "bytes": 57758,
+    "sha256": "a6f4b8fb19d2e1c005b97ef3fa67d35c04e0485fe8ab6a5cc3e9163d1c325905"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-disk/requests.jsonl",
+    "bytes": 8450,
+    "sha256": "45fc07e1320b75ee0f252e7851d682b1290ee8613e039809654984b7c6da7f9a"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/kvfabric-disk/summary.jsonl",
+    "bytes": 1089,
+    "sha256": "efb3978071afbaf2df25ae779999499bf25ff53db9c9ee24b14c44fd3e8902a1"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/native/requests.jsonl",
+    "bytes": 8425,
+    "sha256": "c9ceb2e06e8825cfb922441543495918ab41c952218331da3f4cc32bceaf56a8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/native/summary.jsonl",
+    "bytes": 1100,
+    "sha256": "e3e3cddd2b5f91cecbf900b91eea9885fa5741d5058e26ea9e15b222d7e29e69"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/recompute/requests.jsonl",
+    "bytes": 8493,
+    "sha256": "5efe39b9d52a6621cd18e8f6288a0eb4d7a49026b504e05a1faf6434c6cb58b4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c2/recompute/summary.jsonl",
+    "bytes": 1045,
+    "sha256": "71a64f877c1bfde482da93151035b1937c66a33596082b41631f4473f6ecb46c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-legacy-c1-gpu-telemetry.csv",
+    "bytes": 71045,
+    "sha256": "5cad1243cdb8bdba13357f3b369cc8c8183c9749f453d13bcdd8f7f934247272"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-legacy-c1/environment.json",
+    "bytes": 1599,
+    "sha256": "af6cb5719cf143d25a9cbde8b9a76492c0891147492ff035812804bc3fdffeb0"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/directory.conf",
+    "bytes": 42,
+    "sha256": "18157e1f9813fc82bae03cc27acd2d9f53ae646dea1120b699a7994669cb4006"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/kvfabric.jsonl",
+    "bytes": 219379,
+    "sha256": "a5f27de33e2aeb48fab772c23ed4c5c4a26c55041bdca95f36126dcd9e345aca"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/requests.jsonl",
+    "bytes": 25272,
+    "sha256": "d6160c2d99cf14bc5f739ba6b1e8e015336ba527c3560b74706a9e671ac1eeb0"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-legacy-c1/kvfabric-cpu/summary.jsonl",
+    "bytes": 3171,
+    "sha256": "46c23bd31016015031ab26e306ecc73e31123a503d910ea8087f31960464c1bc"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c1-gpu-telemetry.csv",
+    "bytes": 17933,
+    "sha256": "d27c35698bf656bd4dadc4480a75f154e90e69e0ff00eca1d4a5d9c807ab6088"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c1/environment.json",
+    "bytes": 1602,
+    "sha256": "8258966e5dc2c500d341a230922e7dd44359279bb5c59221b9a6b45e23cb88a9"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c1/native/requests.jsonl",
+    "bytes": 25294,
+    "sha256": "ae12c4c36ef24f3b95b35aa9de21948126aa36d5641702194dabfe02e6cb0e1e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c1/native/summary.jsonl",
+    "bytes": 3202,
+    "sha256": "8d1d997fa3b46de55bbd3ecd60ef07a14449e219c351caddd93f92a28226ded2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c2-gpu-telemetry.csv",
+    "bytes": 6195,
+    "sha256": "d01d7d4b68fd206ec9e07c19061afd6904102674e476a938a21c9025e18cbecc"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c2/environment.json",
+    "bytes": 1577,
+    "sha256": "97cbeef0e308eda11211f98e5cd1c4554fa326a048f446cf642bcea98fad1e2c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c2/native/requests.jsonl",
+    "bytes": 8411,
+    "sha256": "ad49dc52221c6c6e0de46a46485c73ef6f5e8e5189cd766cecfe849204c07998"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-native-external-c2/native/summary.jsonl",
+    "bytes": 1132,
+    "sha256": "9f62efe790f73ba1cd69bd248fa3ae7124efa427158262a2f2f8a04c393b40e8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c1-gpu-telemetry.csv",
+    "bytes": 34405,
+    "sha256": "c35e036c401123c259c8a86ae8f6cb5b37547c2ee5c1a3328c8b1b1129b18a87"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c1/environment.json",
+    "bytes": 4633,
+    "sha256": "ad3516760e7c9798da86180d9f481915ec21d3974e0cb95278f5ccee309250f7"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/directory.conf",
+    "bytes": 42,
+    "sha256": "381ec6eb8ade942032d8079f6257fcf3993965e30a31a32a73eac1ebcde8bfab"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/kvfabric.jsonl",
+    "bytes": 167148,
+    "sha256": "bb869d49a1877624db14ce92a29df21f30fa80cc33b186465902d65d3a32d7a9"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/requests.jsonl",
+    "bytes": 25233,
+    "sha256": "9f81d7bd5690d14c2e6999df79c073e49f72fb0b2e99a993b9cd402539cbbde4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c1/kvfabric-disk/summary.jsonl",
+    "bytes": 3210,
+    "sha256": "2d27d76127a9d7fc3aee1ed72a78a479e8db3fe005b8c15ac3e6d86ec8ff19e1"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c2-gpu-telemetry.csv",
+    "bytes": 8438,
+    "sha256": "a06d1fdd41c95b3a1841c80602cd4ffdf80d487f95e459aee224ea6859568935"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c2/environment.json",
+    "bytes": 4608,
+    "sha256": "0f78225a960e27e2125edcabf016c760d9320fdc2119a042ef88ab1c01a9b807"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c2/kvfabric-disk/directory.conf",
+    "bytes": 42,
+    "sha256": "4717b8e73fd06219fa147b820354c5ce2297e355cbac0bcda9d0ba737de4a6f1"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c2/kvfabric-disk/kvfabric.jsonl",
+    "bytes": 61236,
+    "sha256": "f4280ffbfa74c25a629607febcd463ebbd357d48952bff295fdb703a1cfa22bb"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c2/kvfabric-disk/requests.jsonl",
+    "bytes": 8424,
+    "sha256": "fe6cc22ec2cbde8bb9fc23c2fe21e4c5d53c4b4b833322fc2af119a6ffe55c5b"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-posix-c2/kvfabric-disk/summary.jsonl",
+    "bytes": 1069,
+    "sha256": "be642649b553afa9c3456ee0d1d3c72e6d5c5cf1c48f1eb6eab4faee34c8eeed"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-summary.csv",
+    "bytes": 8128,
+    "sha256": "7ea01e9c799b6a1e5cedb6476c04e7183b17f34be0d53237c1a326bf378744f8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-summary.json",
+    "bytes": 41929,
+    "sha256": "8714e7309fa90136012c305ba0d78b8bf0afc173f5cbb7000c7a5e695a86f368"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/model-manifest.json",
+    "bytes": 2677,
+    "sha256": "6115dcde055dac65fbeafbfc4298d47e5c38abf9a4d4220ba257063b88c5375a"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-permission-status.json",
+    "bytes": 409,
+    "sha256": "e149cb01b19bbd8fceea24e52d2500c1d91d120de1e49fcdbdd7553b09322d81"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-root/cuda-bench.csv",
+    "bytes": 220,
+    "sha256": "b658acc026b97fa4ebb2379ed7b5c267d5e7af4aaf87f29ff6d8624b51bec608"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-root/gather.csv",
+    "bytes": 59021,
+    "sha256": "62ba42136915cd461d5644a3e76bc1a56212b8b8c12d216d755fafed1012e7c8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-root/gather.ncu-repz",
+    "bytes": 27396,
+    "sha256": "c0b7797651cce2c0ad4e29a05f3be39adba70c9c9442ef07d2acf266bc27954d"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-root/scatter.csv",
+    "bytes": 59020,
+    "sha256": "0101ee4d9d54260e336e92989250744469909eeddc7b82eb35cb96708734ff0b"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-root/scatter.ncu-repz",
+    "bytes": 27700,
+    "sha256": "37ccda9b4e856dbeabfb3f483652d3771eb8737b7df7de840977691e569dd178"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/ncu-summary.json",
+    "bytes": 2832,
+    "sha256": "df874aa5eb832a74db76d8e906c8b580700bef8caa9cf566d724d804b49b34f4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline-gpu-telemetry.csv",
+    "bytes": 16241,
+    "sha256": "3227980e438ecb25ba0a279c4053f53e6bef10789bef73ce946afc10b5f931dd"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline/baseline.nsys-rep",
+    "bytes": 47709708,
+    "sha256": "4f909b43dfca5c743c4b9636633481c2be48fc30d072581183bd46e8ac82a327"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline/baseline.sqlite",
+    "bytes": 331051008,
+    "sha256": "7876b1528194eb3e3a7a7b2327537ca617eb3316c99d93c8870b40f2083a79af"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline/directory.conf",
+    "bytes": 42,
+    "sha256": "37261f2581e2ceb58f38318a9122b63cb33ba5258cf235272a95c072e468de10"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline/kvfabric.jsonl",
+    "bytes": 52186,
+    "sha256": "308af90eb665a5aeea4f86f5ec89783d90e91167b7f380b9d7de3edce251b7b0"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline/requests.json",
+    "bytes": 2456,
+    "sha256": "074a6c3e8d2bda75e150975ac15e13c9d59d92e0c6895ad1e4225b19749b7965"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-baseline/summary.json",
+    "bytes": 4129,
+    "sha256": "908e6facd4328965e8a70881cf33db1de044b70181356ad35a80ece039c5c3c4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized-gpu-telemetry.csv",
+    "bytes": 9975,
+    "sha256": "43c2495a574d47ac71e5c95bc2792fe8f87136f897f549d458890c9ee627014e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized/directory.conf",
+    "bytes": 42,
+    "sha256": "60ab84a63040d32f1282551e8652f9b988f551f54725df16146cf70771d6e878"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized/kvfabric.jsonl",
+    "bytes": 54985,
+    "sha256": "a8922043c1e2ac70ce03891447ff02e082e1e47420b316c430820c3556cc266f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized/optimized.nsys-rep",
+    "bytes": 8756227,
+    "sha256": "6d5e3e6facd044ba748de58a3c1aa5763b3f481410c82f40aca57e6e6d24473e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized/optimized.sqlite",
+    "bytes": 61644800,
+    "sha256": "d1a3d10c46c6375d69790fdf04bce21ba2908ca4bf41a739a8c5fb2f4090ccc6"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized/requests.json",
+    "bytes": 2449,
+    "sha256": "3b043fdc1472cffb1d0482887ed37d5bb5ada45e56f08779a47eddd37f908033"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/nsys-optimized/summary.json",
+    "bytes": 3947,
+    "sha256": "5d91f3157db42829d5e9a1a6eb62f1df317352b7af137abc0f8df41482be79b4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/numerical-diagnostic/vanilla-apc.json",
+    "bytes": 1304,
+    "sha256": "6e4178fd97555f3074c5f2ab1302eef781dfe8dd671a2e6d02044e849a9c4e28"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/pip-check.txt",
+    "bytes": 30,
+    "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/pip-freeze.txt",
+    "bytes": 4223,
+    "sha256": "ac38df70d0f88247fd896ed49fa058b8f43c01c29f0340589be70c02d98ae239"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/planned-matrix.json",
+    "bytes": 1094,
+    "sha256": "e3d4e502d212f79571216cf25ccf4abd63cde9ad70266d653fa13d7eb9df505e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/ctest.xml",
+    "bytes": 4591,
+    "sha256": "5f093264ad16be272bb19fa589b815a13175e3d9d22f03d3e7ae9befa7e578e2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/directory-probe.conf",
+    "bytes": 42,
+    "sha256": "b862e1424538428237a15163cb19dd44d1d33ac6e0c12c4480f4425dd53f1241"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/env.txt",
+    "bytes": 16514,
+    "sha256": "129eb605623b0d419a7fb65b332b6bb7a54a73ebdf75df847f2e12f7f97d1383"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/interview_prep_kv_fabric.md",
+    "bytes": 2426,
+    "sha256": "e9ec94d4a9d1fb5825321d1b2a2041f8082a3f20d6666f93f3c4e186164725df"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/resume_ai_infra.md",
+    "bytes": 5252,
+    "sha256": "3dcbee9a01c721e37a1d7793949e22fff11f289f9f8d3117aac5cb1d26f61a20"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-analyzer-validation.json",
+    "bytes": 241,
+    "sha256": "1ce2185a7a1847264b689a30d2c9ac12581d9237a3c1385c112d421ecff1f65e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-coverage-preflight.json",
+    "bytes": 390,
+    "sha256": "92df560ab1f3c140bdb20e2b09046ef14b198ca1f523e2bd5a8f3539767aba2d"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/execution-status.json",
+    "bytes": 14955,
+    "sha256": "faee92be60253490efe44ed017735ffba784b2c2f7054efc5e7a5f17364dfeba"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline-gpu-telemetry.csv",
+    "bytes": 20071,
+    "sha256": "3c4a7f792b9ce9193c7dab54e6e0a451911f5ef4ffea616893271f952d88d8b6"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline/baseline.nsys-rep",
+    "bytes": 96854682,
+    "sha256": "64c8e5fc27e5f13cd7af548a5d6c0c6ec2e3b2c60aa4857fba7d5b619680c2b7"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline/baseline.sqlite",
+    "bytes": 560160768,
+    "sha256": "c2df5c260067ca4a56deb22776aba00c44686ddfc704f370635284ec7a5d2a48"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline/directory.conf",
+    "bytes": 42,
+    "sha256": "1e6866c643a00433bf7b47e7bcbef03052437dca2913cdd87e9a2df4418d8995"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline/kvfabric.jsonl",
+    "bytes": 52186,
+    "sha256": "07c4cbeddfc2ccaa3b08a61a71417c58fdf58f39225ccb18ce5eb4002c94831e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline/requests.json",
+    "bytes": 2415,
+    "sha256": "86589fa6bb419ee09fc7d21f8701c7a69937ca65f1d546319c529fffbf852db0"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-baseline/summary.json",
+    "bytes": 3694,
+    "sha256": "46b83c163de34d8011dfdd16d3bb75a99cbee2c73226a62063806604a741cbfe"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized-gpu-telemetry.csv",
+    "bytes": 12651,
+    "sha256": "b79829f19b98070211af56d85e41c30494f8c0aadf3a1e72cc6607d1ce20f14b"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized/directory.conf",
+    "bytes": 42,
+    "sha256": "2dc898996cc0c46b5fd0363966d6803845cca0ce1ad2f5d80835629938ca72aa"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized/kvfabric.jsonl",
+    "bytes": 54985,
+    "sha256": "72eda8cb02cf2942426f42bdc0bb9105ebf36d627561b6e4f2e4d93a5b2cc3bb"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized/optimized.nsys-rep",
+    "bytes": 43452800,
+    "sha256": "f235eb090668101898e87854fc0f37ee509f34ab2ceefab931de26b84fcee9f2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized/optimized.sqlite",
+    "bytes": 310636544,
+    "sha256": "b4136369dea6e7897c3520815ec0d44ea89f1d5b47f125557e6da8d98db68334"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized/requests.json",
+    "bytes": 2417,
+    "sha256": "dfc7d4e5d33ac50734afab5bca7f2ef0d4c436422d824e126662f9fd6c7beba6"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/profiling-full-capture-incomplete/nsys-optimized/summary.json",
+    "bytes": 3551,
+    "sha256": "aad0c41625ed01a5d4a7fa6dcccb5a238172f3c32d84bf062b5cca047836863e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/raw-token-audit.json",
+    "bytes": 1778,
+    "sha256": "1a032f2f623568e86e007b7c461b5c2ef30ec283240a4610dcb05e491b8367e4"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/recovery-summary.json",
+    "bytes": 921,
+    "sha256": "37b3f21e1c93359eba0224a80a2ae180b0d74299539802b62c12ecbc100bd72e"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip-gpu-telemetry.csv",
+    "bytes": 8598,
+    "sha256": "a25f4a9a209689ab7de867e3c2a87a3860d81705d2c03c9bcfe533c3199eb1d0"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip-summary.json",
+    "bytes": 2413,
+    "sha256": "dbd32a521a857115d21d0d0f67078374de1681ba4891dcc30c706ef36673a695"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip/bridge-cache",
+    "bytes": 73728,
+    "sha256": "a944fdc08d9e9b5b8e3f90126b29083c07e4a2b37594952d3b575b02df2239c2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip/cpu.jsonl",
+    "bytes": 1293,
+    "sha256": "fa204ce56ac0fc94739f0ba598719047bdbf7a97c4ff8258d56e65ff937317c8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip/directory.conf",
+    "bytes": 42,
+    "sha256": "f066d6c121b6ce857116bd1ffcf715ee957df996f2c0f83cf7a4caa3a8b00f39"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip/disk.jsonl",
+    "bytes": 1321,
+    "sha256": "2678bd26d4be97f41f2f532228705da66cdb4d37229dcb80e33ee67686608cb6"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/connector-roundtrip/timeout.jsonl",
+    "bytes": 966,
+    "sha256": "7b2e332ab665873109fca6d2db584da83a639d0a3a3b7224e7cf183725a3e8ad"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/regression-before-publish-drain/execution-status.json",
+    "bytes": 3755,
+    "sha256": "a537b82abbb3b7ad42999b294d4e2f33700e6460dd182eefe4b774231bc9b123"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/resume-evidence.json",
+    "bytes": 21463,
+    "sha256": "bb57d7348238ebd79af38e8dd04e533198dc864ab9580355d3d53f697ee43cf5"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/resume-final-validation.json",
+    "bytes": 1418,
+    "sha256": "b8699d8903dfdd8734ba7bf1f57b1f156be6ddf0e31fe72056404c48f0ac607f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/run.json",
+    "bytes": 906,
+    "sha256": "8b79cf662d09b14e20e6eec086712f4e7444840e91429581b23f2b3fb4381543"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/CMakeLists.txt",
+    "bytes": 3762,
+    "sha256": "967f9a8549a5ef208eb67c1da295bd95002438a6afe2fb574a23368a25c9a7bf"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/integrations/vllm/kvfabric_vllm/connector.py",
+    "bytes": 19265,
+    "sha256": "a4a2d03709b7fb0ee5be1d4c84b16fe5c07bda9ac6cdca76c63cd3b1606f9aae"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/integrations/vllm/kvfabric_vllm/cuda_pages.py",
+    "bytes": 3535,
+    "sha256": "e5b5862516e9707cf957c27d89131025fe7bd98e4580fcdf08593279f4770a8c"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/bench_vllm_kv.py",
+    "bytes": 29598,
+    "sha256": "7fe3b64173cb78320f879a3eb6e6c1d2ac1e97106e1d6281cbc62439f8bd556f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/build_native_resume_content.py",
+    "bytes": 19894,
+    "sha256": "c18e2a4a214ae083819b9188928680a13030820272c7eed6052600df4c9b7c09"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/generate_resume.py",
+    "bytes": 13759,
+    "sha256": "4429f50fd792ae4e7a4ddf8270b8d345420dc58a55ca60ce475efcba5dbf3e59"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/profile_kv.sh",
+    "bytes": 2019,
+    "sha256": "974295215fa0fd4254b81cfba7bf7b88bebab44a9b57f7b7031843815adfacca"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/profile_vllm_kv.py",
+    "bytes": 5674,
+    "sha256": "0f553c5bd932e15aad61a456d30fcd53279d30ab44dcd5e8f38b0862fbd5cacb"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/render_native_resume.py",
+    "bytes": 1086,
+    "sha256": "0fdf881ad7c66844fc19543426523de3231ec5c21c6d11b167f73a2e0ae6adf7"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/run_native_linux_final.py",
+    "bytes": 7748,
+    "sha256": "a4253ab1b5a0f1e00a5c79663e7ffde0b5d60528d82981194fa8acfdd26daf75"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/summarize_native_linux_final.py",
+    "bytes": 3197,
+    "sha256": "3c53255152105557f1ad9a9aba3340c51f45a395eb50f5c325c4f2d9e8eb0fd2"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/summarize_native_ncu.py",
+    "bytes": 3131,
+    "sha256": "df48497dd39e6e4748a905a2d1873dbc635ffb111459a83361d76511b3f2ca69"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/summarize_nsys.py",
+    "bytes": 10228,
+    "sha256": "5836f19e8166e9aca772746396df1cb7f4baeb8e23cf7c470eea3894aa8fd5cc"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/src/integration/CMakeLists.txt",
+    "bytes": 4877,
+    "sha256": "7cf247842826cd6065803f1f07e9c7b0ba80665923248363594f3cbf6c651144"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/src/integration/vllm_bridge.c",
+    "bytes": 11482,
+    "sha256": "7df8846e30bd2cb4f0ac3a23645e324ed0a9978d59bdc4442d4d2f5b251611d8"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/src/integration/vllm_kv_cuda.cu",
+    "bytes": 3150,
+    "sha256": "f1096dbaa5d23b7ee7949dcbeb82784e3b85a5d69064da19a917aef76b03bbff"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/src/worker/CMakeLists.txt",
+    "bytes": 7516,
+    "sha256": "876f0a5b6fbba33829dcce122e5c96ed175e754366c81d069d94eb261d5325cc"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/tests/vllm/test_connector_roundtrip.py",
+    "bytes": 7093,
+    "sha256": "0de683af21b0dd2e7d3a3a3f42b4eaf4659fa16aee13f9c1860921b3f5ad7010"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/tools/kvf_cuda_bench.cu",
+    "bytes": 6768,
+    "sha256": "c2d620c9710d27a5ddfd6ef4456ca33495292566054ae27042b51e608ec06c2f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/tools/kvf_nvme_recovery_bench.c",
+    "bytes": 5373,
+    "sha256": "f7947779502b724bd05bcc705e35ef3418878bd5c6d57bc81ec8eaeca9bbccff"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-sha256-final.json",
+    "bytes": 2086,
+    "sha256": "279a421aa0dc313e562f544b486570f3337686b5b0bae6ed0fd5d086e4c3a102"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-sha256-initial.json",
+    "bytes": 1340,
+    "sha256": "2aa2f6afa4d13026bd38c169cc1b02f6d90d74da3039ccb6bb4e1bea99e20906"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/tested-binaries.json",
+    "bytes": 1806,
+    "sha256": "03e2cb475990f8570723b9f07c9ddfae644d2c5392c54ff3a6ec16ca25a4ebc7"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/vllm-package-metadata.json",
+    "bytes": 71446,
+    "sha256": "de9688f5e4bbc5f2951fa62d392273ab4f53ec1913f3916e1bacb55ede3f7db7"
+  },
+  {
+    "path": "docs/benchmarks/rdma/cpu-paired.csv",
+    "bytes": 15611,
+    "sha256": "99e698c8de724a25819ab7e50b4c0d6b996fe9b76e98ca503e837e667cd53652"
+  },
+  {
+    "path": "docs/benchmarks/rdma/cuda-paired.csv",
+    "bytes": 15742,
+    "sha256": "efdd336d1019f99ff5fac65c4eabff77e8dacfef499d023facfb84e75539cec5"
+  },
+  {
+    "path": "docs/benchmarks/rdma/environment.txt",
+    "bytes": 3779,
+    "sha256": "45b47c99c1db4bd51d8b5f7e0c86d03d2a0065f08c099ed7491610519044e185"
+  },
+  {
+    "path": "docs/benchmarks/rdma/fault-recovery.json",
+    "bytes": 18287,
+    "sha256": "a98f4d3d3a1a4ed61097fe73b675b11e7cffbf0fc8b1fbdd4b881e8afe211b5a"
+  },
+  {
+    "path": "docs/benchmarks/rdma/ibv_devinfo.txt",
+    "bytes": 2518,
+    "sha256": "a5072aefb1570176f4fa76f1c97f58d61fd63bf6a3223a1c9600b50b6369b6c7"
+  },
+  {
+    "path": "docs/benchmarks/rdma/strict-cli.txt",
+    "bytes": 7520,
+    "sha256": "cf71567f8650a275206476dc591830b8da1dace583199ecbc98cdb06751de820"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/baseline/cuda-legacy-profile.csv",
+    "bytes": 4366,
+    "sha256": "e668a1d151490b182726295056c365c44a9095f00e15af568212a430bbf610c8"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/baseline/cuda-raw-transfers.csv",
+    "bytes": 5555,
+    "sha256": "948fa1efa6f0824cd9b0474a26a9e2823ed475d9677f6992c9bf98b10122f4da"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/baseline/cuda-raw.csv",
+    "bytes": 18070,
+    "sha256": "2ec10a879b2498efdb614ac79893c5e94866595bc1d763bfab6d43ea61e5a166"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/cpu-page-staging.csv",
+    "bytes": 4964,
+    "sha256": "3c3f79b238e8b0d225a143e346e9e6a97ac89febe91a9297ccd0962c9d9b5ce0"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/cpu-raw.csv",
+    "bytes": 22054,
+    "sha256": "742f24f0d3b5847be1a7add00fa77bb96aa6f6c105581466cdc5b55ced981803"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/cpu-summary.csv",
+    "bytes": 3702,
+    "sha256": "c039c1dae7128218e5d4e81a57b4fdfb652de645bf637f779bf49b165b0df7d1"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/cuda-page-staging.csv",
+    "bytes": 5113,
+    "sha256": "5edfa1324c368b4e0b0ebf7ac1c2996009b6a611b899647148dfa9edbb479ac3"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/cuda-raw.csv",
+    "bytes": 23254,
+    "sha256": "6db11b92a67bd3f05d9b6e42e268c13dcdcf7d937dc01d05c535144e372368e4"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/cuda-summary.csv",
+    "bytes": 4012,
+    "sha256": "16836d8ac5507a93d545423a83eacb859a7c17181134eaad02c7a81802e9cd99"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/environment.txt",
+    "bytes": 6226,
+    "sha256": "83574cdc9c835fe5ecf9a947e440896c13618c78fd34067f9b90c5519318bde4"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/matched/cuda-page-staging.csv",
+    "bytes": 5114,
+    "sha256": "013cab8257467026e053588b38d309316adc42b6e75d314fe11c4b131ae4e12a"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/matched/cuda-raw.csv",
+    "bytes": 23237,
+    "sha256": "2f0bd5bcbec36fc6e688b4d39817d81ae3f6b92856b78ae37e2c664d94b8080d"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/matched/cuda-summary.csv",
+    "bytes": 4000,
+    "sha256": "e1b8807a984f1c757b26a7dc3d33df474268dfeeaba6bdc1a83c1909c4b22cb0"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/matched/environment.txt",
+    "bytes": 5842,
+    "sha256": "e55c4b5c057d6df67e17d1e6fcd389991dd06f7f50b23523e71cb475349710b2"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/matched/paired-ttft.csv",
+    "bytes": 167,
+    "sha256": "9d9ab0c55e4ef7dad370042694a8ad3d0309d0da381d097efe34b8d6ef49fbfa"
+  },
+  {
+    "path": "docs/benchmarks/ultimate/paired-ttft.csv",
+    "bytes": 227,
+    "sha256": "0b9a9ead5d23baa87a57c248d67530cf2078e26da46fe133c11f5829934d1c5d"
+  },
+  {
+    "path": "docs/interview_prep_kv_fabric.md",
+    "bytes": 9016,
+    "sha256": "579b97101349f12f17563f4523e54652b220dbb729a4152cf4b8f9215a5b4289"
+  },
+  {
+    "path": "docs/resume_ai_infra.md",
+    "bytes": 4998,
+    "sha256": "02ca32c9f07a8a7f15e0e74b539d27b3546eb1768a030a5b184cf95baca140fc"
+  },
+  {
+    "path": "docs/resume_out/layout-validation.json",
+    "bytes": 639,
+    "sha256": "d5af8c8d6a01b7a190043f33970887a53f681f023676c55a86c92c7d2d74cb03"
+  },
+  {
+    "path": "docs/resume_out/qa/page-1.png",
+    "bytes": 879044,
+    "sha256": "1393b7f04c9b759bf3f4a2cf43ffb3dae9ad6e8651001153a5680f1ffbca3e7d"
+  },
+  {
+    "path": "docs/resume_out/qa/\u738b\u5ef7\u715c_AI_Infra_\u7814\u53d1\u5b9e\u4e60\u751f.pdf",
+    "bytes": 249310,
+    "sha256": "ffec73ea209f12160cdd4144ef7a2d52da7512148500c1a7ed70c3c736871ca4"
+  },
+  {
+    "path": "docs/resume_out/resume_preview.png",
+    "bytes": 879044,
+    "sha256": "1393b7f04c9b759bf3f4a2cf43ffb3dae9ad6e8651001153a5680f1ffbca3e7d"
+  },
+  {
+    "path": "docs/resume_out/\u738b\u5ef7\u715c_AI_Infra_\u7814\u53d1\u5b9e\u4e60\u751f.docx",
+    "bytes": 40748,
+    "sha256": "f0142bc1e71863ad26ed3ce35866c5bb9268eceb30948f032038aa999eed3395"
+  },
+  {
+    "path": "docs/resume_out/\u738b\u5ef7\u715c_AI_Infra_\u7814\u53d1\u5b9e\u4e60\u751f.pdf",
+    "bytes": 249310,
+    "sha256": "51da81bb25e195963e92011b3b239c2691cb08ebf32576386d3d4f7d73119e0c"
+  },
+  {
+    "path": "include/kvfabric/vllm_bridge.h",
+    "bytes": 1879,
+    "sha256": "c9f40c074e3d1df770fa7b1f949258905e401fcfaac8e2fbdee157bd6290a771"
+  },
+  {
+    "path": "include/kvfabric/vllm_kv_cuda.h",
+    "bytes": 1151,
+    "sha256": "aaa8e032b9098196893fa3814ac30ac51d74748dfac1084f15ab36f13e1fe565"
+  },
+  {
+    "path": "integrations/vllm/README.md",
+    "bytes": 5825,
+    "sha256": "a2cec387da47e7e6639d84c4fd11504e2e5d95653e9f2a914cff95b3b22b4141"
+  },
+  {
+    "path": "integrations/vllm/kvfabric_vllm/__init__.py",
+    "bytes": 52,
+    "sha256": "b97c63b4e8ab9acaacb6be2848313e15caf9900d81fe7d2fc59a50c2eb42e413"
+  },
+  {
+    "path": "integrations/vllm/kvfabric_vllm/bridge.py",
+    "bytes": 3748,
+    "sha256": "8be3ad071f8f9d706651d4c0c2be5f4c0af695cba9b9e129d64c8af8ff7b9c7f"
+  },
+  {
+    "path": "integrations/vllm/kvfabric_vllm/connector.py",
+    "bytes": 19265,
+    "sha256": "a4a2d03709b7fb0ee5be1d4c84b16fe5c07bda9ac6cdca76c63cd3b1606f9aae"
+  },
+  {
+    "path": "integrations/vllm/kvfabric_vllm/cuda_pages.py",
+    "bytes": 3535,
+    "sha256": "e5b5862516e9707cf957c27d89131025fe7bd98e4580fcdf08593279f4770a8c"
+  },
+  {
+    "path": "integrations/vllm/pyproject.toml",
+    "bytes": 267,
+    "sha256": "734ec37bc9a423ea4e580b2dbe3edf59ad885adf6bf028cfabb2c03b0d92847b"
+  },
+  {
+    "path": "resume_build/AI_Infra_Resume.pdf",
+    "bytes": 835077,
+    "sha256": "aad2cacbeb7f1ca08c68eaa5c6be3eddb89c677a822104ca23115f8a25c5e050"
+  },
+  {
+    "path": "resume_build/AI_Infra_Resume_preview.png",
+    "bytes": 783322,
+    "sha256": "902ba72607b2e641b28dd8349d2bfac123857cbcc3c686d2e9ff04f84c1b5b0b"
+  },
+  {
+    "path": "resume_build/export_resume.cjs",
+    "bytes": 2634,
+    "sha256": "3e775bce5c0ad854c5ac3f5a69c8650c628017e73cd835dcd96e2111e29a7501"
+  },
+  {
+    "path": "resume_build/resume.html",
+    "bytes": 11937,
+    "sha256": "34cabe8a0544bc06c03a13b35998e7b87d106f76cdabedd0e409b9a9eaf5fa2c"
+  },
+  {
+    "path": "scripts/bench_vllm_kv.py",
+    "bytes": 29598,
+    "sha256": "7fe3b64173cb78320f879a3eb6e6c1d2ac1e97106e1d6281cbc62439f8bd556f"
+  },
+  {
+    "path": "scripts/build_native_resume_content.py",
+    "bytes": 19894,
+    "sha256": "c18e2a4a214ae083819b9188928680a13030820272c7eed6052600df4c9b7c09"
+  },
+  {
+    "path": "scripts/generate_resume.py",
+    "bytes": 13759,
+    "sha256": "4429f50fd792ae4e7a4ddf8270b8d345420dc58a55ca60ce475efcba5dbf3e59"
+  },
+  {
+    "path": "scripts/profile_kv.sh",
+    "bytes": 2019,
+    "sha256": "974295215fa0fd4254b81cfba7bf7b88bebab44a9b57f7b7031843815adfacca"
+  },
+  {
+    "path": "scripts/profile_vllm_kv.py",
+    "bytes": 5674,
+    "sha256": "0f553c5bd932e15aad61a456d30fcd53279d30ab44dcd5e8f38b0862fbd5cacb"
+  },
+  {
+    "path": "scripts/render_native_resume.py",
+    "bytes": 1086,
+    "sha256": "0fdf881ad7c66844fc19543426523de3231ec5c21c6d11b167f73a2e0ae6adf7"
+  },
+  {
+    "path": "scripts/run_native_linux_final.py",
+    "bytes": 7748,
+    "sha256": "a4253ab1b5a0f1e00a5c79663e7ffde0b5d60528d82981194fa8acfdd26daf75"
+  },
+  {
+    "path": "scripts/summarize_native_linux_final.py",
+    "bytes": 3197,
+    "sha256": "3c53255152105557f1ad9a9aba3340c51f45a395eb50f5c325c4f2d9e8eb0fd2"
+  },
+  {
+    "path": "scripts/summarize_native_ncu.py",
+    "bytes": 3131,
+    "sha256": "df48497dd39e6e4748a905a2d1873dbc635ffb111459a83361d76511b3f2ca69"
+  },
+  {
+    "path": "scripts/summarize_nsys.py",
+    "bytes": 10228,
+    "sha256": "5836f19e8166e9aca772746396df1cb7f4baeb8e23cf7c470eea3894aa8fd5cc"
+  },
+  {
+    "path": "src/integration/vllm_bridge.c",
+    "bytes": 11482,
+    "sha256": "7df8846e30bd2cb4f0ac3a23645e324ed0a9978d59bdc4442d4d2f5b251611d8"
+  },
+  {
+    "path": "src/integration/vllm_kv_cuda.cu",
+    "bytes": 3150,
+    "sha256": "f1096dbaa5d23b7ee7949dcbeb82784e3b85a5d69064da19a917aef76b03bbff"
+  },
+  {
+    "path": "src/worker/remote/remote_sock.c",
+    "bytes": 6028,
+    "sha256": "83059779a962c1b34eb323dc66d3a9d9beffe9060675d56a2f37f86b1c534be1"
+  },
+  {
+    "path": "src/worker/remote/remote_sock.h",
+    "bytes": 881,
+    "sha256": "7de61399eda1db0b9fa79e57d52dcd746cefa9e1e565f5a67c0c3c1052a0475e"
+  },
+  {
+    "path": "tests/vllm/test_connector_roundtrip.py",
+    "bytes": 7093,
+    "sha256": "0de683af21b0dd2e7d3a3a3f42b4eaf4659fa16aee13f9c1860921b3f5ad7010"
+  },
+  {
+    "path": "tools/kvf_cuda_bench.cu",
+    "bytes": 6768,
+    "sha256": "c2d620c9710d27a5ddfd6ef4456ca33495292566054ae27042b51e608ec06c2f"
+  },
+  {
+    "path": "tools/kvf_nvme_recovery_bench.c",
+    "bytes": 5373,
+    "sha256": "f7947779502b724bd05bcc705e35ef3418878bd5c6d57bc81ec8eaeca9bbccff"
+  }
+]

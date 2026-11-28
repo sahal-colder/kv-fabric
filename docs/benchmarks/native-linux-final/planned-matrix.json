@@ -1,0 +1,31 @@
+{
+  "model": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+  "dtype": "bfloat16",
+  "gpu_kv_cache_bytes": 1073741824,
+  "host_or_disk_cache_gib": 1.5,
+  "kv_bytes_per_token": 36864,
+  "lengths": [
+    4096,
+    8192,
+    16384
+  ],
+  "shared_fraction": 0.5,
+  "output_tokens": 16,
+  "requests_per_cell": 15,
+  "warmup_requests_per_cell": 3,
+  "max_context": 32768,
+  "32k_status": "excluded: 32768 input + 16 output exceeds checkpoint max_position_embeddings",
+  "concurrency_length": 8192,
+  "concurrencies": [
+    1,
+    2
+  ],
+  "excluded_concurrencies": {
+    "4": "KV capacity estimate exceeds fixed 1GiB budget",
+    "8": "KV capacity estimate exceeds fixed 1GiB budget"
+  },
+  "lmcache_status": "not installed in discovered environment; optional comparison excluded",
+  "ncu_status": "awaiting user sudo profiling or permission change",
+  "batch_invariant": true,
+  "numerical_reason": "Vanilla vLLM GPU APC reproduces exactly the same default-mode cold/hot token divergence; all final comparison arms use VLLM_BATCH_INVARIANT=1"
+}

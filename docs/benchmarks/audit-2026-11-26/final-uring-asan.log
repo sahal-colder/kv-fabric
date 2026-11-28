@@ -1,0 +1,8 @@
+Internal ctest changing into directory: /home/wty/Infra/build-asan
+Test project /home/wty/Infra/build-asan
+    Start 12: uring_faults
+1/1 Test #12: uring_faults .....................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.02 sec

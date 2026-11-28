@@ -1,0 +1,46 @@
+{
+  "src/worker/spdk_bridge.c": {
+    "before": "bf0322c0c6d1e3fb9f1fa681ff039c562dfd96bf3d6cd95f45763e057679d9ed",
+    "after": "9c50007bfe1d497f3a13f635f16f4473ebeac54b0fb498a3f082334d3c8577fb"
+  },
+  "src/worker/spdk_bridge.h": {
+    "before": "d8ade93884a3ee2e7f2aee24b68cb041f8a860ddbc8323e9e6119c2bdb7ec408",
+    "after": "134e01732f1cf9ee6f22ef45c8803d7d6ea308379d10c7d5b0cb72a09cf3f249"
+  },
+  "src/worker/uring_io.c": {
+    "before": "724f4e1cf374352d3652ca19bb80ba104c2f6ed09cb603830f8c216575b4c38a",
+    "after": "fa32357d37e6a0ac03d5f51a6257eab3a19ffd19fa23292b4dcc24b7d3ac1959"
+  },
+  "src/worker/storage_backend.c": {
+    "before": "ca38284ba16b5064b9f1bed19953f3345084bdd867f73b8bcc786f297de08d1b",
+    "after": "bb69fe3dc994b5c26ee767ae86d7aa632671864a2e3d2497c92a9cc447ce8987"
+  },
+  "src/worker/direct_io.c": {
+    "before": "907a3fa89b2d1a3b219d19c10e832cf9da5fc427158a8c2788150328be2492a0",
+    "after": "17b343e31aa372b99a11e7a963f2ea934635895657b9dd56fa165b8786f8712b"
+  },
+  "src/worker/tiered_storage.c": {
+    "before": "27ff9ed767dacbcd687bc786ac694f8933128cab6b4e3c68e715195facf84864",
+    "after": "b5cb18e8f631269686253fc312386c4b97c14ca038cbfd260f023d7812df9e0f"
+  },
+  "src/worker/CMakeLists.txt": {
+    "before": "c0fcbe9665141cd346b3c8b2ebbd32659d13620156a2d0c0a0c8f67b11ceb26e",
+    "after": "b89dbe8cefcc8c004b04d87fa68f4c7b5bae137a2d782023bd6ca16a891204d0"
+  },
+  "src/worker/io_transfer.h": {
+    "before": "19dd95e293abe1bad05ac8d00171e891b5c5fb2879349069764b366c8a667e96",
+    "after": "de45823bf50c937f6b64f5a6b61df72e12e7a7ea0db31cddec006ed7c31e1f8e"
+  },
+  "include/miniinfer/storage_backend.h": {
+    "before": "a11b464c7cac5b16f8abffbf6809cd825765d27107d90835986fabde695e7890",
+    "after": "32aa12e32c9fd90afa55eee9b52ee7a1ac621b06b2fd4b88f29c75455c570350"
+  },
+  "include/miniinfer/tiered_storage.h": {
+    "before": "a5e8d046e56ae5d1b9439ccef11186522efcb56714671e7ade82c4ce12333337",
+    "after": "72c606075ff7aef0d9962ee4cec763b1b6e6d07415a9284d66b020becbc28d58"
+  },
+  "config/spdk-samsung.json": {
+    "before": "31918174d560d5fc4897a7d364b23a13104ab807998e583a57b04f10cf1224b8",
+    "after": "0f8c7e1a3f896400da70fdaabf3e34a4123b19bbea8582c53f2574056be4fad6"
+  }
+}

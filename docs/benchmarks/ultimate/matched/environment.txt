@@ -1,0 +1,104 @@
+Topology = one WSL2 guest, separate processes, IPv4 TCP 127.0.0.1
+TTFT starts before prompt encoding and ends at the first completed sample.
+Samples per mode = 30
+Rounds per shard = 10
+Unrelated warmup requests per measured consumer = 0
+Producer prewarms the target prefix once per shard. Local consumers prime it separately.
+Checkpoint = stories15M.bin
+Checkpoint SHA256 = cd590644d963867a2b6e5a1107f51fad663c41d79c149fbecbbb1f95fa81f49a
+Tokenizer SHA256 = 50a52ef822ee9e83de5ce9d0be0a025a773d019437f58b5ff9dcafb063ece361
+Inputs = The quick brown fox repeated four times, then walks away (prime) or jumps high (sample)
+Batch=4, budget=16, pages=48, page size=4, exports=48, timeout=2000 ms, TP=1, PP=1
+Sampling = 8 generated tokens, seed 1234, temperature 0.7, top-p 0.95, ignore EOS
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+Percentiles = nearest rank, paired bootstrap = 5000 resamples, RNG seed 1234
+Git base = 02fe2db383bad59dc614d8dd124d21f976ae0869
+Python = 3.10.12
+Linux = Linux 6.18.54.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026 x86_64
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           42 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  16
+On-line CPU(s) list:                     0-15
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Core(TM) Ultra 7 265KF
+CPU family:                              6
+Model:                                   198
+Thread(s) per core:                      1
+Core(s) per socket:                      16
+Socket(s):                               1
+Stepping:                                2
+BogoMIPS:                                7756.80
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni vnmi umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize ibt flush_l1d arch_capabilities
+Virtualization:                          VT-x
+Hypervisor vendor:                       Microsoft
+Virtualization type:                     full
+L1d cache:                               768 KiB (16 instances)
+L1i cache:                               1 MiB (16 instances)
+L2 cache:                                48 MiB (16 instances)
+L3 cache:                                30 MiB (1 instance)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-15
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Mitigation; Enhanced IBRS
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+MemTotal:       10184604 kB
+name, driver_version, memory.total [MiB]
+NVIDIA GeForce RTX 5060 Ti, 610.88, 16311 MiB
+unavailable ([Errno 2] No such file or directory: 'nvcc')
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+Copyright (C) 2021 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+cmake version 3.22.1
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+OpenBLAS / liburing / OpenSSL versions
+0.3.20
+2.0
+3.0.2
+CUDA build = cuda-release
+CMAKE_BUILD_TYPE:STRING=Release
+CMAKE_CUDA_ARCHITECTURES:UNINITIALIZED=120
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+MINIINFER_WITH_CUDA:BOOL=ON
+MINIINFER_WITH_SPDK:BOOL=OFF
+MINIINFER_WITH_URING:BOOL=ON
+NANO_WITH_CUDA:BOOL=ON
+Worker binary SHA256 = ab50f0c13f2b62e9bc8b9f70aee3bf085243dae39a8a5683ec07a8981cc32da1
+Directory binary SHA256 = 6818c2be21f8b5728f70961e845a20a0aaf580f48256c6c98ac79e785e67773d
+
+Benchmark date (Asia/Shanghai) = 2026-11-23
+Windows 11 Pro = 10.0.26300.9711
+Logical host memory bytes = 16890990592
+WSL package = 3.0.3.0
+Build and model filesystem = WSL2 ext4 on a virtual disk

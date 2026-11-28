@@ -1,0 +1,8 @@
+{
+  "src/integration/vllm_bridge.c": "42c1def438e30e9218aee89c19eef609f7cc7b78e6f8214d31d74e120681d6b8",
+  "src/worker/direct_io.c": "fd5715dce08b661761728bf55ffd662436b836c8f880b3e80430fd35e6b0e4c7",
+  "src/worker/remote/transfer.c": "65cd1caae3dbab43e1aead1a59bdd743c9c64155751076745a5fe9f2a2de4d5c",
+  "integrations/vllm/kvfabric_vllm/connector.py": "6b2dd7777f00fc4b1b208aaaa3bff16005936cde4398f6f1de07b0f83acfe675",
+  "scripts/profile_vllm_kv.py": "0f553c5bd932e15aad61a456d30fcd53279d30ab44dcd5e8f38b0862fbd5cacb",
+  "scripts/summarize_native_ncu.py": "67e9ae2dad9c5fb42c17596294bca1f339ab1102f2cdbefff96da6f7709494f9"
+}

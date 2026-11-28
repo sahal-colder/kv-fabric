@@ -1,0 +1,112 @@
+{
+  "profiled_requests": [
+    {
+      "ttft_ms": 3269.039592,
+      "phase_ms": {
+        "scheduler_directory_lookup": 1.738154,
+        "bridge_fetch_wall": 0.0,
+        "owned_fetch_wall": 38.956933,
+        "fetch_directory_nested": 0.0,
+        "fetch_crc_nested": 0.0,
+        "fetch_bridge_copy_nested": 0.0,
+        "fetch_other": 0.0,
+        "h2d_submit": 0.256722,
+        "h2d_cuda_api_nested": 0.085513,
+        "h2d_host_dispatch_estimate": 0.171209,
+        "h2d_host_sync": 30.296186,
+        "save_d2h_submit": 0.10255,
+        "save_d2h_cuda_api_nested": 0.036345,
+        "save_d2h_host_dispatch_estimate": 0.066205,
+        "save_host_sync": 0.0,
+        "save_publish_wall": 0.0,
+        "save_background_publish_wall": 2445.475019,
+        "save_sync_model_kernel_overlap": 0.0,
+        "save_sync_other": 0.0,
+        "save_wait_publish_excluding_model_compute": 0.0,
+        "save_foreground_excluding_model_compute": 0.0,
+        "save_publish_rpc_nested": 0.0,
+        "save_publish_crc_nested": 0.0,
+        "save_publish_bridge_copy_nested": 0.0,
+        "model_gpu_kernel_active": 3178.090641
+      },
+      "cuda_kv": {
+        "h2d": {
+          "count": 4,
+          "bytes": 301989888,
+          "active_ms": 27.922854,
+          "active_within_ttft_ms": 27.922854,
+          "active_gib_s": 10.072394462256616,
+          "model_compute_overlap_ratio": 0.0,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        },
+        "d2h": {
+          "count": 4,
+          "bytes": 301989888,
+          "active_ms": 28.642069,
+          "active_within_ttft_ms": 28.400888,
+          "active_gib_s": 9.819472189666186,
+          "model_compute_overlap_ratio": 0.9937127317990903,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        }
+      }
+    },
+    {
+      "ttft_ms": 3250.855944,
+      "phase_ms": {
+        "scheduler_directory_lookup": 0.693874,
+        "bridge_fetch_wall": 0.0,
+        "owned_fetch_wall": 38.184457,
+        "fetch_directory_nested": 0.0,
+        "fetch_crc_nested": 0.0,
+        "fetch_bridge_copy_nested": 0.0,
+        "fetch_other": 0.0,
+        "h2d_submit": 0.343389,
+        "h2d_cuda_api_nested": 0.079832,
+        "h2d_host_dispatch_estimate": 0.263557,
+        "h2d_host_sync": 30.224124,
+        "save_d2h_submit": 0.024048,
+        "save_d2h_cuda_api_nested": 0.008415,
+        "save_d2h_host_dispatch_estimate": 0.015633,
+        "save_host_sync": 0.0,
+        "save_publish_wall": 0.0,
+        "save_background_publish_wall": 3248.530018,
+        "save_sync_model_kernel_overlap": 0.0,
+        "save_sync_other": 0.0,
+        "save_wait_publish_excluding_model_compute": 0.0,
+        "save_foreground_excluding_model_compute": 0.0,
+        "save_publish_rpc_nested": 0.0,
+        "save_publish_crc_nested": 0.0,
+        "save_publish_bridge_copy_nested": 0.0,
+        "model_gpu_kernel_active": 3161.519242
+      },
+      "cuda_kv": {
+        "h2d": {
+          "count": 4,
+          "bytes": 301989888,
+          "active_ms": 28.168714,
+          "active_within_ttft_ms": 28.168714,
+          "active_gib_s": 9.984481364679977,
+          "model_compute_overlap_ratio": 0.0,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        },
+        "d2h": {
+          "count": 1,
+          "bytes": 75497472,
+          "active_ms": 7.071379,
+          "active_within_ttft_ms": 7.071379,
+          "active_gib_s": 9.943251521379352,
+          "model_compute_overlap_ratio": 0.9948502265258304,
+          "bandwidth_scope": "complete DMA activities correlated to TTFT; includes tails crossing window end"
+        }
+      }
+    }
+  ],
+  "coverage_validation": {
+    "expected_h2d_bytes_per_request": 301989888,
+    "actual_h2d_bytes": [
+      301989888,
+      301989888
+    ],
+    "passed": true
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "mode": "direct-uring-fixed",
+    "payload_MiB": 72,
+    "blocks": 144,
+    "warmups": 3,
+    "samples": 15,
+    "p50_ms": 58.82684,
+    "p95_ms": 60.467439,
+    "p99_ms": 60.467439,
+    "effective_payload_GiB_s": 1.1952452315983657,
+    "verified_bytes": 1132462080,
+    "measurement": "SSD record read + CRC + staging + H2D + device synchronization; sequential 512KiB blocks, warm SSD controller cache possible; excludes post-timing verification"
+  },
+  {
+    "mode": "direct-posix",
+    "payload_MiB": 72,
+    "blocks": 144,
+    "warmups": 3,
+    "samples": 15,
+    "p50_ms": 59.788541,
+    "p95_ms": 61.538177,
+    "p99_ms": 61.538177,
+    "effective_payload_GiB_s": 1.1760196657081832,
+    "verified_bytes": 1132462080,
+    "measurement": "SSD record read + CRC + staging + H2D + device synchronization; sequential 512KiB blocks, warm SSD controller cache possible; excludes post-timing verification"
+  }
+]

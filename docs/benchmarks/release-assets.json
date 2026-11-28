@@ -1,0 +1,28 @@
+{
+  "tag": "spdk-async-io-20261128",
+  "repository": "sahal-colder/kv-fabric",
+  "restore_instructions": "Download assets, verify SHA256SUMS, extract at repository root, then run scripts/restore_benchmark_archives.py",
+  "assets": [
+    {
+      "name": "kvfabric-performance-native-linux-final.tar",
+      "bytes": 481116160,
+      "sha256": "d4689ed362e73c0f9772a19c0bf6e80ac4749ccf6742fa1f06feb3edbc251200",
+      "parts": 16,
+      "url": "https://github.com/sahal-colder/kv-fabric/releases/download/spdk-async-io-20261128/kvfabric-performance-native-linux-final.tar"
+    },
+    {
+      "name": "kvfabric-performance-perf-attribution-2026-11-26.tar",
+      "bytes": 255375360,
+      "sha256": "39c695590a7bf30f70350cb3345dc2e1e00c1c9e1739286b649de31881972d69",
+      "parts": 11,
+      "url": "https://github.com/sahal-colder/kv-fabric/releases/download/spdk-async-io-20261128/kvfabric-performance-perf-attribution-2026-11-26.tar"
+    },
+    {
+      "name": "kvfabric-performance-spdk-async-2026-11-28.tar",
+      "bytes": 189890560,
+      "sha256": "8c4e2a0f561089f19e2759cfb6fd07d2195163aa8a9a64071dc55a524c5da522",
+      "parts": 499,
+      "url": "https://github.com/sahal-colder/kv-fabric/releases/download/spdk-async-io-20261128/kvfabric-performance-spdk-async-2026-11-28.tar"
+    }
+  ]
+}

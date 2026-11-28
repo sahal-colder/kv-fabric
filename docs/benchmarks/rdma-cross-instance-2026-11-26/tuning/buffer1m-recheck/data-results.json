@@ -1,0 +1,73 @@
+{
+  "rows": [
+    {
+      "index": 0,
+      "receive_ns": 316974186,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 1,
+      "receive_ns": 316687331,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 2,
+      "receive_ns": 314893839,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 3,
+      "receive_ns": 318096920,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 4,
+      "receive_ns": 317088410,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 5,
+      "receive_ns": 318014653,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 6,
+      "receive_ns": 332709283,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 7,
+      "receive_ns": 315168994,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 8,
+      "receive_ns": 325139964,
+      "verified": true,
+      "payload_bytes": 301989888
+    },
+    {
+      "index": 9,
+      "receive_ns": 312829043,
+      "verified": true,
+      "payload_bytes": 301989888
+    }
+  ],
+  "rounds": 10,
+  "p50_ms": 317.031298,
+  "environment": {
+    "KVF_RDMA_BUFFER_BYTES": "1048576",
+    "KVF_RDMA_SQSIZE": "384",
+    "KVF_RDMA_RQSIZE": "384",
+    "KVF_RDMA_INLINE": "64",
+    "KVF_RDMA_PEER_IDLE_MS": "10000"
+  }
+}

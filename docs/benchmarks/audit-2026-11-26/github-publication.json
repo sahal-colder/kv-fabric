@@ -1,0 +1,11 @@
+{
+  "repository": "sahal-colder/kv-fabric",
+  "branch": "codex/audit-remediation-20261126",
+  "commit": "11d744f92aac81b34d5401578ebc1dde32a1fe09",
+  "tree": "eae120064f9d20aff04cba5c6ace5d6c452190c6",
+  "pull_request": "https://github.com/sahal-colder/kv-fabric/pull/1",
+  "draft": true,
+  "changed_files": 117,
+  "public_raw_evidence": false,
+  "note": "Some unreferenced evidence objects were written before auto-review rejection; final commit/history excludes them. No delete-object API available."
+}

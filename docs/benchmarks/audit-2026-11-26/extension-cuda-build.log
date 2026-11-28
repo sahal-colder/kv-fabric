@@ -1,0 +1,99 @@
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/build-baseline-cuda
+Consolidate compiler generated dependencies of target kvfabric
+[  1%] Building C object src/control/CMakeFiles/kvfabric.dir/directory.c.o
+[  1%] Linking C static library libkvfabric.a
+[  7%] Built target kvfabric
+Consolidate compiler generated dependencies of target test_kvf_protocol
+Consolidate compiler generated dependencies of target kvfabricd
+Consolidate compiler generated dependencies of target miniinfer_storage
+Consolidate compiler generated dependencies of target kvfctl
+Consolidate compiler generated dependencies of target test_kvf_directory
+Consolidate compiler generated dependencies of target test_remote_e2e
+[  8%] Linking C executable ../../bin/test_kvf_protocol
+[  9%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o
+[ 10%] Linking C executable ../../bin/kvfabricd
+[ 11%] Linking C executable ../../bin/kvfctl
+[ 12%] Linking C executable ../../bin/test_kvf_directory
+[ 13%] Linking C executable ../../bin/test_remote_e2e
+[ 14%] Building CUDA object src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o
+[ 15%] Built target test_kvf_directory
+[ 16%] Built target test_kvf_protocol
+[ 17%] Built target kvfabricd
+[ 18%] Built target kvfctl
+[ 20%] Built target test_remote_e2e
+[ 21%] Linking CUDA static library libminiinfer_storage.a
+[ 32%] Built target miniinfer_storage
+Consolidate compiler generated dependencies of target miniinfer_basic
+Consolidate compiler generated dependencies of target test_kv_cache
+Consolidate compiler generated dependencies of target kvf_nvme_recovery_bench
+Consolidate compiler generated dependencies of target test_tiered
+Consolidate compiler generated dependencies of target test_pool
+Consolidate compiler generated dependencies of target test_graph
+[ 34%] Linking CUDA executable ../../bin/test_kv_cache
+[ 34%] Linking CUDA executable ../../bin/miniinfer_basic
+[ 35%] Linking CUDA executable ../../bin/test_tiered
+[ 36%] Linking CUDA executable ../../bin/kvf_nvme_recovery_bench
+[ 38%] Linking CUDA executable ../../bin/test_pool
+[ 38%] Linking CUDA executable ../../bin/test_graph
+[ 39%] Built target test_kv_cache
+[ 40%] Built target test_tiered
+[ 41%] Built target miniinfer_basic
+Consolidate compiler generated dependencies of target test_paged_kv
+Consolidate compiler generated dependencies of target test_gpu_mock
+[ 41%] Building C object src/worker/CMakeFiles/test_device_boundaries.dir/__/__/tests/worker/test_device_boundaries.c.o
+[ 42%] Linking CUDA executable ../../bin/test_gpu_mock
+[ 43%] Linking CUDA executable ../../bin/test_paged_kv
+[ 44%] Built target test_graph
+[ 44%] Built target test_pool
+[ 45%] Built target kvf_nvme_recovery_bench
+Consolidate compiler generated dependencies of target test_storage_audit
+Consolidate compiler generated dependencies of target test_direct_io
+Consolidate compiler generated dependencies of target test_uring_faults
+[ 46%] Linking CUDA executable ../../bin/test_storage_audit
+[ 47%] Linking CUDA executable ../../bin/test_device_boundaries
+[ 48%] Linking CUDA executable ../../bin/test_direct_io
+[ 49%] Linking CUDA executable ../../bin/test_uring_faults
+[ 50%] Built target test_paged_kv
+Consolidate compiler generated dependencies of target miniinfer_remote
+[ 51%] Built target test_gpu_mock
+[ 58%] Built target miniinfer_remote
+Consolidate compiler generated dependencies of target test_remote_lifecycle
+[ 59%] Linking CUDA executable ../../bin/test_remote_lifecycle
+Consolidate compiler generated dependencies of target miniinfer_worker
+[ 61%] Built target test_uring_faults
+[ 61%] Built target test_device_boundaries
+[ 62%] Built target test_direct_io
+[ 63%] Linking CUDA executable ../../bin/miniinfer_worker
+Consolidate compiler generated dependencies of target test_remote_audit
+Consolidate compiler generated dependencies of target test_remote_faults
+Consolidate compiler generated dependencies of target kvf_bench
+[ 64%] Linking CUDA executable ../../bin/test_remote_audit
+[ 65%] Linking CUDA executable ../../bin/test_remote_faults
+[ 66%] Linking CUDA executable ../../bin/kvf_bench
+[ 67%] Built target test_storage_audit
+Consolidate compiler generated dependencies of target miniinfer_nano
+[ 74%] Built target miniinfer_nano
+[ 75%] Built target test_remote_lifecycle
+Consolidate compiler generated dependencies of target kvf_vllm
+Consolidate compiler generated dependencies of target miniinfer
+[ 76%] Building C object src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o
+[ 77%] Linking CUDA executable ../../bin/miniinfer
+[ 78%] Built target miniinfer_worker
+Consolidate compiler generated dependencies of target nanovllm
+[ 79%] Built target test_remote_faults
+[ 80%] Linking CUDA executable ../../bin/nanovllm
+Consolidate compiler generated dependencies of target test_nano_remote_worker
+[ 81%] Linking CUDA executable ../../bin/test_nano_remote_worker
+[ 82%] Built target kvf_bench
+[ 83%] Built target test_remote_audit
+[ 93%] Built target miniinfer
+[ 95%] Built target nanovllm
+[ 96%] Built target test_nano_remote_worker
+[ 97%] Linking CUDA shared library libkvf_vllm.so
+[ 98%] Built target kvf_vllm
+Consolidate compiler generated dependencies of target kvf_cuda_bench
+[ 99%] Linking CUDA executable ../../bin/kvf_cuda_bench
+[100%] Built target kvf_cuda_bench

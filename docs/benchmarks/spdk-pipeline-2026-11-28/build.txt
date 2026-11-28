@@ -1,0 +1,6 @@
+[ 28%] Built target kvfabric
+[ 95%] Built target miniinfer_storage
+Consolidate compiler generated dependencies of target kvf_backend_compare
+[ 95%] Building C object CMakeFiles/kvf_backend_compare.dir/home/wty/Infra/tools/kvf_backend_compare.c.o
+[100%] Linking C executable kvf_backend_compare
+[100%] Built target kvf_backend_compare

@@ -1,0 +1,4 @@
+torch 2.13.0+cu130 cuda 13.0 available True
+_CudaDeviceProperties(name='NVIDIA GeForce RTX 4060 Laptop GPU', major=8, minor=9, total_memory=7888MB, multi_processor_count=24, uuid=3ea89327-0b52-185d-e262-ca3d7a1d34d7, pci_bus_id=1, pci_device_id=0, pci_domain_id=0, L2_cache_size=32MB)
+vllm 0.31.0
+vllm import OK

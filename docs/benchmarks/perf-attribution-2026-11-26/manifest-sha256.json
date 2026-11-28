@@ -1,0 +1,4590 @@
+{
+  "nsys-before-diagnostic.log": {
+    "bytes": 1670,
+    "sha256": "36396e6ee9d9ca8d12dc1538642b4c8d0690c9437d320d64a81aadcc8ace339b"
+  },
+  "matrix-final.log": {
+    "bytes": 1068,
+    "sha256": "500c8d749b82b76784862fe4405d6df304db220763872c0c368fc4ff1aedbe79"
+  },
+  "rdma-payload-mtu1500-recheck.log": {
+    "bytes": 1020,
+    "sha256": "5db27e93e8f2791c89f7bcf5b88cb6414dd8903ab74eed5e79ff6fa2a61ae001"
+  },
+  "final-source-sha256.json": {
+    "bytes": 1560,
+    "sha256": "7e185d8aa7cbbfd3658e51e3e2b89489cd9eec40ace64ac5237a60fd128d2127"
+  },
+  "matrix-before.log": {
+    "bytes": 1086,
+    "sha256": "93c31e8259dff7e968b678d335d2b39d393c0e5c2620c1ded762d61ab11149a8"
+  },
+  "rdma-payload-final.log": {
+    "bytes": 3022,
+    "sha256": "9ef407fa874be38e61e7df0287192e632177fc695d8dcf6da013ab225537614d"
+  },
+  "io-r1-c1-fixed.json": {
+    "bytes": 271,
+    "sha256": "a312dc86f08b155b29d10ecc7e92fcd83b139f3bf7b612aa0e4502388832a0a3"
+  },
+  "build-before.log": {
+    "bytes": 11022,
+    "sha256": "c9c98dd1af7faa07bd9ae59cf540b97b5604240a99ecc68f999d373a829d5801"
+  },
+  "io-r1-c1-direct.log": {
+    "bytes": 6134,
+    "sha256": "7a7ca8eadcc6126f96609fafff1958bd1712a73c1436fe7d0fac3e92edbc0adb"
+  },
+  "io-r1-c1-buffered.json": {
+    "bytes": 282,
+    "sha256": "80e75b630cefbccb786b9322676e74049346d8bc8560e5b5f1dd269fe781ce7b"
+  },
+  "nsys-before-disk.log": {
+    "bytes": 369,
+    "sha256": "90e690300aaf8a5fc2067d9c2edd5ff36a36d3b8f3e2e0d9f693c1a301587bef"
+  },
+  "io-r0-c4-fixed.json": {
+    "bytes": 271,
+    "sha256": "802a70eb20627aca43300f695004b644e362c0098ea12c40e064e04f2ed47068"
+  },
+  "io-r1-c4-fixed.log": {
+    "bytes": 5934,
+    "sha256": "4010415119161ef01b91658d7f105b9c18b0f107654808673ad39aea204e8ff9"
+  },
+  "build-final.log": {
+    "bytes": 1384,
+    "sha256": "4a641379b120530728380dba6698a52f456f366a1cb67d291cbcd1ddf6792435"
+  },
+  "rdma-audit.json": {
+    "bytes": 2300,
+    "sha256": "ea34375229261c2949be34a63ac5bf9963177a7974b95dbffd379f47c9a5404a"
+  },
+  "initial-status.txt": {
+    "bytes": 4182,
+    "sha256": "321db0b821ab5df5d2b7118b99b04a7724fcc5add7a2734107e7d5e18faa1a03"
+  },
+  "io-r0-c1-direct.log": {
+    "bytes": 6134,
+    "sha256": "af1215550bf69c6c2c20a313478b625da80fda1e8c3bd0cd0cc0b653d88a375b"
+  },
+  "rdma-strict-final.log": {
+    "bytes": 33,
+    "sha256": "5ef2deb757dc24c0ec84a93ab34dd0d23b4b5c363116c7283d4298fd99102032"
+  },
+  "rdma-mtu9000-environment.txt": {
+    "bytes": 383,
+    "sha256": "7895c02295f8f9edef59a31da619f6d98b367e35982a022a9aad986ff4b17dd8"
+  },
+  "io-r1-c1-direct.json": {
+    "bytes": 272,
+    "sha256": "3abe04d9e8c9213509c9eab14f89c93017f2076f5b8762f295f94200d765069f"
+  },
+  "nsys-after-disk.log": {
+    "bytes": 1663,
+    "sha256": "9abf61b2c60e6bf64a2a9782a5213cb8a1be1096a4df16a8055da0f19c174b09"
+  },
+  "io-r1-c4-direct.log": {
+    "bytes": 6134,
+    "sha256": "3618925dccefac9a1be93aed62ab907968c0f5afc81e6bbebe86126309cae7f4"
+  },
+  "nsys-before-disk-retry.log": {
+    "bytes": 1664,
+    "sha256": "1e5d64a66945cf6dacab3d9831675c780fbbe9b9e1a445edc2068915dac86315"
+  },
+  "io-r1-c1-buffered.log": {
+    "bytes": 6335,
+    "sha256": "dbaafcecc28a6b96e5295dec22ded2eae4c70ff8ebe7440bf84e6b7932954721"
+  },
+  "render-verified.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-cleanup.txt": {
+    "bytes": 19,
+    "sha256": "f4061a94a7b0aebe70e5529d03cfe424141ceede9c1cafdcd2b8d891999154cf"
+  },
+  "io-r0-c4-fixed.log": {
+    "bytes": 5934,
+    "sha256": "7fe3a9b9570513217f5f7f392fd153f992d00d31a3efcb7edbcf76720ec038f9"
+  },
+  "python-unit-final.log": {
+    "bytes": 99,
+    "sha256": "ac7ee2c43368e57d190c6ac089b2190a1f05864eabdfdc3e6d564b749e85fcc3"
+  },
+  "ctest-final.log": {
+    "bytes": 2611,
+    "sha256": "4d6026138bb78f71976cf6acb1d322038c3b9efb6ebcf368993dca363b55249f"
+  },
+  "matrix-after.log": {
+    "bytes": 1091,
+    "sha256": "a72e251a17dab713f6d6d30bfc59353b212e87c37eca38bc0f072ef818ccd6f3"
+  },
+  "nsys-final-disk.log": {
+    "bytes": 1663,
+    "sha256": "8b7364ccac88acb6ced6ec804328c741387c8417360d3db77d18a32f1bca8ac9"
+  },
+  "connector-final.log": {
+    "bytes": 1294,
+    "sha256": "8110d2ac6d99c094f68b084b9c1f48bc416d750e4ba91eaec79e6ec5064dac31"
+  },
+  "io-r0-c1-buffered.json": {
+    "bytes": 282,
+    "sha256": "19656e4741ea3949ad7eb61104ddd768569f487d00c8653f17d5e5b5495e93fb"
+  },
+  "rdma-current-environment.txt": {
+    "bytes": 458,
+    "sha256": "97febfa84a3a52ad7622e291a97b790549ffc0c830711c741f90267ecbe60640"
+  },
+  "optimization.patch": {
+    "bytes": 15017,
+    "sha256": "1062ee043ed77caffbf78328773a87649e0b165c47650eae13ad6e3791080be0"
+  },
+  "rdma-isolated-setup-trace.log": {
+    "bytes": 225,
+    "sha256": "300768719af91c341131bebe7e8901f8da156f8013220ec461cce0c15b63def2"
+  },
+  "rdma-isolated-setup-probe.log": {
+    "bytes": 31,
+    "sha256": "33cafcfac924b8ca43092f4a3f33740d67f86801faf5cd088f08551746635c87"
+  },
+  "summarize.log": {
+    "bytes": 1284,
+    "sha256": "675cac2815eb5b732ace6f82d81366f071b0147e3ec44026fd045471829e867b"
+  },
+  "summarize-final.log": {
+    "bytes": 1277,
+    "sha256": "b4cdc666048736e9e3dbf13b629df4db0ef1a00539f34d66de797a6a4d54932e"
+  },
+  "commands.json": {
+    "bytes": 12827,
+    "sha256": "c464cbfaa59808e410ec7c7a90dea21fe42c0c34a1bbc5c8c5d3b60b0469f50a"
+  },
+  "validation-summary.json": {
+    "bytes": 432,
+    "sha256": "bd34e16ddbd1ca34f0ba1b109bbadd37bbbfd600c883096255397dad79795792"
+  },
+  "owned-disk-parallel-final.log": {
+    "bytes": 296,
+    "sha256": "6d1baf0214317add21c326b8ca4534a89660aa0dd046bb7e487c4898286b9341"
+  },
+  "rdma-root-setup-attempt.log": {
+    "bytes": 19,
+    "sha256": "a3aef1fffe5b1e9fa40d34fb711948e03946d57e915910821cc2265821d8c181"
+  },
+  "ncu-parser-validation.json": {
+    "bytes": 4186,
+    "sha256": "e7c6a8d16fb24d4437304d27c633f5fd2b9e38619314d097919f9bd68a7a67cb"
+  },
+  "io-r1-c1-fixed.log": {
+    "bytes": 5934,
+    "sha256": "478292432bb5981679e1dcb7d8c359c21f290a4b6a5df0a7bf1da40d00b22c34"
+  },
+  "io-r0-c4-buffered.json": {
+    "bytes": 282,
+    "sha256": "3ab39dadd453747df61b3d014a35793701000d22b419e41dabd7f4c1f455562b"
+  },
+  "io-r0-c1-direct.json": {
+    "bytes": 272,
+    "sha256": "a32b5e22ab03721b94c55f3d232908a1b3d150184e879d95ccd8191f4a89ce1d"
+  },
+  "serial-run.log": {
+    "bytes": 871,
+    "sha256": "b96402253d3022349069465cd9bd654812efa85ea165a0c46ede39955c5f5a41"
+  },
+  "io-r1-c4-buffered.json": {
+    "bytes": 282,
+    "sha256": "a8f56af920afcdc6bc43bc1d2b51f9cb3dfccb089a71c6180112bca4e054eae0"
+  },
+  "initial-source-sha256.json": {
+    "bytes": 626,
+    "sha256": "e8a2a813314c4a32c3276e15900133eba4897049fb3f86b697dff7ee29c403ea"
+  },
+  "io-r1-c4-buffered.log": {
+    "bytes": 6348,
+    "sha256": "f8e899962c76df030afd71605a3254ab99ac00cfd8263d5cc4d6ebf303d06c48"
+  },
+  "io-r0-c4-direct.json": {
+    "bytes": 272,
+    "sha256": "603dbf7322b8ebc37cce99173d0124905791693b14f5358d1c882a7568f0ea5d"
+  },
+  "ctest-after.log": {
+    "bytes": 2611,
+    "sha256": "c36bed7410d33188907706386a5f622d3365868b92cfa44d56d7aca5892a97a7"
+  },
+  "render-final.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "environment.txt": {
+    "bytes": 8560,
+    "sha256": "1435b5321ce0ea07e3cf1877f6d073836edf734f6e7042a995178951ec9f05e5"
+  },
+  "io-r0-c1-fixed.json": {
+    "bytes": 271,
+    "sha256": "8086431acdb671c306e86d0bc013ed271fef8dee1ee6bb419371bb567c8f5b2f"
+  },
+  "nsys-after-disk-serial.log": {
+    "bytes": 1670,
+    "sha256": "350ec62e7b2d329c62b4a54177ac6df2e4690db1317594f37c8917a1a4d90d4b"
+  },
+  "rdma-userns-probe.log": {
+    "bytes": 196,
+    "sha256": "d3b3fa4687bc35dd13b8a5bba7cb2d94b7df91bd86d52aca374f48cf8d8926e7"
+  },
+  "attribution.json": {
+    "bytes": 31723,
+    "sha256": "b97034bb5a434b16196b2b0f2a249fd770f826de5b933a0af79cf5bdc77d85d5"
+  },
+  "export-after-disk-serial.log": {
+    "bytes": 8129,
+    "sha256": "8edbe80b03873fb104650a5525b1465abde2b6999c0ab2a3179423dcc65ac5e1"
+  },
+  "nsys-cpu.log": {
+    "bytes": 1604,
+    "sha256": "4bf7bd2c339273f7db7cbe5c7692b83176c662229dec89827c27cc7650bf16b6"
+  },
+  "io-r0-c1-fixed.log": {
+    "bytes": 5934,
+    "sha256": "4e1c4d1b9d4c1616d86d5af38395aaf683f04a46fe839e2ee095b22361967b4e"
+  },
+  "owned-disk-parallel-verified.log": {
+    "bytes": 300,
+    "sha256": "6c443eaa5aef1d33fada2e79cd7ba4d8972af26ff24d7245c7f334f45af08174"
+  },
+  "rdma-payload-mtu9000.log": {
+    "bytes": 3022,
+    "sha256": "1629ab21adf598b1faee29282740063e438034a1f8cd0581ea89609ab389ed3d"
+  },
+  "excluded-runs.json": {
+    "bytes": 675,
+    "sha256": "ac6a6441287fecc759bad5a797c7afc1e0e82ca86f17408135cc84792b0461a7"
+  },
+  "io-r0-c1-buffered.log": {
+    "bytes": 6335,
+    "sha256": "c83cc24a44875c14dd29af41fda8ab625d16ee511437d13643b913f5cd35a788"
+  },
+  "io-r0-c4-direct.log": {
+    "bytes": 6134,
+    "sha256": "8d4c0ac7b88e2037de2c2a611c2af8b69254d49daf25d340f9b4175b0ebf6adc"
+  },
+  "export-cpu.log": {
+    "bytes": 8129,
+    "sha256": "f30ccb44b0f5213d8b82db523297559b5cc901c8721c21d411781d29c0b88117"
+  },
+  "io-summary.json": {
+    "bytes": 6580,
+    "sha256": "80291f0b798784eb02e65d4989595de71eb97d309c455f400181f5946a67c6de"
+  },
+  "before-diagnostic-unprofiled.log": {
+    "bytes": 826,
+    "sha256": "9a5c50a2b0eca513bfd52a601c5a1c0777b5336556512df285b7ba34123ad962"
+  },
+  "baseline-reproduce-build.log": {
+    "bytes": 11031,
+    "sha256": "e09a654284c16ca82177568820a6f0b2f4395146256fdfffb34066ba8676424f"
+  },
+  "io-r0-c4-buffered.log": {
+    "bytes": 6350,
+    "sha256": "d5806f26910eccc069a066b21893826459855451143f530ac1a4d286b7af67c1"
+  },
+  "build-after.log": {
+    "bytes": 11021,
+    "sha256": "b1f481e5a072bf7f42480fb94ba3564c636e2672ef69581c5357743adcf7125c"
+  },
+  "io-r1-c4-fixed.json": {
+    "bytes": 271,
+    "sha256": "9c02f0d2b0e29dca09b881698fce5af65c9734e73c32408cf355dbb5133cdf74"
+  },
+  "io-r1-c4-direct.json": {
+    "bytes": 272,
+    "sha256": "6902a15a1ef26c9f45297b761c650c3ae8bba5ddbaede159dc88b14961f4ba97"
+  },
+  "export-before-diagnostic.log": {
+    "bytes": 8129,
+    "sha256": "4dc926b2e55f322777d1325c893d28379eb33da118abc16c20d233934af265e6"
+  },
+  "export-final-disk.log": {
+    "bytes": 8129,
+    "sha256": "c65b13ae71759a3248e4b7fa8df7abc9b891c5b3863c596a21718f4bc8b8e299"
+  },
+  "patch-check.txt": {
+    "bytes": 47,
+    "sha256": "71340df0f1c9ef7f81eb7aebda79276c586406bd1a8bfdd456785609d9ed48aa"
+  },
+  "rebuild-after.log": {
+    "bytes": 3543,
+    "sha256": "a7318a36435b74c6094bbff4c0de420d64764313944646119da43336f88c0f5a"
+  },
+  "ncu-audit.json": {
+    "bytes": 2544,
+    "sha256": "889c22c4fdc9068a4df0375ee65606017b2b7864d28cc85fa7580e276941ab31"
+  },
+  "nsys-before-diagnostic/directory.conf": {
+    "bytes": 42,
+    "sha256": "82045e7a24363b7b7e9eae91cad6970091180a72c24760ac2879d4320f53b301"
+  },
+  "nsys-before-diagnostic/vllm.log": {
+    "bytes": 99015,
+    "sha256": "61c560c7195fca55c88ff50d3a1dd8227b151b716bfed658ebc713a65a886f45"
+  },
+  "nsys-before-diagnostic/trace.nsys-rep": {
+    "bytes": 32132561,
+    "sha256": "b99f60bd729909674d29306e6a44edc818c66e9c9c9ba649e8dfe80787a53edc"
+  },
+  "nsys-before-diagnostic/requests.json": {
+    "bytes": 3442,
+    "sha256": "9812cd6d8809e293ef83faf19ad9b8e49cd398b7337de6723f72cc95645f4483"
+  },
+  "nsys-before-diagnostic/trace.sqlite": {
+    "bytes": 144621568,
+    "sha256": "adaf372ef5aeedb8d9c60688f19b5c5d55106a2453efb5adf8b449669d0f2795"
+  },
+  "nsys-before-diagnostic/kvfabric.jsonl": {
+    "bytes": 54966,
+    "sha256": "a97da62182dedd4254858ae9cc4c58691de7f565b02e25e2102d12d53d255a52"
+  },
+  "nsys-before-diagnostic/directory.log": {
+    "bytes": 189,
+    "sha256": "1e610b815cb0ac4902adbfe8f1b802fe8cc8ba8ac81af449885912fc8e215421"
+  },
+  "matrix-before/environment.json": {
+    "bytes": 4489,
+    "sha256": "d5292aa1b7423d7fe644f141a219fe2006def950fdb00169401aa2117339aa8f"
+  },
+  "before/bridge-diagnostic.c": {
+    "bytes": 12474,
+    "sha256": "3b064b8cdb12778fe88bfe1dd7a6035860ed06e85f1a1444089d94e56b15234f"
+  },
+  "nsys-before-disk/directory.conf": {
+    "bytes": 42,
+    "sha256": "f80846501c50ee7e46b546d121cebbe9ea05a242b58c40557208dcf6b5d17309"
+  },
+  "nsys-before-disk/vllm.log": {
+    "bytes": 24446,
+    "sha256": "2ffe35fe2358def2268c8109adf48daa1488e1bec12c0c5dc0921b4594c71a33"
+  },
+  "nsys-before-disk/trace.nsys-rep": {
+    "bytes": 32943876,
+    "sha256": "2dd65aa09a8f225ff401fc443bcc21cb31ff6c65fa23f24b9b0cf2f8a106bb85"
+  },
+  "nsys-before-disk/requests.json": {
+    "bytes": 3431,
+    "sha256": "de08d356548f4ea97f112700c2a06638b43b91085afd3ddf0148faf966740468"
+  },
+  "nsys-before-disk/trace.sqlite": {
+    "bytes": 148090880,
+    "sha256": "9b96e52cbeb0e73b288b9e38327a011a9503fd99525aa7e9b951ddcef39eec51"
+  },
+  "nsys-before-disk/kvfabric.jsonl": {
+    "bytes": 54972,
+    "sha256": "00769c475affead0d7b3d1e2cd8385a7967d952e10fb6958ddeca6c5298aa2f4"
+  },
+  "nsys-before-disk/directory.log": {
+    "bytes": 167,
+    "sha256": "a8252802b397d1d01fd8c021b6bc029ccc5670a34505ccd5889bc867ed1f407c"
+  },
+  "owned-disk-parallel-verified/directory.conf": {
+    "bytes": 42,
+    "sha256": "1e218d3de4b28860d06dbcc89f8c8537e8e638015e8f86e889debcdecd0317ef"
+  },
+  "owned-disk-parallel-verified/directory.log": {
+    "bytes": 178,
+    "sha256": "586d839d3c530cc76fd348664d550cb2ea312230c7fe655f4e2430618a8bc6f2"
+  },
+  "rdma-strict-final/cpu-15.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-23.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-6.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-24.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-9.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-3.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-2.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-21.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-28.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-16.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-12.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-10.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-27.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-12.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-13.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-2.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-14.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-24.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-8.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-3.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-1.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-20.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-4.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-19.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-0.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-20.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-9.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-7.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-23.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/summary.json": {
+    "bytes": 8709,
+    "sha256": "3d977acd25773725f5a72aa61ffe5f5d7dc5e1128069df29098293ad53bd81e9"
+  },
+  "rdma-strict-final/cpu-25.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-29.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-8.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-0.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-25.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-28.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-11.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-17.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-18.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-11.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-27.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-22.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-18.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-5.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-5.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-10.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-7.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-26.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-13.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-6.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/source-cuda.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-strict-final/source-cpu.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-strict-final/cpu-14.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-1.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-19.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-strict-final/cpu-22.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-29.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-15.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-26.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-21.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-4.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cuda-17.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "rdma-strict-final/cpu-16.log": {
+    "bytes": 101,
+    "sha256": "7b81a825c9d98e29c854e708e59526ed51ca59e8289c5ce11faa573645a811d4"
+  },
+  "figures/nsys-read-concurrency.svg": {
+    "bytes": 6939413,
+    "sha256": "f0148397442b9b219860561ce451381ef6d9fa9fde966a6525c9a279c731bb57"
+  },
+  "figures/nsys-read-concurrency.png": {
+    "bytes": 151217,
+    "sha256": "720e49d0a59ef1f4bb5d43bb160a711a6cd2cecdd24ab8199e2671f1f004e787"
+  },
+  "figures/architecture.svg": {
+    "bytes": 96218,
+    "sha256": "4370240cdff1af373d7c4db6ff2dc875bc7c38b77c357124381dcb8b2c885b64"
+  },
+  "figures/ncu-bandwidth-accounting.png": {
+    "bytes": 137230,
+    "sha256": "c45d7858f5b5cc76ef794cc3278ee6fcc7c5c071a929ee66a5f022c84b4e4818"
+  },
+  "figures/architecture.png": {
+    "bytes": 206624,
+    "sha256": "0ea2b14599fcd47fff768cbab379cc0c2bf84e4488cc4c01e04d1e566da854ac"
+  },
+  "figures/ncu-bandwidth-accounting.svg": {
+    "bytes": 87492,
+    "sha256": "f2158fdbef6c27e874a47f20833f714476ee1bd29b6d3d8d1d50f137cb2079e0"
+  },
+  "rdma-payload-final/cuda-4194304-18-rdma.log": {
+    "bytes": 125,
+    "sha256": "3bce45cb9b0e7d5e676b6085dfbdaa454ab6431f9ba833bb138e996e9bdc1ade"
+  },
+  "rdma-payload-final/cuda-4194304-24-rdma.log": {
+    "bytes": 125,
+    "sha256": "4e0c3ca89c716087e821a5448daa80f115ec110e4350ed906fa0eea29d688ac5"
+  },
+  "rdma-payload-final/cpu-4194304-22-rdma.log": {
+    "bytes": 125,
+    "sha256": "6c053de89294ed447febb714c27acb62d1061740a138dca50ca6f16c33f31945"
+  },
+  "rdma-payload-final/cuda-65536-13-rdma.log": {
+    "bytes": 122,
+    "sha256": "0d95bb70796ec7be3e158bfa5174b35ebdec2aa2be3f3204626a50c4196e1345"
+  },
+  "rdma-payload-final/cuda-1048576-0-tcp.log": {
+    "bytes": 114,
+    "sha256": "13e641ab9a99dc6ba2ae54d801e089eb723fdc1a251dcd5b695b80a8345ff9c4"
+  },
+  "rdma-payload-final/cpu-1048576-1-rdma.log": {
+    "bytes": 124,
+    "sha256": "1fa35d6e0e92d47e23a7533762507a953b5228b9bfb9b60f5606d2f8d6e4b4fe"
+  },
+  "rdma-payload-final/cpu-65536-23-rdma.log": {
+    "bytes": 122,
+    "sha256": "ef6b627e5c3ab99cd45a73bb6c409bda232514ed7499cea02ab91b47c6ebc62e"
+  },
+  "rdma-payload-final/cpu-1048576-23-rdma.log": {
+    "bytes": 124,
+    "sha256": "64bf97ff1880365d7318510534f980e7e2348e24225edd45d1151aa92c22d316"
+  },
+  "rdma-payload-final/cpu-1048576-7-tcp.log": {
+    "bytes": 114,
+    "sha256": "a967c084c0e35236cfd6e35c904549096c196881b1bb8d2bb212217d31c2e10b"
+  },
+  "rdma-payload-final/cuda-65536-15-tcp.log": {
+    "bytes": 113,
+    "sha256": "dc295b153fc1e0ad849aa593687456541896c15ab61021decc9321137eeed697"
+  },
+  "rdma-payload-final/cpu-1048576-24-tcp.log": {
+    "bytes": 114,
+    "sha256": "70e990bdc7c2c090b508313d2704f73fbd83e71d8017e1e80099e16c84390267"
+  },
+  "rdma-payload-final/cuda-65536-2-rdma.log": {
+    "bytes": 122,
+    "sha256": "cb62f0d6217e5393a33b27aff8bb3f0d6523ef8080cdce16d0159567eea6511f"
+  },
+  "rdma-payload-final/cpu-4194304-24-rdma.log": {
+    "bytes": 125,
+    "sha256": "bfc9125b4bdb96eee8d74c4cb64f07be98e0d2754806d2275ec5f7a441a3750a"
+  },
+  "rdma-payload-final/cpu-4194304-29-tcp.log": {
+    "bytes": 116,
+    "sha256": "995b1b4a8c378b2e36be89f894d6ba04981c3025bc9b2c5889f94fdf1ff591db"
+  },
+  "rdma-payload-final/cpu-1048576-21-tcp.log": {
+    "bytes": 114,
+    "sha256": "c777c73bb78eb29582a680cb87e498eb4eafb64cfcf2df0ab56985cfcbd2b090"
+  },
+  "rdma-payload-final/cuda-4194304-21-rdma.log": {
+    "bytes": 125,
+    "sha256": "db1e6b38eafe1859c9e32ff6def838a80f54e7df24d1dffd01f66bf7a8a730fa"
+  },
+  "rdma-payload-final/cuda-65536-23-rdma.log": {
+    "bytes": 122,
+    "sha256": "da348ab745242046f5c6567186ac369e41efcc39a15e589a786ca4b9d3de7d05"
+  },
+  "rdma-payload-final/cpu-1048576-22-tcp.log": {
+    "bytes": 114,
+    "sha256": "ad74e5acc3c8f4bf4c8e24eb22090d87fc567cd120664bb708cc3f9e12c83c44"
+  },
+  "rdma-payload-final/cpu-1048576-26-rdma.log": {
+    "bytes": 124,
+    "sha256": "a7633624325bdacffea9e4720e006b4ea23303187ea23aad7006deeb6a4b9df6"
+  },
+  "rdma-payload-final/cuda-65536-14-tcp.log": {
+    "bytes": 112,
+    "sha256": "5579653557a30a5728676b0b2dbbac4c86cd01172c89a75e01620067e1378049"
+  },
+  "rdma-payload-final/cpu-1048576-27-tcp.log": {
+    "bytes": 114,
+    "sha256": "c778908d5851ce17affd06b23b2c924b70f75d7b2652f87fe08a3eac2427373d"
+  },
+  "rdma-payload-final/cuda-4194304-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-20-rdma.log": {
+    "bytes": 124,
+    "sha256": "ee32a7038770d3159140ce17ff1a48bbbb2ce638f0ea3335b8e9f4ea5acbd07b"
+  },
+  "rdma-payload-final/cuda-65536-10-rdma.log": {
+    "bytes": 122,
+    "sha256": "e7005fc634f5417d3bdc6f96d02b03a7fab6ff8f84ce5704b69f2583779ed965"
+  },
+  "rdma-payload-final/cuda-1048576-29-tcp.log": {
+    "bytes": 114,
+    "sha256": "b7f14c83c6a97e87b3fcc2ac047a612040b463c26f8854f57a1d39cdc4fa17bd"
+  },
+  "rdma-payload-final/cuda-65536-10-tcp.log": {
+    "bytes": 113,
+    "sha256": "9e9b2b173b1610935fab473554ee1bfdd210a4522b9d0c9ce1c638f9078c3667"
+  },
+  "rdma-payload-final/cpu-65536-19-tcp.log": {
+    "bytes": 112,
+    "sha256": "9a16b5c04fa348b73de0a3990e25e04d9a79c76ad61e9b29b821ef86044d0cb0"
+  },
+  "rdma-payload-final/cuda-4194304-0-rdma.log": {
+    "bytes": 125,
+    "sha256": "28a7dadde1ead9ef9ab2718918e4ed0f4f83bdb319567308c43eacc9cea881ff"
+  },
+  "rdma-payload-final/cuda-65536-25-rdma.log": {
+    "bytes": 122,
+    "sha256": "0e660638faa70024de3f475a732ae8a8214a9a266fbf09303a55efb9e1efcdb8"
+  },
+  "rdma-payload-final/cuda-1048576-9-rdma.log": {
+    "bytes": 124,
+    "sha256": "ab85aa790b2905cc255b8810f48e739dec2002b1f7a558828ad70e91a90a92a7"
+  },
+  "rdma-payload-final/cpu-1048576-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-final/cpu-1048576-18-rdma.log": {
+    "bytes": 124,
+    "sha256": "57687a97eda8a2ef0de3fdf50be825b21f6b0488e231fa36cca3ce4cde0fe348"
+  },
+  "rdma-payload-final/cuda-65536-17-tcp.log": {
+    "bytes": 112,
+    "sha256": "832e6b5b80ea145ae0940c9fdb67abc2ca093601dc9afaf513b1228bd1eb5f5f"
+  },
+  "rdma-payload-final/cpu-4194304-20-rdma.log": {
+    "bytes": 125,
+    "sha256": "e5a19390b959c1d232d717f16d67130deba7fd1265caa9fbe6c6caa664adfee3"
+  },
+  "rdma-payload-final/cpu-4194304-1-rdma.log": {
+    "bytes": 125,
+    "sha256": "613437e3cf6babc67a90cad1aaf8de8aa8f7f34c60b677dad8afe9f5e775f8fc"
+  },
+  "rdma-payload-final/cpu-4194304-7-rdma.log": {
+    "bytes": 125,
+    "sha256": "1167eb4fe2857db069b30e2bbd72648febf8f44b31ce02dab61b16fc15d631ed"
+  },
+  "rdma-payload-final/cuda-4194304-14-rdma.log": {
+    "bytes": 125,
+    "sha256": "a73ab41f53669887842b009ff8661362910e6109ef6921996af6f066932920bf"
+  },
+  "rdma-payload-final/cuda-4194304-25-rdma.log": {
+    "bytes": 125,
+    "sha256": "386c03d6598473b39561cdd1705011d114326d42910eaf7328ee47a23149d356"
+  },
+  "rdma-payload-final/cuda-4194304-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cpu-65536-24-tcp.log": {
+    "bytes": 113,
+    "sha256": "18abbeb0492ffb499c1651ed4a2d1bf822d9148fe8afe2808061735e31f7a20f"
+  },
+  "rdma-payload-final/cuda-65536-4-tcp.log": {
+    "bytes": 113,
+    "sha256": "0d8d94510c05ec8cc64e18a3fd834e80d5f73959cf436e07791433783e79bb4a"
+  },
+  "rdma-payload-final/cpu-65536-21-tcp.log": {
+    "bytes": 113,
+    "sha256": "c22d2816d3c0edc25350f34a80194510bbe00838b3a88c03d0f7321981c34c23"
+  },
+  "rdma-payload-final/cpu-65536-15-tcp.log": {
+    "bytes": 112,
+    "sha256": "24b8ce63a75de3f7a9da85c996cf654a3ed916fb6654a61bbff9108d44f69825"
+  },
+  "rdma-payload-final/cpu-1048576-21-rdma.log": {
+    "bytes": 124,
+    "sha256": "4094f5c9a2fb158a7594a0da83758dcfa5b670f254cea60a2e6d8eb9141f0d93"
+  },
+  "rdma-payload-final/cuda-65536-6-tcp.log": {
+    "bytes": 113,
+    "sha256": "dc295b153fc1e0ad849aa593687456541896c15ab61021decc9321137eeed697"
+  },
+  "rdma-payload-final/cuda-65536-11-rdma.log": {
+    "bytes": 122,
+    "sha256": "36b06e476f175f2270fce7fd72bbdceb5be82d97d6862fafc40969e1d6cebc85"
+  },
+  "rdma-payload-final/cuda-4194304-16-tcp.log": {
+    "bytes": 116,
+    "sha256": "97cf8fe464422bbd6534b4c340bdb6fa6623a4e979bcf5d7575f7ec2dbb44ccd"
+  },
+  "rdma-payload-final/cuda-4194304-15-tcp.log": {
+    "bytes": 116,
+    "sha256": "faecfe18fc80cc280a77a23e4f0de7379cbf0bf26a579aae2ef44cfe876704b0"
+  },
+  "rdma-payload-final/cpu-1048576-29-rdma.log": {
+    "bytes": 124,
+    "sha256": "87e30ce34ff6075115f463b4d207674d7bcb2ffc9034e327c15c80221a879e3c"
+  },
+  "rdma-payload-final/cuda-1048576-25-tcp.log": {
+    "bytes": 114,
+    "sha256": "663ecaae453bd812f532762546676cfbbb958a07bcd49152bc22e93571e410a0"
+  },
+  "rdma-payload-final/cuda-1048576-15-rdma.log": {
+    "bytes": 124,
+    "sha256": "c072ef5001a5c63473dbb52352bdc91170959a027de0a699118f95869573c490"
+  },
+  "rdma-payload-final/cpu-1048576-12-rdma.log": {
+    "bytes": 124,
+    "sha256": "711a4984facc51899863b0b5fdaf34215e4113242965796fa1eb91118bc53acd"
+  },
+  "rdma-payload-final/cpu-65536-19-rdma.log": {
+    "bytes": 122,
+    "sha256": "5be0cf20f720258e1082df8691ef5283eef9e657089f0326e09fc2c5fb0be26c"
+  },
+  "rdma-payload-final/cpu-1048576-25-rdma.log": {
+    "bytes": 124,
+    "sha256": "54ff9e90b43ef66bf65290495121aaeb640d37ec3751151d211b92ae47dc94a9"
+  },
+  "rdma-payload-final/cpu-65536-22-tcp.log": {
+    "bytes": 113,
+    "sha256": "16f98f7b798f85c7c4e060e13831628d51b4b419cd39e09323a3d9cd8ec59075"
+  },
+  "rdma-payload-final/cuda-1048576-8-rdma.log": {
+    "bytes": 124,
+    "sha256": "2a6744b9952e1e5beb65769b99818b82d26d233360a1283239aeb801b9854ed2"
+  },
+  "rdma-payload-final/cuda-65536-7-rdma.log": {
+    "bytes": 122,
+    "sha256": "fa89b373091003f4e48291c8bf7ceca2d0cab9aa64a3f74dae332042ada94e95"
+  },
+  "rdma-payload-final/cpu-1048576-26-tcp.log": {
+    "bytes": 114,
+    "sha256": "303e54da37d7cc86c999cd824588a79d6db91cd58ac9e010a4a0853346c365d5"
+  },
+  "rdma-payload-final/raw.csv": {
+    "bytes": 31308,
+    "sha256": "98a72d8f3286cef7b817dd213cbbd9fd54da244b6ecb7233910d0b54020a897c"
+  },
+  "rdma-payload-final/cpu-65536-29-rdma.log": {
+    "bytes": 122,
+    "sha256": "64025f5d3d0b4b8123c416783a88bb5ff0827d653732bdddd194968aa41ca6a7"
+  },
+  "rdma-payload-final/cpu-4194304-26-tcp.log": {
+    "bytes": 116,
+    "sha256": "bca4204df87d16d55571d8d4c4eb3f389c0754720eaeb01c5a88239b88cd8ce2"
+  },
+  "rdma-payload-final/cuda-1048576-21-tcp.log": {
+    "bytes": 114,
+    "sha256": "c00d2405d03b6dd66de6abda80f5a2b4611fe1c5552881bac41b56087fdd08d3"
+  },
+  "rdma-payload-final/cpu-65536-17-rdma.log": {
+    "bytes": 122,
+    "sha256": "8d5bdb154b5e6ac5b9e2dd311e98bf6dee8be7d302e01356aee3c509fb5113ad"
+  },
+  "rdma-payload-final/cuda-65536-8-rdma.log": {
+    "bytes": 122,
+    "sha256": "8106fe43537ffde83cf0a1e0d0295a0ee8c92b0749c12aa7ef790c34f4bca96b"
+  },
+  "rdma-payload-final/cuda-65536-12-rdma.log": {
+    "bytes": 122,
+    "sha256": "4d8e8740917c5847cafa5b47e3a6a6aa359b59318c24061b047e79ad5bcbd5fc"
+  },
+  "rdma-payload-final/cpu-1048576-0-tcp.log": {
+    "bytes": 114,
+    "sha256": "cddaeec9040c7f18efbc369d673bd0f5101ff0ba0b1def7c14430a4c481e4af0"
+  },
+  "rdma-payload-final/cuda-4194304-19-rdma.log": {
+    "bytes": 125,
+    "sha256": "81b46553e12f7a709064892138cc21da0beca5891bfda23ab5277ad1b2cae519"
+  },
+  "rdma-payload-final/cpu-4194304-27-tcp.log": {
+    "bytes": 116,
+    "sha256": "fb2f5f66128f01d4f408362c68f9ae64aa37dba6cb50d3b7b6ee84ffc0aefee3"
+  },
+  "rdma-payload-final/cuda-1048576-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-16-tcp.log": {
+    "bytes": 114,
+    "sha256": "0d7f30d050f288600af3de44f58d532b4d0c642b5a65c0fdd79b4020a028ab38"
+  },
+  "rdma-payload-final/cuda-4194304-7-tcp.log": {
+    "bytes": 115,
+    "sha256": "0ebece3c52ec927185e5c9b1d42b009d583fd05625e00c96457ae9d81991fe8c"
+  },
+  "rdma-payload-final/cpu-65536-5-tcp.log": {
+    "bytes": 112,
+    "sha256": "ba17c148d816982a13c58ef05a2d85a6d4a2f358b126659aae8be428a02137b7"
+  },
+  "rdma-payload-final/cpu-1048576-14-tcp.log": {
+    "bytes": 114,
+    "sha256": "22b06251e99215eb48cc08b06ff6cdafa241146db9d4065e8b8faf9772db0bb7"
+  },
+  "rdma-payload-final/cpu-4194304-20-tcp.log": {
+    "bytes": 116,
+    "sha256": "7fd8d4468ce97f58813de37179eb453eacd8fa6c2cf622b23f0c293467908fa3"
+  },
+  "rdma-payload-final/cpu-4194304-4-rdma.log": {
+    "bytes": 125,
+    "sha256": "a8f24668daf33212a2c06bba503d8a5dc48f146ea6bd85a45aeb118747ab4d76"
+  },
+  "rdma-payload-final/cuda-4194304-2-tcp.log": {
+    "bytes": 116,
+    "sha256": "e2c7d441d34ea9090fb04f60b9e5a59ca8e7c2213afb669e93a2fd5703e704b1"
+  },
+  "rdma-payload-final/cpu-1048576-10-tcp.log": {
+    "bytes": 114,
+    "sha256": "238536bfe167f3aee416f06af024594120fb3b323b6178a73442fc62bd3e65fc"
+  },
+  "rdma-payload-final/cpu-1048576-8-rdma.log": {
+    "bytes": 124,
+    "sha256": "7b0a824120f40f83ea2d8a7fe0b6a4ca8c1a208b89494f9d2c85c3a863ae2549"
+  },
+  "rdma-payload-final/cuda-4194304-17-tcp.log": {
+    "bytes": 116,
+    "sha256": "72559c31299eff6dc601e63d1e435219210fa1f67e38ef317e016df38316852d"
+  },
+  "rdma-payload-final/cuda-1048576-24-rdma.log": {
+    "bytes": 124,
+    "sha256": "f3b52f7f3ca00cbcb6dd77ebfd0d2b1c331a6114b2b1609184dad827868f4958"
+  },
+  "rdma-payload-final/cuda-65536-9-tcp.log": {
+    "bytes": 113,
+    "sha256": "5e17a54a92329d4cb49424af9023ba6efa0f10d0975ecde89b7c9c46ce50c9bd"
+  },
+  "rdma-payload-final/cpu-4194304-16-tcp.log": {
+    "bytes": 116,
+    "sha256": "c5131d8102d04ddf7a95db4d051b01cfdb92172aaac6137b42d8bacc6d4b3f13"
+  },
+  "rdma-payload-final/cuda-4194304-23-rdma.log": {
+    "bytes": 125,
+    "sha256": "362eb653889741653609c0f283353ce8a9159ac1bf45117b89ee004e78ffe341"
+  },
+  "rdma-payload-final/cpu-4194304-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-final/cpu-1048576-12-tcp.log": {
+    "bytes": 114,
+    "sha256": "c7eb9170c9f0a7ae61e387d98f8fa2d4ed4c9eed9595ed017b9a10d67e5e2046"
+  },
+  "rdma-payload-final/cpu-1048576-0-rdma.log": {
+    "bytes": 123,
+    "sha256": "894237c74de6d0f8f648650694009efdcbc8fd490a76ecf4c75b0e87834798df"
+  },
+  "rdma-payload-final/cuda-4194304-26-tcp.log": {
+    "bytes": 116,
+    "sha256": "1de96b410202c6a159b704624655e7cfc00bbffc14f837e28937ce5b6b807cef"
+  },
+  "rdma-payload-final/cpu-65536-1-tcp.log": {
+    "bytes": 113,
+    "sha256": "462013f348dd277f5a753438ab6db14699809a18a8bf27e60b4808c305652b2d"
+  },
+  "rdma-payload-final/cuda-1048576-7-tcp.log": {
+    "bytes": 114,
+    "sha256": "07e7296da35c949dfb37944e309c4dcbf4572f5e93e0a59118e396315c6e124e"
+  },
+  "rdma-payload-final/cpu-4194304-5-rdma.log": {
+    "bytes": 125,
+    "sha256": "88d75926277d1c174cd015ca0212473ad3293ff4c3f01349b9306d376cd34996"
+  },
+  "rdma-payload-final/cuda-4194304-10-rdma.log": {
+    "bytes": 125,
+    "sha256": "670cfdb34f075954894d012771303a1befbc5d6444b4374a69251919bb9ef857"
+  },
+  "rdma-payload-final/cuda-1048576-27-rdma.log": {
+    "bytes": 124,
+    "sha256": "112987a967a1ac567888a9d8401f1a2e0190ab5039fab508397ec25db97d4d5e"
+  },
+  "rdma-payload-final/cpu-65536-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-8-tcp.log": {
+    "bytes": 114,
+    "sha256": "c647374fbb94f95550ece59058960440bd29e07ece4600b7bccbe0b9f72f27ee"
+  },
+  "rdma-payload-final/cuda-1048576-29-rdma.log": {
+    "bytes": 124,
+    "sha256": "a0bd71d5b678b7c3eb05c2b84868bec0d3f2c5794a579822e3ad5b1272732e7e"
+  },
+  "rdma-payload-final/cpu-65536-16-tcp.log": {
+    "bytes": 113,
+    "sha256": "6f9e4ca37a36e67e4323470aa30bd2161ca35247980892be3962add901b03150"
+  },
+  "rdma-payload-final/cuda-4194304-8-rdma.log": {
+    "bytes": 125,
+    "sha256": "67b55abb82d444cced9496eea9b2155a0fdd5ef4e8658e4782c06bcc465dea3b"
+  },
+  "rdma-payload-final/cpu-1048576-13-rdma.log": {
+    "bytes": 124,
+    "sha256": "f9837a9cb348a60ad22f53d3004c0bf36cec7c691ff441f354c40968752d7032"
+  },
+  "rdma-payload-final/cpu-4194304-7-tcp.log": {
+    "bytes": 116,
+    "sha256": "870ee0b258bc8990fbb603a924a45ed203808e7d71e3250e40738037bb0716e9"
+  },
+  "rdma-payload-final/cuda-1048576-0-rdma.log": {
+    "bytes": 124,
+    "sha256": "0e04e2eded15dfe460baccf7bcf607c9e55b913fa3c94129fe4b9e2432466c03"
+  },
+  "rdma-payload-final/cpu-4194304-8-tcp.log": {
+    "bytes": 116,
+    "sha256": "71911c16e56a984f9366309c07c662b4c918fba8c2d27c8413b0403b6b21d535"
+  },
+  "rdma-payload-final/cuda-65536-22-rdma.log": {
+    "bytes": 122,
+    "sha256": "8c310ddc222a4099db4449c388facc7b2dded1a47f31a720ec6ba6849dfb4940"
+  },
+  "rdma-payload-final/cpu-1048576-1-tcp.log": {
+    "bytes": 114,
+    "sha256": "29ced59e5b9acadb814f574345901cb2ce34b87cdb153c7787a721c97e83298d"
+  },
+  "rdma-payload-final/cpu-1048576-3-rdma.log": {
+    "bytes": 124,
+    "sha256": "dcb307d60a0c4ab996340076bbf1e881f0d240022acb8a046ec48dd2cd4b0818"
+  },
+  "rdma-payload-final/cuda-1048576-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-26-tcp.log": {
+    "bytes": 114,
+    "sha256": "3778ee39b67cdacd22476a8231916fe6df8f017e3cd383d246ac63cad1bd9ae1"
+  },
+  "rdma-payload-final/cpu-4194304-6-tcp.log": {
+    "bytes": 116,
+    "sha256": "2e41f25bff62b8a1de46449ae76a61e30b7ff101aabb709cf5fe9627eb7b6340"
+  },
+  "rdma-payload-final/cpu-1048576-25-tcp.log": {
+    "bytes": 114,
+    "sha256": "3b98709306e5e447a1ccbc0ea81ae844c441754301f641bd7cb1c43423b71408"
+  },
+  "rdma-payload-final/cpu-1048576-2-tcp.log": {
+    "bytes": 114,
+    "sha256": "237d50768a94390138d4f1c22ee1a1a9697f4722a60228dfd87f14ed0746e0e7"
+  },
+  "rdma-payload-final/cuda-65536-20-tcp.log": {
+    "bytes": 113,
+    "sha256": "9c935f24a35dcc8575a41304f4a659c5b4452d315f4b2e056ccdd02aa01b617c"
+  },
+  "rdma-payload-final/cuda-65536-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-4194304-19-tcp.log": {
+    "bytes": 116,
+    "sha256": "e4513fc2bcc78892570c433381ce7a1d66e8fab9355eed86645d0ca2eac8e116"
+  },
+  "rdma-payload-final/cpu-4194304-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-final/cuda-4194304-17-rdma.log": {
+    "bytes": 125,
+    "sha256": "93271771f5ae82bbc4124dd60f3fedb8dfab440c55fc569eb64f2c3e396046df"
+  },
+  "rdma-payload-final/cpu-65536-7-rdma.log": {
+    "bytes": 122,
+    "sha256": "7f9161caf1edb4ef642f9d85881886e1231c502fa0a96d41b346ef06b5e15d31"
+  },
+  "rdma-payload-final/cuda-1048576-19-rdma.log": {
+    "bytes": 124,
+    "sha256": "b3b77ad224f43695e11d622faa0e937b7f963756931f8c31b60948e2ee9c4fd8"
+  },
+  "rdma-payload-final/cuda-1048576-26-rdma.log": {
+    "bytes": 124,
+    "sha256": "61c350e9b477196d63c645b3c71925e4ab83d82cf58c85f669b7cb5bf73a4432"
+  },
+  "rdma-payload-final/cuda-4194304-14-tcp.log": {
+    "bytes": 116,
+    "sha256": "f12c289297232c002591d8586edfd6eee40459131c9ec7f1c7f5bc2b4badce3b"
+  },
+  "rdma-payload-final/cuda-1048576-24-tcp.log": {
+    "bytes": 114,
+    "sha256": "0f4545890a40b3c5fe73d03dec412ef70d1c790ff472a1930ca4206acb98c93e"
+  },
+  "rdma-payload-final/cpu-1048576-11-rdma.log": {
+    "bytes": 124,
+    "sha256": "7cd8be15d7ce7adc43ce625ad6972bf93c1d680643ed740fe26b9d88979fdc77"
+  },
+  "rdma-payload-final/cuda-1048576-23-rdma.log": {
+    "bytes": 124,
+    "sha256": "28a23c50a5ac542a250dd8977a3d472abf24701193124c3bdbc04e3948ef92d1"
+  },
+  "rdma-payload-final/cuda-65536-3-tcp.log": {
+    "bytes": 112,
+    "sha256": "3d712fa2c5c70d68950b252b542cf8de7c0073ca5c09f9239556a6316fa64053"
+  },
+  "rdma-payload-final/cpu-65536-14-rdma.log": {
+    "bytes": 122,
+    "sha256": "f75f5c1fa95fa1bb9a243f7464b5794f8173efd60dbe9ad5ea0768c328f85eb1"
+  },
+  "rdma-payload-final/cuda-4194304-29-tcp.log": {
+    "bytes": 115,
+    "sha256": "090b3093842becfbaec9b0306c505e0c64f491374c184c33d9db2fa1e2c2eaca"
+  },
+  "rdma-payload-final/cuda-65536-14-rdma.log": {
+    "bytes": 122,
+    "sha256": "f0444d8962de86af92bc86045545f6887e916feb54590a3b8f9d1aaf0e4df76e"
+  },
+  "rdma-payload-final/cuda-4194304-24-tcp.log": {
+    "bytes": 116,
+    "sha256": "7f3769505269dc0009532c669ef42cc6f62f9b8e1cf3c4392f6dd44e4c17d30e"
+  },
+  "rdma-payload-final/cuda-65536-20-rdma.log": {
+    "bytes": 122,
+    "sha256": "96df9f7eaab8ec70f6909bd2571b9e1a6f60c74e4e0aef7cb945da97f565539d"
+  },
+  "rdma-payload-final/cuda-1048576-6-rdma.log": {
+    "bytes": 124,
+    "sha256": "25408f366b3dcc7cb0645b1e0336600293c1769978a78a431b4918fa9fe0c8ce"
+  },
+  "rdma-payload-final/cuda-65536-11-tcp.log": {
+    "bytes": 113,
+    "sha256": "450b71a9f2b6f495ea4261f7c3a4eba606c957942cf96d0fe8aea8c1e77c2afd"
+  },
+  "rdma-payload-final/cuda-4194304-22-rdma.log": {
+    "bytes": 125,
+    "sha256": "a3949d978ac1a41c34e89f669ae8682e42688325b2a46b14add404c085fc1515"
+  },
+  "rdma-payload-final/cpu-4194304-21-tcp.log": {
+    "bytes": 116,
+    "sha256": "b6a1cc5fe21ec1df2547ed36aa9a9a4b2e70e1a9fe616b0dbe0068605d58afb3"
+  },
+  "rdma-payload-final/cuda-65536-24-tcp.log": {
+    "bytes": 113,
+    "sha256": "f6b5953a7b3b42858206d538e3206426e5ad971cdbc723bc1373171cf2e2369b"
+  },
+  "rdma-payload-final/cuda-4194304-5-rdma.log": {
+    "bytes": 125,
+    "sha256": "ae4153fc57423c83a170044befb8dc24d4fff0d94d3e68cd3fe02b0349c06e57"
+  },
+  "rdma-payload-final/summary.json": {
+    "bytes": 3633,
+    "sha256": "209136edcdcc3ca278ef6205e81d063eef4f623dbc666696f31023607f9c317d"
+  },
+  "rdma-payload-final/cpu-1048576-17-rdma.log": {
+    "bytes": 124,
+    "sha256": "7bac862931fc79074ff4a24e8e0c7854886a0a63826f50b2f61aa481e964c008"
+  },
+  "rdma-payload-final/cpu-65536-25-rdma.log": {
+    "bytes": 122,
+    "sha256": "94a894d0d30187e734573087a5d56ab6171e3f733ca9da37e7faa93057c99040"
+  },
+  "rdma-payload-final/cuda-65536-5-tcp.log": {
+    "bytes": 113,
+    "sha256": "0af89d9bfed766e20750618774e23e4554ddc0e58d334dec2e39c0fabbe609e7"
+  },
+  "rdma-payload-final/cuda-1048576-1-rdma.log": {
+    "bytes": 124,
+    "sha256": "166dc67e31b96d37daf399be6abf4dc949968ad4535c853d03008ace5d091a2c"
+  },
+  "rdma-payload-final/cuda-65536-16-tcp.log": {
+    "bytes": 113,
+    "sha256": "a53d4af04361bca8d72167120239ea30c132b0abbd3c83da7258c68458baa8f4"
+  },
+  "rdma-payload-final/cpu-65536-0-rdma.log": {
+    "bytes": 122,
+    "sha256": "e63c0bc1aa94137000b71307bbf8a90632ac6617f3c94efa7f087b0848e7b79b"
+  },
+  "rdma-payload-final/cpu-1048576-20-tcp.log": {
+    "bytes": 114,
+    "sha256": "6643572777562ab0f04bf0112d149f9b756132ad8aca740f1b4f74cc7ad4e1d0"
+  },
+  "rdma-payload-final/cpu-1048576-24-rdma.log": {
+    "bytes": 124,
+    "sha256": "f43fc0b28dba2a3afa3daf89d3a3b95e97c7d16715d01c8c22da484cff0c6db4"
+  },
+  "rdma-payload-final/cpu-1048576-28-tcp.log": {
+    "bytes": 114,
+    "sha256": "023c7e76a114844f83c4f17304b14457762654c83d95187b763f92528a2ac545"
+  },
+  "rdma-payload-final/cuda-1048576-17-rdma.log": {
+    "bytes": 124,
+    "sha256": "c65c35f589af7d0fffabad225a8e622ccd160e3f786121240b7bf8fde5dc5a50"
+  },
+  "rdma-payload-final/cpu-65536-26-rdma.log": {
+    "bytes": 122,
+    "sha256": "1cee4c33c668436b5f86293b343e1b322dbe3f4f19c4cb8c58d343942dae7d2d"
+  },
+  "rdma-payload-final/cpu-4194304-16-rdma.log": {
+    "bytes": 125,
+    "sha256": "f7783466ede52042157bf70e874c8f3c13c56fea87761050496853586dddec00"
+  },
+  "rdma-payload-final/cpu-65536-10-rdma.log": {
+    "bytes": 122,
+    "sha256": "744dcc9b3e8d83947089a6172e119a4ad79820d5d8ebfce75c97ae8d114d9b3b"
+  },
+  "rdma-payload-final/cuda-1048576-18-tcp.log": {
+    "bytes": 114,
+    "sha256": "97d5f5e2e9864bdaa559b8735b9ac1fa95057f30866064a6121a60988f971ea7"
+  },
+  "rdma-payload-final/cuda-4194304-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-final/cpu-65536-5-rdma.log": {
+    "bytes": 122,
+    "sha256": "013a046e657f91be25542c08d7eb74b20e458dc2fbb8b540e8aadda3a68efa11"
+  },
+  "rdma-payload-final/cuda-4194304-23-tcp.log": {
+    "bytes": 115,
+    "sha256": "f81d80d3d437b4b1890b4e904ddb285f931ad846b2eb21993a214117f6b93604"
+  },
+  "rdma-payload-final/cuda-1048576-4-rdma.log": {
+    "bytes": 124,
+    "sha256": "0e93a237f56ae6e30fc2189a9ae25b93a991fb4f941a8b725ab93ee69a0f0247"
+  },
+  "rdma-payload-final/cuda-1048576-10-rdma.log": {
+    "bytes": 124,
+    "sha256": "61dae2de01dc19a8ea74a9a1bb6681003a04cd8ba0fa42b67c8bbbd372dcbc15"
+  },
+  "rdma-payload-final/cpu-65536-18-tcp.log": {
+    "bytes": 113,
+    "sha256": "b18a53166958c08a68c09d2d8c3deeae2fbfaee8c2a04aac1ed28711e7abe952"
+  },
+  "rdma-payload-final/cpu-1048576-22-rdma.log": {
+    "bytes": 124,
+    "sha256": "39b5e924014a7b2c560aa2ef22064df793696063532954d8fcab9c7c1f462fb5"
+  },
+  "rdma-payload-final/cpu-1048576-19-rdma.log": {
+    "bytes": 124,
+    "sha256": "fba0b01ab8c306d433f8253040f014aa9751fe4e3d5e213b5ad0c449d1e25627"
+  },
+  "rdma-payload-final/cuda-4194304-21-tcp.log": {
+    "bytes": 115,
+    "sha256": "7543ab4941c88217072c24cdfa3d77d13bd73adff49938faf447014f7c026fdd"
+  },
+  "rdma-payload-final/cpu-1048576-5-tcp.log": {
+    "bytes": 114,
+    "sha256": "3482117fe542d7cbad63716ab5226bc5d5f9b049c03d26fe411574616fcc53f4"
+  },
+  "rdma-payload-final/cpu-65536-6-rdma.log": {
+    "bytes": 122,
+    "sha256": "b7dd4814c65a83a6b45026a0c02550e8074c2c02c3441f9a8ce54a9da3c381fb"
+  },
+  "rdma-payload-final/cpu-65536-22-rdma.log": {
+    "bytes": 122,
+    "sha256": "99c16a55a20bfaa9f437f4d185ac33d637689939aa8aa09578e5deced991a1ed"
+  },
+  "rdma-payload-final/cpu-1048576-7-rdma.log": {
+    "bytes": 124,
+    "sha256": "be5ed8d3741e804794826e2e9618b8949ca590986cf08ff7ec35cd992646bf52"
+  },
+  "rdma-payload-final/cuda-65536-6-rdma.log": {
+    "bytes": 122,
+    "sha256": "c3baed24020f834c89a6877c9bb15838bc71a563b5e334fa16769d9d87bfd118"
+  },
+  "rdma-payload-final/cuda-65536-21-rdma.log": {
+    "bytes": 122,
+    "sha256": "e645646fc28f89c4803f99a79c8e4bc29504c829ddd42d16cf50a9430384920a"
+  },
+  "rdma-payload-final/cpu-4194304-25-tcp.log": {
+    "bytes": 116,
+    "sha256": "e7e80158575a21e66db08de08225394696cc75c3125c5dd920ab8c982d5549b2"
+  },
+  "rdma-payload-final/cuda-1048576-12-tcp.log": {
+    "bytes": 114,
+    "sha256": "dd5c6c96ef951518cd2d600d384050f21e20f4b31c5a1a38f3d25f1ebaab132a"
+  },
+  "rdma-payload-final/cpu-1048576-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-final/cpu-4194304-9-rdma.log": {
+    "bytes": 125,
+    "sha256": "6aa7376b1842ec2034bb79bc62a80b8b3cdb1c3b5cb687748ad98a70d003bf52"
+  },
+  "rdma-payload-final/cpu-65536-20-tcp.log": {
+    "bytes": 112,
+    "sha256": "f64959139c32dc7cc195b116706e176b26d6ad1402cee4c0867f5ce8b3c2228b"
+  },
+  "rdma-payload-final/cpu-4194304-2-tcp.log": {
+    "bytes": 116,
+    "sha256": "573f7dda1bc8025ed9c47fb9f03f231080a6d5c6df0067bc4044cd86614f6e23"
+  },
+  "rdma-payload-final/cuda-4194304-11-tcp.log": {
+    "bytes": 116,
+    "sha256": "da9e44fc0d844d6b085f3af568ceed65874ae1342a45cdd2e40377a137c69034"
+  },
+  "rdma-payload-final/cuda-1048576-14-tcp.log": {
+    "bytes": 114,
+    "sha256": "f256982001e5e5819d60c93ec2919998ea2a4207c0317ee7d7a92a29e638b0db"
+  },
+  "rdma-payload-final/cuda-65536-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cpu-1048576-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-18-rdma.log": {
+    "bytes": 124,
+    "sha256": "858b88bd0031feb5fed2aae461f4bb52055272538a42fb74722b05e222b06db3"
+  },
+  "rdma-payload-final/cpu-65536-2-rdma.log": {
+    "bytes": 122,
+    "sha256": "84961ce7b6df42ce33276a06547ca25e68c0441ecacd93124483148469f8af2f"
+  },
+  "rdma-payload-final/cpu-65536-28-tcp.log": {
+    "bytes": 113,
+    "sha256": "b028347d64d01ecfc4d8fcf42579a60c73d920d1c98a71707c1e88d7257c3239"
+  },
+  "rdma-payload-final/cuda-1048576-28-tcp.log": {
+    "bytes": 114,
+    "sha256": "2d331ed6d8bcca5da7c60898a86154896f0824f20bbff4e285334c3d88444218"
+  },
+  "rdma-payload-final/cuda-4194304-4-tcp.log": {
+    "bytes": 116,
+    "sha256": "207fd454e1d2c14e0e1f453376b66c63bac4fb7ec4a07f78b66ccaea77e47555"
+  },
+  "rdma-payload-final/cuda-1048576-19-tcp.log": {
+    "bytes": 114,
+    "sha256": "ab27fbef645b86061c408026d7da7caa65c4779fc6126ec288cf0a2bce5e1ca9"
+  },
+  "rdma-payload-final/cuda-65536-29-tcp.log": {
+    "bytes": 113,
+    "sha256": "c4c0a117bbfaf64ecd4914d88f42325fe48fee4c74a634d30556aa7a3bea556a"
+  },
+  "rdma-payload-final/cpu-65536-3-tcp.log": {
+    "bytes": 113,
+    "sha256": "fd132b28000116e01342d314663cca4bf6b69fd89c6318879daa926c87d51c7a"
+  },
+  "rdma-payload-final/cpu-4194304-10-rdma.log": {
+    "bytes": 125,
+    "sha256": "a6a6b709d7e39e4f218cec692dfe23e152aedd78fcd4b767fba2ff5020f46d80"
+  },
+  "rdma-payload-final/cpu-1048576-28-rdma.log": {
+    "bytes": 124,
+    "sha256": "4cb2087146e19faaa375f504b52ea043e20a65c99a2c5c4e3859d0d9c87859ca"
+  },
+  "rdma-payload-final/cuda-4194304-28-tcp.log": {
+    "bytes": 116,
+    "sha256": "ebb8e9f9cd448c38bfdb40ac9566b88e7d65ae0ecd9d21a3f164f89570197768"
+  },
+  "rdma-payload-final/cuda-1048576-21-rdma.log": {
+    "bytes": 124,
+    "sha256": "8d62d5a5e13132e2160a84ad57133808ef53421a62df5a9a3e0d862e38f4f191"
+  },
+  "rdma-payload-final/cpu-65536-12-tcp.log": {
+    "bytes": 113,
+    "sha256": "7ba82e08897e06e0c6e470adc1da8ec1c27243fbfa71694a3adf68c52595ab56"
+  },
+  "rdma-payload-final/cpu-4194304-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-3-tcp.log": {
+    "bytes": 114,
+    "sha256": "14cd5e7c81a7c5d1c1dc587612b01542d74a067feed2b64caba2c2d9cf26edf6"
+  },
+  "rdma-payload-final/cpu-4194304-0-tcp.log": {
+    "bytes": 116,
+    "sha256": "589601b9250a46cbaecb1555fa4ba72dbaeaa51032a949159a40c9a8785aa622"
+  },
+  "rdma-payload-final/cuda-4194304-3-tcp.log": {
+    "bytes": 116,
+    "sha256": "ada2c47509c66fea61938896a9cd430e10040634d09d2b7e99b5734f082c5957"
+  },
+  "rdma-payload-final/cuda-65536-1-rdma.log": {
+    "bytes": 122,
+    "sha256": "e1d0573ee76630c00f71cdc69cf652ba3a0b7fcdabc551d9e0815abcc21c0c80"
+  },
+  "rdma-payload-final/cpu-65536-13-rdma.log": {
+    "bytes": 122,
+    "sha256": "b2f5283ecb1c5d7050dc292fc5527efb8aea51b15b574b750af19f0b1d28c22f"
+  },
+  "rdma-payload-final/cpu-4194304-17-tcp.log": {
+    "bytes": 116,
+    "sha256": "e3829ec992f370e0bd50b40331bae32f5fc797261cabda26976601730b22933e"
+  },
+  "rdma-payload-final/cuda-4194304-3-rdma.log": {
+    "bytes": 125,
+    "sha256": "9bacd4ba694ba2f4baee56036e7c5fa26466c0b6feaf548864849c4969e692df"
+  },
+  "rdma-payload-final/cuda-1048576-17-tcp.log": {
+    "bytes": 114,
+    "sha256": "70064374d8de9932b5bb0345214dec49461f08161546a285f91aae18aa2eadda"
+  },
+  "rdma-payload-final/cuda-1048576-3-rdma.log": {
+    "bytes": 124,
+    "sha256": "b4243081d9b11a45c76b26a6bc7213adae768419f8b495eed565e795ce7e078d"
+  },
+  "rdma-payload-final/cuda-65536-1-tcp.log": {
+    "bytes": 112,
+    "sha256": "43d506d28afa346a90157423dd5201e540f4c18b91a16eb5c6ccc6836b008048"
+  },
+  "rdma-payload-final/cuda-65536-26-tcp.log": {
+    "bytes": 113,
+    "sha256": "0e2d530428a8750a9a3c224bf994f4cb4fb53f31f63142ee118ba2a8191bbe1d"
+  },
+  "rdma-payload-final/cpu-4194304-5-tcp.log": {
+    "bytes": 116,
+    "sha256": "10c57aa6b22e685192b0b7e43c4608e39595c4a17f4e21f35e557b7e172d922e"
+  },
+  "rdma-payload-final/cuda-1048576-13-rdma.log": {
+    "bytes": 124,
+    "sha256": "cc9f82ea4f7c0ac5b3a0d05f4659acaea2184553d26339172f9736bdd8ba3a9d"
+  },
+  "rdma-payload-final/cpu-1048576-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cpu-65536-14-tcp.log": {
+    "bytes": 113,
+    "sha256": "cc7884d8221a1804fce9ad515bb9ed8b26aa0a333087830e64799b14b445eb2c"
+  },
+  "rdma-payload-final/cpu-65536-11-rdma.log": {
+    "bytes": 122,
+    "sha256": "d262dae410581fff5e3c54f20e7b5fd44e201bb3a6610ee7e1021a297aab7fd1"
+  },
+  "rdma-payload-final/cuda-1048576-15-tcp.log": {
+    "bytes": 114,
+    "sha256": "68c13bf74c6f66bb14496e40e4b4a08e10f6c51243f5dd56da1e5b254713fef2"
+  },
+  "rdma-payload-final/cpu-4194304-11-tcp.log": {
+    "bytes": 116,
+    "sha256": "a9d908ca68587559d7b9c2d5305bed32ba80deb5dbe1b14b24274b9307bc8330"
+  },
+  "rdma-payload-final/cpu-4194304-12-tcp.log": {
+    "bytes": 116,
+    "sha256": "789425d36e839e582f7ff453c6f7980db163a47a70bfabc7149056a9d6635927"
+  },
+  "rdma-payload-final/cuda-4194304-7-rdma.log": {
+    "bytes": 125,
+    "sha256": "24fe65bfec1369c6948a9d161e5d6cec55b1d86360cc73ac76b6b07f80c9ed7d"
+  },
+  "rdma-payload-final/cpu-65536-24-rdma.log": {
+    "bytes": 122,
+    "sha256": "626c57d65bf1314f7ecceb856a881b65f2d1943f8002548ccffc5f47b9bd887f"
+  },
+  "rdma-payload-final/cuda-4194304-15-rdma.log": {
+    "bytes": 125,
+    "sha256": "e49d137915a748beb02f28f7291cfb7a1534cd542043b209eaaa9466b5d28b07"
+  },
+  "rdma-payload-final/cpu-4194304-25-rdma.log": {
+    "bytes": 125,
+    "sha256": "9b2d7c7265f7ef70c1a2201d27241b86ea41f52fee21750665b400e163837ba4"
+  },
+  "rdma-payload-final/cpu-1048576-23-tcp.log": {
+    "bytes": 114,
+    "sha256": "af069265abacfc1626d9a6d67fd1ed059ced09ec18cf9a6150b94693455058fb"
+  },
+  "rdma-payload-final/cpu-65536-25-tcp.log": {
+    "bytes": 113,
+    "sha256": "de2306a3c90cd89fc1dd224ad1697bb069d6c6f450ea038f91e21220fb4d7737"
+  },
+  "rdma-payload-final/cpu-4194304-13-rdma.log": {
+    "bytes": 125,
+    "sha256": "fbe10ac7d9731eb9cc6fd6e0b5dbcf2540a4c219d49b396ed615e1b0a98d649c"
+  },
+  "rdma-payload-final/cuda-65536-26-rdma.log": {
+    "bytes": 122,
+    "sha256": "6b9c791d2f4195a75985c6c29d9608c345e56923bc11d61531af6fe917b4d6c9"
+  },
+  "rdma-payload-final/cuda-4194304-10-tcp.log": {
+    "bytes": 116,
+    "sha256": "daeddc1014556cc823a7c4334d042c64d562ae5a03f6767f488a4416460704f0"
+  },
+  "rdma-payload-final/cpu-4194304-2-rdma.log": {
+    "bytes": 125,
+    "sha256": "c6754fbdfedffe0e118d713c7693033836c4230a06520fa29536a2d20a76efdf"
+  },
+  "rdma-payload-final/cpu-65536-3-rdma.log": {
+    "bytes": 122,
+    "sha256": "7f2412de95ec1aa8fbf7ea177514141203fbcc4576977ecacb6413332da4aaa8"
+  },
+  "rdma-payload-final/cuda-1048576-11-rdma.log": {
+    "bytes": 124,
+    "sha256": "f8cce22d62e67ae90092780e0733d1e2c76755a12f5b478d62ddde2942e5f6ef"
+  },
+  "rdma-payload-final/cuda-1048576-25-rdma.log": {
+    "bytes": 124,
+    "sha256": "8ec65c35e79327f5c2b49739a0cc14762b94c84f8ddea17eb9b7404b39413164"
+  },
+  "rdma-payload-final/cuda-65536-27-tcp.log": {
+    "bytes": 113,
+    "sha256": "ad381665d8ade185c90b5a9b8af74959d30e5f12c2b82971e10c4cf3e3a6ac30"
+  },
+  "rdma-payload-final/cpu-1048576-29-tcp.log": {
+    "bytes": 114,
+    "sha256": "a06016bda3136827fc7e601baae081e5ad820bb4a47b223a35fa5aa62f52b19d"
+  },
+  "rdma-payload-final/cuda-1048576-23-tcp.log": {
+    "bytes": 114,
+    "sha256": "7e7c6e8e8f8f8ec896f33c04f60dcdb5563f114dc097af0e58fe832978427b3a"
+  },
+  "rdma-payload-final/cpu-4194304-23-rdma.log": {
+    "bytes": 125,
+    "sha256": "814461828940dcefa352f039e2043c67809f4f80a237ebc180625ea588fda762"
+  },
+  "rdma-payload-final/cpu-65536-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-final/cuda-1048576-27-tcp.log": {
+    "bytes": 114,
+    "sha256": "5aa3fbf4e723b754bda5c483d8f0e53eedb2fc58e8847a5f1cd8500fc8ec54e9"
+  },
+  "rdma-payload-final/cpu-65536-28-rdma.log": {
+    "bytes": 122,
+    "sha256": "7f2412de95ec1aa8fbf7ea177514141203fbcc4576977ecacb6413332da4aaa8"
+  },
+  "rdma-payload-final/cuda-65536-7-tcp.log": {
+    "bytes": 113,
+    "sha256": "95593e073264402f0dfe28ce11f486f30ed7d2b906d0b64ad770eb0c41675d90"
+  },
+  "rdma-payload-final/cpu-1048576-16-rdma.log": {
+    "bytes": 124,
+    "sha256": "409049196938c2689f85a5837c5eec2eb996053f8c2edbace7cec5153df76f81"
+  },
+  "rdma-payload-final/cuda-65536-21-tcp.log": {
+    "bytes": 113,
+    "sha256": "1b8640cef25e1d2907b0dac542bd804964ebd875ed1e7582e8eae0fbcd27caa0"
+  },
+  "rdma-payload-final/cuda-65536-19-rdma.log": {
+    "bytes": 122,
+    "sha256": "78fad186b166d5f546efb36d00510e23fd568b917a6e7a974ae482b794516b07"
+  },
+  "rdma-payload-final/cpu-1048576-6-tcp.log": {
+    "bytes": 114,
+    "sha256": "1da6355b3aeffa7c3e2908f672bc063d7c23c95033280c89ee614db9fde5d910"
+  },
+  "rdma-payload-final/cuda-1048576-28-rdma.log": {
+    "bytes": 124,
+    "sha256": "839a005ba06120b08e6969e47638e933afe4001b48fe7702a9bfd6a14153a002"
+  },
+  "rdma-payload-final/cpu-4194304-23-tcp.log": {
+    "bytes": 116,
+    "sha256": "25429bcdac85bc8320eee854d2f100a6bcfa034834f2b4a55a1f1e2449c543c6"
+  },
+  "rdma-payload-final/cpu-4194304-14-rdma.log": {
+    "bytes": 125,
+    "sha256": "de8be37ca2cf9fc4b680a8201d8afef4f20f0c0c5a174d37c1fc0af08055c1fa"
+  },
+  "rdma-payload-final/cuda-4194304-28-rdma.log": {
+    "bytes": 125,
+    "sha256": "b90847035914c1f15f828a404e84db20763c768d1f76941dc31f8217fc5fad7a"
+  },
+  "rdma-payload-final/cpu-4194304-19-rdma.log": {
+    "bytes": 125,
+    "sha256": "7cae16ab311638c33baf8f99042ada363820e8610108c2774ea975cab75f6572"
+  },
+  "rdma-payload-final/cuda-65536-29-rdma.log": {
+    "bytes": 122,
+    "sha256": "b7049fa7f594ff5ec90eb1c516271a15716396fe4c262ade930fdb40b3568660"
+  },
+  "rdma-payload-final/cpu-4194304-8-rdma.log": {
+    "bytes": 125,
+    "sha256": "8cc8bbd4e240aeb7bc04452c2f3edf08032000c809421028ef5660f79eedb583"
+  },
+  "rdma-payload-final/cuda-65536-18-rdma.log": {
+    "bytes": 122,
+    "sha256": "ef1844ad506fe2aca928485fa1840134379fe82c722759ce6301983b399fde3f"
+  },
+  "rdma-payload-final/cuda-4194304-20-rdma.log": {
+    "bytes": 125,
+    "sha256": "e2268e16cc1e52a9b8c2a9c726e2db85cce895545dc7c9c585d6667dc92afd8d"
+  },
+  "rdma-payload-final/cuda-65536-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-final/cpu-4194304-17-rdma.log": {
+    "bytes": 125,
+    "sha256": "7d75e30cb53a0be0337b773585c1e46f324108ca30ca0d1dbd15415f78a51784"
+  },
+  "rdma-payload-final/cpu-4194304-3-tcp.log": {
+    "bytes": 116,
+    "sha256": "4055394e3f8ebd359064b16a46b6d79b23e18c80b02cee66f1f7028a83654ff1"
+  },
+  "rdma-payload-final/cpu-4194304-0-rdma.log": {
+    "bytes": 125,
+    "sha256": "019102bf5efe21cfea3eb5f976f34cc1dae2d7fbdd5ec04c5ef18500529a68a2"
+  },
+  "rdma-payload-final/cuda-65536-5-rdma.log": {
+    "bytes": 122,
+    "sha256": "840fb1477a44c73c6fb9e29e945968f51d2d704db2dc2414876fa0873a506149"
+  },
+  "rdma-payload-final/cuda-4194304-5-tcp.log": {
+    "bytes": 116,
+    "sha256": "fe3f0736f2631464ddfe7f68b75c1e2be955131ccef067bed6ede63ae49cd446"
+  },
+  "rdma-payload-final/cuda-1048576-11-tcp.log": {
+    "bytes": 114,
+    "sha256": "7c4d8dda2e2d8ba5ce3f63018a5877d05e085c35e54ea40b452c3cbec1287b6a"
+  },
+  "rdma-payload-final/cpu-1048576-9-tcp.log": {
+    "bytes": 114,
+    "sha256": "ef1fa2b5e8cf5a45ff2ca3170e67e4a51b44e54a90a31c136aaec385c0138a34"
+  },
+  "rdma-payload-final/cuda-4194304-4-rdma.log": {
+    "bytes": 125,
+    "sha256": "0ca6bc7f863fd6a311a7dff4837525f04ae1bc4f949553ae0e08c628894fb1c8"
+  },
+  "rdma-payload-final/cuda-4194304-18-tcp.log": {
+    "bytes": 116,
+    "sha256": "c9f912f1c14bac74557547c43cd25a3a5148bcda2d74c69304e6ad8a17cde56f"
+  },
+  "rdma-payload-final/cuda-4194304-27-rdma.log": {
+    "bytes": 125,
+    "sha256": "9a927826204629efdc117194c498f3f974b684954ff3e59fa91c7aa3ae3cdc62"
+  },
+  "rdma-payload-final/cpu-65536-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-final/cuda-65536-4-rdma.log": {
+    "bytes": 122,
+    "sha256": "840fb1477a44c73c6fb9e29e945968f51d2d704db2dc2414876fa0873a506149"
+  },
+  "rdma-payload-final/cpu-65536-27-tcp.log": {
+    "bytes": 112,
+    "sha256": "101c585aa959aa8815de0b7b08900260ec510945b5e6a1e76c75af39a1c4f924"
+  },
+  "rdma-payload-final/cuda-1048576-2-rdma.log": {
+    "bytes": 124,
+    "sha256": "2f04db16659dd0658e9a334c96d9961e5b56a7f36ebef782f9a175d3015c0745"
+  },
+  "rdma-payload-final/cpu-65536-20-rdma.log": {
+    "bytes": 122,
+    "sha256": "8016d5bd5774c5c4598f138979284e1c25e4792c2e5db0e989523c11047129ff"
+  },
+  "rdma-payload-final/cuda-4194304-22-tcp.log": {
+    "bytes": 116,
+    "sha256": "5adfc5516ff09886fdb4c005078c19c44025d0934e5dcc30792a7a960d9db441"
+  },
+  "rdma-payload-final/cpu-65536-8-tcp.log": {
+    "bytes": 112,
+    "sha256": "9b965b26f151b519ba70826f1b2b765bff6ae3349fc31d674d9bb0fa9e91723c"
+  },
+  "rdma-payload-final/cuda-65536-2-tcp.log": {
+    "bytes": 113,
+    "sha256": "07d52a72d053698e70a5489ca18cc337b7a05b1b8787178408c641e6b111ac1c"
+  },
+  "rdma-payload-final/cpu-4194304-27-rdma.log": {
+    "bytes": 125,
+    "sha256": "0cc027da57213332d9a2c43c3eb1c6e57b6d8bed55046fc858669980a2642a87"
+  },
+  "rdma-payload-final/cpu-4194304-9-tcp.log": {
+    "bytes": 116,
+    "sha256": "0c5cbacb5537670014f96014ee03ac89d18c8c6c492db9282122a0d38aeeb48a"
+  },
+  "rdma-payload-final/cuda-1048576-1-tcp.log": {
+    "bytes": 114,
+    "sha256": "571358dfbe0ad91012c6984856e925570779bbee1f40691068c389285a0de2d0"
+  },
+  "rdma-payload-final/cuda-4194304-25-tcp.log": {
+    "bytes": 116,
+    "sha256": "f440f645939f238f93a9d6f59bf8bf88fef85fccf7b6b936087e5f32d5fbb8c4"
+  },
+  "rdma-payload-final/cpu-1048576-13-tcp.log": {
+    "bytes": 114,
+    "sha256": "9371edfbe9223e762b00f9769ab1fa1d40efc252916379e5b78dfd58a91c1c87"
+  },
+  "rdma-payload-final/cpu-1048576-15-tcp.log": {
+    "bytes": 114,
+    "sha256": "1f43fd0d8843f802d8b5bc1b2d08e4802f210a4271876c32548b0f4df31c41bb"
+  },
+  "rdma-payload-final/cuda-4194304-9-rdma.log": {
+    "bytes": 125,
+    "sha256": "a9a59b3d6f9a26400bf277b5a945529416e94a38abebcd9e8de5866d2c48f4b4"
+  },
+  "rdma-payload-final/cpu-65536-9-tcp.log": {
+    "bytes": 112,
+    "sha256": "181306163d9f9a237e59e61aa3719dfbfbb061404a82f9fb86ba62499094fef1"
+  },
+  "rdma-payload-final/cpu-65536-2-tcp.log": {
+    "bytes": 113,
+    "sha256": "f7be7c4f79212f5bdd45e94c456adbd2d5225bad071436c2cd710383d2db3164"
+  },
+  "rdma-payload-final/cuda-4194304-1-rdma.log": {
+    "bytes": 125,
+    "sha256": "fdbccd74bb90b7ec28d51040b62da004dd5fe64978d64917f1563a3dde982412"
+  },
+  "rdma-payload-final/cpu-65536-17-tcp.log": {
+    "bytes": 112,
+    "sha256": "dc7c0025d9f0b6e379281cd2862dd6194c67751d4dcf896cb16ec574cd52c023"
+  },
+  "rdma-payload-final/cpu-1048576-10-rdma.log": {
+    "bytes": 124,
+    "sha256": "d4690976fd10919509d6faefa7be3ca670117ba8c9e779dacc6086495fa96af7"
+  },
+  "rdma-payload-final/cuda-1048576-16-rdma.log": {
+    "bytes": 124,
+    "sha256": "c19d715437a4416d42c2604302bdcf89e97f9595b196dc568c160eb24315e9c2"
+  },
+  "rdma-payload-final/cuda-1048576-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-final/cuda-4194304-1-tcp.log": {
+    "bytes": 116,
+    "sha256": "b7dc04b3d3737d4c46fc85e6c88457e460e493d3dd0942168fdc84d5240ab4e3"
+  },
+  "rdma-payload-final/cpu-65536-16-rdma.log": {
+    "bytes": 122,
+    "sha256": "9b452a31b41ac9bc2af5a7eba89e6d33d81e08e42ed509e0f0ebf040499f5233"
+  },
+  "rdma-payload-final/cuda-1048576-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-final/cuda-4194304-9-tcp.log": {
+    "bytes": 116,
+    "sha256": "97d359e869e0628f77335efe32edc4098ee93a25e34033f49affce2101ea74c9"
+  },
+  "rdma-payload-final/cpu-65536-13-tcp.log": {
+    "bytes": 112,
+    "sha256": "402afea5b66a61a79f3eeb04a4e5db2085a389782556459ff03d16db84df7c51"
+  },
+  "rdma-payload-final/cuda-1048576-22-tcp.log": {
+    "bytes": 114,
+    "sha256": "9738fdb14555a6819c391e8ab7223e923602521a2c094c60c4829c72f141a817"
+  },
+  "rdma-payload-final/cpu-1048576-20-rdma.log": {
+    "bytes": 124,
+    "sha256": "be49f22ce1d17f6a7aa5e17500fac3f0f7922adde2f0e90db89e842541362ad2"
+  },
+  "rdma-payload-final/cuda-65536-19-tcp.log": {
+    "bytes": 113,
+    "sha256": "2d807d95d35b0277d9121c22cde0408bcb505233fcecee8dc5bde64d34f36f87"
+  },
+  "rdma-payload-final/cuda-4194304-13-rdma.log": {
+    "bytes": 125,
+    "sha256": "a6744eb48355e333a9e2b3db5a790a878fe1add0419ef76d95222bc928cd43ce"
+  },
+  "rdma-payload-final/cpu-65536-21-rdma.log": {
+    "bytes": 122,
+    "sha256": "219589f605f98813b997449c22d2e37c74ccfd5db92d69ef548dc2255e53b216"
+  },
+  "rdma-payload-final/cpu-4194304-11-rdma.log": {
+    "bytes": 125,
+    "sha256": "3c43ce22a066c804b6611867f87e5acff2f9e898e063861939001ba70083a78b"
+  },
+  "rdma-payload-final/cuda-65536-0-tcp.log": {
+    "bytes": 113,
+    "sha256": "859e930ed29585328851a9f83189902f4266db4b04bafe432c418133116098d2"
+  },
+  "rdma-payload-final/cuda-1048576-22-rdma.log": {
+    "bytes": 124,
+    "sha256": "7606b927aff1bf1c0aa31d3b89d46d52377a7f2a93e5f6069efb8ed000cb0193"
+  },
+  "rdma-payload-final/cuda-4194304-27-tcp.log": {
+    "bytes": 115,
+    "sha256": "8de5926c907019bf8ac1a2b9f5ca47338ccb3fb01d399c2bf6e381fdd6e81c4c"
+  },
+  "rdma-payload-final/cuda-1048576-13-tcp.log": {
+    "bytes": 114,
+    "sha256": "4799c1ff95e66a835874451554d25d1f0203777e4981f506f53e91b08a3cb3e2"
+  },
+  "rdma-payload-final/cuda-65536-27-rdma.log": {
+    "bytes": 122,
+    "sha256": "6226aa7c8b95203449781617e0108f422641b2db69b35d082bbd02e275344964"
+  },
+  "rdma-payload-final/cpu-65536-0-tcp.log": {
+    "bytes": 112,
+    "sha256": "653b80c8ff95b83fa235fa02ce303176bc6e474f84b3fdae52a3607d3bfbb540"
+  },
+  "rdma-payload-final/cuda-65536-28-tcp.log": {
+    "bytes": 113,
+    "sha256": "1bedfb1ee214b946cfe887c2c7e5ddeb813d94f9e7a29fafbfbdccff89e88bc9"
+  },
+  "rdma-payload-final/cpu-65536-27-rdma.log": {
+    "bytes": 122,
+    "sha256": "10ed65b42669ee0d4b55e50170eb191c4bdad3277f9493a70902dde4487b630e"
+  },
+  "rdma-payload-final/cuda-4194304-8-tcp.log": {
+    "bytes": 116,
+    "sha256": "54d5857d3abdbb13742bdcac7d94fd1516f21cec4746a17a12a9f6bb1709e893"
+  },
+  "rdma-payload-final/cuda-4194304-29-rdma.log": {
+    "bytes": 125,
+    "sha256": "10b3be2f5a1013c2f96e1be48e6e7663c707035c81f166c2d7124fde150d2d48"
+  },
+  "rdma-payload-final/cuda-65536-8-tcp.log": {
+    "bytes": 112,
+    "sha256": "f64959139c32dc7cc195b116706e176b26d6ad1402cee4c0867f5ce8b3c2228b"
+  },
+  "rdma-payload-final/cuda-1048576-5-rdma.log": {
+    "bytes": 124,
+    "sha256": "c869f3dcb814a93a2ca27efc6bcbe5d9ceeb11b0440335982c3cb05795e0d5a8"
+  },
+  "rdma-payload-final/cpu-65536-4-tcp.log": {
+    "bytes": 112,
+    "sha256": "5aabe04191aa03402c586a2930a79655da13307d7e898db3255d6523ccef823b"
+  },
+  "rdma-payload-final/cpu-4194304-12-rdma.log": {
+    "bytes": 125,
+    "sha256": "128030457e34b3ffa55786fb0fa99132b04f9cd06a686e0558d47e603229f56c"
+  },
+  "rdma-payload-final/cpu-1048576-2-rdma.log": {
+    "bytes": 124,
+    "sha256": "ccb261578f1f93f52e41dc74d74b9947e4a1007185073a07963b4c11de3ffc73"
+  },
+  "rdma-payload-final/cpu-4194304-24-tcp.log": {
+    "bytes": 116,
+    "sha256": "a5580d6bff5f3f86f99b71affea83b2c3838fd8e1f49a0e54e3dbbe684dccd92"
+  },
+  "rdma-payload-final/cpu-1048576-14-rdma.log": {
+    "bytes": 123,
+    "sha256": "188be515cbb3e87e312f1ffd61d3ace6ab54a754686eeff481942fc78d36cf4e"
+  },
+  "rdma-payload-final/cpu-4194304-1-tcp.log": {
+    "bytes": 116,
+    "sha256": "5caee9c05b1820113b24cbe4fa2262d9b1df6433a131c46c30e239b21e13769f"
+  },
+  "rdma-payload-final/cuda-65536-25-tcp.log": {
+    "bytes": 113,
+    "sha256": "b8b8256afa7b02ec079472a365caec4ed07d4fee73259adef4292f4d3e35f699"
+  },
+  "rdma-payload-final/cpu-4194304-19-tcp.log": {
+    "bytes": 116,
+    "sha256": "e8e7951be8917f12aac42988c6a26d4e998651f0c04aa679927d91ce51324c80"
+  },
+  "rdma-payload-final/cpu-1048576-6-rdma.log": {
+    "bytes": 124,
+    "sha256": "4c30e55106611f91869eb77e8d8d78a13e845d9000407f80b0177b34a1adc889"
+  },
+  "rdma-payload-final/cpu-4194304-13-tcp.log": {
+    "bytes": 116,
+    "sha256": "647b664a17b4f16ff8e4cf163d80aa849e47e69ed9c8febdc380cab4f889bf92"
+  },
+  "rdma-payload-final/cpu-1048576-16-tcp.log": {
+    "bytes": 114,
+    "sha256": "38334d641b05fab0b25891e7ff0be95829c91a11c289cc7fc83b981d01316f87"
+  },
+  "rdma-payload-final/cpu-65536-1-rdma.log": {
+    "bytes": 122,
+    "sha256": "ecec6aa05fd7f5938dc76ebb16191bf0a4c54fecef303484a2cf98686ac1377d"
+  },
+  "rdma-payload-final/cuda-4194304-16-rdma.log": {
+    "bytes": 125,
+    "sha256": "2196a541685c8f50088d2b9968263a0a1fde787b2d936281b62d0f845d3cf6cd"
+  },
+  "rdma-payload-final/cuda-65536-22-tcp.log": {
+    "bytes": 113,
+    "sha256": "555fbe76a70a50964f38b4e524418d1542a28fa14d914178738ab4f1130401bc"
+  },
+  "rdma-payload-final/cuda-4194304-13-tcp.log": {
+    "bytes": 116,
+    "sha256": "9aa237cf916af5cc8bf615c61e82f669ec64e43086dc616561585dcf90f8599e"
+  },
+  "rdma-payload-final/cpu-4194304-15-tcp.log": {
+    "bytes": 116,
+    "sha256": "1849c48c191c7afb6b2be6ef59054ae2ce10a46fff6dd94c234e1cef366aa6d1"
+  },
+  "rdma-payload-final/cpu-65536-9-rdma.log": {
+    "bytes": 122,
+    "sha256": "62e6e0162eff051f51f896013553e725c94bdd07178f3cf256713ce4ae4fef8d"
+  },
+  "rdma-payload-final/cuda-65536-15-rdma.log": {
+    "bytes": 122,
+    "sha256": "51e3d8b128620bc31bffda886b8dbddce210e77178f01b6cb0eb0d493a9c408e"
+  },
+  "rdma-payload-final/cuda-1048576-2-tcp.log": {
+    "bytes": 114,
+    "sha256": "85f1c09a760d883945ebb5be64e3a4d5390bd229828125d78668df81c15b443b"
+  },
+  "rdma-payload-final/cuda-65536-9-rdma.log": {
+    "bytes": 122,
+    "sha256": "c04307fada024aa771efee829ad231be51e4488c5a89e1ba5d42d2b5ba6a1f11"
+  },
+  "rdma-payload-final/cuda-4194304-12-tcp.log": {
+    "bytes": 115,
+    "sha256": "e694fcd61ddec5e3f71a55f937a7390ff1849b879bcca6c66eb36940a5a2fa9d"
+  },
+  "rdma-payload-final/cpu-4194304-22-tcp.log": {
+    "bytes": 116,
+    "sha256": "7a3327cc8d30c26ba8fd4b6499db0b142f3568d5ecf4c47e868375383a563a7f"
+  },
+  "rdma-payload-final/cpu-1048576-15-rdma.log": {
+    "bytes": 124,
+    "sha256": "160150f77035ba696ec348ee8e5920718c8eaded47c09071558e030cf58a2d4b"
+  },
+  "rdma-payload-final/cpu-4194304-29-rdma.log": {
+    "bytes": 125,
+    "sha256": "77684ebbfcc73f335f04b5bc93710071a36079a1acc86f9d5926c1f5275f7780"
+  },
+  "rdma-payload-final/cpu-65536-11-tcp.log": {
+    "bytes": 112,
+    "sha256": "a4504c6eea991af323b518a83de843eeda8cf1abdd57d7ef0d09190986e9b7a8"
+  },
+  "rdma-payload-final/cpu-65536-29-tcp.log": {
+    "bytes": 113,
+    "sha256": "15f799076fcad4ecd839300d47bfb8f63201103819fb16428f53e4c63fc9b9c5"
+  },
+  "rdma-payload-final/cuda-65536-16-rdma.log": {
+    "bytes": 122,
+    "sha256": "c7606f44ccb5fa87c4bf402adc3182bf96b5f3c5ccf358aedbb0fb1d192ce324"
+  },
+  "rdma-payload-final/cuda-1048576-10-tcp.log": {
+    "bytes": 114,
+    "sha256": "3a6da0fae2b45628c2954257677dce2a573c8f7af4cfa175bb7aa178d05206dd"
+  },
+  "rdma-payload-final/cpu-4194304-28-tcp.log": {
+    "bytes": 116,
+    "sha256": "b3f710e21eb86d67a911045e5ce3bbd92dfa83883f4a99ad783bbb0ba9cd8c10"
+  },
+  "rdma-payload-final/cpu-65536-4-rdma.log": {
+    "bytes": 122,
+    "sha256": "b6411e683461d17d3272f46146ba930654bae569ad1077c5ecfffb6b644cf5c5"
+  },
+  "rdma-payload-final/cuda-65536-24-rdma.log": {
+    "bytes": 122,
+    "sha256": "b0dcdb175c0e983af3f15cdd2bd0e52c32d35fb61d80a1904a89986daffb1adf"
+  },
+  "rdma-payload-final/cpu-1048576-5-rdma.log": {
+    "bytes": 124,
+    "sha256": "0c1cb1df7b914c90be1bc6f6110d8e9f2f3f7366f7a2ccf6fc592547a85acbf1"
+  },
+  "rdma-payload-final/cuda-65536-18-tcp.log": {
+    "bytes": 112,
+    "sha256": "7a75f5df2afc4cb7cbc17ae15ff75fc3e73106d82f9db13a4d5d216e871fc784"
+  },
+  "rdma-payload-final/cuda-4194304-0-tcp.log": {
+    "bytes": 116,
+    "sha256": "5b87de724b2358e19a8a55c8ac0f208c3466ee9f6a6a8206dfdbe279f24be8c3"
+  },
+  "rdma-payload-final/cpu-4194304-28-rdma.log": {
+    "bytes": 125,
+    "sha256": "31a63b713890e1b032cab4d2dc2ce1792867cc541cff4fac9e19ad51a0e9ad32"
+  },
+  "rdma-payload-final/cuda-65536-13-tcp.log": {
+    "bytes": 112,
+    "sha256": "90f0a753f697170e779d741526afb34dc8cf906caee29ad76360d14b21173f74"
+  },
+  "rdma-payload-final/cpu-4194304-3-rdma.log": {
+    "bytes": 125,
+    "sha256": "419ac19502625aed66f13e1d1e368feee3eb15e883a845e7ea16fce5140482b8"
+  },
+  "rdma-payload-final/cpu-65536-8-rdma.log": {
+    "bytes": 122,
+    "sha256": "5bfab0981d4d6556a94563125c9d84f56b0e75f26e57d1d550cce2295e4732ed"
+  },
+  "rdma-payload-final/cuda-65536-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-final/cpu-4194304-21-rdma.log": {
+    "bytes": 125,
+    "sha256": "a53d9e4c849435d7124a1e844e95e411f61444ace2a7083ab34847064504ce13"
+  },
+  "rdma-payload-final/cuda-4194304-12-rdma.log": {
+    "bytes": 125,
+    "sha256": "45079cbb5e8ea48a0a3ebe65258bb8835248ce2ccc23d2b921a7849b2c4d8965"
+  },
+  "rdma-payload-final/cuda-65536-3-rdma.log": {
+    "bytes": 122,
+    "sha256": "8c02f3bf21f86ffb77d84663f36ae55b4578ad3fe4d5839d9fb6943c42f86225"
+  },
+  "rdma-payload-final/cpu-1048576-11-tcp.log": {
+    "bytes": 114,
+    "sha256": "c1bfc32670e5a4ed411bcdc4050e18d38e5c73ba0018491fde1ec01899c04fb3"
+  },
+  "rdma-payload-final/cuda-1048576-4-tcp.log": {
+    "bytes": 114,
+    "sha256": "4fb5b6d4177f37a17e1b67181007deef6aa36dc18f803fb1eb799a7a6f85bb0b"
+  },
+  "rdma-payload-final/cpu-1048576-27-rdma.log": {
+    "bytes": 124,
+    "sha256": "6ffc5ce5d263eb6b56392ce6f98cd4bbd7dc41f83921d4da2e11a12cfbfb8819"
+  },
+  "rdma-payload-final/cuda-65536-28-rdma.log": {
+    "bytes": 122,
+    "sha256": "667e77aa037f473ff4701d4cfe5266e835a3af00d35da6b011bdd8e433f095df"
+  },
+  "rdma-payload-final/cpu-4194304-18-rdma.log": {
+    "bytes": 125,
+    "sha256": "fbf7c9e023c1a32f5b85b096276bc61bb0203aefa93b3b2d9e3fca6740e67586"
+  },
+  "rdma-payload-final/cpu-65536-7-tcp.log": {
+    "bytes": 113,
+    "sha256": "5aa3eee390058547d71c216bfc5a910aced9b4cdfaa173f3842d8d6ff6dccedc"
+  },
+  "rdma-payload-final/cpu-1048576-9-rdma.log": {
+    "bytes": 124,
+    "sha256": "6a0f0544f191414880c944f4039d70e10e037f857f0fbcdf7adc04afc703225b"
+  },
+  "rdma-payload-final/cuda-4194304-26-rdma.log": {
+    "bytes": 125,
+    "sha256": "bf57b041b95130e87ea04086592519457fae8dfa2625dca58d2978ced54567af"
+  },
+  "rdma-payload-final/cuda-65536-0-rdma.log": {
+    "bytes": 122,
+    "sha256": "99d616c2f4ba0fa977cbfc83050a3201266e367d6e6068dd2b7cf4ab830d9099"
+  },
+  "rdma-payload-final/cuda-65536-23-tcp.log": {
+    "bytes": 113,
+    "sha256": "67c13b35f6ee16ec8b43ab84129fe0ffb9db562cc9218269cb58e94185e2f843"
+  },
+  "rdma-payload-final/cpu-65536-15-rdma.log": {
+    "bytes": 122,
+    "sha256": "47f344a0972ff8f9d7bd283ece28cac3344b25e1379c7a3ba1b9ac569e9ffd90"
+  },
+  "rdma-payload-final/cpu-4194304-6-rdma.log": {
+    "bytes": 125,
+    "sha256": "5a698e7869ad6d87e9e5599dd2b1bb998c350a70204f860ab5d37bc38cdfb7dc"
+  },
+  "rdma-payload-final/cpu-65536-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cpu-4194304-26-rdma.log": {
+    "bytes": 125,
+    "sha256": "4ec09818a978ae4b4c1fb697c844d802932ce2b97bd2345fce4b9b8514228f35"
+  },
+  "rdma-payload-final/cuda-1048576-5-tcp.log": {
+    "bytes": 114,
+    "sha256": "1e29e7a25e91f7b095e899964028e19e0d7a02b37e198c0bf4f05eedba5ff188"
+  },
+  "rdma-payload-final/cpu-1048576-19-tcp.log": {
+    "bytes": 114,
+    "sha256": "19b8c37ae40b2d797e0f7f8d56362542274e383c290be938eed95d1b45a9dd13"
+  },
+  "rdma-payload-final/cpu-65536-12-rdma.log": {
+    "bytes": 122,
+    "sha256": "7594fbf02a945cb939723987252061c4248566b9f104c102f7ed9fe890beb1ae"
+  },
+  "rdma-payload-final/cpu-1048576-4-rdma.log": {
+    "bytes": 124,
+    "sha256": "856464bce9f1d57880afe21cd0c46f901cd83deaab082f2b3e37b0a22a769f9f"
+  },
+  "rdma-payload-final/cpu-4194304-14-tcp.log": {
+    "bytes": 116,
+    "sha256": "264e45925888ff5954cf26131eb2632ceb24c97d3451c7d90313ceea1b31508d"
+  },
+  "rdma-payload-final/cpu-4194304-4-tcp.log": {
+    "bytes": 116,
+    "sha256": "2b2d44048766335d5febd88a66d0ae8e6bb7ce96a9348d6718f874f42418e495"
+  },
+  "rdma-payload-final/cpu-1048576-4-tcp.log": {
+    "bytes": 114,
+    "sha256": "031edd8a70cff2dc997227db9243d66ce6c433aecdb043af8f2ef81a9f9f189f"
+  },
+  "rdma-payload-final/cpu-65536-6-tcp.log": {
+    "bytes": 113,
+    "sha256": "19e75d0686b3fb78b16c59316a0bdd35c68b0e6ea27e3a56b62164b658d5f739"
+  },
+  "rdma-payload-final/cpu-4194304-10-tcp.log": {
+    "bytes": 116,
+    "sha256": "2c03e48692df9595e04539664fb8e102a8fa0988e9c882f0f7810be3002b78e9"
+  },
+  "rdma-payload-final/cuda-4194304-11-rdma.log": {
+    "bytes": 125,
+    "sha256": "c62bd4abb66c8bf00f3d9a1e3ae4c89ea668ef7a9a1e4e4bc29af2d3463d0a58"
+  },
+  "rdma-payload-final/cuda-1048576-9-tcp.log": {
+    "bytes": 114,
+    "sha256": "1fc57e57d657af72bf38ca00cd4f107f335a4c754233b03989910a30db35bdd3"
+  },
+  "rdma-payload-final/cuda-1048576-12-rdma.log": {
+    "bytes": 124,
+    "sha256": "ce6c68ca8b1a2538c61af65cc31a82ad415180191b0c7e021fd7c10be2fffaf0"
+  },
+  "rdma-payload-final/cuda-1048576-7-rdma.log": {
+    "bytes": 124,
+    "sha256": "31611e598e868fadcf89dc554ca8fa15dc100943c3779aa030a7f7b6e3660544"
+  },
+  "rdma-payload-final/cuda-1048576-6-tcp.log": {
+    "bytes": 114,
+    "sha256": "999d4b4e67a4647df5efaf3e679c70a2e0fd3d4daa1cc498ce5e054ee7481df8"
+  },
+  "rdma-payload-final/cuda-65536-12-tcp.log": {
+    "bytes": 112,
+    "sha256": "43d506d28afa346a90157423dd5201e540f4c18b91a16eb5c6ccc6836b008048"
+  },
+  "rdma-payload-final/cpu-4194304-18-tcp.log": {
+    "bytes": 116,
+    "sha256": "2e94cdc9012bff8f6237208c3930933d86808de2062e014bfb85d49ba1609704"
+  },
+  "rdma-payload-final/cpu-65536-18-rdma.log": {
+    "bytes": 122,
+    "sha256": "ee2d216f7eab32051c18c1e692737423d2d4fb3241fb98d3ea3c99c7cc1bcf09"
+  },
+  "rdma-payload-final/cuda-65536-17-rdma.log": {
+    "bytes": 122,
+    "sha256": "c04307fada024aa771efee829ad231be51e4488c5a89e1ba5d42d2b5ba6a1f11"
+  },
+  "rdma-payload-final/cuda-4194304-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-final/cpu-1048576-17-tcp.log": {
+    "bytes": 114,
+    "sha256": "4f5026dc2f244e465b0797ed7078b57147d74ecf5cad9284c253ced4ace7b450"
+  },
+  "rdma-payload-final/cpu-1048576-3-tcp.log": {
+    "bytes": 114,
+    "sha256": "affe42ababc3a19631c0d4f9cdb695a72a0fbdf1021f7ba5ae10ae857deaf83c"
+  },
+  "rdma-payload-final/cuda-4194304-6-rdma.log": {
+    "bytes": 125,
+    "sha256": "3886a46263a7e7bd2ea21a2373393cc9eb1b844048d57a05dddb871a9e2f9bdc"
+  },
+  "rdma-payload-final/cpu-4194304-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-final/cuda-1048576-14-rdma.log": {
+    "bytes": 124,
+    "sha256": "7b0a824120f40f83ea2d8a7fe0b6a4ca8c1a208b89494f9d2c85c3a863ae2549"
+  },
+  "rdma-payload-final/cuda-1048576-20-tcp.log": {
+    "bytes": 114,
+    "sha256": "67ba66daa6db159ad1260016c60a1009524ebf3a6ce62e094b64588dd0771504"
+  },
+  "rdma-payload-final/cpu-4194304-15-rdma.log": {
+    "bytes": 125,
+    "sha256": "df4e996734a29c3677310af9c343c3ebb271addcb89a218951937292d1b5c8ff"
+  },
+  "rdma-payload-final/cpu-65536-26-tcp.log": {
+    "bytes": 113,
+    "sha256": "77bd41eb0071d6aeaefec221691d5ee9cb6056baae62c4fc1e5abc8b002683aa"
+  },
+  "rdma-payload-final/cuda-4194304-6-tcp.log": {
+    "bytes": 116,
+    "sha256": "7f9bfc1c0e5e29c4f91489ea1dd390ba566ffcbde3fd99901b97079933dbfb4f"
+  },
+  "rdma-payload-final/cpu-65536-10-tcp.log": {
+    "bytes": 113,
+    "sha256": "6c6cdc97e989458cc0749affa07413d14b26725521de8a7861c14fae127774ff"
+  },
+  "rdma-payload-final/cpu-1048576-18-tcp.log": {
+    "bytes": 114,
+    "sha256": "86ab1f6a2615a5c7728b339040bcc431fbf26f41512eda0a9322e27dc66f3e26"
+  },
+  "rdma-payload-final/cuda-4194304-2-rdma.log": {
+    "bytes": 125,
+    "sha256": "8c3c1ca080578b15f7531df07659fd489a11996e636a5d03f5b7ce8a968c73f5"
+  },
+  "rdma-payload-final/cpu-1048576-8-tcp.log": {
+    "bytes": 114,
+    "sha256": "f32dac17d93d27ee5089f514e432f275340c98340703f2f5ba8d5ffdb5f7b7ff"
+  },
+  "rdma-payload-final/cpu-65536-23-tcp.log": {
+    "bytes": 113,
+    "sha256": "96516122eff6ab56606d227639614659a5422c65d95ebb45c61c1f8cd883baea"
+  },
+  "rdma-payload-final/cuda-4194304-20-tcp.log": {
+    "bytes": 116,
+    "sha256": "91b43f268f54299d342bf9fbcffa1480c52e0c5c03f0bb6cf5602ee45d811d63"
+  },
+  "ncu/gather.ncu-repz": {
+    "bytes": 11860,
+    "sha256": "0a4dd315c973975bca164853ca21a7d8d87ea573ff5055fbc11f763ab2626a70"
+  },
+  "ncu/commands.json": {
+    "bytes": 1460,
+    "sha256": "7c381f0dbd5b64a3680545c7167ca3d8d0e80e2ab98719b2369241e958da5215"
+  },
+  "ncu/gather.csv": {
+    "bytes": 14961,
+    "sha256": "2b6c2f88dcab48b86ba99879d5c208771dcde1d60cbfe015be72b0663df6d914"
+  },
+  "ncu/scatter.ncu-repz": {
+    "bytes": 11852,
+    "sha256": "c6bee655692b14225bd2863b19f7173139a57bc632e1327c3130adb1f7a06d24"
+  },
+  "ncu/scatter.log": {
+    "bytes": 373,
+    "sha256": "3aa07638eb61f7f1f806b75fea422c7067fa18a4c57e5aa0ab2b81513ff9c0f6"
+  },
+  "ncu/gather.log": {
+    "bytes": 370,
+    "sha256": "04613ff4fe3a9ad4fa2aa80edbbc56fa78cd5cf0cabc0a7c6af2adcc2f306e71"
+  },
+  "ncu/scatter.csv": {
+    "bytes": 14963,
+    "sha256": "1fb5ac4cfaead84e7e20fa791cc44ef49351227d2b31bc18c74e43ee5e499c3b"
+  },
+  "nsys-cpu/directory.conf": {
+    "bytes": 42,
+    "sha256": "1a04712693b6c96ecbade07ca5457395bddd63584ccd741df9bff2ed3bd210bb"
+  },
+  "nsys-cpu/vllm.log": {
+    "bytes": 25106,
+    "sha256": "cb3308173c781b9772514cd8e679b2d2f15b9e88d4898ec2509b763e3801ad02"
+  },
+  "nsys-cpu/trace.nsys-rep": {
+    "bytes": 23774113,
+    "sha256": "eb4e28e25fee59de0b26618d4e4a3371332496449f4b1ffc6d1540582c045751"
+  },
+  "nsys-cpu/requests.json": {
+    "bytes": 3438,
+    "sha256": "c761b010f7c81905a85d5b1da03e04ee17204334eb60090943a26c721a43d07d"
+  },
+  "nsys-cpu/trace.sqlite": {
+    "bytes": 97513472,
+    "sha256": "2520e58bce3ad7dd145d1c0a95db0ecf894c4f8c00d2a53e7e1f286aefd80821"
+  },
+  "nsys-cpu/kvfabric.jsonl": {
+    "bytes": 54451,
+    "sha256": "ec10cc774e2f9458d56b3e9f3d0b5836ed253066550aad7d39c704ee12a099bc"
+  },
+  "nsys-cpu/directory.log": {
+    "bytes": 159,
+    "sha256": "b310fc8b8c4da5b9bbeb62b9f8adbff074d7ab1eaa592a3bbad8b0715e9e4800"
+  },
+  "nsys-final-disk/directory.conf": {
+    "bytes": 42,
+    "sha256": "a0f750137bb7241af05ea5c6415eac5050fe620e176ac07fe729aba56074ede1"
+  },
+  "nsys-final-disk/vllm.log": {
+    "bytes": 24441,
+    "sha256": "cd68d2d94e97c65b49662ed3f44d6249d11ef76b1c770a0ccfe6218d9443ecc8"
+  },
+  "nsys-final-disk/trace.nsys-rep": {
+    "bytes": 27639208,
+    "sha256": "fda7eb9a4f31f154480cc592121e2aa92af314233390d3067d7d328ae060828b"
+  },
+  "nsys-final-disk/requests.json": {
+    "bytes": 3446,
+    "sha256": "c1fb580993b23723ace0e1cd2d932fc64a91d2de779b4d0f3d92e6c379ba1066"
+  },
+  "nsys-final-disk/trace.sqlite": {
+    "bytes": 118853632,
+    "sha256": "460bad3d161ff8f87773fa9d09651b6b89655af11572c1175eec1c7408aa532a"
+  },
+  "nsys-final-disk/kvfabric.jsonl": {
+    "bytes": 53218,
+    "sha256": "28b9bdf2fba8f7e12d5f3473e3eba9c19981eb03dfada4e1fb7bbc3938349545"
+  },
+  "nsys-final-disk/directory.log": {
+    "bytes": 165,
+    "sha256": "3791bce1b3d801fca2f039592b1404e4246a7f590f239ee4f27a479943baf1f9"
+  },
+  "matrix-final/environment.json": {
+    "bytes": 4495,
+    "sha256": "4ff1f0b6c37a92958360bc594f05b2d341c12afd990a7bf722cddd2b2f1e4538"
+  },
+  "before-diagnostic-unprofiled/directory.conf": {
+    "bytes": 42,
+    "sha256": "0993485fc708701e3f176583b989544086c9a6ff21251a96d99e8a352c86cd00"
+  },
+  "before-diagnostic-unprofiled/vllm.log": {
+    "bytes": 17502,
+    "sha256": "7594d0ca4563472cdd3691e64cb84fcef7a25c85268e34e8b0c43a35ce698d7c"
+  },
+  "before-diagnostic-unprofiled/directory.log": {
+    "bytes": 179,
+    "sha256": "862cd15684683599bf73177d0b59e090922d7d64e84b5446d80ab41da824a869"
+  },
+  "nsys-after-disk/directory.conf": {
+    "bytes": 42,
+    "sha256": "4e1686ae9e8b3c14e2e5d64467020ecc50f1bbc2d0c074ba78c5bfa435cefc3c"
+  },
+  "nsys-after-disk/vllm.log": {
+    "bytes": 25642,
+    "sha256": "feb58f0fb599539938747b37d959341ed392899c8b9e265428b02d7d0ff0516a"
+  },
+  "nsys-after-disk/trace.nsys-rep": {
+    "bytes": 24069176,
+    "sha256": "d19863129b42d170fac901279f9a43115ae881c76584223ac1ca9e0e00cde52b"
+  },
+  "nsys-after-disk/requests.json": {
+    "bytes": 3449,
+    "sha256": "eb8d44e52be345323b4b4953beddb9064532533220e0f2a9d3865c3384f2f275"
+  },
+  "nsys-after-disk/kvfabric.jsonl": {
+    "bytes": 54966,
+    "sha256": "b3247690c598a15e9d58ffa0912efeae2370db8d5834e8a5398e9822be96c4e5"
+  },
+  "nsys-after-disk/directory.log": {
+    "bytes": 165,
+    "sha256": "566c92c655f09b046f4772de78f625256dfdda42079c146278e76826aaf2ed14"
+  },
+  "connector-final/directory.conf": {
+    "bytes": 42,
+    "sha256": "9c1198a610f856834a50c1307c835c52f1eb5d2a032d441e471f81e0a525ce4b"
+  },
+  "connector-final/disk.log": {
+    "bytes": 20862,
+    "sha256": "791c53c937d5501b35b03d4f1077d776495f054cff21796f09183ad8e8808c85"
+  },
+  "connector-final/timeout.log": {
+    "bytes": 20541,
+    "sha256": "58c507c5efe88bc58667f38d3a0fabab502da6dda08334ed772124b29499c6c5"
+  },
+  "connector-final/bridge-cache": {
+    "bytes": 73728,
+    "sha256": "a944fdc08d9e9b5b8e3f90126b29083c07e4a2b37594952d3b575b02df2239c2"
+  },
+  "connector-final/cpu.log": {
+    "bytes": 21621,
+    "sha256": "d7a7f837c027eda8c4c479c6fbcba60c7177af5af514ad80f74adc1b3887f9fd"
+  },
+  "connector-final/disk.jsonl": {
+    "bytes": 2275,
+    "sha256": "013f600af84465f4beb12f8eabcbb4de1e7ed32a20f1004b371e2ba7d66e9f4e"
+  },
+  "connector-final/cold.log": {
+    "bytes": 19277,
+    "sha256": "50714b90ff472a8c46a38b99668c14d7f6af91ee60187b4770c93531a3b454f5"
+  },
+  "connector-final/cpu.jsonl": {
+    "bytes": 2239,
+    "sha256": "04c82eb178131ced8a3403178634154390d13b8ada485ee6d0bef9bef3d5fd08"
+  },
+  "connector-final/timeout.jsonl": {
+    "bytes": 1438,
+    "sha256": "ebaedb20873304c94741cca9df041f9cd6d68abe88bd03a263c874a864dac3c6"
+  },
+  "connector-final/directory.log": {
+    "bytes": 181,
+    "sha256": "1f85269bafe22fa958398b66ecda8c520bc1f005a573813ee202b8c6cc58f8d9"
+  },
+  "matrix-after/environment.json": {
+    "bytes": 4486,
+    "sha256": "5aa7784b3dba041c850e2e5e595356eef62ef3a823d48baa336ab92272ad5f6a"
+  },
+  "owned-disk-parallel-final/directory.conf": {
+    "bytes": 42,
+    "sha256": "8e3e36c322aec692b81a23f438221550c27a961a9a45c727939e5fe991cd45c7"
+  },
+  "owned-disk-parallel-final/directory.log": {
+    "bytes": 175,
+    "sha256": "0c04b8df1c3ccfc7e8f576b5107262d7da71adf23c45ca70f44bf5713740c384"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-18-rdma.log": {
+    "bytes": 125,
+    "sha256": "1c57b0958eebeb9086a17c739819ec7e810bc57845ec24e75309a0204de961ee"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-24-rdma.log": {
+    "bytes": 125,
+    "sha256": "1e13c73c76424e0c7b603705bf11b5cc577d3317b3965e43a69bbb0020db33b3"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-22-rdma.log": {
+    "bytes": 125,
+    "sha256": "bf8fe87a90095bdc91245f21c0327585155bfa02c1f3ddc37f56fb5107947a6e"
+  },
+  "rdma-payload-mtu9000/cuda-65536-13-rdma.log": {
+    "bytes": 122,
+    "sha256": "e1d0573ee76630c00f71cdc69cf652ba3a0b7fcdabc551d9e0815abcc21c0c80"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-0-tcp.log": {
+    "bytes": 114,
+    "sha256": "0d75f1454ed588e262117f8a0c72e4da3ecdaa79627e45c2571511e4d53ac680"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-1-rdma.log": {
+    "bytes": 124,
+    "sha256": "a05fc989e2932d2d2ee563aa04b9c24b8c445cedb60782b6be89d341c0d0cc05"
+  },
+  "rdma-payload-mtu9000/cpu-65536-23-rdma.log": {
+    "bytes": 122,
+    "sha256": "a91ad70a9352e9e6bed2ba222373164d836ecab04f29057771b4bebec1a8f9be"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-23-rdma.log": {
+    "bytes": 123,
+    "sha256": "2c23ae619ebc410dfcee5dcd46d18a3c3ac5eb09e5307671ec0091f1c05fcfd6"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-7-tcp.log": {
+    "bytes": 114,
+    "sha256": "74ce672b2e3b0a31b34c0185ad17653cde2d4190859205c125e95d0c2ac31747"
+  },
+  "rdma-payload-mtu9000/cuda-65536-15-tcp.log": {
+    "bytes": 113,
+    "sha256": "23c393a3b8b7c52a9400c30b0826e3a6ead76bd474ef61b846e5e2126febbfd9"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-24-tcp.log": {
+    "bytes": 114,
+    "sha256": "c41c1a77abc04f5b4bb5ceaef27ef4ed13850f835bd34928e9244da7fee9177c"
+  },
+  "rdma-payload-mtu9000/cuda-65536-2-rdma.log": {
+    "bytes": 122,
+    "sha256": "db5d812b385a55966613a18969c3aff90f9a2c711d0d1772e2a7a0b2f631eac5"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-24-rdma.log": {
+    "bytes": 125,
+    "sha256": "1fbb2a0f69c67a23d7d52e15a34b2a1d06a0e6328ab3b9b5d6da46f9bddd6c28"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-29-tcp.log": {
+    "bytes": 116,
+    "sha256": "b49126d4744b213e7e39dd8bf935a06fa8d54cf032f4e9786cd5a3210a968930"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-21-tcp.log": {
+    "bytes": 114,
+    "sha256": "2c2dc9e5fd71129b1c6f3acc7f131ecca8201367cae9723a6ff6232ec27eaf8e"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-21-rdma.log": {
+    "bytes": 125,
+    "sha256": "ff81b9d86c16c95a86da658918089e19259df1d6a9d7e20e46abd820c8e08535"
+  },
+  "rdma-payload-mtu9000/cuda-65536-23-rdma.log": {
+    "bytes": 122,
+    "sha256": "bbd118ed3087f09b60d177ac321b9cba5013fc04667099fd99b5dc7c0d22a2cc"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-22-tcp.log": {
+    "bytes": 114,
+    "sha256": "11b54b06683819b969ebb4cd324b6762d169e9cfaaaee094f519c85ff252c6b9"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-26-rdma.log": {
+    "bytes": 123,
+    "sha256": "feb4733f4d037eb5fae2f843f9fb0bb6acf9e47f5507cbf539cba01166601df1"
+  },
+  "rdma-payload-mtu9000/cuda-65536-14-tcp.log": {
+    "bytes": 112,
+    "sha256": "db910605eb5632a8c4aa9a4a26fa15c0452778f6c45ed18e00143feff77fa191"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-27-tcp.log": {
+    "bytes": 114,
+    "sha256": "9d0beeb031f861fc664bf22d19866ecc0911f843a7b545ca37e7eb84292f2fca"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-20-rdma.log": {
+    "bytes": 123,
+    "sha256": "22b25a6f19a86a86175711198c7a732620a9d3cb728606c70ff21317846e4af5"
+  },
+  "rdma-payload-mtu9000/cuda-65536-10-rdma.log": {
+    "bytes": 122,
+    "sha256": "3cb2746fe0a7b977fd8586caf8ff5e84acfce68061c5f463bb54bdc90c724146"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-29-tcp.log": {
+    "bytes": 114,
+    "sha256": "9fe3f76e18d5a2f4be566fde883744a4ae59e41575e577352613772d047ee6dc"
+  },
+  "rdma-payload-mtu9000/cuda-65536-10-tcp.log": {
+    "bytes": 112,
+    "sha256": "e0b04f7b955bd03cf6851772fe9f4c656aa534923fc1ffb40804d00a59aa7170"
+  },
+  "rdma-payload-mtu9000/cpu-65536-19-tcp.log": {
+    "bytes": 112,
+    "sha256": "bf38958cdc8c6dabc8447764c7b49d3484a26a03b7e406237969bd591ee94067"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-0-rdma.log": {
+    "bytes": 125,
+    "sha256": "debdf17da86fd9927c84addbc1286660fec971d017ffdbffc5c0aa71ca55bc83"
+  },
+  "rdma-payload-mtu9000/cuda-65536-25-rdma.log": {
+    "bytes": 122,
+    "sha256": "acdc4668008e70b896744a166adbdc354af2e5fe19e7ccc73b794c444e1278fb"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-9-rdma.log": {
+    "bytes": 123,
+    "sha256": "a56f977c509fab0ee9ba7896847601fc8ddf270148761bffe740fc56a91bffd1"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-18-rdma.log": {
+    "bytes": 123,
+    "sha256": "6289b4ba20aca67abc6a5ee6c64d5afac26c2bd2a768f611f4a8fbbaceab6e97"
+  },
+  "rdma-payload-mtu9000/cuda-65536-17-tcp.log": {
+    "bytes": 113,
+    "sha256": "1ded99f036b1d50f3d9cdcbecc0e7e619e380c2619899e9747611ca36f92ec90"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-20-rdma.log": {
+    "bytes": 125,
+    "sha256": "2eacfb8e84e5559648f87a5c1998ba20d18bea0ef72c653209bba0f48b74baca"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-1-rdma.log": {
+    "bytes": 125,
+    "sha256": "bd80f16acce3b2de86d8441e76c00fea778cf80c891ead8e7e9a64baa5fd61b3"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-7-rdma.log": {
+    "bytes": 125,
+    "sha256": "c4abe473f0b3f7dfa40cd930318891d68631aedb459654c8e0caf954e7c1510d"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-14-rdma.log": {
+    "bytes": 125,
+    "sha256": "0ee2a8fd2cdc28e8fea943bcc8470f4d4eb49be150fd582d9dc24ce920509484"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-25-rdma.log": {
+    "bytes": 125,
+    "sha256": "a46006afbe28946a606204a4bc023c6668f368da9a6352ea54b14ea80e11a352"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cpu-65536-24-tcp.log": {
+    "bytes": 113,
+    "sha256": "e0a402c96f3030a7e58b6fc4762a210077dd39f78a823e13e1b7ed9925432d36"
+  },
+  "rdma-payload-mtu9000/cuda-65536-4-tcp.log": {
+    "bytes": 113,
+    "sha256": "1d3b0f2fc4b293bd63ef7381d8ea4a6680008659b5c87034ac9ad6ce4eb067fa"
+  },
+  "rdma-payload-mtu9000/cpu-65536-21-tcp.log": {
+    "bytes": 112,
+    "sha256": "45fd3d6ab09ccd62e89883a5ce5fa52a79692a08692ae24d5a3e370bbfc616a5"
+  },
+  "rdma-payload-mtu9000/cpu-65536-15-tcp.log": {
+    "bytes": 113,
+    "sha256": "989cdde42cb52fb9a20934f7bf2959c92c04fdd17dc24c43caae68f9ee545324"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-21-rdma.log": {
+    "bytes": 123,
+    "sha256": "5c9f6594d5e4930d6c0b0c91d09afd6b86de73f62f7ee4ce714cbc7912980b58"
+  },
+  "rdma-payload-mtu9000/cuda-65536-6-tcp.log": {
+    "bytes": 113,
+    "sha256": "61a86188d59e21234d55b93ce0759baf2def1692ce6ab82510a1faff400d2422"
+  },
+  "rdma-payload-mtu9000/cuda-65536-11-rdma.log": {
+    "bytes": 122,
+    "sha256": "6ba246b6a05bf705506be5c93a5c9d769cf1e1d967f4b05849db4a2b91ebe796"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-16-tcp.log": {
+    "bytes": 116,
+    "sha256": "7d962dc5fe36384149742834ccbf2d37c8c553604db553df7d511d2adec3d418"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-15-tcp.log": {
+    "bytes": 116,
+    "sha256": "42a886b3ac73cf77e7c4053b0bb49ed225cbe1adcd641759fe9a00bd4e1e9c8e"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-29-rdma.log": {
+    "bytes": 124,
+    "sha256": "18aaf69daa6724f4501a120337624de7f9529048fa27247ccc89db2e579ba642"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-25-tcp.log": {
+    "bytes": 114,
+    "sha256": "8d2d72235deb6b327818bb3507f849860c9f00ab39914fa294f81666152d2c83"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-15-rdma.log": {
+    "bytes": 123,
+    "sha256": "af8723afc4e5ab25e14f1e957d0a2e168105ffd562dadd1cf2711f22e52d6fab"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-12-rdma.log": {
+    "bytes": 124,
+    "sha256": "61e3cec6b73157b1700fc037bad26e6bbc59af53f460e86814f6e950c8aabc3f"
+  },
+  "rdma-payload-mtu9000/cpu-65536-19-rdma.log": {
+    "bytes": 122,
+    "sha256": "391202236f834300bbba29f6076cd5181e337565c5e6de596f2988c66359a08c"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-25-rdma.log": {
+    "bytes": 123,
+    "sha256": "0ea3f32f05baafd78adc4974b5b5ed09ce6018f91211786fb5fbdc5036349ef2"
+  },
+  "rdma-payload-mtu9000/cpu-65536-22-tcp.log": {
+    "bytes": 113,
+    "sha256": "d3e2b7b647831b967d43ff9dd6863cc15e4b9947293685d2e812edcab11c2901"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-8-rdma.log": {
+    "bytes": 123,
+    "sha256": "e06eedfe8138db26e56c07f5992d3f5cd13bedef4e7b503962f8b803ecd681ea"
+  },
+  "rdma-payload-mtu9000/cuda-65536-7-rdma.log": {
+    "bytes": 122,
+    "sha256": "5df65366111e92255664a07ef7a972c91de7883b9d77bc4d68d6183ba94807f9"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-26-tcp.log": {
+    "bytes": 114,
+    "sha256": "c8098d16712577f76ef940bf6df6518ac06918bee7a41451636987d1f1b42c1e"
+  },
+  "rdma-payload-mtu9000/raw.csv": {
+    "bytes": 31284,
+    "sha256": "cf5421cd588fb0280ead6398554fda1b6b616f1c5cb838cd68601df4c8b09ae3"
+  },
+  "rdma-payload-mtu9000/cpu-65536-29-rdma.log": {
+    "bytes": 122,
+    "sha256": "1b8afb09e53ff796f53532089d86afa76916fec4f54ef10de07bf6a74461d9bb"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-26-tcp.log": {
+    "bytes": 116,
+    "sha256": "844ed7663775610e4f46460fd216c6a2cce5beb42b3cb4bf311658d278c647ac"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-21-tcp.log": {
+    "bytes": 114,
+    "sha256": "f825db8a8964b30205e33be22043d37f8a348ae1e62e3a97e780e48a0fc3ef92"
+  },
+  "rdma-payload-mtu9000/cpu-65536-17-rdma.log": {
+    "bytes": 122,
+    "sha256": "70dbf2cb34471209f53421425b820507444574aea86e667a466a3dffc2fa485d"
+  },
+  "rdma-payload-mtu9000/cuda-65536-8-rdma.log": {
+    "bytes": 122,
+    "sha256": "a87c566a043fe7846962faee3635ae2b0b75eee0763cf329f865eb09980bbaff"
+  },
+  "rdma-payload-mtu9000/cuda-65536-12-rdma.log": {
+    "bytes": 122,
+    "sha256": "62e6e0162eff051f51f896013553e725c94bdd07178f3cf256713ce4ae4fef8d"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-0-tcp.log": {
+    "bytes": 114,
+    "sha256": "93bf2ef17a26e31e64105356b1f54697ffd4f7000ec8cb022af24253cf5939ac"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-19-rdma.log": {
+    "bytes": 125,
+    "sha256": "2623d73da395a64ac38c2a78f80c391f94d6980bb45d1d36015b926022cf8d0d"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-27-tcp.log": {
+    "bytes": 116,
+    "sha256": "fef8f5a532abe52c3c6e755b31ca319b5c44490aafc5457e6e8ced8768362624"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-16-tcp.log": {
+    "bytes": 114,
+    "sha256": "55ec0c75e58c041bb1cd2e2b8fc10824dd00b42f53cfdbe94f12b849e817fe60"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-7-tcp.log": {
+    "bytes": 116,
+    "sha256": "264e45925888ff5954cf26131eb2632ceb24c97d3451c7d90313ceea1b31508d"
+  },
+  "rdma-payload-mtu9000/cpu-65536-5-tcp.log": {
+    "bytes": 112,
+    "sha256": "06ae59e48e9346ca7e36de74975c468784bf6b2111b3312cacf201f6a4be29bc"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-14-tcp.log": {
+    "bytes": 114,
+    "sha256": "0ed8ce811d878b0aad7804c2f1844f9c3103037362d4a6252abf18d0f6bf0cbb"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-20-tcp.log": {
+    "bytes": 116,
+    "sha256": "e07fa7b9af1509b3df26d51fb9492a1f3a38ac53b56aa218ae57bd07ac1e12ff"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-4-rdma.log": {
+    "bytes": 125,
+    "sha256": "534e78cabc85a8cc3d82f6d3641cd45c226e90cb957307a8192d6b6f195023ee"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-2-tcp.log": {
+    "bytes": 116,
+    "sha256": "9029063810d8af372d3d8c8057e34d2df9c6d7d2c73e388328e730e9015e3410"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-10-tcp.log": {
+    "bytes": 114,
+    "sha256": "4b80d0f2dce4639f323b4b46608fe7752e3fd4e7fdebd6ea48f9bb4d3c830bfa"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-8-rdma.log": {
+    "bytes": 123,
+    "sha256": "33b8e8ab40b6955838d9b0067e147179cfe81a664155c81e9fc9e5afe778d3a6"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-17-tcp.log": {
+    "bytes": 116,
+    "sha256": "e2c7d441d34ea9090fb04f60b9e5a59ca8e7c2213afb669e93a2fd5703e704b1"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-24-rdma.log": {
+    "bytes": 123,
+    "sha256": "96dfe1a23d31c35196a3f1de5a01adcb75af7db7af7b62340978854582329692"
+  },
+  "rdma-payload-mtu9000/cuda-65536-9-tcp.log": {
+    "bytes": 112,
+    "sha256": "1e1736411da7b3d0b6cde7ea7fcbc1ac6fdc5d6892a30c15c18a04b78bf2b73b"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-16-tcp.log": {
+    "bytes": 116,
+    "sha256": "e6f8a73f5a1384d05d76976e509009a00d44b3009fbe704c64b27507f8bc2d92"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-23-rdma.log": {
+    "bytes": 125,
+    "sha256": "f28a51ef4ae332b94cf0f6266fee9495b6696c89e1885de13536319d1be7a07c"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-12-tcp.log": {
+    "bytes": 114,
+    "sha256": "4a624800a140afa4631ddf16ef85cf82eaadbc1065c315a02fcd69e12228b155"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-0-rdma.log": {
+    "bytes": 124,
+    "sha256": "a2dd9cffb37d017a65dfdeba357a93c63f2d46239ac33b6c46bdc04c65347803"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-26-tcp.log": {
+    "bytes": 116,
+    "sha256": "1bca27dbcf3540744bbaef7cbe8fde8d4f6d11104c8e338fbef4ad7d3f5512b5"
+  },
+  "rdma-payload-mtu9000/cpu-65536-1-tcp.log": {
+    "bytes": 113,
+    "sha256": "86bfc96fb778642d83813e46518df3ce3f9774458654c9ba184553aff8780a91"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-7-tcp.log": {
+    "bytes": 114,
+    "sha256": "9249e9ecb76f728b6757265bf2ceeddf8a83c40c3f535ec34b7c11c396133f2c"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-5-rdma.log": {
+    "bytes": 125,
+    "sha256": "a0ac40794ee998a040bd12911d99459890cf517e2f3e07677f4cfb1fb5dc8771"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-10-rdma.log": {
+    "bytes": 125,
+    "sha256": "08245b3e12002b0c34424be5b6a43a8f20658956c60387a319ad95c47da86039"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-27-rdma.log": {
+    "bytes": 123,
+    "sha256": "bcd339b7291088306286a0c3fc476aa553eb8836acf94fdcc17330471b782c0c"
+  },
+  "rdma-payload-mtu9000/cpu-65536-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-8-tcp.log": {
+    "bytes": 114,
+    "sha256": "7cb1b173eb3daebf721acecd6aa56268132b71f0b73bad05b87f2d99f450cf41"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-29-rdma.log": {
+    "bytes": 123,
+    "sha256": "1ac10ed1b1905a7762f46d93bafe418679a36cdaa430e498f027d58e81d75389"
+  },
+  "rdma-payload-mtu9000/cpu-65536-16-tcp.log": {
+    "bytes": 112,
+    "sha256": "eaf28d408e993cff8567024689b886415fde982867d0941abb2100dd56b95cb3"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-8-rdma.log": {
+    "bytes": 125,
+    "sha256": "11a7acd1749eab0fbb810db0892c3f5510cf93562805e776ea623c805ce2a7a7"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-13-rdma.log": {
+    "bytes": 123,
+    "sha256": "37e269ef656185838912b5d966f0c1055445a731ec1f0b4c603380a2f52e3caf"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-7-tcp.log": {
+    "bytes": 116,
+    "sha256": "3cb5ab09f60f8607773b6a16a070c8c08908b103bad7e040bd92f257af7f7f08"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-0-rdma.log": {
+    "bytes": 123,
+    "sha256": "cd590c9afde5790647162caaca7051af260c977db6093d6d3b53891052752fcb"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-8-tcp.log": {
+    "bytes": 116,
+    "sha256": "264826921640d007fb99ac75172029abf89e1cc9e8613ee1469b97c49e7fe272"
+  },
+  "rdma-payload-mtu9000/cuda-65536-22-rdma.log": {
+    "bytes": 122,
+    "sha256": "6a384e8cb8388df45cedaf90502d9a9d332c769b48a124205ec6fda3fb37494f"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-1-tcp.log": {
+    "bytes": 114,
+    "sha256": "e5b966fab91b3ad7bfa0d854bf6b2d955ced1ef650da0e1ced773f58800c8a12"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-3-rdma.log": {
+    "bytes": 123,
+    "sha256": "ef010fc3136bbe184a7174b2dae1e04072ac4dfa8b6f4671f963bb28c467d800"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-26-tcp.log": {
+    "bytes": 114,
+    "sha256": "7b3d0fc6b5e7f7d593f8c02d7f5cea4daa7b7c8c1cb605f1e056b2a0ae8cfcc3"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-6-tcp.log": {
+    "bytes": 116,
+    "sha256": "4ac7783eb253b32269a07359124718f2405863cb2ab9308f42772fc363aae7c9"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-25-tcp.log": {
+    "bytes": 114,
+    "sha256": "c90a0459b8b795eb494646e1083ebccc0af448217f723f4f7e64d5f706537dc7"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-2-tcp.log": {
+    "bytes": 114,
+    "sha256": "172332f99375c7a238e59d303be90bea6f9ef5465f27c73d777c348ff97800ed"
+  },
+  "rdma-payload-mtu9000/cuda-65536-20-tcp.log": {
+    "bytes": 113,
+    "sha256": "37b42dc439ee0a8f9e0d1a265250206101234fa2c3d61232f64503746ba6d6a2"
+  },
+  "rdma-payload-mtu9000/cuda-65536-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-19-tcp.log": {
+    "bytes": 115,
+    "sha256": "00bb67076e4167d06be719502cce53367205e2da0715079192a4a7268c4be4df"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-17-rdma.log": {
+    "bytes": 125,
+    "sha256": "781ecdc14a69a42c410da5712c95b3be5b26aa382de7c0b4896e3ccde61c8e99"
+  },
+  "rdma-payload-mtu9000/cpu-65536-7-rdma.log": {
+    "bytes": 122,
+    "sha256": "14e03fc36aba156379b7ee9ec2543bc73dd3fc2fa3ce46c4f6eda138cac4984a"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-19-rdma.log": {
+    "bytes": 123,
+    "sha256": "b617c2d68b5a6af7ded2645d28391d3037c4a5ffb5d7af6a3f86f45627a91514"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-26-rdma.log": {
+    "bytes": 123,
+    "sha256": "cb7b0d7fea028ed4795030bc05660f7fea26f60f59a757e1acf539c79aacfd46"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-14-tcp.log": {
+    "bytes": 116,
+    "sha256": "a0a47aec6bddc14075a1a2c5563c4732d50117a6ec826e50dbedc00dbc77af17"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-24-tcp.log": {
+    "bytes": 114,
+    "sha256": "2b54ed1aac1835815b0b069e83b51110c02a1ee55c91f0bd7ab8e39c9b72566e"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-11-rdma.log": {
+    "bytes": 124,
+    "sha256": "50acb2101a85e102d479a25c2138f6d45b3e67bd29b18b2e89e212bf56fd18a9"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-23-rdma.log": {
+    "bytes": 124,
+    "sha256": "ace6c3507c1e730920a01a7f6b4d4170880c41de5cd70ddad83f5680e78f8a43"
+  },
+  "rdma-payload-mtu9000/cuda-65536-3-tcp.log": {
+    "bytes": 113,
+    "sha256": "d897de16ab1e97979518d6a3ce383a68d15424ab6a752d630e7eaad61e2b3c60"
+  },
+  "rdma-payload-mtu9000/cpu-65536-14-rdma.log": {
+    "bytes": 122,
+    "sha256": "1b8afb09e53ff796f53532089d86afa76916fec4f54ef10de07bf6a74461d9bb"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-29-tcp.log": {
+    "bytes": 116,
+    "sha256": "41afa281f5a1d7a3d17c14c4a6c2ebbcbdb14893d6b6d0aa52f4780fefe6113c"
+  },
+  "rdma-payload-mtu9000/cuda-65536-14-rdma.log": {
+    "bytes": 122,
+    "sha256": "719e55190c90bd9f3305d334adb542439536585e6943edbbe40884a9a6db21c1"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-24-tcp.log": {
+    "bytes": 115,
+    "sha256": "5ee0fc0a7399a3afca0c3f682aaba294ffba5eb753d3810429b6246902fb5ece"
+  },
+  "rdma-payload-mtu9000/cuda-65536-20-rdma.log": {
+    "bytes": 122,
+    "sha256": "f0f3edde1dcd664b4e88723c1755fc44eaa50f450d9ef482fe678102adb6a78b"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-6-rdma.log": {
+    "bytes": 123,
+    "sha256": "b47a71784c855c8de9217355cd9d4b67e8a4ac46703bb69fbd26ca3cd83566d8"
+  },
+  "rdma-payload-mtu9000/cuda-65536-11-tcp.log": {
+    "bytes": 112,
+    "sha256": "e77df498978d372970aa34a917012c5958ef47aa70c20c483fdca9adce699454"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-22-rdma.log": {
+    "bytes": 125,
+    "sha256": "ec4367725bf5f73c7af926c5c68249f7a4026294f31fc61e1a769fa1af5e1217"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-21-tcp.log": {
+    "bytes": 116,
+    "sha256": "520c108b9b8413f1b4c324d59ea7301ba73005c34a471d972ca3af943637056a"
+  },
+  "rdma-payload-mtu9000/cuda-65536-24-tcp.log": {
+    "bytes": 113,
+    "sha256": "4890bfcef5744864aaa691331cc68da019b026931e9fac8b493bb9549e0841ce"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-5-rdma.log": {
+    "bytes": 125,
+    "sha256": "08b227610cd083e31649518d92bd6283083a670ad6050877841e2975c2a1db3b"
+  },
+  "rdma-payload-mtu9000/summary.json": {
+    "bytes": 3633,
+    "sha256": "c9412d00946e1f7572e0cdb0f3ddedd17263e3f57b8e3e298f9519130dfc1cf1"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-17-rdma.log": {
+    "bytes": 123,
+    "sha256": "ddeb536a3ed08ac91ad14167191d553c14d02a9c680246b5beae0e171336cb06"
+  },
+  "rdma-payload-mtu9000/cpu-65536-25-rdma.log": {
+    "bytes": 122,
+    "sha256": "e83feddad86e358222e4233b07953453dafd14c68faf8ad9d1a7a66e79477d64"
+  },
+  "rdma-payload-mtu9000/cuda-65536-5-tcp.log": {
+    "bytes": 113,
+    "sha256": "fb3215bb4a3e15ed986c94e4c4e14c763de74e228bfb3d94ef168f3a1dd90f0f"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-1-rdma.log": {
+    "bytes": 123,
+    "sha256": "85891521e1c21653bedfa930c8078166e594f40d15add1810bc2c01f55d5f4ec"
+  },
+  "rdma-payload-mtu9000/cuda-65536-16-tcp.log": {
+    "bytes": 113,
+    "sha256": "1d2875d8b6e9bf6a70c35c5c8bbba3ec28de16b973f04bf5d87fa691ad6d4e65"
+  },
+  "rdma-payload-mtu9000/cpu-65536-0-rdma.log": {
+    "bytes": 122,
+    "sha256": "415819421d3c7e5d05f7f9c96f58cb2aaada2a6f90d3aa17afb54c09ac76510a"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-20-tcp.log": {
+    "bytes": 114,
+    "sha256": "6b242b40aefee28d1e208f358a7938e44169b5bb2459bee0a8498657f4f62d49"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-24-rdma.log": {
+    "bytes": 123,
+    "sha256": "c4757e4cd62ea4c6ddfc260281760a55a91786a38e8e3e4f48d42dac65dae692"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-28-tcp.log": {
+    "bytes": 114,
+    "sha256": "13396a57c8224ded5b52b58bfcdf980f3d84b9586c12abca412828b7882a48f8"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-17-rdma.log": {
+    "bytes": 124,
+    "sha256": "50acb2101a85e102d479a25c2138f6d45b3e67bd29b18b2e89e212bf56fd18a9"
+  },
+  "rdma-payload-mtu9000/cpu-65536-26-rdma.log": {
+    "bytes": 122,
+    "sha256": "c17d336996ddb254e4625572573412280cc48151ac520111c35e6c7d4c9bb9f8"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-16-rdma.log": {
+    "bytes": 125,
+    "sha256": "ced6829fd2586cd6c1dd9b0f5d397ef3465bf97482fa43edd071b5234ff59fa7"
+  },
+  "rdma-payload-mtu9000/cpu-65536-10-rdma.log": {
+    "bytes": 122,
+    "sha256": "e2cb68efc6c145f9b54a0b3f4f75cc08937b42d59da880965612a3555b1b77d3"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-18-tcp.log": {
+    "bytes": 114,
+    "sha256": "ad327dcf686931d5050460e7ce935a5c7efcd1cc702b97b9d8ad858de07fb4c9"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu9000/cpu-65536-5-rdma.log": {
+    "bytes": 122,
+    "sha256": "757289990c6698ed9b854defc5f6b1183db51155a00f900c07730b2937e4b359"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-23-tcp.log": {
+    "bytes": 116,
+    "sha256": "daeddc1014556cc823a7c4334d042c64d562ae5a03f6767f488a4416460704f0"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-4-rdma.log": {
+    "bytes": 124,
+    "sha256": "01a63f7101b2696acd02dd7940a469250ec7e64caafbf4a6de5f39305c5f94bf"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-10-rdma.log": {
+    "bytes": 123,
+    "sha256": "f664fbf292d661fdc5254e954be536d94d031b046309b0caa5a6b4507e896a96"
+  },
+  "rdma-payload-mtu9000/cpu-65536-18-tcp.log": {
+    "bytes": 113,
+    "sha256": "4c404608970fb272654c53a59f631fb02dc511bdf8160a31d67860b4990f2016"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-22-rdma.log": {
+    "bytes": 124,
+    "sha256": "1030bca138416bc21f9a24afc7d2113337a323a745c2f91d490696728c1c8bf8"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-19-rdma.log": {
+    "bytes": 123,
+    "sha256": "828651169b9f41882475eeac94b19f7ba14ab01be03bccfab260f11104e493ef"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-21-tcp.log": {
+    "bytes": 116,
+    "sha256": "a7073b4e11781b60b0986ab45cd21dbfc67cdabf33b703466c9ef59492c31903"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-5-tcp.log": {
+    "bytes": 114,
+    "sha256": "9f5ce35b195fa0f62ad3683e3c97c83ed5701746da685e3a0a5328034a1563b9"
+  },
+  "rdma-payload-mtu9000/cpu-65536-6-rdma.log": {
+    "bytes": 122,
+    "sha256": "6b9c791d2f4195a75985c6c29d9608c345e56923bc11d61531af6fe917b4d6c9"
+  },
+  "rdma-payload-mtu9000/cpu-65536-22-rdma.log": {
+    "bytes": 122,
+    "sha256": "684e8a4f7f54a787307680317d208a33c71d43f6246a35fc0727b0c220c2867b"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-7-rdma.log": {
+    "bytes": 124,
+    "sha256": "6ba3e965c472efd301e497efb2f5cb3fa928c13cc2253c539940a068866405e9"
+  },
+  "rdma-payload-mtu9000/cuda-65536-6-rdma.log": {
+    "bytes": 122,
+    "sha256": "44e15eea18ab5113e583c39a82e39a1e663c7d338b4133458f3235bfb0327fd2"
+  },
+  "rdma-payload-mtu9000/cuda-65536-21-rdma.log": {
+    "bytes": 122,
+    "sha256": "79c832773566628fe8c6b2181d2dfca87ed79a45b0d08b4219fab3afd05daa26"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-25-tcp.log": {
+    "bytes": 116,
+    "sha256": "9a61a5cce3516b008c44865d6b079700ee35cc322e6b710c738fd7664d49ca3c"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-12-tcp.log": {
+    "bytes": 114,
+    "sha256": "9121f1ae4a6f118420d3883c81384b63103999357e326a0d5b4a21967b55b3c7"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-9-rdma.log": {
+    "bytes": 125,
+    "sha256": "a3b78b9968f304b8878d95575de62daf367fbf4dcde4d35c03f10a2ba3b81cf7"
+  },
+  "rdma-payload-mtu9000/cpu-65536-20-tcp.log": {
+    "bytes": 113,
+    "sha256": "4364a931f6b284e0d8d390cf8f1436e7f4cdd51a00c1ff41380128979d21ca0b"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-2-tcp.log": {
+    "bytes": 116,
+    "sha256": "bc4b097e2f5fd4b3ab1b15dca46874bdf8e9da08780dba44873c4893325a07f4"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-11-tcp.log": {
+    "bytes": 116,
+    "sha256": "42d9fc355efcf1e07cd17f4726a26612df0511891578e9e15c731819a9b8fdf9"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-14-tcp.log": {
+    "bytes": 114,
+    "sha256": "3a6da0fae2b45628c2954257677dce2a573c8f7af4cfa175bb7aa178d05206dd"
+  },
+  "rdma-payload-mtu9000/cuda-65536-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-18-rdma.log": {
+    "bytes": 123,
+    "sha256": "2846fdbd7f4c84f9fad2cc90aea930f4d12fea6274ce0b02821206bc82025a9a"
+  },
+  "rdma-payload-mtu9000/cpu-65536-2-rdma.log": {
+    "bytes": 122,
+    "sha256": "d92f2e019309ce1bc04cf41c0bcd7b6ede3be379fc796e5a98b2a57110de2e31"
+  },
+  "rdma-payload-mtu9000/cpu-65536-28-tcp.log": {
+    "bytes": 113,
+    "sha256": "68909780639a10943d33eb6739059d95a49c27827d5b8bf408314d3bf7247cf2"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-28-tcp.log": {
+    "bytes": 114,
+    "sha256": "f59b05a1550a31ebdbcd2257b62eb9a72b65f1196ee6cda68cb0c86438ac3a38"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-4-tcp.log": {
+    "bytes": 116,
+    "sha256": "83402f3dfee1dcbef00856bc4359b8ab0e5d7996f9a09fd03b0e06de43f301fe"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-19-tcp.log": {
+    "bytes": 114,
+    "sha256": "642f0382619b8292dae655a3573e54d24e29e8979484104b0d924f97a074c355"
+  },
+  "rdma-payload-mtu9000/cuda-65536-29-tcp.log": {
+    "bytes": 112,
+    "sha256": "62dd70c48a47f321d9e4ec005a2fa75c9a6978da44170b300ec4ca353b1707df"
+  },
+  "rdma-payload-mtu9000/cpu-65536-3-tcp.log": {
+    "bytes": 113,
+    "sha256": "89b981f94589794a9aef137e1b4c7065f5dec5db40211200cc90d93beebea436"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-10-rdma.log": {
+    "bytes": 125,
+    "sha256": "ea59ccb42ddff04b922962df9983a774e8b4d17b92749675433ff2b4d1509bff"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-28-rdma.log": {
+    "bytes": 123,
+    "sha256": "d279f608c305c0c084c0484764013fb764c393af2720695b06c657c8d8d8a43f"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-28-tcp.log": {
+    "bytes": 116,
+    "sha256": "2fdf13a8e9252398733980e1914a849d832bdab005c92dabb33a99d7eb262399"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-21-rdma.log": {
+    "bytes": 123,
+    "sha256": "f66ec6970ddabf826853b1f62e120c6de2aae20f2beb60c07d09c72bf3184e9b"
+  },
+  "rdma-payload-mtu9000/cpu-65536-12-tcp.log": {
+    "bytes": 113,
+    "sha256": "95b6e667794d5f2b18cbb8ccf728ec2381a46de5afe23b69e38dabe92dca65fe"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-3-tcp.log": {
+    "bytes": 114,
+    "sha256": "b9877752cd36bff0ba796afe9913fb0f680f9e27deb4d5bc38d48ba816d6e76f"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-0-tcp.log": {
+    "bytes": 116,
+    "sha256": "a1272bb6e64c789db55fed3bc3e38d1d85b850656d20c1c5544ae71825538ddd"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-3-tcp.log": {
+    "bytes": 116,
+    "sha256": "c6f05e098a0b53a1a3f6d6ef9bcda28a09da9e369baa278d90e2cfa060058584"
+  },
+  "rdma-payload-mtu9000/cuda-65536-1-rdma.log": {
+    "bytes": 122,
+    "sha256": "91b58e583dff2559909093114b54e5e74271b36db3c303560e5a156968a87b29"
+  },
+  "rdma-payload-mtu9000/cpu-65536-13-rdma.log": {
+    "bytes": 122,
+    "sha256": "f705f44538ede0b55edf8cac22f230af12e0815f08d406cb3c6abcf9534cecd2"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-17-tcp.log": {
+    "bytes": 116,
+    "sha256": "37e563dd0016736c827242a46de63a9c2cb9ccad98b0fef17c501330c915b100"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-3-rdma.log": {
+    "bytes": 125,
+    "sha256": "28fc203120489f31e2104f146c73ce69b06c02574588c2e5af93dc3eedaede65"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-17-tcp.log": {
+    "bytes": 114,
+    "sha256": "42e7b13477196822ddd694ff2ce818237142abdaf025bc017de067712621c99f"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-3-rdma.log": {
+    "bytes": 124,
+    "sha256": "d51b96111b3ae563c76caa3953f0b9bb50efe529195b74a8a4391051471d4c2f"
+  },
+  "rdma-payload-mtu9000/cuda-65536-1-tcp.log": {
+    "bytes": 112,
+    "sha256": "7ee9cd61918db4d3418de883388c7f62ab726169fe74711e1045547e1f86d0ed"
+  },
+  "rdma-payload-mtu9000/cuda-65536-26-tcp.log": {
+    "bytes": 113,
+    "sha256": "9b44ffb9d9213183c1f6ca9e76b96b34b98994dbe65a5641f92b985305fc9cbc"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-5-tcp.log": {
+    "bytes": 116,
+    "sha256": "e392d1f67c7eebf7fe3073614f5b8964e89cae75b7fed8c193efb0c97f1aeb2c"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-13-rdma.log": {
+    "bytes": 123,
+    "sha256": "1403e7c048ca1ac43f622f8dea83a08d620a4747425b14cf26b7457af5958c2b"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cpu-65536-14-tcp.log": {
+    "bytes": 113,
+    "sha256": "3f2663a0a495b951c22e838d7f84ac80614948d25084fca98f92cf453ae9ed67"
+  },
+  "rdma-payload-mtu9000/cpu-65536-11-rdma.log": {
+    "bytes": 122,
+    "sha256": "10077fb36013ec87fd3642b783d92c51862a650f69c565d52f635e912fece993"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-15-tcp.log": {
+    "bytes": 114,
+    "sha256": "169ddfca5a0529c864486e7717728e3701e48b882ee5089aadc84818647f1c37"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-11-tcp.log": {
+    "bytes": 116,
+    "sha256": "2f32ebb740565e3a82e2c7c0ede8c4a93a92176d0b6a819ee4948d0a1c1bf38a"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-12-tcp.log": {
+    "bytes": 116,
+    "sha256": "e5ee8a643138462ab9ba2d5663101bfdf4430241d544c87a728d9ab18c027a4d"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-7-rdma.log": {
+    "bytes": 125,
+    "sha256": "97d2c7d5beddc1f00b3366da0c8133f8a754c2bc021c5d37bb45e9ccf7d7855a"
+  },
+  "rdma-payload-mtu9000/cpu-65536-24-rdma.log": {
+    "bytes": 122,
+    "sha256": "ae6b07a1800573ddfd4d2fd33916691b531c526700206c4245373272f9aa1312"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-15-rdma.log": {
+    "bytes": 125,
+    "sha256": "e4261818d466340954c4ce74db57a80c99053cbf22dc8a63a894d3c40589d927"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-25-rdma.log": {
+    "bytes": 125,
+    "sha256": "11d715be1dc4a60a7992824f0c68537cc0e8642857c3bfb36e263a2670882477"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-23-tcp.log": {
+    "bytes": 114,
+    "sha256": "da3920a8154a84d984762860754a19c7e297903cc5dc4c250f0da9ca28a6d8b2"
+  },
+  "rdma-payload-mtu9000/cpu-65536-25-tcp.log": {
+    "bytes": 113,
+    "sha256": "21ace73c34fdb3553bc722c4c1e4fe5df4259fc716d2f87977073f8767ff80b9"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-13-rdma.log": {
+    "bytes": 125,
+    "sha256": "11c955813da58651578f60e9152962448b5f88fb25cb9c7df9c9f2d6751eb872"
+  },
+  "rdma-payload-mtu9000/cuda-65536-26-rdma.log": {
+    "bytes": 122,
+    "sha256": "72c6c5b723b63c1f9688033f2fe7168350edbefd1cfc75e63a9207397b81931b"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-10-tcp.log": {
+    "bytes": 116,
+    "sha256": "3402e00859ccd4b3a8aefc7a1f3d0e970ff573a3c705e17c78bfe39aa677b158"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-2-rdma.log": {
+    "bytes": 125,
+    "sha256": "b6563446c6a17f17977ae24969cba874a5e0b1d88e85db681783ba39e146614b"
+  },
+  "rdma-payload-mtu9000/cpu-65536-3-rdma.log": {
+    "bytes": 122,
+    "sha256": "ea42131b0b7154dc65199d867c09589a7d4a265dd0abe288a4c9610343216df0"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-11-rdma.log": {
+    "bytes": 123,
+    "sha256": "892227de223078b0a43492d02d04f0b02fcf1aa59821f81ca5e3fbbbdafe4ebc"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-25-rdma.log": {
+    "bytes": 123,
+    "sha256": "ec05a4da91fb2d4a0dfd91ea73ffb14341ce94ad8b2aef1c0e287b7fcb5e540a"
+  },
+  "rdma-payload-mtu9000/cuda-65536-27-tcp.log": {
+    "bytes": 112,
+    "sha256": "2a75bab3d96e33ae6dbfbd7deebb48dd59162383d6b6cc235b92e237c9c1f7aa"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-29-tcp.log": {
+    "bytes": 114,
+    "sha256": "c25406a9de5a27771a6d40896913c5f457b1493b14fffc4e789d91e6ea23e970"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-23-tcp.log": {
+    "bytes": 114,
+    "sha256": "8d32a5411d0594fa3e0b8e4944c11a7d8a50f4eeb8a5a1ebf4553ac3ba0f73c5"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-23-rdma.log": {
+    "bytes": 125,
+    "sha256": "50bae81c63e3b742adfa2e8b517932cb79892fa85ebd20e219cc3c06c34d7f68"
+  },
+  "rdma-payload-mtu9000/cpu-65536-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-27-tcp.log": {
+    "bytes": 114,
+    "sha256": "12f9d6776c0fe65a99f00a0e5fda53c568ab1e79f8616d8157f26f4b90e89f09"
+  },
+  "rdma-payload-mtu9000/cpu-65536-28-rdma.log": {
+    "bytes": 122,
+    "sha256": "a40f93b9adc32b42b7af37b5ee0aabc553b3221c69e1a62714d922e2922fc7a2"
+  },
+  "rdma-payload-mtu9000/cuda-65536-7-tcp.log": {
+    "bytes": 112,
+    "sha256": "069ddb9cc0c8588315005c6f6d7739f3f0fab6b55f23f261695b8d69d136198b"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-16-rdma.log": {
+    "bytes": 124,
+    "sha256": "d51b96111b3ae563c76caa3953f0b9bb50efe529195b74a8a4391051471d4c2f"
+  },
+  "rdma-payload-mtu9000/cuda-65536-21-tcp.log": {
+    "bytes": 113,
+    "sha256": "1d2c809ecf9159dc3db3657d2ea0c1d63528585055d21ab005274f2ff1fafb2d"
+  },
+  "rdma-payload-mtu9000/cuda-65536-19-rdma.log": {
+    "bytes": 122,
+    "sha256": "e83feddad86e358222e4233b07953453dafd14c68faf8ad9d1a7a66e79477d64"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-6-tcp.log": {
+    "bytes": 114,
+    "sha256": "347402417b4600301b1c138e7c2e53c86b5bf402545720caa2ce1966a218bc81"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-28-rdma.log": {
+    "bytes": 123,
+    "sha256": "fe9e8f3c62b36c0086e775a2f8cfaf1e06d487d3a6480a92e57fb9153019d888"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-23-tcp.log": {
+    "bytes": 116,
+    "sha256": "b4cf9e2cd4b9a1068ddf9af7e487b2c8ed82bcd44ad8d6e579d0f8f25c0b46f0"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-14-rdma.log": {
+    "bytes": 125,
+    "sha256": "870d66631d41557b436440b52b4d406bd7aaf07284808e102a447545708f0f5f"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-28-rdma.log": {
+    "bytes": 125,
+    "sha256": "0a74928ee750678bc83759534d261fbeea08e1691c759d664cdff9a0c37a3396"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-19-rdma.log": {
+    "bytes": 125,
+    "sha256": "13f13a6b6c1094e19d849f2d716048a4fdaa3d1d8326a8ad293dd21d4134be27"
+  },
+  "rdma-payload-mtu9000/cuda-65536-29-rdma.log": {
+    "bytes": 122,
+    "sha256": "9b6284f9f2b89262fe3b4473e29e5d67b03719ee6967c293e169c756062dcba6"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-8-rdma.log": {
+    "bytes": 125,
+    "sha256": "44a4ee84092c59c8a8e167c41b9793549f0af5a6a81cad5be8b3a0a27c8c9b99"
+  },
+  "rdma-payload-mtu9000/cuda-65536-18-rdma.log": {
+    "bytes": 122,
+    "sha256": "b0c86697bf898c3b22c51961878b3b443873d1479712fd4cc3f1413574ae2f88"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-20-rdma.log": {
+    "bytes": 125,
+    "sha256": "07c1446f64aec5cb5a7bd4874c578c4ad8f9d9c7a18530e978553b55f1f63215"
+  },
+  "rdma-payload-mtu9000/cuda-65536-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-17-rdma.log": {
+    "bytes": 125,
+    "sha256": "2cbc507f34d278114e633e0c10a513e3e2e72293aedcaae7ecb735cd30981153"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-3-tcp.log": {
+    "bytes": 116,
+    "sha256": "e2b4ec8fc959f3bb48b340f3e1bd9ea0f0ad74ecab472136f4176f48815a4c05"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-0-rdma.log": {
+    "bytes": 125,
+    "sha256": "0fa6268b849182bd9a46e03f0e0bb6e1924feed31d58e396359d7c44937866ae"
+  },
+  "rdma-payload-mtu9000/cuda-65536-5-rdma.log": {
+    "bytes": 122,
+    "sha256": "9bd91ac348c4be86ed2008e5db745320ce0b24d1fd72786a3a276bd1bc24eeb4"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-5-tcp.log": {
+    "bytes": 116,
+    "sha256": "87156ad3bec4c2a4372adac07922cd056ad026059f79ca10becb921c68d9be68"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-11-tcp.log": {
+    "bytes": 114,
+    "sha256": "65c630e815e015bae77752acd0204e45d5111d3cc0c392de6ce3a777438732c0"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-9-tcp.log": {
+    "bytes": 114,
+    "sha256": "a46ecf0323101e43395632fe1f8a87fe4a203659189f2d0e765615c6e655bdfb"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-4-rdma.log": {
+    "bytes": 125,
+    "sha256": "03aad9126673217d0c22ae06fdce7c98a2187593b0881155f9a216ea29327615"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-18-tcp.log": {
+    "bytes": 116,
+    "sha256": "0d5e565b7900e59f45ef23ee2dc9d755ac345db79ea6661e2d181621837bdd6a"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-27-rdma.log": {
+    "bytes": 125,
+    "sha256": "3881242749bd6bf5073410fe7a7057d8fe1ce1b71755ab5e00fcf12cc50b986c"
+  },
+  "rdma-payload-mtu9000/cpu-65536-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu9000/cuda-65536-4-rdma.log": {
+    "bytes": 122,
+    "sha256": "cb602e051281b341f837fda07d5ae7a78249606c79c376b3021ed9b90ac7db9f"
+  },
+  "rdma-payload-mtu9000/cpu-65536-27-tcp.log": {
+    "bytes": 112,
+    "sha256": "d1308e0dbdd4a3b3d636e747e539c809246201b3c3312243d765422348d498dd"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-2-rdma.log": {
+    "bytes": 123,
+    "sha256": "ec028ceb917d1c75e37571495d09583f3108a423800fe6d933a081e37ba07aa0"
+  },
+  "rdma-payload-mtu9000/cpu-65536-20-rdma.log": {
+    "bytes": 122,
+    "sha256": "2455df658c7c2a9b500477101d5325c4243ed373aeb767448d94c163b25cf28e"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-22-tcp.log": {
+    "bytes": 115,
+    "sha256": "c97329fddbcbd629a6e005cde0d38779376f57fac18274bc39651709d4cd8f8f"
+  },
+  "rdma-payload-mtu9000/cpu-65536-8-tcp.log": {
+    "bytes": 113,
+    "sha256": "34d89d776864b0a0715cd236f3236bc4a91494968c1e393c5a760c115650834c"
+  },
+  "rdma-payload-mtu9000/cuda-65536-2-tcp.log": {
+    "bytes": 113,
+    "sha256": "24c6c8cf6280a55f1b8b6d3317ea9eecbb62d143c8dfa27675b97cc1d4e2969e"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-27-rdma.log": {
+    "bytes": 125,
+    "sha256": "e076ae4726d4e28ac71811a60c2623872b9b34270d1dce1a3936a9e4387e5541"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-9-tcp.log": {
+    "bytes": 116,
+    "sha256": "8f11d8ed43d2f1113e266423b6f48855df9e4d971316f5dbfe523c3269c43b00"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-1-tcp.log": {
+    "bytes": 114,
+    "sha256": "9f7035ab40491559437024dea96acc9d7727236e530275e1d9c3d5564cc05b75"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-25-tcp.log": {
+    "bytes": 116,
+    "sha256": "7d54d054729d4eb217ac7805a895ad284a48ad714ccec66544edf995858b7298"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-13-tcp.log": {
+    "bytes": 114,
+    "sha256": "eb5fe99c6ba6b66947b56e06b8f54527a95b7ec61aedb5e8bab0a48b2b9bfa26"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-15-tcp.log": {
+    "bytes": 114,
+    "sha256": "3778ee39b67cdacd22476a8231916fe6df8f017e3cd383d246ac63cad1bd9ae1"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-9-rdma.log": {
+    "bytes": 125,
+    "sha256": "8535d9d288786d287b9564af7ed4113ba27a1f009a3d264c4589b86764a69343"
+  },
+  "rdma-payload-mtu9000/cpu-65536-9-tcp.log": {
+    "bytes": 112,
+    "sha256": "9af4f2d4021e6153d2158044f2f75e83f67a8227bffd4161e8949fb54127624b"
+  },
+  "rdma-payload-mtu9000/cpu-65536-2-tcp.log": {
+    "bytes": 113,
+    "sha256": "f8868438712db6d867ec155bd06f334705a2458e58593d2ecd7e0cdb08aedeeb"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-1-rdma.log": {
+    "bytes": 125,
+    "sha256": "01fc7fb18ae1b6436e62d1f4a7199abbc86dc990bfee145c8c7fd6e88fb80e86"
+  },
+  "rdma-payload-mtu9000/cpu-65536-17-tcp.log": {
+    "bytes": 113,
+    "sha256": "5feee4cc9a7de7a3f48def3f69cf798d6eea8b415d86425de8d7987cd65f0f4a"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-10-rdma.log": {
+    "bytes": 123,
+    "sha256": "4a2c6dd8cefcb3ed5b6569985e0b4ffb031c8a66cac2791e931ba768ea2f889a"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-16-rdma.log": {
+    "bytes": 123,
+    "sha256": "bc94cf43326d9309ada70e13985ae0ce9f05942dda730eb754274c15b80716d9"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-1-tcp.log": {
+    "bytes": 116,
+    "sha256": "67caa11510ede5af04342e19589825dedd4658f70d4226a2d953b070fd6a4753"
+  },
+  "rdma-payload-mtu9000/cpu-65536-16-rdma.log": {
+    "bytes": 122,
+    "sha256": "463e4a97a3f0c79467b321ec44e0c36daa19bba81de49842e9e9556abdac17cd"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-9-tcp.log": {
+    "bytes": 116,
+    "sha256": "e2b2d8db36501e8608968962093de5f174c512e816bc246501d89ae07a44d1b6"
+  },
+  "rdma-payload-mtu9000/cpu-65536-13-tcp.log": {
+    "bytes": 112,
+    "sha256": "a1cd1b1e10d0228cd7c010fa1e892671ad2eb9eb5479ce59001428bced8cd548"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-22-tcp.log": {
+    "bytes": 114,
+    "sha256": "f69f763cbf1b9723bc9cf980f29273d764976e999db6d62a8acc0322e985029a"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-20-rdma.log": {
+    "bytes": 124,
+    "sha256": "364c3903a4664cd5346a7add72a54dd8800011494f7ef75ca07dcdb0af614565"
+  },
+  "rdma-payload-mtu9000/cuda-65536-19-tcp.log": {
+    "bytes": 113,
+    "sha256": "e823b35c3323768b78f29f774d03023dca40f9960bba830126288f87068f8a10"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-13-rdma.log": {
+    "bytes": 125,
+    "sha256": "ff64ec768c2422925930b0148eccdd8735135ecc3f1dd731578908a8c15edee5"
+  },
+  "rdma-payload-mtu9000/cpu-65536-21-rdma.log": {
+    "bytes": 122,
+    "sha256": "cff82c9bffd243c7035f05f39bd48cea0677d104bcbe7bc7009f7bc86e29b792"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-11-rdma.log": {
+    "bytes": 125,
+    "sha256": "c55e6795aa3656e214db08a343e2e7028bb1973e519ecf6b302c39779f550467"
+  },
+  "rdma-payload-mtu9000/cuda-65536-0-tcp.log": {
+    "bytes": 113,
+    "sha256": "a0b32daad79b8034a43ebe07c7231ac637504ad5eadc012e055ec2294a1303bb"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-22-rdma.log": {
+    "bytes": 123,
+    "sha256": "ec6a4600f2aa8b7b93dfb02981ecc9622f3382aa4bd2037435ad644d2cb5a22d"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-27-tcp.log": {
+    "bytes": 116,
+    "sha256": "81c61311954d7c8e3195b0c0cdebc608ddb607a11932f6e9b4264c4dd01bfe50"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-13-tcp.log": {
+    "bytes": 114,
+    "sha256": "70de7bcb0d10ac4f6dcce294da9a025e98f0fd22a475d776350aa711430e4134"
+  },
+  "rdma-payload-mtu9000/cuda-65536-27-rdma.log": {
+    "bytes": 122,
+    "sha256": "dc03604c04decae17a9872c4f85fd03d099e735ccf5e35e76e6112d838876f18"
+  },
+  "rdma-payload-mtu9000/cpu-65536-0-tcp.log": {
+    "bytes": 113,
+    "sha256": "5b3fa34bda3a21ea536a912a40db10afd52a03100f57d68060f49f23077798eb"
+  },
+  "rdma-payload-mtu9000/cuda-65536-28-tcp.log": {
+    "bytes": 113,
+    "sha256": "26dff627bd70eaf505f89aa079f8fba7ab0f69984460b05ae4c7cbf26ac29021"
+  },
+  "rdma-payload-mtu9000/cpu-65536-27-rdma.log": {
+    "bytes": 122,
+    "sha256": "d547d84e645c5d14c742c9ca50dd39cd0f4f1de466a3fa60855d249a27eceffc"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-8-tcp.log": {
+    "bytes": 116,
+    "sha256": "abdb94b1d03c744c26ed298fb9f445d5e06663865521704039b8785185ff3976"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-29-rdma.log": {
+    "bytes": 125,
+    "sha256": "1dec11f08afa74a689a44c3de0b0494472b787ffbdf7856aa46dc4baae93ec12"
+  },
+  "rdma-payload-mtu9000/cuda-65536-8-tcp.log": {
+    "bytes": 112,
+    "sha256": "15f944c0c7462c47cbc68a0c590b3ae500e3593bd903a93da9b29e3b607525ec"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-5-rdma.log": {
+    "bytes": 123,
+    "sha256": "58b6a8fe0f30427d57d79910e6589cd06fe1a127e61d099da69c7b648263690a"
+  },
+  "rdma-payload-mtu9000/cpu-65536-4-tcp.log": {
+    "bytes": 112,
+    "sha256": "4d29088bcdc5c453e9fff50440fee5d8300280eb81cbe79e2abfc1380ef713a6"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-12-rdma.log": {
+    "bytes": 125,
+    "sha256": "9b3b44661c84f5403b088f4e93dc154a71d5134d343bd5de9b5c3d9046211f8e"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-2-rdma.log": {
+    "bytes": 123,
+    "sha256": "89694f731eb35667cbf45b645d12fb1675e109eb60cb732849ed7fd48219dcf4"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-24-tcp.log": {
+    "bytes": 116,
+    "sha256": "ca8e4273fee33d66fbe61a07393656a4cfe0f81a867c66afe32178079798e00d"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-14-rdma.log": {
+    "bytes": 123,
+    "sha256": "08543ef7390e0793485cdd90c1f24775c364d63ed95beb28fd6fe7e4950c1a61"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-1-tcp.log": {
+    "bytes": 116,
+    "sha256": "f026638400d6a0969b12fe1def87721d6e866b28b9f745c71e76712c269a434c"
+  },
+  "rdma-payload-mtu9000/cuda-65536-25-tcp.log": {
+    "bytes": 112,
+    "sha256": "4fe3708a327c5aea57e587f02f301b28f165fab553620b1338e5d658513b18f2"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-19-tcp.log": {
+    "bytes": 116,
+    "sha256": "911c7c3379b28ebab100923303f8e7837c7e6b3596ef7f2614c542395f210f7d"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-6-rdma.log": {
+    "bytes": 124,
+    "sha256": "e52e8044f28ac1c69b1f6ae9ea4be313c1fb303a435f1790194dedbb43357eb1"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-13-tcp.log": {
+    "bytes": 116,
+    "sha256": "e99eec11e65703bd41709426ad84e8b809cebe75210c04147226bce7483519a1"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-16-tcp.log": {
+    "bytes": 114,
+    "sha256": "f0eee599faeadd80c7749c40cbc91d2cde8a298363396e3ebc0fcc1243bbb77e"
+  },
+  "rdma-payload-mtu9000/cpu-65536-1-rdma.log": {
+    "bytes": 122,
+    "sha256": "b7ccb03e257dc90dfd10e97203f40d58181fbcce5bda1a118eb6254ba95be2dd"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-16-rdma.log": {
+    "bytes": 125,
+    "sha256": "50dec1f4d004e6cc8b63a7353c2939f02ed7335d9a324cfd40f82f0028136052"
+  },
+  "rdma-payload-mtu9000/cuda-65536-22-tcp.log": {
+    "bytes": 112,
+    "sha256": "de4f54066b1f269fef921c34ec4456f367348e039f2ad6c4456f45de6a3aef07"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-13-tcp.log": {
+    "bytes": 115,
+    "sha256": "1cabb99aac2101088727e83b546d5e2374a2f5462b60e3cbbcc07983dec5faf1"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-15-tcp.log": {
+    "bytes": 116,
+    "sha256": "44eeaa07d21d8a8a7cceddf38c99ffe085107a53c20d92d7a69074dbdb2503fa"
+  },
+  "rdma-payload-mtu9000/cpu-65536-9-rdma.log": {
+    "bytes": 122,
+    "sha256": "ade6db2b65a8aedb98941340e76a3f668ab191f9fbb702f6019224b284bcecd5"
+  },
+  "rdma-payload-mtu9000/cuda-65536-15-rdma.log": {
+    "bytes": 122,
+    "sha256": "58d0a6c0b3e1c4ec41405a394faa316e82ea106e5e158e98d53fa7999b19ed0c"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-2-tcp.log": {
+    "bytes": 114,
+    "sha256": "cc9e1d89feaeee9e06ba470ceff991fc1f906656fafd218ff572fb9d325d7830"
+  },
+  "rdma-payload-mtu9000/cuda-65536-9-rdma.log": {
+    "bytes": 122,
+    "sha256": "8c75d9269c50056d74fa7c74a762901a610c2f0b2fdc030fbe6eb39e1732950a"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-12-tcp.log": {
+    "bytes": 116,
+    "sha256": "7918383940bca135e787de85f40432f6af133ea8d276be910242ab9118465da4"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-22-tcp.log": {
+    "bytes": 116,
+    "sha256": "8be51bcb6e7424d5cbf38d19fd6579620e55dcec8a3030313a575a6747ad6f22"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-15-rdma.log": {
+    "bytes": 123,
+    "sha256": "30f7b3f16b7e76d2ff600f05c6e65b98de23fc114f064303e4f604137c3320a6"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-29-rdma.log": {
+    "bytes": 125,
+    "sha256": "5c8074ca813d3bb371a4c7061e9f412c2baf12097bf4157351148ff0693a5a5a"
+  },
+  "rdma-payload-mtu9000/cpu-65536-11-tcp.log": {
+    "bytes": 112,
+    "sha256": "645a2be5f5207fa2c7083c8c450f5801b1e51340e69fca3d4b9da0597228aa19"
+  },
+  "rdma-payload-mtu9000/cpu-65536-29-tcp.log": {
+    "bytes": 112,
+    "sha256": "110180f73f5e830109315558b222e761e638f3fd2657ffb61a1db78a61fccbbb"
+  },
+  "rdma-payload-mtu9000/cuda-65536-16-rdma.log": {
+    "bytes": 122,
+    "sha256": "4f38b403733f11f717f6e1628e32e005b7863b665a46e8cf1f8ed1defb4c9c04"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-10-tcp.log": {
+    "bytes": 114,
+    "sha256": "d0fe6b2b1ca2ca1f2991fc8a26f3b0fd647ebd1dd1deb5f2068de107b4065f31"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-28-tcp.log": {
+    "bytes": 116,
+    "sha256": "3d281377ad33447edc38a901436fc72f2958fe50e4f8b0c45e88a34f4b355792"
+  },
+  "rdma-payload-mtu9000/cpu-65536-4-rdma.log": {
+    "bytes": 122,
+    "sha256": "1131b92f2e8626f89ceb5b22106808da8cb527fd83720dd4af2069639e14f245"
+  },
+  "rdma-payload-mtu9000/cuda-65536-24-rdma.log": {
+    "bytes": 122,
+    "sha256": "e83feddad86e358222e4233b07953453dafd14c68faf8ad9d1a7a66e79477d64"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-5-rdma.log": {
+    "bytes": 123,
+    "sha256": "04827e0abc3377450e9a81d54dc0bd3fd685e3c13fa634db3d3c0c172e8aaf00"
+  },
+  "rdma-payload-mtu9000/cuda-65536-18-tcp.log": {
+    "bytes": 113,
+    "sha256": "19fc8e83f9cf951ae179691b6b413af23eaf2ebfd99dd813b84b8bdf9c89947f"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-0-tcp.log": {
+    "bytes": 115,
+    "sha256": "af4908d853d4a6f0ec2c975c2bb31d0551533d2cc7575cb9769b2867d18e32c1"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-28-rdma.log": {
+    "bytes": 125,
+    "sha256": "65bd37669467c2261f1e0c33a5736d016abf60dabb22e82692e0003d4e485b21"
+  },
+  "rdma-payload-mtu9000/cuda-65536-13-tcp.log": {
+    "bytes": 112,
+    "sha256": "858e99476a4d5075467ec02e3b8172e391590a0e68a9ec754340be1c0ad29467"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-3-rdma.log": {
+    "bytes": 125,
+    "sha256": "bbe291af96cdb41e027a9b3fbcc42b3860d44a119917e8a89493d2cd63950331"
+  },
+  "rdma-payload-mtu9000/cpu-65536-8-rdma.log": {
+    "bytes": 122,
+    "sha256": "e4db6379b47065b66a86aff0b2ab9f645270d7408e9c11a0022f7cb5e14a3bb1"
+  },
+  "rdma-payload-mtu9000/cuda-65536-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-21-rdma.log": {
+    "bytes": 125,
+    "sha256": "0cf76ba37eabca4b99fadf5284c988bba990e6490fa80dfa13c6c0311e262131"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-12-rdma.log": {
+    "bytes": 125,
+    "sha256": "10928687174cdce3f9e32ba563aefbff25cd158bf4d3b8e60e05c749cd29544e"
+  },
+  "rdma-payload-mtu9000/cuda-65536-3-rdma.log": {
+    "bytes": 122,
+    "sha256": "d01267c722b6c34fcd2e34383b1f8ebe90cbd711c8117b05126348cc239cc842"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-11-tcp.log": {
+    "bytes": 114,
+    "sha256": "2c3ba99b4653cff39044521917172273bed848621244abca5fcf99347eeb2c62"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-4-tcp.log": {
+    "bytes": 114,
+    "sha256": "c94eede3c0870dac51ee7d39c71182ac405d8f266677d5b4e20af4cabc61c28e"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-27-rdma.log": {
+    "bytes": 124,
+    "sha256": "b5197ee7ff94e567d43f36f9bdaf8ef64030d484b7d34c705988bd67af17f040"
+  },
+  "rdma-payload-mtu9000/cuda-65536-28-rdma.log": {
+    "bytes": 122,
+    "sha256": "334b13e52748682d33043283fd73c6de1742f2c7e3acf8e2dffab9c327742780"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-18-rdma.log": {
+    "bytes": 125,
+    "sha256": "cde58d338007371ac6f3c6e16ce3882bb4c7cff737a6cf036759cdafb56cebfa"
+  },
+  "rdma-payload-mtu9000/cpu-65536-7-tcp.log": {
+    "bytes": 113,
+    "sha256": "1875f86b839d633d94b42236011387767a933f96ed12238eaab1213e0adafbaf"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-9-rdma.log": {
+    "bytes": 123,
+    "sha256": "3a3a7f4d16751d2da404779c7a76e4c1f92725e61bb9cbfca2e9cb4068487be5"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-26-rdma.log": {
+    "bytes": 125,
+    "sha256": "ae1290dbbab6ab95c4d9484d3465bddcae04a89f2515ea22ffda896c78ecdce5"
+  },
+  "rdma-payload-mtu9000/cuda-65536-0-rdma.log": {
+    "bytes": 122,
+    "sha256": "58a1d243cb02dd51892149afb64ae3830554f7e459ca01a0be1a132f5ceb9a8f"
+  },
+  "rdma-payload-mtu9000/cuda-65536-23-tcp.log": {
+    "bytes": 112,
+    "sha256": "db910605eb5632a8c4aa9a4a26fa15c0452778f6c45ed18e00143feff77fa191"
+  },
+  "rdma-payload-mtu9000/cpu-65536-15-rdma.log": {
+    "bytes": 122,
+    "sha256": "ae2b4b1f8c25499bbe16387d9a6089991e2f89138d66bdfd247a001ce0b5e63a"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-6-rdma.log": {
+    "bytes": 125,
+    "sha256": "1f173e03f9ee5632535524d6305a80f4de78caf34ee1faf732b001e47a42a6c8"
+  },
+  "rdma-payload-mtu9000/cpu-65536-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-26-rdma.log": {
+    "bytes": 125,
+    "sha256": "fdd0f8abb3f499c4d40abacd724c3d7719867c76de9a300bd76058bb56205a43"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-5-tcp.log": {
+    "bytes": 114,
+    "sha256": "72beddf9f66865f5b3b3d3747929975727cf19cf761b1e741b9b943b3335caa5"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-19-tcp.log": {
+    "bytes": 114,
+    "sha256": "c018cb2fa5855f803f74da512bb9ae0d6db11f8d784b8c4b710cde79edd56447"
+  },
+  "rdma-payload-mtu9000/cpu-65536-12-rdma.log": {
+    "bytes": 122,
+    "sha256": "843ba97958f0f87651dd88c714d259075aa0b7390026cf1b8e315685955a1f0c"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-4-rdma.log": {
+    "bytes": 124,
+    "sha256": "c3d53a57753c70635a51d41e50c0a9a9bd782ae1317d854bcf23262393274ad0"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-14-tcp.log": {
+    "bytes": 116,
+    "sha256": "1af5d3069637e20ef93f20bffbe81945acaaf4eb702fa4e219ca0116f4183bb1"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-4-tcp.log": {
+    "bytes": 116,
+    "sha256": "0b6236d3895a948661e8877891cbb6d66351589ffaa2693ca1c77744857546fd"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-4-tcp.log": {
+    "bytes": 114,
+    "sha256": "e562e0ba75b27c1cef5376fe3cd82f8584546dfe4c2dff24341c71133acf7cdb"
+  },
+  "rdma-payload-mtu9000/cpu-65536-6-tcp.log": {
+    "bytes": 113,
+    "sha256": "77bd41eb0071d6aeaefec221691d5ee9cb6056baae62c4fc1e5abc8b002683aa"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-10-tcp.log": {
+    "bytes": 116,
+    "sha256": "c6ef6540bd5f9efbb068e2218b3cdafc5969bd9c746da1612592e2a790394de8"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-11-rdma.log": {
+    "bytes": 125,
+    "sha256": "3692342db40baa344664339a3bde619b2d6244fd0b1b2b9a9af827f0cd415177"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-9-tcp.log": {
+    "bytes": 114,
+    "sha256": "e68ab3ec82846cde9fc26f9ae6ce9fa32dff424b0c8af4584300de7ffbb1269d"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-12-rdma.log": {
+    "bytes": 124,
+    "sha256": "b5c8adf1b7c384dac04414b2cc344735ca207e1ed3a5afaee11118651de1391b"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-7-rdma.log": {
+    "bytes": 123,
+    "sha256": "004a5c50b58b7471ed63e05ad9100ace83ec4dab7d2014a56776123872fe20d1"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-6-tcp.log": {
+    "bytes": 114,
+    "sha256": "70064374d8de9932b5bb0345214dec49461f08161546a285f91aae18aa2eadda"
+  },
+  "rdma-payload-mtu9000/cuda-65536-12-tcp.log": {
+    "bytes": 113,
+    "sha256": "3121c7c54bdd9c97f3b4a82d7b6bbba85e2b39026b3b4a9d45c85c470fd0a22e"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-18-tcp.log": {
+    "bytes": 116,
+    "sha256": "8fec9428107bf2eaa1026c2066143277f72dc8a0b5e2982cb1edbca80f0558ab"
+  },
+  "rdma-payload-mtu9000/cpu-65536-18-rdma.log": {
+    "bytes": 122,
+    "sha256": "e2c95bbb6316cf6e1a6fb32d5e5c9cf0074422addeabe32a88a6395dab943c0f"
+  },
+  "rdma-payload-mtu9000/cuda-65536-17-rdma.log": {
+    "bytes": 122,
+    "sha256": "2a240cef316f3144cea8b7a70d4f57a8b9f7489bf8cb919ec1d792c23f2ae2ce"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-17-tcp.log": {
+    "bytes": 114,
+    "sha256": "810aab4577b075269ca03988fb2a9f706e5b87d969c993853eb69d2238a27b44"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-3-tcp.log": {
+    "bytes": 114,
+    "sha256": "0de818f5304da39481747ece86f1dc08ee57463bb2e0d6e2f8109f9dbc298abb"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-6-rdma.log": {
+    "bytes": 125,
+    "sha256": "b6d2533dd6a35e495cbba6e1de369925e1eb659e00137d5d69e7499c913da87c"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-14-rdma.log": {
+    "bytes": 123,
+    "sha256": "fabd86574a4665fbca9dc49aa31da1eca449d117bcd38dc9da2ae4e7b6d3dbc5"
+  },
+  "rdma-payload-mtu9000/cuda-1048576-20-tcp.log": {
+    "bytes": 114,
+    "sha256": "0910d84f11ee89bbe4d76006867127ad8d6d1dbaf65263576dc06c1f6cd7f0b1"
+  },
+  "rdma-payload-mtu9000/cpu-4194304-15-rdma.log": {
+    "bytes": 125,
+    "sha256": "239ddf4ad0e0454e1bb202d8f0f0374dcac6cc1429be768a9f713a8c9395295b"
+  },
+  "rdma-payload-mtu9000/cpu-65536-26-tcp.log": {
+    "bytes": 112,
+    "sha256": "cd09f1744f2f4b454812a4a5df9765b47d09124c502e9294356ad4ae98af81fe"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-6-tcp.log": {
+    "bytes": 116,
+    "sha256": "bae76160161c0a9fd0b79c6fb7a63a5dbef2fa648cb43db39c88c059ce009494"
+  },
+  "rdma-payload-mtu9000/cpu-65536-10-tcp.log": {
+    "bytes": 113,
+    "sha256": "0f436cce2799bbd015dc4237c877bff8c89d3c011f92b413a69678bd2d49a4de"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-18-tcp.log": {
+    "bytes": 114,
+    "sha256": "40aba985b80363254f170bad35d282f996d114ee47009ffc858bd4d536845a5e"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-2-rdma.log": {
+    "bytes": 125,
+    "sha256": "67f33177a3ad4a89874ce1ce980df862378fc40ddcf1f9f2457c9dc5bdb533c8"
+  },
+  "rdma-payload-mtu9000/cpu-1048576-8-tcp.log": {
+    "bytes": 114,
+    "sha256": "58eabb170628360986b8aaaffe3c48a5126c6b32f27fd4911900740b84740ff0"
+  },
+  "rdma-payload-mtu9000/cpu-65536-23-tcp.log": {
+    "bytes": 113,
+    "sha256": "33018f6c142675a5f76c10970ad715a8f752d9af010eba7deb4857f3d1b3c04c"
+  },
+  "rdma-payload-mtu9000/cuda-4194304-20-tcp.log": {
+    "bytes": 116,
+    "sha256": "d5baad9e8c7f63fc79aea6fc4ec3644d26f6f6d687ff3a11f937e2d521d3b79a"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-18-rdma.log": {
+    "bytes": 125,
+    "sha256": "4070a2fb54438b7cef52f12767de89b7407c25903063ff1911c33749e3dc6c17"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-24-rdma.log": {
+    "bytes": 125,
+    "sha256": "4884addf6aa501fc726f111c4b7b19668308774256e8b4963200c67809d5d090"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-22-rdma.log": {
+    "bytes": 125,
+    "sha256": "5d467a48340e95c6a0ada9ef96fdeaa267c466cb6e39b5d78f7e700ab209965e"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-24-rdma.log": {
+    "bytes": 125,
+    "sha256": "f8726b196c4b89a2174dcfba7c4c047b5fde84493c4dbf2d69d0259337b2dbb6"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-29-tcp.log": {
+    "bytes": 116,
+    "sha256": "f062e5fcf17f40b1d1ead17cd282ed7d9e27a0d83863df60aa1e34186b38e2af"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-21-rdma.log": {
+    "bytes": 125,
+    "sha256": "24eae9b88052f7b4dca281b783bfff7570da93be0cf55252a44b2e92cc80d8aa"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-0-rdma.log": {
+    "bytes": 125,
+    "sha256": "053ff4f48dc809e576091a1d475d7a09b4b58a2aec0272d3b5aab506f79b92d4"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-20-rdma.log": {
+    "bytes": 125,
+    "sha256": "79ec26f5c77f34cb82a0103184b187239eff7bd51eb10ef924ab24f93a11e81c"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-1-rdma.log": {
+    "bytes": 125,
+    "sha256": "ffac59c96cb6e28e4da654b42812bd9a82c3cb0873bec2071f166074ae2a6948"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-7-rdma.log": {
+    "bytes": 125,
+    "sha256": "84f5b1eec4a489b566da3f374881e8b226caf6ee11d9b8b48b0f7d168b60df79"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-14-rdma.log": {
+    "bytes": 125,
+    "sha256": "0ca2876526cd614ba9a11b2d5ba0afd25b548d64f8d72005719a761da98aba68"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-25-rdma.log": {
+    "bytes": 125,
+    "sha256": "575273803551f606aad7dff09c9be360907e67cda2019690581b43fe317d7921"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-16-tcp.log": {
+    "bytes": 115,
+    "sha256": "c54f0c251e2d4677d56db6aed4093a47dd2a8d17ebd6b56876b09bc19ae7d0ef"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-15-tcp.log": {
+    "bytes": 116,
+    "sha256": "169468351e2a9435995e6f83520653ef1f2c4376531d164ff2f3a02de1fee494"
+  },
+  "rdma-payload-mtu1500-recheck/raw.csv": {
+    "bytes": 10819,
+    "sha256": "5125bbd479f218442f92194d2c34cefa2deb68f232f330ff66f35a2ad1956d2b"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-26-tcp.log": {
+    "bytes": 116,
+    "sha256": "6981b7af8dd24c9066134774dce5110eb62f25f5139f7e75e94865e536b9b9d0"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-19-rdma.log": {
+    "bytes": 125,
+    "sha256": "92e0bb05408663bcf8f70846db7adf58bde8f4bedbd1f70352ca8116bd52c71c"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-27-tcp.log": {
+    "bytes": 116,
+    "sha256": "553caa8ea8c7db6bacb6b55a59e27907e061cbcaee6c37ded7079a7e5e4ccae4"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-7-tcp.log": {
+    "bytes": 116,
+    "sha256": "a7d699143ec2bb6ca27e6da3ca4771116d13432b7ad9e79c77aed32ed76e98f5"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-20-tcp.log": {
+    "bytes": 116,
+    "sha256": "7a74e4fd89a3b7530d6d6d962a684edad620b6bcbd765f2d1a2864137ccb4238"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-4-rdma.log": {
+    "bytes": 125,
+    "sha256": "7266c45cd12043c3d146b73d32f4a0c5ec6507272fa2d51a3575a15511cfbc24"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-2-tcp.log": {
+    "bytes": 116,
+    "sha256": "7c4ab2e9be3cb3c32e7978142b8701217056388eb19f3336408751983a9ab0f7"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-17-tcp.log": {
+    "bytes": 115,
+    "sha256": "edf729c0c234889aea808d6cc5809431886b92619dc7f46f2c5fc3b6ac7cfffc"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-16-tcp.log": {
+    "bytes": 116,
+    "sha256": "4ac3cee4df3c22bc705388cc75b1f61c2cffd0e43d30a2a96994cb1d1d915520"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-23-rdma.log": {
+    "bytes": 125,
+    "sha256": "83e1aa2dbda89ec77a45bd860a313cc68b620d30fd2e32a27124d89957ba602c"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-26-tcp.log": {
+    "bytes": 116,
+    "sha256": "8446fd8393a42ae5be07686cfb7205c30b0e9027467c1c1b221da76b8fa14ecb"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-5-rdma.log": {
+    "bytes": 125,
+    "sha256": "a53c669d0ad1d41be5b8e351beb12e40207430e7a20134991c8628c7a72ec59e"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-10-rdma.log": {
+    "bytes": 125,
+    "sha256": "3ce0ac1f60a8496e3055384f4a13493d25c4f18a6982646d050e7f254e95544e"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-8-rdma.log": {
+    "bytes": 125,
+    "sha256": "80cd7a3b0252acafb80bb119520d2274a111191fd63392c49d92558f2a1a9b23"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-7-tcp.log": {
+    "bytes": 116,
+    "sha256": "716fece5761ffc9005c4792729427833174c81dc764d4b696774b2c1bc06a5f2"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-8-tcp.log": {
+    "bytes": 116,
+    "sha256": "9463e7d6c98e69a8be44716af57d2a992cbf9b062ac5288c5823a15d8c8a1b62"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-6-tcp.log": {
+    "bytes": 116,
+    "sha256": "949740a7914301d3703435613bd6cc5c95851a116dd26e9267b9afacbda441b9"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-19-tcp.log": {
+    "bytes": 116,
+    "sha256": "0b8f9a3350ac458d1499ccf948c32f97209c04e45d2a79c4bc25e1946f0ffed3"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-17-rdma.log": {
+    "bytes": 125,
+    "sha256": "57cb150aa08cb2f8f5452122e25abfba9695abb0fe9a67ea12c3c5f500131c69"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-14-tcp.log": {
+    "bytes": 116,
+    "sha256": "527d4806f5f2e4a702e606dbd12863dbcfed6c46d5f679b5760334933e9166d3"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-29-tcp.log": {
+    "bytes": 116,
+    "sha256": "31b4fd3c18b40e4757175fe9ba7ba8253ac4beac538ba207761474ffef657d72"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-24-tcp.log": {
+    "bytes": 116,
+    "sha256": "125880ed1d16755317eee231565c7a03016dbb284ef7a68c5903fb908d32f599"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-22-rdma.log": {
+    "bytes": 125,
+    "sha256": "9a927826204629efdc117194c498f3f974b684954ff3e59fa91c7aa3ae3cdc62"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-21-tcp.log": {
+    "bytes": 116,
+    "sha256": "b5ff9b9c9319309841c2026d6905b01379b0e3237f0044f6b9a0e30cc9105f54"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-5-rdma.log": {
+    "bytes": 125,
+    "sha256": "80a3ad62751ac38956563b3ef4209cbc31b7262c40b50dae9f4652b77128fdad"
+  },
+  "rdma-payload-mtu1500-recheck/summary.json": {
+    "bytes": 1439,
+    "sha256": "b2d53dd10eff39c94c173df510531a24ea0f9cbbe90a9c444d7b84bb2cec31c2"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-16-rdma.log": {
+    "bytes": 125,
+    "sha256": "f88a08c8dbfeda11707418ad4cdc3b8af6084dde41f3aadc9b8bb255d742c4c8"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-rdma-source.stderr": {
+    "bytes": 31,
+    "sha256": "01f654dfe5a731bcd696d19b49e024b2dbdb0c301d97d263c892d97f0be8ef54"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-23-tcp.log": {
+    "bytes": 115,
+    "sha256": "33befb1e421f6d4c67949623c1a23ff92e150564e43243f763f743940a154a77"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-21-tcp.log": {
+    "bytes": 115,
+    "sha256": "d51486753f5917e2a72b2349036a24443b382459f355b9c1962acdfa79350ccd"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-25-tcp.log": {
+    "bytes": 116,
+    "sha256": "391ec5192d3266a96ec24d94f3dec819e1b0497aa67a2e48ddfa7342cd0f9530"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-9-rdma.log": {
+    "bytes": 125,
+    "sha256": "0f6f39fcebaa405159739daab7da766416d14109f901887fd8973f5098900c39"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-2-tcp.log": {
+    "bytes": 116,
+    "sha256": "a94dff2140e7fec94919bc0fdce2d012763223c450d90de9c12b5b7a37cc21c3"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-11-tcp.log": {
+    "bytes": 116,
+    "sha256": "c72f89e4838682e393f9ca3bdb1bde48a758519933ebf419b2b56bae23a49c4d"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-4-tcp.log": {
+    "bytes": 116,
+    "sha256": "e0821ad20f18a7a095246dd3c62e230c5855505c86390a45fe3f9957f3bd0862"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-10-rdma.log": {
+    "bytes": 125,
+    "sha256": "d261fc161c72c5c5a74ef182e5b7d3f6dde4b32187b6109d4716eac94f93f77f"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-28-tcp.log": {
+    "bytes": 116,
+    "sha256": "f440f645939f238f93a9d6f59bf8bf88fef85fccf7b6b936087e5f32d5fbb8c4"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-rdma-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-0-tcp.log": {
+    "bytes": 116,
+    "sha256": "39cb9eb0416353342bb8ee4bf9099798a34df27f8564fc321123c49c32d8338b"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-3-tcp.log": {
+    "bytes": 116,
+    "sha256": "799cf63a6a9f6b955cbacab29d08c4db675d58b611da004b74f1aa35c8869590"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-17-tcp.log": {
+    "bytes": 116,
+    "sha256": "4664a501e775d70e1e908a28eb1b7699136f5d534dd86ab48b54230fa305dc8e"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-3-rdma.log": {
+    "bytes": 125,
+    "sha256": "5da3caa43ae9190c423a3d5e9365d2bcf5e9a90cf21a4bf2940625ae66006c58"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-5-tcp.log": {
+    "bytes": 116,
+    "sha256": "f165b842d7eb60c3954459ab290451dc33b4979f6d00e7908a238188fc92a428"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-11-tcp.log": {
+    "bytes": 116,
+    "sha256": "aafa41315a1ab16829075e92508a6e892d0978ac40042c6dba0a7660032f3715"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-12-tcp.log": {
+    "bytes": 116,
+    "sha256": "e98924f2c2e6ed84f78008342f1152a7d2490825b9508931cf98046e02ce6135"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-7-rdma.log": {
+    "bytes": 125,
+    "sha256": "03ec00ed0e00ca7e1bc407291ffe12ac66dc9c84d535c667147d6a1e6436c38d"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-15-rdma.log": {
+    "bytes": 125,
+    "sha256": "20164ba7074350aeb7310ca51cd67bc792e24578f850db99d606818abd39bbb0"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-25-rdma.log": {
+    "bytes": 125,
+    "sha256": "f6815461590fe828066369e25eabc94d20882e7a254c07d475fd960dabaf1991"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-13-rdma.log": {
+    "bytes": 125,
+    "sha256": "fc3d361e587d8f9d5cf5988d33ff9f5bdbc1adc7d615f672ca6d27403403a42e"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-10-tcp.log": {
+    "bytes": 116,
+    "sha256": "e11b916f21dd9794fa4928877ce659f4ae7e7253535a1d425a0f29f6a9d9f37f"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-2-rdma.log": {
+    "bytes": 125,
+    "sha256": "2c3c3ad956a852b3fe9d8dc309b0a75583c4a1f7db50f7e5a7980cc1a5d7f9c1"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-23-rdma.log": {
+    "bytes": 125,
+    "sha256": "b6718fc52890b3edca3ac800007a496821898f325f99c69aca59acea543ccbd8"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-23-tcp.log": {
+    "bytes": 116,
+    "sha256": "613cd832297269d59cff2df7619dd0bf2ea0154572b763bad32304b664ec31ad"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-14-rdma.log": {
+    "bytes": 125,
+    "sha256": "13ebba70763ea6fef106589b838a65d06cd53117d7cfa008d68539a6fc1b6f73"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-28-rdma.log": {
+    "bytes": 125,
+    "sha256": "524183efc51e91980b656b82bf45c16f088bf7cf57fffcfcf5a96ee92d4c985d"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-19-rdma.log": {
+    "bytes": 125,
+    "sha256": "328a831f0610c9e33332e1e0d3faae8d6d2b11c5fad78d68bca553a71c4f579b"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-8-rdma.log": {
+    "bytes": 125,
+    "sha256": "eb636c27610837b075d827c344dfae2b4d91428e99ba67089af280ccd64e3ff0"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-20-rdma.log": {
+    "bytes": 125,
+    "sha256": "e53bd7c12b19fe0a8ed70ef90b3647b43ada652b2f19d1bd7d59c70669894e5e"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-17-rdma.log": {
+    "bytes": 125,
+    "sha256": "8c31ebba7163070c1e9646ef57dd6c99e8bc0a9f173d4c3e9854ba9c61163bb1"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-3-tcp.log": {
+    "bytes": 116,
+    "sha256": "d7b9c27cd361b3e5755e12eede5ad6445ff04ec33c0f93eb4f327a626f9add93"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-0-rdma.log": {
+    "bytes": 125,
+    "sha256": "3b0d8f3639bf0a65e758570ea32a1db47b32d9b0536ac67163ddbb6cebef341f"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-5-tcp.log": {
+    "bytes": 115,
+    "sha256": "509f60b76db1e997f60f1d8e09471777f2ee2c445f70cd923ecd5b6065cd900e"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-4-rdma.log": {
+    "bytes": 125,
+    "sha256": "e020ca4ba4a25882f49934d54f401537d2b43c18155edc62f74e5cf3058dfc3a"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-18-tcp.log": {
+    "bytes": 116,
+    "sha256": "5b514f8470d294bfa55df829fb88f5bb03978eb37532d84da7ea5a8adce125a2"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-27-rdma.log": {
+    "bytes": 125,
+    "sha256": "b9af2eea9d0ef77ec2faf17cb9a6b3cf50c2a221668f281dee58973306e2337b"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-22-tcp.log": {
+    "bytes": 116,
+    "sha256": "7d3c8ea58b9828684dbf1034d807df9a28cbe9c885d99b65c46fdd894405c4be"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-27-rdma.log": {
+    "bytes": 125,
+    "sha256": "10a7a9ad137c1d74c5275268f4207eaa52c13ed948f75bd951663950da8f04e6"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-9-tcp.log": {
+    "bytes": 116,
+    "sha256": "bddbe0380a43a29580f151ff3030b966fd35d68da9ce839d47befa9b47f7fd7c"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-25-tcp.log": {
+    "bytes": 116,
+    "sha256": "5f77b15d8f41e06859480a00701f3cad196994b7b06055533443643353cfec4b"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-9-rdma.log": {
+    "bytes": 125,
+    "sha256": "a14ebdb8fdef97b65ef13fcbee7bb0efbe81f1f04e3bdcdf5d931ee5b8c7489b"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-1-rdma.log": {
+    "bytes": 125,
+    "sha256": "c90fdc0a1cb73fa24a393518edc95b639cd986a45b71972dce31a52fea6f645f"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-1-tcp.log": {
+    "bytes": 116,
+    "sha256": "4f5e3d3cf95e53f7925f192de55531d75061594b3c5827ac2331d804497a3352"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-9-tcp.log": {
+    "bytes": 116,
+    "sha256": "1b3135c6d21ea6547c18a637d0d7a1b39472d922a07e3f9da0f09f5d38a092ad"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-13-rdma.log": {
+    "bytes": 125,
+    "sha256": "8e7b22226d591d50b0da96b4dacd5125904202bd221a501e769a9623cd9bc288"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-11-rdma.log": {
+    "bytes": 125,
+    "sha256": "f1beaa99f41834edfdaaea813fbe09c8c12b2adf46e8c3b66ac0bba8437809e7"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-27-tcp.log": {
+    "bytes": 115,
+    "sha256": "77686d29d4ae9c889f9d2a2a238c30392946c30cd5dba78ef01805b10be25258"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-8-tcp.log": {
+    "bytes": 116,
+    "sha256": "c5a169708f4d700a90ced97569e02c267c54a4cb85273b41970a99c3eb571ebe"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-29-rdma.log": {
+    "bytes": 125,
+    "sha256": "ae2d5c16cc9802895cb558c14ffb721060b1b5ae66c211062381784ba624ce3e"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-12-rdma.log": {
+    "bytes": 125,
+    "sha256": "6ec310e23396c95d9781e646ec73dd871a0f23a59a57b8268804d597bc571e8e"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-24-tcp.log": {
+    "bytes": 116,
+    "sha256": "d751f739f6d28734c78a38397d3df9150c3fa3885b640cd33c3207d37bc334e7"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-1-tcp.log": {
+    "bytes": 116,
+    "sha256": "22e75ea08b15a5f3cd4f8a72c716aab9f6d68cabfd77b5eb84a5219be2bfa9ea"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-19-tcp.log": {
+    "bytes": 116,
+    "sha256": "952e99139370ef24543e7b5de7d4e4794baa92034cf2018ec411aeb7498878c6"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-13-tcp.log": {
+    "bytes": 116,
+    "sha256": "e2e6eb8c65fea30871956c9f200a3d381d13b5119285d5356983b451907f9ad8"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-16-rdma.log": {
+    "bytes": 125,
+    "sha256": "027fa22be8091ffe7632c8bb0c8180437025c6a8a4f3bc87096df949f83fceaa"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-13-tcp.log": {
+    "bytes": 115,
+    "sha256": "3caf1e34d6d1a1004ea4b93e23dbfe7d05c8a6d4a91fb9a4e34a514892ff75fe"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-15-tcp.log": {
+    "bytes": 116,
+    "sha256": "1e42190f33c711184ec56160a25ba8ebc755a5341c664d1c37d9603585aedea4"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-12-tcp.log": {
+    "bytes": 115,
+    "sha256": "760facca240d8fd9ceb0457c56baf5a130656f2b1b029a9271ebd94e4125c39b"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-22-tcp.log": {
+    "bytes": 116,
+    "sha256": "649cdbf168c5418b33405bc6bb7320c7f5ca9d3b065983b56045dda03009b80a"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-29-rdma.log": {
+    "bytes": 125,
+    "sha256": "356bcb47ba69b4b783215163a57c474f1f95ed507d4160d35d4542894aa176fa"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-28-tcp.log": {
+    "bytes": 116,
+    "sha256": "7cbc297af0ccc10305dc06036b4f7273c2170f9011cfb736f0ad2269db076335"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-0-tcp.log": {
+    "bytes": 116,
+    "sha256": "0d9fd2472ac68e7e993db09a12785dfab58f7d3e42a8390472aabf70b6954fb7"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-28-rdma.log": {
+    "bytes": 125,
+    "sha256": "ca91ca63007ebeeca3f018a14c01842937a2d90438959a7f507672ae39c8bd8b"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-3-rdma.log": {
+    "bytes": 125,
+    "sha256": "d1700ba01edfa8f76bc672c8b2630a7bb94b706c879210dfd79d018934e6eb9b"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-21-rdma.log": {
+    "bytes": 125,
+    "sha256": "dfa0e60dce072823f31b13e9ccbe6f55723d9af292bb1f1281354a78b123a956"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-12-rdma.log": {
+    "bytes": 125,
+    "sha256": "fb5c275d81605d3354a5c147105da83652cc77a2a6e097519b7dd83872a5ce09"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-18-rdma.log": {
+    "bytes": 125,
+    "sha256": "e8f702a7e8cedc5e23c9f3eb64e1deee86b435901cf1167b9d7b5ded5bf43299"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-26-rdma.log": {
+    "bytes": 125,
+    "sha256": "9ce1046af760bf5d98e2ac97eb536760fdd559e6439796ff740b83b9e5f267c2"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-6-rdma.log": {
+    "bytes": 125,
+    "sha256": "6c50bff66d580c02a48e6c7d731a3b5c6da9039cb63bf6512c401f5a5edcb067"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-26-rdma.log": {
+    "bytes": 125,
+    "sha256": "30a4464b85dbb0c593e8d751c4cab9fb26338fe90aa4d358a2143144649309ff"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-14-tcp.log": {
+    "bytes": 116,
+    "sha256": "b1a12b3a583bfc59c0de021048a55220e809b61d26615b68eb476f2636eaf049"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-4-tcp.log": {
+    "bytes": 116,
+    "sha256": "09c0f0d353aecc5ccc2441e4f3c343107057481686f0e122118a42c7f58a2728"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-10-tcp.log": {
+    "bytes": 116,
+    "sha256": "65a40f5b6c89e425c5efbd6c17bc3bd4d761ad1fe905ddf1dd527c0862186337"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-11-rdma.log": {
+    "bytes": 125,
+    "sha256": "eb15aa47ca83ac6e08f49860edd40ecda41f4d02e5c4bcaf34128a9ab02d44bd"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-18-tcp.log": {
+    "bytes": 116,
+    "sha256": "b039d3b26a1278cd59e71f17653d4edabdb42e58cb43a7558e0bcbc6e95f0352"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-tcp-source.stderr": {
+    "bytes": 22,
+    "sha256": "add2c6822b63a74b6b7ddff44aaa8cd17ce8395ed05fd1434fdddc69af01ba00"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-6-rdma.log": {
+    "bytes": 125,
+    "sha256": "be8472807759c89ccfc9b1716c6d550c7c4aa558da6d322c3a813964e9c07f61"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-tcp-directory.stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rdma-payload-mtu1500-recheck/cpu-4194304-15-rdma.log": {
+    "bytes": 125,
+    "sha256": "e5fdbc19da0db6b942f2684def75ff72577f11e7b520e30d740b6ebccc69023f"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-6-tcp.log": {
+    "bytes": 115,
+    "sha256": "003da5249e8fbe089f76b29f812016ad0c3a3643b4b2cbf91122a8cce691e573"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-2-rdma.log": {
+    "bytes": 125,
+    "sha256": "440b8bff1155e648aa5d48beaefb41f3edfdee2d0cc3a1a8d3b3efffcc675370"
+  },
+  "rdma-payload-mtu1500-recheck/cuda-4194304-20-tcp.log": {
+    "bytes": 116,
+    "sha256": "b4f9f122e49442d2bdbe49bc58d9019ef445f796e64e1274215abe9a6395e2f8"
+  },
+  "nsys-after-disk-serial/directory.conf": {
+    "bytes": 42,
+    "sha256": "d922746166f4dbf03cc20e0a31db448b2ccf464c7c86d8065b1092e72b5b2c61"
+  },
+  "nsys-after-disk-serial/vllm.log": {
+    "bytes": 24455,
+    "sha256": "6c1d6388db2ae407b62435334d0941fed3585c6d8a240fe7c1595fb3ed9f8343"
+  },
+  "nsys-after-disk-serial/trace.nsys-rep": {
+    "bytes": 25360776,
+    "sha256": "3d0e00a66837c15368b3c0db7aeefe7ddde935a7075edce5a2855bc84779797d"
+  },
+  "nsys-after-disk-serial/requests.json": {
+    "bytes": 3433,
+    "sha256": "7931c0bc34d653b92580106b186333ab5c8e544e71a7f35668bb6cd2ff149965"
+  },
+  "nsys-after-disk-serial/trace.sqlite": {
+    "bytes": 109682688,
+    "sha256": "3c7382a95e60e27feee4dab7c378d99168ed9929945953259867d079cbfb419d"
+  },
+  "nsys-after-disk-serial/kvfabric.jsonl": {
+    "bytes": 55067,
+    "sha256": "5f5162e40a4434b0dd7b09ada38e26a17dff807b37a851f0e167b477d48e387d"
+  },
+  "nsys-after-disk-serial/directory.log": {
+    "bytes": 188,
+    "sha256": "749bbdd8527e120797e94686c2906aad19330506f4224eccb0daf341399a25bb"
+  },
+  "matrix-before/kvfabric-disk/directory.conf": {
+    "bytes": 42,
+    "sha256": "9f1947a4fdc0a5f3299c06ec1815b48cfb6b9c6af52636196793619014e92b19"
+  },
+  "matrix-before/kvfabric-disk/vllm.log": {
+    "bytes": 249323,
+    "sha256": "92f19b64bf3f218a331fe0965ed3c793473893c26a80d2e6de861e0c63c958e3"
+  },
+  "matrix-before/kvfabric-disk/requests.jsonl": {
+    "bytes": 8426,
+    "sha256": "c9d2580997fe436e7894867e2067b00d256684b13579a7c3667d9b57fc8040d0"
+  },
+  "matrix-before/kvfabric-disk/summary.jsonl": {
+    "bytes": 1086,
+    "sha256": "93c31e8259dff7e968b678d335d2b39d393c0e5c2620c1ded762d61ab11149a8"
+  },
+  "matrix-before/kvfabric-disk/kvfabric.jsonl": {
+    "bytes": 93493,
+    "sha256": "beaac5bc77163f29246ccd21ffc6d1185b45e7f5c8a01dc25936c0f22d512b5c"
+  },
+  "matrix-before/kvfabric-disk/directory.log": {
+    "bytes": 194,
+    "sha256": "99d1eb3134ee0c1b4a963426c8f3bbbee25996c8295ee4000b70553a6673958d"
+  },
+  "before/scripts/profile_vllm_kv.py": {
+    "bytes": 5674,
+    "sha256": "0f553c5bd932e15aad61a456d30fcd53279d30ab44dcd5e8f38b0862fbd5cacb"
+  },
+  "before/scripts/summarize_native_ncu.py": {
+    "bytes": 3329,
+    "sha256": "67e9ae2dad9c5fb42c17596294bca1f339ab1102f2cdbefff96da6f7709494f9"
+  },
+  "before/docs/resume_ai_infra.md": {
+    "bytes": 4115,
+    "sha256": "a3a93e066e68137f90b1185138aa418a9be62aba100f08d993bd99e895f27f87"
+  },
+  "before/docs/resume_ai_infra.public.md": {
+    "bytes": 4052,
+    "sha256": "3e105106fc819d9b1ffb989923d41acf4d868c0a9189118ff730495947277b6f"
+  },
+  "before/src/worker/direct_io.c": {
+    "bytes": 9181,
+    "sha256": "fd5715dce08b661761728bf55ffd662436b836c8f880b3e80430fd35e6b0e4c7"
+  },
+  "before/src/integration/vllm_bridge.c": {
+    "bytes": 11561,
+    "sha256": "42c1def438e30e9218aee89c19eef609f7cc7b78e6f8214d31d74e120681d6b8"
+  },
+  "before/src/worker/remote/transfer.c": {
+    "bytes": 23253,
+    "sha256": "65cd1caae3dbab43e1aead1a59bdd743c9c64155751076745a5fe9f2a2de4d5c"
+  },
+  "before/integrations/vllm/kvfabric_vllm/connector.py": {
+    "bytes": 20281,
+    "sha256": "6b2dd7777f00fc4b1b208aaaa3bff16005936cde4398f6f1de07b0f83acfe675"
+  },
+  "matrix-final/kvfabric-disk/directory.conf": {
+    "bytes": 42,
+    "sha256": "087a77aa5392a42281ec8215f8ad00ee268348d294a2ad29a1a6f6c9754de9e8"
+  },
+  "matrix-final/kvfabric-disk/vllm.log": {
+    "bytes": 24914,
+    "sha256": "e02db0f31fad29fd8cb3f5ad32d7ab37f5141ad097f16d4b175dac18d2e12b58"
+  },
+  "matrix-final/kvfabric-disk/requests.jsonl": {
+    "bytes": 8442,
+    "sha256": "0be7c0a709bd0ff3100cd9713a36de22241c4d5ce4c078e17e878274059887ca"
+  },
+  "matrix-final/kvfabric-disk/summary.jsonl": {
+    "bytes": 1068,
+    "sha256": "500c8d749b82b76784862fe4405d6df304db220763872c0c368fc4ff1aedbe79"
+  },
+  "matrix-final/kvfabric-disk/kvfabric.jsonl": {
+    "bytes": 90012,
+    "sha256": "26aa0d100036a8e5ff6705ff319fa7d539fc39ec0cc1e4112837ff1983602866"
+  },
+  "matrix-final/kvfabric-disk/directory.log": {
+    "bytes": 176,
+    "sha256": "3cb82a51dc9f797d62b634e4a8a63120434d361eeb653e89ea22a8f3d08049d7"
+  },
+  "matrix-after/kvfabric-disk/directory.conf": {
+    "bytes": 42,
+    "sha256": "19eb32181559406df87ed3a72a2a4bb4cb520d6f92685ff6156441bcccb156de"
+  },
+  "matrix-after/kvfabric-disk/vllm.log": {
+    "bytes": 27613,
+    "sha256": "d3ff7a28a819cc397172d5d8b1e768e90c861063684a726d9372f2719548f136"
+  },
+  "matrix-after/kvfabric-disk/requests.jsonl": {
+    "bytes": 8438,
+    "sha256": "90b641ebd3cdab3e46fe1597ca30539afa9eb53b418f391a16212fab0557d17a"
+  },
+  "matrix-after/kvfabric-disk/summary.jsonl": {
+    "bytes": 1091,
+    "sha256": "a72e251a17dab713f6d6d30bfc59353b212e87c37eca38bc0f072ef818ccd6f3"
+  },
+  "matrix-after/kvfabric-disk/kvfabric.jsonl": {
+    "bytes": 97215,
+    "sha256": "edf0881cadf447b319bbf7a50a959dee3930ad3d3a9660c0470dcdf4aa863c06"
+  },
+  "matrix-after/kvfabric-disk/directory.log": {
+    "bytes": 192,
+    "sha256": "9e63ad256656c0a4c9f8dafd18a71d0211a61ad7cad91a2414d237fdba72f323"
+  }
+}

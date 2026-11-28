@@ -1,0 +1,90 @@
+{
+  "started": "2026-11-28T12:40:13.905642+08:00",
+  "initial_state": {
+    "time": "2026-11-28T12:40:13.900441+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  },
+  "manifest": {
+    "serial": "S4Y4NX0R755035",
+    "pci": "0000:07:00.0",
+    "device_bytes": 512110190592,
+    "regions": [
+      {
+        "name": "first",
+        "offset": 0,
+        "length": 1048576,
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/first.original.bin"
+      },
+      {
+        "name": "scratch",
+        "offset": 1073741824,
+        "length": 134217728,
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/scratch.original.bin"
+      },
+      {
+        "name": "last",
+        "offset": 512109142016,
+        "length": 1048576,
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/last.original.bin"
+      }
+    ]
+  },
+  "production_engines": true,
+  "layer": "A-raw-backend",
+  "rounds": 30,
+  "warmup": 3,
+  "smoke": true,
+  "commands": [],
+  "checks": {
+    "before": [
+      {
+        "name": "first",
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15"
+      },
+      {
+        "name": "scratch",
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      },
+      {
+        "name": "last",
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58"
+      }
+    ],
+    "after": [
+      {
+        "name": "first",
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "matches_original": true
+      },
+      {
+        "name": "scratch",
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "matches_original": true
+      },
+      {
+        "name": "last",
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "matches_original": true
+      }
+    ]
+  },
+  "durability": "non-durable completion",
+  "cpu_cycles_per_io": null,
+  "cpu_cycles_reason": "not collected; CPU process time measured",
+  "cpu_affinity": {
+    "submitter": 4,
+    "io_owner": 2
+  },
+  "numa_policy": "host default, recorded by lscpu",
+  "error": "FileNotFoundError(2, 'No such file or directory')",
+  "final_state": {
+    "time": "2026-11-28T12:40:17.002479+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  },
+  "finished": "2026-11-28T12:40:17.006165+08:00"
+}

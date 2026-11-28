@@ -1,0 +1,46 @@
+{
+  "model": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+  "args": {
+    "model": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct",
+    "fallback_model": null,
+    "lengths": [
+      4096,
+      8192,
+      16384
+    ],
+    "shared": [
+      0.5
+    ],
+    "modes": [
+      "native"
+    ],
+    "out": "/home/wty/Infra/docs/benchmarks/native-linux-final/matrix-native-external-c1",
+    "disk_dir": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/disk",
+    "require_native_nvme": false,
+    "library": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration/libkvf_vllm.so",
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd",
+    "lmcache": "lmcache",
+    "lmcache_chunk": 256,
+    "lmcache_transfer_mode": "auto",
+    "disk_cpu_gib": 2.5,
+    "cache_gib": 1.5,
+    "gpu_gib": 1.0,
+    "concurrency": 1,
+    "requests": 15,
+    "output_tokens": 16,
+    "load_timeout_ms": 30000,
+    "seed": 123,
+    "warmup_requests": 3,
+    "reference": "/home/wty/Infra/docs/benchmarks/native-linux-final/matrix-c1/recompute/requests.jsonl",
+    "legacy_cuda": false,
+    "expected_io_mode": null,
+    "reset_gpu_between_batches": true,
+    "resume": true
+  },
+  "kv_bytes_per_token": 36864,
+  "vllm": "0.31.0",
+  "torch": "2.13.0",
+  "kernel": "6.8.0-138-generic",
+  "batch_invariant": "1",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU, 8188 MiB, 615.71.09"
+}

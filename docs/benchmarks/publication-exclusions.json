@@ -1,0 +1,164 @@
+[
+  {
+    "path": "docs/benchmarks/native-linux-final/resume-final-validation.json",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 1418,
+    "sha256": "b8699d8903dfdd8734ba7bf1f57b1f156be6ddf0e31fe72056404c48f0ac607f"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/resume-layout.log",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 183,
+    "sha256": "43c4472ceccf6aee89f2c93ce14663df37b9344515c5b8d23b0074279342cb77"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/resume-evidence.json",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 21463,
+    "sha256": "bb57d7348238ebd79af38e8dd04e533198dc864ab9580355d3d53f697ee43cf5"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/environment-resume-1795594575529351674.json",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 4607,
+    "sha256": "435219c0b41151f76945259489be35f6cb6e63b06ccd92d153827f5854a9f6cf"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/matrix-c1/environment-resume-1795594033384184870.json",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 4607,
+    "sha256": "435219c0b41151f76945259489be35f6cb6e63b06ccd92d153827f5854a9f6cf"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/resume_ai_infra.md",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 5252,
+    "sha256": "3dcbee9a01c721e37a1d7793949e22fff11f289f9f8d3117aac5cb1d26f61a20"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/generate_resume.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 13759,
+    "sha256": "4429f50fd792ae4e7a4ddf8270b8d345420dc58a55ca60ce475efcba5dbf3e59"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/build_native_resume_content.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 19894,
+    "sha256": "c18e2a4a214ae083819b9188928680a13030820272c7eed6052600df4c9b7c09"
+  },
+  {
+    "path": "docs/benchmarks/native-linux-final/source-final/scripts/render_native_resume.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 1086,
+    "sha256": "0fdf881ad7c66844fc19543426523de3231ec5c21c6d11b167f73a2e0ae6adf7"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/inference-smoke2/fixture/tokenizer-7.bin",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 3633,
+    "sha256": "89a80f270b015b7348feb36b99132ebb0f70e72d965a7603fd74b87a3f7fe4a0"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/inference-smoke2/fixture/model-7.bin",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 113820,
+    "sha256": "f1416115a58eea313d2a2816e38bfacbb59d9fac4b8b31de064c752c6d88cffe"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/inference-smoke/fixture/tokenizer-7.bin",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 3633,
+    "sha256": "89a80f270b015b7348feb36b99132ebb0f70e72d965a7603fd74b87a3f7fe4a0"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/inference-smoke/fixture/model-7.bin",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 113820,
+    "sha256": "f1416115a58eea313d2a2816e38bfacbb59d9fac4b8b31de064c752c6d88cffe"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace4/trace_wrappers.o",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 36280,
+    "sha256": "b85f85b404bc95e73f91a16b071d739980f89282a295224d23c151776e26f2f8"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace4/kvf_migration_trace",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 167112,
+    "sha256": "4754a23b35725f022dacd702dc2e69d4ddb1fad3c9f50dc05f2cc60e25d86aa5"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace2/trace_wrappers.o",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 35456,
+    "sha256": "26a7d81d629ed4408495f0b41133baff857745c2042bcf5197738ecf1347b0d8"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace2/kvf_migration_trace",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 167080,
+    "sha256": "00050ac15a4a3f55527b53ba1d397b6735266cd5942b2b2a45918e7c26a96518"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace3/trace_wrappers.o",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 36280,
+    "sha256": "b85f85b404bc95e73f91a16b071d739980f89282a295224d23c151776e26f2f8"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/pipeline-trace3/kvf_migration_trace",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 167112,
+    "sha256": "4754a23b35725f022dacd702dc2e69d4ddb1fad3c9f50dc05f2cc60e25d86aa5"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/inference/fixture/tokenizer-7.bin",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 3633,
+    "sha256": "89a80f270b015b7348feb36b99132ebb0f70e72d965a7603fd74b87a3f7fe4a0"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v4/inference/fixture/model-7.bin",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 113820,
+    "sha256": "f1416115a58eea313d2a2816e38bfacbb59d9fac4b8b31de064c752c6d88cffe"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v3/raw/source-snapshot/scripts/generate_resume.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 13740,
+    "sha256": "473bd6ab55d3c679f740944f3e31422a1b441cdc1bcd8257946d09ffd0e96314"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v3/raw/source-snapshot/scripts/build_native_resume_content.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 19894,
+    "sha256": "c18e2a4a214ae083819b9188928680a13030820272c7eed6052600df4c9b7c09"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v3/raw/source-snapshot/scripts/render_resume.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 4087,
+    "sha256": "43e517592f0a49f31386428368a551dbbc73e5f30805256d9bb0f4b7f6324aea"
+  },
+  {
+    "path": "docs/benchmarks/spdk-async-2026-11-28/final-v3/raw/source-snapshot/scripts/render_native_resume.py",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 1086,
+    "sha256": "0fdf881ad7c66844fc19543426523de3231ec5c21c6d11b167f73a2e0ae6adf7"
+  },
+  {
+    "path": "docs/benchmarks/perf-attribution-2026-11-26/before/docs/resume_ai_infra.md",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 4115,
+    "sha256": "a3a93e066e68137f90b1185138aa418a9be62aba100f08d993bd99e895f27f87"
+  },
+  {
+    "path": "docs/benchmarks/perf-attribution-2026-11-26/before/docs/resume_ai_infra.public.md",
+    "reason": "generated model fixture/compiler output/private resume tooling; not a performance report",
+    "bytes": 4052,
+    "sha256": "3e105106fc819d9b1ffb989923d41acf4d868c0a9189118ff730495947277b6f"
+  }
+]

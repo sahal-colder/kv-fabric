@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.18)
+project(KvfBackendCompare LANGUAGES C CXX)
+# Separate entry point leaves the normal project/test configuration unchanged.
+set(MINIINFER_WITH_SPDK ON CACHE BOOL "" FORCE)
+set(MINIINFER_WITH_CUDA ON CACHE BOOL "" FORCE)
+set(MINIINFER_WITH_URING ON CACHE BOOL "" FORCE)
+add_subdirectory(../.. kvfabric)
+add_executable(kvf_backend_compare ../kvf_backend_compare.c)
+target_compile_options(kvf_backend_compare PRIVATE -Wall -Wextra -Wpedantic)
+target_link_libraries(kvf_backend_compare PRIVATE miniinfer_storage)

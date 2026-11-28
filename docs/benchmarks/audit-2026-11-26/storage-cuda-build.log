@@ -1,0 +1,147 @@
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/build-baseline-cuda
+Consolidate compiler generated dependencies of target kvfabric
+[  1%] Building C object src/control/CMakeFiles/kvfabric.dir/wire.c.o
+[  2%] Building C object src/control/CMakeFiles/kvfabric.dir/client.c.o
+[  3%] Building C object src/control/CMakeFiles/kvfabric.dir/control.c.o
+[  4%] Building C object src/control/CMakeFiles/kvfabric.dir/identity.c.o
+[  5%] Building C object src/control/CMakeFiles/kvfabric.dir/net.c.o
+[  6%] Building C object src/control/CMakeFiles/kvfabric.dir/directory.c.o
+/home/wty/Infra/src/control/directory.c: In function ‘kvf_directory_worker_status’:
+/home/wty/Infra/src/control/directory.c:257:55: warning: implicit declaration of function ‘strnlen’; did you mean ‘strlen’? [-Wimplicit-function-declaration]
+  257 |     if (!d || !name || !out || !online || !name[0] || strnlen(name, KVF_WORKER_NAME) == KVF_WORKER_NAME)
+      |                                                       ^~~~~~~
+      |                                                       strlen
+[  7%] Linking C static library libkvfabric.a
+[  8%] Built target kvfabric
+Consolidate compiler generated dependencies of target test_kvf_protocol
+Consolidate compiler generated dependencies of target kvfabricd
+Consolidate compiler generated dependencies of target kvfctl
+Consolidate compiler generated dependencies of target miniinfer_storage
+Consolidate compiler generated dependencies of target test_kvf_directory
+Consolidate compiler generated dependencies of target test_remote_e2e
+[  9%] Building C object src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o
+[ 12%] Building C object src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o
+[ 12%] Building C object src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o
+[ 12%] Building C object src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o
+[ 12%] Building C object src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o
+[ 13%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o
+[ 14%] Linking C executable ../../bin/kvfctl
+[ 15%] Linking C executable ../../bin/kvfabricd
+[ 16%] Linking C executable ../../bin/test_kvf_protocol
+[ 16%] Built target kvfctl
+[ 17%] Building C object src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o
+[ 18%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[ 18%] Built target kvfabricd
+[ 19%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 19%] Built target test_kvf_protocol
+[ 20%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[ 21%] Linking C executable ../../bin/test_remote_e2e
+[ 22%] Linking C executable ../../bin/test_kvf_directory
+[ 22%] Built target test_remote_e2e
+[ 22%] Built target test_kvf_directory
+[ 23%] Linking CUDA static library libminiinfer_storage.a
+[ 32%] Built target miniinfer_storage
+Consolidate compiler generated dependencies of target test_kv_cache
+Consolidate compiler generated dependencies of target test_pool
+Consolidate compiler generated dependencies of target test_graph
+Consolidate compiler generated dependencies of target test_tiered
+Consolidate compiler generated dependencies of target miniinfer_basic
+Consolidate compiler generated dependencies of target kvf_nvme_recovery_bench
+[ 33%] Building C object src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o
+[ 34%] Linking CUDA executable ../../bin/test_graph
+[ 35%] Linking CUDA executable ../../bin/test_kv_cache
+[ 37%] Linking CUDA executable ../../bin/miniinfer_basic
+[ 37%] Linking CUDA executable ../../bin/test_tiered
+[ 38%] Linking CUDA executable ../../bin/kvf_nvme_recovery_bench
+[ 40%] Built target kvf_nvme_recovery_bench
+[ 40%] Built target test_kv_cache
+[ 41%] Built target test_graph
+[ 42%] Built target test_tiered
+Consolidate compiler generated dependencies of target test_gpu_mock
+Consolidate compiler generated dependencies of target test_paged_kv
+[ 43%] Linking CUDA executable ../../bin/test_pool
+[ 44%] Linking CUDA executable ../../bin/test_gpu_mock
+[ 45%] Linking CUDA executable ../../bin/test_paged_kv
+[ 46%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 47%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/__/__/tests/worker/test_uring_faults.c.o
+[ 48%] Built target miniinfer_basic
+Consolidate compiler generated dependencies of target test_direct_io
+/home/wty/Infra/tests/worker/test_storage_audit.c: In function ‘__wrap_mi_device_event_record’:
+/home/wty/Infra/tests/worker/test_storage_audit.c:31:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   31 |     if(fail_fence)return MI_EIO;return __real_mi_device_event_record(d,e,s);
+      |     ^~
+/home/wty/Infra/tests/worker/test_storage_audit.c:31:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   31 |     if(fail_fence)return MI_EIO;return __real_mi_device_event_record(d,e,s);
+      |                                 ^~~~~~
+[ 49%] Linking CUDA executable ../../bin/test_direct_io
+/home/wty/Infra/tests/worker/test_uring_faults.c: In function ‘mi_test_get_sqe’:
+/home/wty/Infra/tests/worker/test_uring_faults.c:13:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   13 |     if(mode==1)return NULL;return io_uring_get_sqe(r);
+      |     ^~
+/home/wty/Infra/tests/worker/test_uring_faults.c:13:28: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   13 |     if(mode==1)return NULL;return io_uring_get_sqe(r);
+      |                            ^~~~~~
+[ 50%] Built target test_paged_kv
+[ 51%] Built target test_gpu_mock
+[ 51%] Built target test_pool
+[ 52%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/uring_io.c.o
+Consolidate compiler generated dependencies of target test_remote_lifecycle
+Consolidate compiler generated dependencies of target miniinfer_remote
+[ 53%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[ 54%] Linking CUDA executable ../../bin/test_remote_lifecycle
+[ 55%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[ 56%] Linking CUDA executable ../../bin/test_storage_audit
+[ 57%] Built target test_direct_io
+[ 58%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[ 59%] Built target test_remote_lifecycle
+[ 60%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[ 60%] Built target test_storage_audit
+[ 61%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[ 62%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o
+[ 63%] Linking CUDA executable ../../bin/test_uring_faults
+[ 63%] Built target test_uring_faults
+[ 64%] Linking CUDA static library libminiinfer_remote.a
+[ 64%] Built target miniinfer_remote
+Consolidate compiler generated dependencies of target miniinfer_worker
+Consolidate compiler generated dependencies of target kvf_bench
+Consolidate compiler generated dependencies of target miniinfer_nano
+Consolidate compiler generated dependencies of target test_remote_faults
+Consolidate compiler generated dependencies of target miniinfer
+[ 65%] Building C object src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o
+[ 66%] Building C object src/worker/CMakeFiles/test_remote_audit.dir/__/__/tests/worker/test_remote_audit.c.o
+[ 67%] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o
+[ 67%] Building C object src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o
+[ 68%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o
+[ 69%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o
+[ 70%] Linking CUDA executable ../../bin/test_remote_audit
+[ 71%] Linking CUDA executable ../../bin/miniinfer_worker
+[ 72%] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o
+[ 73%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o
+[ 73%] Built target test_remote_audit
+[ 73%] Built target miniinfer_worker
+Consolidate compiler generated dependencies of target kvf_vllm
+[ 74%] Linking CUDA executable ../../bin/test_remote_faults
+[ 75%] Building C object src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o
+[ 76%] Linking CUDA executable ../../bin/kvf_bench
+[ 77%] Linking CUDA static library libminiinfer_nano.a
+[ 83%] Built target miniinfer_nano
+Consolidate compiler generated dependencies of target nanovllm
+Consolidate compiler generated dependencies of target test_nano_remote_worker
+[ 84%] Building C object src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o
+[ 85%] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o
+[ 85%] Built target kvf_bench
+[ 85%] Built target test_remote_faults
+[ 86%] Linking CUDA executable ../../bin/test_nano_remote_worker
+[ 87%] Linking CUDA executable ../../bin/nanovllm
+[ 88%] Linking CUDA shared library libkvf_vllm.so
+[ 89%] Linking CUDA executable ../../bin/miniinfer
+[ 90%] Built target kvf_vllm
+Consolidate compiler generated dependencies of target kvf_cuda_bench
+[ 91%] Linking CUDA executable ../../bin/kvf_cuda_bench
+[ 91%] Built target test_nano_remote_worker
+[ 92%] Built target nanovllm
+[ 99%] Built target miniinfer
+[100%] Built target kvf_cuda_bench

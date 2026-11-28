@@ -1,0 +1,1709 @@
+{
+  "started": "2026-11-28T11:49:03.531458+08:00",
+  "initial_state": {
+    "time": "2026-11-28T11:49:03.526704+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  },
+  "original_governors": {
+    "/sys/devices/system/cpu/cpufreq/policy2/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor": "powersave"
+  },
+  "manifest": {
+    "serial": "S4Y4NX0R755035",
+    "pci": "0000:07:00.0",
+    "device_bytes": 512110190592,
+    "regions": [
+      {
+        "name": "first",
+        "offset": 0,
+        "length": 1048576,
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/first.original.bin"
+      },
+      {
+        "name": "scratch",
+        "offset": 1073741824,
+        "length": 134217728,
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/scratch.original.bin"
+      },
+      {
+        "name": "last",
+        "offset": 512109142016,
+        "length": 1048576,
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/last.original.bin"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "name": "prepare",
+      "time": "2026-11-28T11:49:04.090243+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "prepare",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "unused",
+        "30",
+        "3",
+        "0"
+      ],
+      "returncode": 0,
+      "wall_s": 0.06408201200065378,
+      "process_user_cpu_s": 0.008635999999999998,
+      "process_system_cpu_s": 0.012473999999999999
+    },
+    {
+      "name": "b1-powersave-uring-serial-qd4",
+      "time": "2026-11-28T11:49:04.157693+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 3.320935367000857,
+      "process_user_cpu_s": 0.303114,
+      "process_system_cpu_s": 1.505535
+    },
+    {
+      "name": "b1-powersave-uring-pipeline-qd4",
+      "time": "2026-11-28T11:49:07.479014+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.270384956000271,
+      "process_user_cpu_s": 0.243398,
+      "process_system_cpu_s": 0.20008000000000004
+    },
+    {
+      "name": "b1-powersave-uring-pipeline-qd8",
+      "time": "2026-11-28T11:49:08.749660+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.220490288998917,
+      "process_user_cpu_s": 0.24537299999999995,
+      "process_system_cpu_s": 0.18851899999999988
+    },
+    {
+      "name": "b1-powersave-uring-pipeline-qd16",
+      "time": "2026-11-28T11:49:09.970424+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2704158600008668,
+      "process_user_cpu_s": 0.2375710000000001,
+      "process_system_cpu_s": 0.20038599999999995
+    },
+    {
+      "name": "b1-powersave-uring-pipeline-qd32",
+      "time": "2026-11-28T11:49:11.244907+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2665281709996634,
+      "process_user_cpu_s": 0.22955900000000007,
+      "process_system_cpu_s": 0.20272700000000032
+    },
+    {
+      "name": "b1-powersave-spdk-serial-qd4",
+      "time": "2026-11-28T11:49:12.761258+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.068322379000165,
+      "process_user_cpu_s": 1.7573530000000002,
+      "process_system_cpu_s": 0.294384
+    },
+    {
+      "name": "b1-powersave-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:49:14.829859+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.121962009001436,
+      "process_user_cpu_s": 1.730289,
+      "process_system_cpu_s": 0.304643
+    },
+    {
+      "name": "b1-powersave-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:49:16.952169+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.071520536001117,
+      "process_user_cpu_s": 1.710527,
+      "process_system_cpu_s": 0.31127899999999986
+    },
+    {
+      "name": "b1-powersave-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:49:19.023984+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072030082999845,
+      "process_user_cpu_s": 1.7130209999999995,
+      "process_system_cpu_s": 0.3246579999999999
+    },
+    {
+      "name": "b1-powersave-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:49:21.096307+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-powersave-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0719009900003584,
+      "process_user_cpu_s": 1.7335890000000003,
+      "process_system_cpu_s": 0.3003140000000002
+    },
+    {
+      "name": "b1-performance-uring-serial-qd4",
+      "time": "2026-11-28T11:49:23.442084+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.3167907499991998,
+      "process_user_cpu_s": 0.2735759999999985,
+      "process_system_cpu_s": 0.2039200000000001
+    },
+    {
+      "name": "b1-performance-uring-pipeline-qd4",
+      "time": "2026-11-28T11:49:24.759251+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2199642969990236,
+      "process_user_cpu_s": 0.23535600000000123,
+      "process_system_cpu_s": 0.19529499999999977
+    },
+    {
+      "name": "b1-performance-uring-pipeline-qd8",
+      "time": "2026-11-28T11:49:25.979546+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2708678810013225,
+      "process_user_cpu_s": 0.23753400000000013,
+      "process_system_cpu_s": 0.21147600000000022
+    },
+    {
+      "name": "b1-performance-uring-pipeline-qd16",
+      "time": "2026-11-28T11:49:27.250750+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.270569272001012,
+      "process_user_cpu_s": 0.2491419999999991,
+      "process_system_cpu_s": 0.19354799999999983
+    },
+    {
+      "name": "b1-performance-uring-pipeline-qd32",
+      "time": "2026-11-28T11:49:28.521748+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.270520846999716,
+      "process_user_cpu_s": 0.2277629999999995,
+      "process_system_cpu_s": 0.20878200000000025
+    },
+    {
+      "name": "b1-performance-spdk-serial-qd4",
+      "time": "2026-11-28T11:49:30.059740+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.118152126999121,
+      "process_user_cpu_s": 1.7768610000000002,
+      "process_system_cpu_s": 0.3032700000000004
+    },
+    {
+      "name": "b1-performance-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:49:32.178266+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0715688439995574,
+      "process_user_cpu_s": 1.7087780000000006,
+      "process_system_cpu_s": 0.3113190000000001
+    },
+    {
+      "name": "b1-performance-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:49:34.250198+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0722080430005008,
+      "process_user_cpu_s": 1.7315549999999984,
+      "process_system_cpu_s": 0.3078769999999995
+    },
+    {
+      "name": "b1-performance-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:49:36.322981+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072010769999906,
+      "process_user_cpu_s": 1.7103770000000011,
+      "process_system_cpu_s": 0.3132520000000003
+    },
+    {
+      "name": "b1-performance-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:49:38.395398+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b1-performance-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "1",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1218951320006454,
+      "process_user_cpu_s": 1.735669999999999,
+      "process_system_cpu_s": 0.31321900000000014
+    },
+    {
+      "name": "b2-performance-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:49:40.521607+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0690524300007382,
+      "process_user_cpu_s": 1.7166110000000003,
+      "process_system_cpu_s": 0.31111100000000036
+    },
+    {
+      "name": "b2-performance-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:49:42.591307+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072193902999061,
+      "process_user_cpu_s": 1.713908,
+      "process_system_cpu_s": 0.31903099999999984
+    },
+    {
+      "name": "b2-performance-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:49:44.664115+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072662233000301,
+      "process_user_cpu_s": 1.7088599999999978,
+      "process_system_cpu_s": 0.3120700000000003
+    },
+    {
+      "name": "b2-performance-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:49:46.737398+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1224760390014126,
+      "process_user_cpu_s": 1.7375190000000025,
+      "process_system_cpu_s": 0.3253439999999994
+    },
+    {
+      "name": "b2-performance-spdk-serial-qd4",
+      "time": "2026-11-28T11:49:48.860547+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1186710889996903,
+      "process_user_cpu_s": 1.7854150000000004,
+      "process_system_cpu_s": 0.30955200000000094
+    },
+    {
+      "name": "b2-performance-uring-pipeline-qd32",
+      "time": "2026-11-28T11:49:51.249756+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2167282690006687,
+      "process_user_cpu_s": 0.23407600000000173,
+      "process_system_cpu_s": 0.19806400000000046
+    },
+    {
+      "name": "b2-performance-uring-pipeline-qd16",
+      "time": "2026-11-28T11:49:52.466914+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2204639940009656,
+      "process_user_cpu_s": 0.22524899999999803,
+      "process_system_cpu_s": 0.20011000000000045
+    },
+    {
+      "name": "b2-performance-uring-pipeline-qd8",
+      "time": "2026-11-28T11:49:53.687791+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2200073109997902,
+      "process_user_cpu_s": 0.23512099999999947,
+      "process_system_cpu_s": 0.18850199999999973
+    },
+    {
+      "name": "b2-performance-uring-pipeline-qd4",
+      "time": "2026-11-28T11:49:54.908222+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2703433349997795,
+      "process_user_cpu_s": 0.2508330000000001,
+      "process_system_cpu_s": 0.1998509999999989
+    },
+    {
+      "name": "b2-performance-uring-serial-qd4",
+      "time": "2026-11-28T11:49:56.179026+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-performance-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.3205376519999845,
+      "process_user_cpu_s": 0.26920700000000153,
+      "process_system_cpu_s": 0.19809600000000138
+    },
+    {
+      "name": "b2-powersave-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:49:57.744121+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0691735929995048,
+      "process_user_cpu_s": 1.7139990000000012,
+      "process_system_cpu_s": 0.31744400000000006
+    },
+    {
+      "name": "b2-powersave-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:49:59.813746+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072602491998623,
+      "process_user_cpu_s": 1.7149959999999993,
+      "process_system_cpu_s": 0.3181119999999993
+    },
+    {
+      "name": "b2-powersave-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:50:01.886845+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0724179099997855,
+      "process_user_cpu_s": 1.729604000000002,
+      "process_system_cpu_s": 0.3047550000000001
+    },
+    {
+      "name": "b2-powersave-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:50:03.959730+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1221487519997027,
+      "process_user_cpu_s": 1.7293769999999995,
+      "process_system_cpu_s": 0.30294100000000057
+    },
+    {
+      "name": "b2-powersave-spdk-serial-qd4",
+      "time": "2026-11-28T11:50:06.082354+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0728134450000653,
+      "process_user_cpu_s": 1.754992999999999,
+      "process_system_cpu_s": 0.3046109999999995
+    },
+    {
+      "name": "b2-powersave-uring-pipeline-qd32",
+      "time": "2026-11-28T11:50:08.414983+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.216612783000528,
+      "process_user_cpu_s": 0.2286810000000017,
+      "process_system_cpu_s": 0.19805399999999906
+    },
+    {
+      "name": "b2-powersave-uring-pipeline-qd16",
+      "time": "2026-11-28T11:50:09.632098+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2199124039998424,
+      "process_user_cpu_s": 0.23129299999999375,
+      "process_system_cpu_s": 0.1951540000000005
+    },
+    {
+      "name": "b2-powersave-uring-pipeline-qd8",
+      "time": "2026-11-28T11:50:10.852533+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2201196440000786,
+      "process_user_cpu_s": 0.23777200000000676,
+      "process_system_cpu_s": 0.20497500000000102
+    },
+    {
+      "name": "b2-powersave-uring-pipeline-qd4",
+      "time": "2026-11-28T11:50:12.073210+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.220350937999683,
+      "process_user_cpu_s": 0.230169999999994,
+      "process_system_cpu_s": 0.19529699999999828
+    },
+    {
+      "name": "b2-powersave-uring-serial-qd4",
+      "time": "2026-11-28T11:50:13.294089+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b2-powersave-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "2",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.3204094920001808,
+      "process_user_cpu_s": 0.2560890000000029,
+      "process_system_cpu_s": 0.1948280000000011
+    },
+    {
+      "name": "b3-powersave-uring-serial-qd4",
+      "time": "2026-11-28T11:50:14.617912+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.318060637000599,
+      "process_user_cpu_s": 0.2728490000000008,
+      "process_system_cpu_s": 0.19460600000000028
+    },
+    {
+      "name": "b3-powersave-uring-pipeline-qd4",
+      "time": "2026-11-28T11:50:15.936519+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2209455800002615,
+      "process_user_cpu_s": 0.21696099999999774,
+      "process_system_cpu_s": 0.2074359999999995
+    },
+    {
+      "name": "b3-powersave-uring-pipeline-qd8",
+      "time": "2026-11-28T11:50:17.158018+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.220054297000388,
+      "process_user_cpu_s": 0.22391199999999856,
+      "process_system_cpu_s": 0.20221100000000014
+    },
+    {
+      "name": "b3-powersave-uring-pipeline-qd16",
+      "time": "2026-11-28T11:50:18.378606+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2202861929999926,
+      "process_user_cpu_s": 0.2369900000000058,
+      "process_system_cpu_s": 0.19399199999999972
+    },
+    {
+      "name": "b3-powersave-uring-pipeline-qd32",
+      "time": "2026-11-28T11:50:19.599449+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2201904470002773,
+      "process_user_cpu_s": 0.22246799999999922,
+      "process_system_cpu_s": 0.2042660000000005
+    },
+    {
+      "name": "b3-powersave-spdk-serial-qd4",
+      "time": "2026-11-28T11:50:21.064437+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0688886389998515,
+      "process_user_cpu_s": 1.7616289999999992,
+      "process_system_cpu_s": 0.30893499999999996
+    },
+    {
+      "name": "b3-powersave-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:50:23.134258+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1227225590009766,
+      "process_user_cpu_s": 1.7303360000000012,
+      "process_system_cpu_s": 0.3146059999999995
+    },
+    {
+      "name": "b3-powersave-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:50:25.257900+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0718924249995325,
+      "process_user_cpu_s": 1.7218149999999994,
+      "process_system_cpu_s": 0.3218350000000001
+    },
+    {
+      "name": "b3-powersave-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:50:27.330368+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.071782778999477,
+      "process_user_cpu_s": 1.7140500000000003,
+      "process_system_cpu_s": 0.3110090000000003
+    },
+    {
+      "name": "b3-powersave-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:50:29.402789+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-powersave-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0720854659994075,
+      "process_user_cpu_s": 1.7338609999999974,
+      "process_system_cpu_s": 0.3002059999999993
+    },
+    {
+      "name": "b3-performance-uring-serial-qd4",
+      "time": "2026-11-28T11:50:31.744405+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.3166988939992734,
+      "process_user_cpu_s": 0.26856699999999734,
+      "process_system_cpu_s": 0.2029399999999999
+    },
+    {
+      "name": "b3-performance-uring-pipeline-qd4",
+      "time": "2026-11-28T11:50:33.061744+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2702334260011412,
+      "process_user_cpu_s": 0.24309800000000337,
+      "process_system_cpu_s": 0.19770600000000016
+    },
+    {
+      "name": "b3-performance-uring-pipeline-qd8",
+      "time": "2026-11-28T11:50:34.332565+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.220165998000084,
+      "process_user_cpu_s": 0.2286890000000028,
+      "process_system_cpu_s": 0.19365599999999894
+    },
+    {
+      "name": "b3-performance-uring-pipeline-qd16",
+      "time": "2026-11-28T11:50:35.553426+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2201662739989843,
+      "process_user_cpu_s": 0.21953699999999543,
+      "process_system_cpu_s": 0.2093260000000008
+    },
+    {
+      "name": "b3-performance-uring-pipeline-qd32",
+      "time": "2026-11-28T11:50:36.774242+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2702713670005323,
+      "process_user_cpu_s": 0.2490670000000037,
+      "process_system_cpu_s": 0.1996570000000002
+    },
+    {
+      "name": "b3-performance-spdk-serial-qd4",
+      "time": "2026-11-28T11:50:38.273029+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1187764950009296,
+      "process_user_cpu_s": 1.7718830000000025,
+      "process_system_cpu_s": 0.30358099999999943
+    },
+    {
+      "name": "b3-performance-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:50:40.392435+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0725080610009172,
+      "process_user_cpu_s": 1.7362380000000002,
+      "process_system_cpu_s": 0.29723900000000114
+    },
+    {
+      "name": "b3-performance-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:50:42.465963+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072614493999936,
+      "process_user_cpu_s": 1.694390999999996,
+      "process_system_cpu_s": 0.3183279999999993
+    },
+    {
+      "name": "b3-performance-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:50:44.539617+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0725936029994045,
+      "process_user_cpu_s": 1.7308960000000013,
+      "process_system_cpu_s": 0.29732600000000176
+    },
+    {
+      "name": "b3-performance-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:50:46.613272+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b3-performance-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "3",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.1225552930009144,
+      "process_user_cpu_s": 1.7219219999999993,
+      "process_system_cpu_s": 0.31407399999999797
+    },
+    {
+      "name": "b4-performance-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:50:48.740616+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0689927179992083,
+      "process_user_cpu_s": 1.752752000000001,
+      "process_system_cpu_s": 0.3230879999999985
+    },
+    {
+      "name": "b4-performance-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:50:50.810413+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0686364120010694,
+      "process_user_cpu_s": 1.7060940000000002,
+      "process_system_cpu_s": 0.31430699999999945
+    },
+    {
+      "name": "b4-performance-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:50:52.879805+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0721752509998623,
+      "process_user_cpu_s": 1.7235700000000023,
+      "process_system_cpu_s": 0.3107250000000015
+    },
+    {
+      "name": "b4-performance-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:50:54.952632+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.122301613999298,
+      "process_user_cpu_s": 1.7261900000000026,
+      "process_system_cpu_s": 0.3184819999999995
+    },
+    {
+      "name": "b4-performance-spdk-serial-qd4",
+      "time": "2026-11-28T11:50:57.075590+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.072246796999025,
+      "process_user_cpu_s": 1.763194999999996,
+      "process_system_cpu_s": 0.3030019999999993
+    },
+    {
+      "name": "b4-performance-uring-pipeline-qd32",
+      "time": "2026-11-28T11:50:59.408784+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.267076996000469,
+      "process_user_cpu_s": 0.23497300000001076,
+      "process_system_cpu_s": 0.20126400000000189
+    },
+    {
+      "name": "b4-performance-uring-pipeline-qd16",
+      "time": "2026-11-28T11:51:00.676568+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.270241423000698,
+      "process_user_cpu_s": 0.23636299999999721,
+      "process_system_cpu_s": 0.20592900000000114
+    },
+    {
+      "name": "b4-performance-uring-pipeline-qd8",
+      "time": "2026-11-28T11:51:01.947526+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2704826480003248,
+      "process_user_cpu_s": 0.22934699999998998,
+      "process_system_cpu_s": 0.20452599999999777
+    },
+    {
+      "name": "b4-performance-uring-pipeline-qd4",
+      "time": "2026-11-28T11:51:03.218716+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.271134874999916,
+      "process_user_cpu_s": 0.26239800000000457,
+      "process_system_cpu_s": 0.20207699999999917
+    },
+    {
+      "name": "b4-performance-uring-serial-qd4",
+      "time": "2026-11-28T11:51:04.490682+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-performance-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.3205404350010213,
+      "process_user_cpu_s": 0.28173400000000015,
+      "process_system_cpu_s": 0.20580500000000157
+    },
+    {
+      "name": "b4-powersave-spdk-pipeline-qd32",
+      "time": "2026-11-28T11:51:06.053797+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-spdk-pipeline-qd32.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.069100974998946,
+      "process_user_cpu_s": 1.7039600000000092,
+      "process_system_cpu_s": 0.32379299999999844
+    },
+    {
+      "name": "b4-powersave-spdk-pipeline-qd16",
+      "time": "2026-11-28T11:51:08.124091+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-spdk-pipeline-qd16.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.122374235999814,
+      "process_user_cpu_s": 1.7254199999999997,
+      "process_system_cpu_s": 0.3051889999999986
+    },
+    {
+      "name": "b4-powersave-spdk-pipeline-qd8",
+      "time": "2026-11-28T11:51:10.247663+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-spdk-pipeline-qd8.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.0726726680004504,
+      "process_user_cpu_s": 1.7173889999999972,
+      "process_system_cpu_s": 0.31560200000000194
+    },
+    {
+      "name": "b4-powersave-spdk-pipeline-qd4",
+      "time": "2026-11-28T11:51:12.321342+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-spdk-pipeline-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 2.068791728999713,
+      "process_user_cpu_s": 1.7360529999999983,
+      "process_system_cpu_s": 0.3097229999999982
+    },
+    {
+      "name": "b4-powersave-spdk-serial-qd4",
+      "time": "2026-11-28T11:51:14.390967+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "spdk",
+        "/etc/kvfabric/spdk-samsung.json",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-spdk-serial-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 2.07217707700147,
+      "process_user_cpu_s": 1.758316999999991,
+      "process_system_cpu_s": 0.31199100000000257
+    },
+    {
+      "name": "b4-powersave-uring-pipeline-qd32",
+      "time": "2026-11-28T11:51:16.723068+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "32",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-uring-pipeline-qd32.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2669731820005836,
+      "process_user_cpu_s": 0.22920799999999986,
+      "process_system_cpu_s": 0.2093630000000033
+    },
+    {
+      "name": "b4-powersave-uring-pipeline-qd16",
+      "time": "2026-11-28T11:51:17.990876+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "16",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-uring-pipeline-qd16.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2701438130006864,
+      "process_user_cpu_s": 0.24372800000000439,
+      "process_system_cpu_s": 0.20095099999999988
+    },
+    {
+      "name": "b4-powersave-uring-pipeline-qd8",
+      "time": "2026-11-28T11:51:19.261817+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "8",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-uring-pipeline-qd8.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.2701171339995199,
+      "process_user_cpu_s": 0.26037100000000635,
+      "process_system_cpu_s": 0.19603199999999887
+    },
+    {
+      "name": "b4-powersave-uring-pipeline-qd4",
+      "time": "2026-11-28T11:51:20.532741+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-uring-pipeline-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "pipeline"
+      ],
+      "returncode": 0,
+      "wall_s": 1.270050586999787,
+      "process_user_cpu_s": 0.242999999999995,
+      "process_system_cpu_s": 0.20250000000000057
+    },
+    {
+      "name": "b4-powersave-uring-serial-qd4",
+      "time": "2026-11-28T11:51:21.803600+08:00",
+      "argv": [
+        "/home/wty/Infra/build-backend-compare/kvf_backend_compare",
+        "uring",
+        "/dev/nvme0n1",
+        "4",
+        "gpu",
+        "/home/wty/Infra/docs/benchmarks/spdk-pipeline-2026-11-28/b4-powersave-uring-serial-qd4.csv",
+        "30",
+        "3",
+        "4",
+        "serial"
+      ],
+      "returncode": 0,
+      "wall_s": 1.3205283290008083,
+      "process_user_cpu_s": 0.28223699999999496,
+      "process_system_cpu_s": 0.19824999999999804
+    }
+  ],
+  "checks": {
+    "before": [
+      {
+        "name": "first",
+        "backup_sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "raw_direct_sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15"
+      },
+      {
+        "name": "scratch",
+        "backup_sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "raw_direct_sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      },
+      {
+        "name": "last",
+        "backup_sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "raw_direct_sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58"
+      }
+    ],
+    "after": [
+      {
+        "name": "first",
+        "raw_direct_sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "matches_original": true
+      },
+      {
+        "name": "scratch",
+        "raw_direct_sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "matches_original": true
+      },
+      {
+        "name": "last",
+        "raw_direct_sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "matches_original": true
+      }
+    ]
+  },
+  "smoke": false,
+  "source_commit": "0ad62c3af3ab05b731aafb59569f11e21ccfecec",
+  "final_state": {
+    "time": "2026-11-28T11:51:23.589682+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  },
+  "final_governors": {
+    "/sys/devices/system/cpu/cpufreq/policy2/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor": "powersave"
+  },
+  "finished": "2026-11-28T11:51:23.592823+08:00"
+}

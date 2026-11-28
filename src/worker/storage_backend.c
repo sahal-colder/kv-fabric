@@ -2,26 +2,31 @@
  * Storage 物理层。对象拥有 slot 元数据及 SSD 资源，内存 Slab 借自调用方的池。
  * 锁顺序：Storage -> Backend 槽锁；放开槽锁才执行设备或定位 I/O。
  */
+#define _GNU_SOURCE
 #define _FILE_OFFSET_BITS 64
 #define _POSIX_C_SOURCE 200809L
 #include "storage_internal.h"
 #include "allocator_internal.h"
 #include "miniinfer/device_transfer.h"
 #include "direct_io.h"
-#include "storage_crc.h"
+#include "storage_record.h"
 #include "io_transfer.h"
 #include "segment_pool.h"
 #ifdef MINIINFER_WITH_SPDK
 #include "spdk_bridge.h"
 #endif
 #include <fcntl.h>
+#include <errno.h>
+#include <linux/fs.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
 enum { HEADER_BYTES = 64, SLOT_ALIGNMENT = 256, SPDK_SECTOR = 4096,
-       GPU_TRANSFER_SLOTS = 64 }; /* Match the maximum concurrent Worker lanes. */
+       GPU_TRANSFER_SLOTS = 128 }; /* Match the maximum concurrent Worker lanes. */
 typedef enum { BACKEND_MEMORY, BACKEND_POSIX, BACKEND_URING, BACKEND_SPDK, BACKEND_DIRECT } backend_kind;
 static const char ssd_magic[8] = "MIFSSD1";
 
@@ -44,6 +49,7 @@ struct mi_storage_backend {
     storage_slot *slots;
     int attached, device;
     pthread_mutex_t mutex;
+    pthread_cond_t io_changed;
     union {
         struct {
             mi_mempool *pool;
@@ -54,7 +60,9 @@ struct mi_storage_backend {
             ssd_slot *records;
             mi_ssd_verify verify;
             int fd;
+            uint64_t base_offset;
             mi_direct_io *direct;
+            mi_segment_pool *records_pool;
 #ifdef MINIINFER_WITH_URING
             mi_uring *ring;
 #endif
@@ -64,6 +72,7 @@ struct mi_storage_backend {
         } ssd;
     };
     /* Keep fault-only state away from the CPU slot/mutex cache lines. */
+    atomic_uint_fast64_t metrics[5];
     atomic_bool gpu_pending;
     struct mi_storage_backend *retired_next;
     int retired, destroy_requested;
@@ -100,6 +109,8 @@ static mi_status backend_create(backend_kind kind, mi_location location, size_t 
     if (pthread_mutex_init(&b->mutex, NULL) != 0)
         goto failed;
 
+    for(unsigned i=0;i<5;++i) atomic_init(&b->metrics[i],0);
+    if (pthread_cond_init(&b->io_changed, NULL)) { pthread_mutex_destroy(&b->mutex); goto failed; }
     b->kind = kind;
     b->location = location;
     b->device = -1;
@@ -155,7 +166,7 @@ mi_status mi_memory_backend_create(mi_location location, size_t bytes, mi_mempoo
     if (location == MI_LOCATION_GPU) {
         /* Fixed, bounded ownership: no DMA ever outlives borrowed host memory.
          * Cover every serving lane without reducing existing concurrency. */
-        st = mi_segment_pool_create(b->device, bytes, GPU_TRANSFER_SLOTS, 0, &b->memory.transfers);
+        st = mi_segment_pool_create(b->device, bytes, GPU_TRANSFER_SLOTS, 1, &b->memory.transfers);
         if (st != MI_OK) {
             mi_backend_destroy(b);
             return st;
@@ -177,7 +188,7 @@ static mi_status open_file(const char *path, const char *dir, size_t bytes, size
                             mi_ssd_verify verify, backend_kind kind, unsigned depth, int device,
                             mi_storage_backend **out) {
     if (!out || !bytes || (unsigned)verify > MI_SSD_VERIFY_READ_BACK ||
-        ((kind == BACKEND_URING || kind == BACKEND_DIRECT) && (!depth || depth > 64)))
+        ((kind == BACKEND_URING || kind == BACKEND_DIRECT) && (!depth || depth > 128)))
         return MI_EINVAL;
     *out = NULL;
 #ifndef MINIINFER_WITH_URING
@@ -278,6 +289,41 @@ mi_status mi_ssd_direct_backend_create(const char *path, size_t bytes, size_t ca
     return open_file(path, "/tmp", bytes, capacity, verify, BACKEND_DIRECT, depth, device, out);
 }
 
+mi_status mi_ssd_raw_uring_backend_create(const char *path, uint64_t offset, size_t capacity,
+                                          size_t bytes, mi_ssd_verify verify, unsigned depth,
+                                          int device, unsigned io_cpu_plus_one, mi_storage_backend **out) {
+    if (!out || !path || !bytes || offset%4096 || capacity%4096 || !depth || depth>128 ||
+        (unsigned)verify>MI_SSD_VERIFY_READ_BACK || offset>INT64_MAX || capacity>INT64_MAX-offset)
+        return MI_EINVAL;
+    *out=NULL;
+#ifndef MINIINFER_WITH_URING
+    (void)device; (void)io_cpu_plus_one;
+    return MI_EUNSUPPORTED;
+#else
+    size_t stride;
+    mi_status st=ssd_layout(bytes,capacity,MI_RECORD_HEADER,4096,&stride);
+    if(st!=MI_OK) return st;
+    int fd=-1;
+    for(unsigned retry=0;retry<200;++retry) {
+        fd=open(path,O_RDWR|O_DIRECT|O_EXCL|O_CLOEXEC);
+        if(fd>=0 || errno!=EBUSY) break;
+        usleep(10000);
+    }
+    if(fd<0) return MI_EIO;
+    struct stat sb; uint64_t size=0;
+    if(fstat(fd,&sb) || !S_ISBLK(sb.st_mode) || ioctl(fd,BLKGETSIZE64,&size) ||
+        offset>size || capacity>size-offset) { close(fd); return MI_EINVAL; }
+    mi_storage_backend *b;
+    st=backend_create(BACKEND_DIRECT,MI_LOCATION_SSD,bytes,stride,capacity/stride,&b);
+    if(st!=MI_OK) { close(fd); return st; }
+    b->ssd.fd=fd; b->ssd.base_offset=offset; b->ssd.verify=verify; b->device=device;
+    st=mi_direct_create_ex(fd,device,stride,depth,io_cpu_plus_one,&b->ssd.direct);
+    if(st==MI_OK && strcmp(mi_direct_mode(b->ssd.direct),"direct-uring-fixed")) st=MI_EUNSUPPORTED;
+    if(st!=MI_OK) { mi_backend_destroy(b); return st; }
+    *out=b; return MI_OK;
+#endif
+}
+
 const char *mi_ssd_file_io_name(const mi_storage_backend *b) {
     switch (b->kind) {
     case BACKEND_DIRECT: return mi_direct_mode(b->ssd.direct);
@@ -287,7 +333,7 @@ const char *mi_ssd_file_io_name(const mi_storage_backend *b) {
     }
 }
 
-mi_status mi_ssd_spdk_backend_create(mi_spdk_config cfg, size_t bytes, mi_ssd_verify verify,
+mi_status mi_ssd_spdk_backend_create_ex(mi_spdk_config cfg, mi_spdk_options options, size_t bytes, mi_ssd_verify verify,
                                      mi_storage_backend **out) {
     if (!out || !bytes || (unsigned)verify > MI_SSD_VERIFY_READ_BACK ||
         !cfg.json_config || !*cfg.json_config || !cfg.bdev_name || !*cfg.bdev_name ||
@@ -295,7 +341,7 @@ mi_status mi_ssd_spdk_backend_create(mi_spdk_config cfg, size_t bytes, mi_ssd_ve
         return MI_EINVAL;
     *out = NULL;
     size_t stride;
-    mi_status st = ssd_layout(bytes, cfg.capacity_bytes, HEADER_BYTES, SPDK_SECTOR, &stride);
+    mi_status st = ssd_layout(bytes, cfg.capacity_bytes, MI_RECORD_HEADER, SPDK_SECTOR, &stride);
     if (st != MI_OK)
         return st;
 #ifdef MINIINFER_WITH_SPDK
@@ -303,17 +349,26 @@ mi_status mi_ssd_spdk_backend_create(mi_spdk_config cfg, size_t bytes, mi_ssd_ve
     st = backend_create(BACKEND_SPDK, MI_LOCATION_SSD, bytes, stride, cfg.capacity_bytes / stride, &b);
     if (st != MI_OK)
         return st;
-    st = mi_spdk_open(cfg, &b->ssd.spdk);
+    st = mi_spdk_open_ex(cfg, options, &b->ssd.spdk);
     if (st != MI_OK) {
         mi_backend_destroy(b);
         return st;
     }
+    st = mi_segment_pool_create(-1, stride, options.buffer_count ? options.buffer_count :
+            (options.queue_depth ? options.queue_depth : 32), 0, &b->ssd.records_pool);
+    if (st != MI_OK) { mi_backend_destroy(b); return st; }
     b->ssd.verify = verify;
     *out = b;
     return MI_OK;
 #else
+    (void)options;
     return MI_EUNSUPPORTED;
 #endif
+}
+
+mi_status mi_ssd_spdk_backend_create(mi_spdk_config cfg, size_t bytes, mi_ssd_verify verify,
+                                     mi_storage_backend **out) {
+    return mi_ssd_spdk_backend_create_ex(cfg, (mi_spdk_options){0}, bytes, verify, out);
 }
 
 mi_location mi_backend_location(const mi_storage_backend *b) {
@@ -344,6 +399,7 @@ int mi_backend_gpu_pending(const mi_storage_backend *b) {
 
 static mi_status gpu_transfer(mi_storage_backend *b, void *ptr, void *host,
                                size_t bytes, int write, mi_stream stream, mi_event event) {
+    uint64_t started=mi_io_now_ns();
     mi_status st = write
         ? mi_device_copy_from_host(b->device, ptr, host, bytes, stream)
         : mi_device_copy_to_host(b->device, host, ptr, bytes, stream);
@@ -373,6 +429,7 @@ static mi_status gpu_transfer(mi_storage_backend *b, void *ptr, void *host,
     }
     if (!complete)
         atomic_store_explicit(&b->gpu_pending, 1, memory_order_release);
+    atomic_fetch_add_explicit(&b->metrics[write?4:3],mi_io_now_ns()-started,memory_order_relaxed);
     return st;
 }
 
@@ -387,6 +444,7 @@ mi_status mi_backend_gpu_copy(mi_storage_backend *b, mi_storage_handle handle,
         return MI_EBUSY;
     if (write)
         memcpy(scratch->data, host, bytes);
+    if (!stream) { stream = scratch->stream; event = scratch->event; }
     mi_status st = gpu_transfer(b, mi_backend_reserved_ptr(b, handle) + offset,
                                 scratch->data, bytes, write, stream, event);
     int complete = !mi_backend_gpu_pending(b);
@@ -404,8 +462,15 @@ mi_status mi_backend_gpu_copy(mi_storage_backend *b, mi_storage_handle handle,
 
 mi_status mi_backend_gpu_copy_owned(mi_storage_backend *b, mi_storage_handle handle,
                                      void *host, size_t bytes, int write) {
-    return mi_backend_gpu_pending(b) ? MI_EIO
-        : gpu_transfer(b, mi_backend_reserved_ptr(b, handle), host, bytes, write, NULL, NULL);
+    if (mi_backend_gpu_pending(b)) return MI_EIO;
+    mi_segment_pool *pool = b->memory.transfers;
+    mi_segment *lane = mi_segment_acquire(pool, 0, pool->count);
+    if (!lane) return MI_EBUSY;
+    mi_status st = gpu_transfer(b, mi_backend_reserved_ptr(b, handle), host, bytes, write,
+                                lane->stream, lane->event);
+    if (mi_backend_gpu_pending(b)) mi_segment_quarantine(lane);
+    else mi_segment_release(lane);
+    return st;
 }
 
 mi_status mi_backend_attach(mi_storage_backend *b, size_t limit, size_t *slots) {
@@ -508,7 +573,7 @@ mi_status mi_backend_memory_view(mi_storage_backend *b, mi_storage_handle handle
 }
 
 /* 按后端类型直调定位 I/O 实现。 */
-static mi_status ssd_transfer(mi_storage_backend *b, int write, mi_io_range range) {
+static mi_status ssd_dispatch(mi_storage_backend *b, int write, mi_io_range range) {
     switch (b->kind) {
     case BACKEND_POSIX:
         return mi_posix_transfer(b->ssd.fd, write, range);
@@ -523,6 +588,13 @@ static mi_status ssd_transfer(mi_storage_backend *b, int write, mi_io_range rang
     default:
         return MI_EUNSUPPORTED;
     }
+}
+
+static mi_status ssd_transfer(mi_storage_backend *b, int write, mi_io_range range) {
+    uint64_t started=mi_io_now_ns();
+    mi_status st=ssd_dispatch(b,write,range);
+    atomic_fetch_add_explicit(&b->metrics[0],mi_io_now_ns()-started,memory_order_relaxed);
+    return st;
 }
 
 /* 校验槽内范围。内存走拷贝，SSD 走定位传输。 */
@@ -554,7 +626,7 @@ static mi_status data_transfer(mi_storage_backend *b, mi_storage_handle handle,
     if (!bytes)
         return MI_OK;
     if (record) {
-        uint64_t base = slot_index(handle) * b->stride + HEADER_BYTES;
+        uint64_t base = slot_index(handle) * b->stride + (b->kind == BACKEND_SPDK ? MI_RECORD_HEADER : HEADER_BYTES);
         mi_status st = ssd_transfer(b, write, (mi_io_range){.data = data, .data_bytes = bytes,
                                                              .offset = base + offset});
         if (st == MI_OK && write) {
@@ -630,6 +702,69 @@ static mi_status checksum_payload(mi_storage_backend *b, uint64_t offset, size_t
     return MI_OK;
 }
 
+/* Caller owns the disk slot. Buffer pool bounds staging without per-I/O allocation. */
+static mi_status aligned_record(mi_storage_backend *b, mi_storage_handle handle,
+                                 const mi_block_meta *m, void *data, int write) {
+    /* Full aligned Pages gather/scatter directly between the source/destination
+     * and their request-owned DMA slot. No full-Page intermediate memcpy.
+     * Keep padded/legacy publication and strict read-back on the pooled path. */
+    if (data && m->size%4096==0 && m->size+MI_RECORD_HEADER==b->stride &&
+        (!write || b->ssd.verify!=MI_SSD_VERIFY_READ_BACK)) {
+        unsigned char header[MI_RECORD_HEADER];
+        if (write) {
+            uint64_t t=mi_io_now_ns();
+            mi_record_encode(header,m,mi_crc32c(0,data,m->size));
+            atomic_fetch_add_explicit(&b->metrics[1],mi_io_now_ns()-t,memory_order_relaxed);
+        }
+        mi_status st=ssd_transfer(b,write,(mi_io_range){header,sizeof(header),data,m->size,
+                                                        slot_index(handle)*b->stride});
+        if (st==MI_OK && !write) {
+            uint64_t t=mi_io_now_ns();
+            if(!mi_record_valid_payload(header,data,m,b->ssd.verify)) st=MI_ECRC;
+            atomic_fetch_add_explicit(&b->metrics[1],mi_io_now_ns()-t,memory_order_relaxed);
+        }
+        return st;
+    }
+    mi_segment *slot;
+    pthread_mutex_lock(&b->mutex);
+    while (!(slot=mi_segment_acquire(b->ssd.records_pool,0,b->ssd.records_pool->count)))
+        pthread_cond_wait(&b->io_changed,&b->mutex);
+    pthread_mutex_unlock(&b->mutex);
+    unsigned char *p = slot->data, *payload = p + MI_RECORD_HEADER;
+    uint64_t base = slot_index(handle) * b->stride;
+    mi_io_range range = {.data=p, .data_bytes=b->stride, .offset=base};
+    mi_status st = MI_OK;
+    if (write) {
+        if (data) {
+            uint64_t t=mi_io_now_ns(); memcpy(payload,data,m->size);
+            atomic_fetch_add_explicit(&b->metrics[2],mi_io_now_ns()-t,memory_order_relaxed);
+        }
+        else st = ssd_transfer(b, 0, range); /* legacy partial-write publication */
+        if (st == MI_OK) {
+            memset(payload+m->size, 0, b->stride-MI_RECORD_HEADER-m->size);
+            uint64_t t=mi_io_now_ns();
+            mi_record_encode(p, m, mi_crc32c(0,payload,m->size));
+            atomic_fetch_add_explicit(&b->metrics[1],mi_io_now_ns()-t,memory_order_relaxed);
+            st = ssd_transfer(b, 1, range);
+        }
+    }
+    if (st == MI_OK && (!write || b->ssd.verify == MI_SSD_VERIFY_READ_BACK)) {
+        st = ssd_transfer(b, 0, range);
+        uint64_t t=mi_io_now_ns();
+        if (st == MI_OK && !mi_record_valid(p,m,b->ssd.verify)) st = MI_ECRC;
+        atomic_fetch_add_explicit(&b->metrics[1],mi_io_now_ns()-t,memory_order_relaxed);
+    }
+    if (st == MI_OK && !write) {
+        uint64_t t=mi_io_now_ns(); memcpy(data,payload,m->size);
+        atomic_fetch_add_explicit(&b->metrics[2],mi_io_now_ns()-t,memory_order_relaxed);
+    }
+    pthread_mutex_lock(&b->mutex);
+    mi_segment_release(slot);
+    pthread_cond_signal(&b->io_changed);
+    pthread_mutex_unlock(&b->mutex);
+    return st;
+}
+
 static mi_status publish(mi_storage_backend *b, mi_storage_handle handle,
                           const mi_block_meta *m, const void *data) {
     pthread_mutex_lock(&b->mutex);
@@ -643,6 +778,15 @@ static mi_status publish(mi_storage_backend *b, mi_storage_handle handle,
     if (blocked)
         return MI_ESTATE;
 
+    if (b->kind == BACKEND_SPDK) {
+        mi_status st = aligned_record(b, handle, m, (void *)data, 1);
+        if (st == MI_OK) {
+            pthread_mutex_lock(&b->mutex);
+            record->sealed_bytes = m->size;
+            pthread_mutex_unlock(&b->mutex);
+        }
+        return st;
+    }
     uint64_t base = slot_index(handle) * b->stride;
     uint32_t crc;
     mi_status st = MI_OK;
@@ -715,6 +859,7 @@ mi_status mi_backend_read_validated(mi_storage_backend *b, mi_storage_handle han
     if (sealed != m->size)
         return MI_ECRC;
 
+    if (b->kind == BACKEND_SPDK) return aligned_record(b, handle, m, data, 0);
     unsigned char header[HEADER_BYTES];
     uint64_t base = slot_index(handle) * b->stride;
     mi_status st = ssd_transfer(b, 0, (mi_io_range){header, sizeof(header), data, m->size, base});
@@ -740,7 +885,7 @@ mi_status mi_backend_direct_move(mi_storage_backend *b, mi_storage_handle handle
     pthread_mutex_unlock(&b->mutex);
     if (write ? sealed != 0 : sealed != m->size)
         return MI_ESTATE;
-    mi_status st = mi_direct_record(b->ssd.direct, write, slot_index(handle) * b->stride,
+    mi_status st = mi_direct_record(b->ssd.direct, write, b->ssd.base_offset + slot_index(handle) * b->stride,
                                     m, data, device, b->ssd.verify);
     if (st == MI_OK && write) {
         pthread_mutex_lock(&b->mutex);
@@ -778,6 +923,7 @@ void mi_backend_destroy(mi_storage_backend *b) {
         if (b->memory.pool)
             mi_mempool_drop(b->memory.pool);
     } else {
+        mi_segment_pool_destroy(b->ssd.records_pool);
         mi_direct_destroy(b->ssd.direct);
 #ifdef MINIINFER_WITH_URING
         if (b->ssd.ring)
@@ -791,8 +937,20 @@ void mi_backend_destroy(mi_storage_backend *b) {
             close(b->ssd.fd);
         free(b->ssd.records);
     }
+    pthread_cond_destroy(&b->io_changed);
     pthread_mutex_destroy(&b->mutex);
     free(b->slots);
     free(b->free_slots);
     free(b);
+}
+
+void mi_backend_get_metrics(mi_storage_backend *b, mi_storage_metrics *out) {
+    if(!b || !out) return;
+    if(b->kind==BACKEND_DIRECT) { mi_direct_get_metrics(b->ssd.direct,out); return; }
+    uint64_t v[5];
+    for(unsigned i=0;i<5;++i) v[i]=atomic_load_explicit(&b->metrics[i],memory_order_relaxed);
+#ifdef MINIINFER_WITH_SPDK
+    if(b->kind==BACKEND_SPDK) { mi_spdk_stats stats; mi_spdk_get_stats(b->ssd.spdk,&stats); v[2]+=stats.copy_ns; }
+#endif
+    *out=(mi_storage_metrics){v[0],v[1],v[2],v[3],v[4]};
 }

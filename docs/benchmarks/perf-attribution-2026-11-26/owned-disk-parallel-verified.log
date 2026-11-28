@@ -1,0 +1,2 @@
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=5
+{"passed": true, "batch_pages": 8, "read_lanes": 4, "verified_full_batch_bytes": 188743680, "cases": ["full batch", "first failed page returns prefix only", "zero timeout", "concurrent background publication", "persisted CRC corruption"]}

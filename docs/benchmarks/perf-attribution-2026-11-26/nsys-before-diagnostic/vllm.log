@@ -1,0 +1,538 @@
+vllm serve .kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct --host 127.0.0.1 --port 51533 --served-model-name kvf-bench --dtype bfloat16 --block-size 16 --attention-backend FLASH_ATTN --max-model-len 16400 --kv-cache-memory-bytes 1073741824 --max-num-seqs 1 --max-num-batched-tokens 2048 --enforce-eager --generation-config vllm --shutdown-timeout 10 --no-enable-prefix-caching --kv-transfer-config '{"kv_connector": "KVFabricConnector", "kv_role": "kv_both", "kv_load_failure_policy": "recompute", "kv_connector_extra_config": {"library": "/home/wty/Infra/.kvfabric-local/perf-attribution/build-before/src/integration/libkvf_vllm.so", "control": "127.0.0.1:39189", "cache_pages": 2730, "load_timeout_ms": 30000, "metrics_file": "/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic/kvfabric.jsonl", "cuda_batch": true, "disk_dir": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/disk", "io_depth": 4}, "kv_connector_module_path": "kvfabric_vllm.connector"}' --profiler-config '{"profiler":"cuda"}'
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:347] 
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.31.0
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:347]   █▄█▀ █     █     █     █  model   .kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:347] 
+(APIServer pid=416985) INFO 11-26 15:22:05 [api_utils.py:286] non-default args: {'model_tag': '.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', 'host': '127.0.0.1', 'port': 51533, 'model': '.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 16400, 'enforce_eager': True, 'served_model_name': ['kvf-bench'], 'generation_config': 'vllm', 'attention_backend': 'FLASH_ATTN', 'block_size': 16, 'kv_cache_memory_bytes': 1073741824, 'enable_prefix_caching': False, 'max_num_batched_tokens': 2048, 'max_num_seqs': 1, 'kv_transfer_config': KVTransferConfig(kv_connector='KVFabricConnector', engine_id='41d4a9fd-fe9f-41f5-90a4-f49ff356666d', kv_buffer_device='cuda', kv_buffer_size=1000000000.0, kv_role='kv_both', kv_rank=None, kv_parallel_size=1, kv_ip='127.0.0.1', kv_port=14579, kv_connector_extra_config={'library': '/home/wty/Infra/.kvfabric-local/perf-attribution/build-before/src/integration/libkvf_vllm.so', 'control': '127.0.0.1:39189', 'cache_pages': 2730, 'load_timeout_ms': 30000, 'metrics_file': '/home/wty/Infra/docs/benchmarks/perf-attribution-2026-11-26/nsys-before-diagnostic/kvfabric.jsonl', 'cuda_batch': True, 'disk_dir': '/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/disk', 'io_depth': 4}, kv_connector_module_path='kvfabric_vllm.connector', enable_permute_local_kv=False, kv_load_failure_policy='recompute'), 'profiler_config': ProfilerConfig(profiler='cuda', torch_profiler_dir='', torch_profiler_activities=None, proton_profiler_dir='', proton_context='shadow', proton_data='tree', proton_backend=None, proton_mode=None, proton_hook=None, proton_output_format=None, proton_graph_attribution=False, torch_profiler_with_stack=True, torch_profiler_with_flops=False, torch_profiler_use_gzip=True, torch_profiler_dump_cuda_time_total=True, torch_profiler_record_shapes=False, torch_profiler_with_memory=False, capture_torch_profiler=False, detailed_trace_annotation=False, ignore_frontend=False, delay_iterations=0, max_iterations=0, warmup_iterations=0, active_iterations=5, wait_iterations=0), 'shutdown_timeout': 10}
+(APIServer pid=416985) INFO 11-26 15:22:05 [model.py:699] Resolved architecture: Qwen2ForCausalLM
+(APIServer pid=416985) INFO 11-26 15:22:05 [model.py:2109] Using max model len 16400
+(APIServer pid=416985) WARNING 11-26 15:22:05 [vllm.py:1706] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+(APIServer pid=416985) WARNING 11-26 15:22:05 [vllm.py:1750] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(APIServer pid=416985) INFO 11-26 15:22:05 [kernel.py:408] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=416985) INFO 11-26 15:22:05 [vllm.py:1968] Cudagraph is disabled under eager mode
+(APIServer pid=416985) WARNING 11-26 15:22:05 [vllm.py:2260] Turning off hybrid kv cache manager because `--kv-transfer-config` selects a KV connector that does not support it. Impact: hybrid SSM models (e.g. Jamba, Bamba) require HMA and will fail at startup without it; models with sliding window attention will run with reduced performance. To add HMA support to a KV connector, subclass `SupportsHMA` defined in kv_connector/v1/base.py (for MultiConnector, all child connectors must support HMA).
+(APIServer pid=416985) INFO 11-26 15:22:05 [compilation.py:331] Enabled custom fusions: norm_quant, act_quant
+(EngineCore pid=417196) INFO 11-26 15:22:11 [core.py:129] Initializing a V1 LLM engine (v0.31.0) with config: model='.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', speculative_config=None, tokenizer='.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=16400, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=None, quantization_config=None, enforce_eager=True, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=kvf-bench, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=False, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+[W1126 15:22:12.200834464 Context.cpp:597] Warning: torch.backends.cuda.preferred_blas_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+(EngineCore pid=417196) INFO 11-26 15:22:12 [parallel_state.py:1825] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_031e24a6b4894493bf9629d322c40ef1 backend=nccl
+(EngineCore pid=417196) INFO 11-26 15:22:12 [parallel_state.py:2269] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=417196) INFO 11-26 15:22:12 [gpu_worker.py:479] Using V2 Model Runner
+(EngineCore pid=417196) INFO 11-26 15:22:12 [model_runner.py:375] Loading model from scratch...
+(EngineCore pid=417196) INFO 11-26 15:22:12 [cuda.py:466] Using AttentionBackendEnum.FLASH_ATTN backend.
+(EngineCore pid=417196) INFO 11-26 15:22:12 [flash_attn.py:1167] Using FlashAttention version 2
+(EngineCore pid=417196) INFO 11-26 15:22:12 [weight_utils.py:1063] Filesystem type for checkpoints: EXT4. Checkpoint size: 5.75 GiB. Available RAM: 5.63 GiB.
+(EngineCore pid=417196) INFO 11-26 15:22:12 [weight_utils.py:1093] Auto-prefetch is disabled because the filesystem (EXT4) is not a recognized network FS (NFS/Lustre) and the checkpoint size (5.75 GiB) exceeds 90% of available RAM (5.63 GiB).
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.94s/it]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:03<00:00,  1.48s/it]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:03<00:00,  1.55s/it]
+
+(EngineCore pid=417196) INFO 11-26 15:22:16 [default_loader.py:484] Loading weights took 3.15 seconds
+(EngineCore pid=417196) INFO 11-26 15:22:16 [model_runner.py:407] Model loading took 5.79 GiB memory and 3.765306 seconds
+(EngineCore pid=417196) INFO 11-26 15:22:17 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=417196) INFO 11-26 15:22:17 [torch_utils.py:286] Reducing Torch threads from 14 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=417196) INFO 11-26 15:22:17 [utils.py:343] Using LBNHC KV cache layout.
+(EngineCore pid=417196) INFO 11-26 15:22:18 [gpu_worker.py:603] Initial free memory 7.33 GiB, reserved 1.0 GiB memory for KV Cache as specified by kv_cache_memory_bytes config and skipped memory profiling. This does not respect the gpu_memory_utilization config. Only use kv_cache_memory_bytes config when you want manual control of KV cache memory size. If OOM'ed, check the difference of initial free memory between the current run and the previous run where kv_cache_memory_bytes is suggested and update it correspondingly.
+(EngineCore pid=417196) INFO 11-26 15:22:18 [kv_cache_utils.py:2464] GPU KV cache size: 29,120 tokens, Maximum concurrency for 16,400 tokens per request: 1.78x
+(EngineCore pid=417196) INFO 11-26 15:22:18 [factory.py:62] Creating v1 connector with name: KVFabricConnector and engine_id: 41d4a9fd-fe9f-41f5-90a4-f49ff356666d
+(EngineCore pid=417196) WARNING 11-26 15:22:18 [base.py:209] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=4
+(EngineCore pid=417196) INFO 11-26 15:22:19 [core.py:380] init engine (profile, create kv cache, warmup model) took 2.05 s
+(EngineCore pid=417196) INFO 11-26 15:22:19 [factory.py:62] Creating v1 connector with name: KVFabricConnector and engine_id: 41d4a9fd-fe9f-41f5-90a4-f49ff356666d
+(EngineCore pid=417196) WARNING 11-26 15:22:19 [base.py:209] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+(EngineCore pid=417196) WARNING 11-26 15:22:19 [vllm.py:1706] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+(EngineCore pid=417196) WARNING 11-26 15:22:19 [vllm.py:1750] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore pid=417196) INFO 11-26 15:22:19 [kernel.py:408] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(EngineCore pid=417196) INFO 11-26 15:22:19 [vllm.py:1968] Cudagraph is disabled under eager mode
+(EngineCore pid=417196) INFO 11-26 15:22:19 [compilation.py:331] Enabled custom fusions: norm_quant, act_quant
+(APIServer pid=416985) INFO 11-26 15:22:19 [entry.py:132] Supported tasks: ['generate']
+(APIServer pid=416985) WARNING 11-26 15:22:19 [api_router.py:41] Profiler with mode 'cuda' is enabled in the API server. This should ONLY be used for local development!
+(APIServer pid=416985) WARNING 11-26 15:22:19 [__init__.py:44] SECURITY WARNING: Development endpoints are enabled! This should NOT be used in production!
+(APIServer pid=416985) INFO 11-26 15:22:19 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(APIServer pid=416985) INFO 11-26 15:22:19 [hf.py:646] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+(APIServer pid=416985) INFO 11-26 15:22:19 [entry.py:136] Starting vLLM server on http://127.0.0.1:51533
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:60] Available routes are:
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /openapi.json, Methods: GET, HEAD
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /docs, Methods: GET, HEAD
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /redoc, Methods: GET, HEAD
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /load, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /version, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /kv_event_sources, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /health, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /metrics, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /start_profile, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /stop_profile, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /tokenize, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /detokenize, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/models, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /ping, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /ping, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /invocations, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /reset_prefix_cache, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /reset_mm_cache, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /reset_encoder_cache, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /pause, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /resume, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /abort_requests, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /is_paused, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /init_weight_transfer_engine, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /start_weight_update, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /start_draft_weight_update, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /update_weights, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /finish_weight_update, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /update_weight_version, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /weight_info, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /get_world_size, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /collective_rpc, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /server_info, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /sleep, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /release_kv_cache_memory, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /wake_up, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /is_sleeping, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/chat/completions, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/chat/completions/batch, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/responses, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/responses/{response_id}, Methods: GET
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/completions, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/messages, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /v1/messages/count_tokens, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /generative_scoring, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /scale_elastic_ep, Methods: POST
+(APIServer pid=416985) INFO 11-26 15:22:19 [launcher.py:69] Route: /is_scaling_elastic_ep, Methods: POST
+INFO:     Started server process [416985]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:59716 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59732 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59734 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59740 - "POST /v1/completions HTTP/1.1" 200 OK
+KVF_FETCH {"pages":8,"queue_ns":7899,"completion_to_wait_return_ns":50823,"crc_ns":387144,"cpu_stage_ns":229736,"commit_ns":109636,"directory_ns":823015,"lease_ns":109991,"net_recv_ns":23284552}
+KVF_FETCH {"pages":8,"queue_ns":20849,"completion_to_wait_return_ns":54363,"crc_ns":481825,"cpu_stage_ns":205334,"commit_ns":99934,"directory_ns":198368,"lease_ns":112847,"net_recv_ns":21075345}
+KVF_FETCH {"pages":8,"queue_ns":3945,"completion_to_wait_return_ns":64101,"crc_ns":577418,"cpu_stage_ns":236666,"commit_ns":110652,"directory_ns":131411,"lease_ns":194278,"net_recv_ns":21028157}
+KVF_FETCH {"pages":8,"queue_ns":4815,"completion_to_wait_return_ns":19911,"crc_ns":463717,"cpu_stage_ns":178969,"commit_ns":90545,"directory_ns":157123,"lease_ns":95889,"net_recv_ns":20898611}
+KVF_FETCH {"pages":8,"queue_ns":16850,"completion_to_wait_return_ns":41841,"crc_ns":456120,"cpu_stage_ns":194781,"commit_ns":97787,"directory_ns":196900,"lease_ns":85783,"net_recv_ns":20893760}
+KVF_FETCH {"pages":8,"queue_ns":17774,"completion_to_wait_return_ns":56034,"crc_ns":674433,"cpu_stage_ns":233042,"commit_ns":106989,"directory_ns":165252,"lease_ns":114051,"net_recv_ns":21139776}
+KVF_FETCH {"pages":8,"queue_ns":22113,"completion_to_wait_return_ns":42571,"crc_ns":488312,"cpu_stage_ns":206286,"commit_ns":104924,"directory_ns":218452,"lease_ns":78419,"net_recv_ns":20871427}
+KVF_FETCH {"pages":8,"queue_ns":3765,"completion_to_wait_return_ns":13943,"crc_ns":480459,"cpu_stage_ns":218059,"commit_ns":111908,"directory_ns":185118,"lease_ns":69819,"net_recv_ns":21335869}
+KVF_FETCH {"pages":8,"queue_ns":3663,"completion_to_wait_return_ns":46740,"crc_ns":440858,"cpu_stage_ns":203234,"commit_ns":109936,"directory_ns":240820,"lease_ns":114455,"net_recv_ns":20950708}
+KVF_FETCH {"pages":8,"queue_ns":3036,"completion_to_wait_return_ns":41737,"crc_ns":409580,"cpu_stage_ns":179730,"commit_ns":86486,"directory_ns":137058,"lease_ns":75809,"net_recv_ns":20398152}
+KVF_FETCH {"pages":8,"queue_ns":2947,"completion_to_wait_return_ns":10182,"crc_ns":481104,"cpu_stage_ns":199953,"commit_ns":102581,"directory_ns":136646,"lease_ns":97867,"net_recv_ns":20976146}
+KVF_FETCH {"pages":8,"queue_ns":18718,"completion_to_wait_return_ns":51535,"crc_ns":475941,"cpu_stage_ns":218518,"commit_ns":103983,"directory_ns":214743,"lease_ns":69422,"net_recv_ns":20662747}
+KVF_FETCH {"pages":8,"queue_ns":4313,"completion_to_wait_return_ns":9550,"crc_ns":420771,"cpu_stage_ns":176554,"commit_ns":90902,"directory_ns":177459,"lease_ns":52069,"net_recv_ns":20519622}
+KVF_FETCH {"pages":8,"queue_ns":3890,"completion_to_wait_return_ns":64680,"crc_ns":403547,"cpu_stage_ns":198693,"commit_ns":97267,"directory_ns":145457,"lease_ns":106639,"net_recv_ns":20791264}
+KVF_FETCH {"pages":8,"queue_ns":6496,"completion_to_wait_return_ns":49325,"crc_ns":509380,"cpu_stage_ns":383610,"commit_ns":73597,"directory_ns":239184,"lease_ns":112424,"net_recv_ns":24378847}
+KVF_FETCH {"pages":8,"queue_ns":14246,"completion_to_wait_return_ns":44821,"crc_ns":576353,"cpu_stage_ns":481706,"commit_ns":72575,"directory_ns":223726,"lease_ns":135641,"net_recv_ns":21303048}
+KVF_FETCH {"pages":8,"queue_ns":37504,"completion_to_wait_return_ns":6519,"crc_ns":502151,"cpu_stage_ns":485843,"commit_ns":64609,"directory_ns":258113,"lease_ns":160805,"net_recv_ns":23994743}
+KVF_FETCH {"pages":8,"queue_ns":6012,"completion_to_wait_return_ns":6323,"crc_ns":421744,"cpu_stage_ns":175978,"commit_ns":88601,"directory_ns":252494,"lease_ns":51735,"net_recv_ns":21244382}
+KVF_FETCH {"pages":8,"queue_ns":20182,"completion_to_wait_return_ns":7274,"crc_ns":471505,"cpu_stage_ns":200338,"commit_ns":103036,"directory_ns":144891,"lease_ns":114439,"net_recv_ns":21009623}
+KVF_FETCH {"pages":8,"queue_ns":2959,"completion_to_wait_return_ns":8440,"crc_ns":704877,"cpu_stage_ns":230293,"commit_ns":103503,"directory_ns":107815,"lease_ns":68525,"net_recv_ns":20854453}
+KVF_FETCH {"pages":8,"queue_ns":4132,"completion_to_wait_return_ns":7574,"crc_ns":499248,"cpu_stage_ns":225094,"commit_ns":110822,"directory_ns":132025,"lease_ns":62352,"net_recv_ns":21149197}
+KVF_FETCH {"pages":8,"queue_ns":11055,"completion_to_wait_return_ns":6634,"crc_ns":464812,"cpu_stage_ns":200060,"commit_ns":100605,"directory_ns":199557,"lease_ns":81928,"net_recv_ns":21114275}
+KVF_FETCH {"pages":8,"queue_ns":18378,"completion_to_wait_return_ns":35735,"crc_ns":486909,"cpu_stage_ns":202590,"commit_ns":102815,"directory_ns":134484,"lease_ns":99207,"net_recv_ns":21057681}
+KVF_FETCH {"pages":8,"queue_ns":2712,"completion_to_wait_return_ns":7122,"crc_ns":446082,"cpu_stage_ns":198801,"commit_ns":101712,"directory_ns":105018,"lease_ns":56289,"net_recv_ns":20570145}
+KVF_FETCH {"pages":8,"queue_ns":18686,"completion_to_wait_return_ns":7213,"crc_ns":435488,"cpu_stage_ns":216397,"commit_ns":102151,"directory_ns":177117,"lease_ns":48671,"net_recv_ns":20934193}
+KVF_FETCH {"pages":8,"queue_ns":15859,"completion_to_wait_return_ns":8032,"crc_ns":470098,"cpu_stage_ns":218812,"commit_ns":105921,"directory_ns":165267,"lease_ns":62382,"net_recv_ns":20954450}
+KVF_FETCH {"pages":8,"queue_ns":16462,"completion_to_wait_return_ns":45310,"crc_ns":425678,"cpu_stage_ns":174299,"commit_ns":90795,"directory_ns":158834,"lease_ns":92273,"net_recv_ns":20644236}
+KVF_FETCH {"pages":8,"queue_ns":15380,"completion_to_wait_return_ns":6475,"crc_ns":440617,"cpu_stage_ns":215989,"commit_ns":109592,"directory_ns":152363,"lease_ns":53133,"net_recv_ns":20710514}
+KVF_FETCH {"pages":8,"queue_ns":16916,"completion_to_wait_return_ns":33230,"crc_ns":418023,"cpu_stage_ns":201949,"commit_ns":99171,"directory_ns":148350,"lease_ns":71562,"net_recv_ns":20789192}
+KVF_FETCH {"pages":8,"queue_ns":19702,"completion_to_wait_return_ns":35776,"crc_ns":438238,"cpu_stage_ns":192526,"commit_ns":95942,"directory_ns":103007,"lease_ns":41937,"net_recv_ns":22571012}
+KVF_FETCH {"pages":8,"queue_ns":2566,"completion_to_wait_return_ns":5830,"crc_ns":448507,"cpu_stage_ns":215253,"commit_ns":109087,"directory_ns":91700,"lease_ns":55419,"net_recv_ns":22120085}
+KVF_FETCH {"pages":8,"queue_ns":2909,"completion_to_wait_return_ns":24015,"crc_ns":460039,"cpu_stage_ns":212088,"commit_ns":104133,"directory_ns":166921,"lease_ns":53453,"net_recv_ns":20732153}
+KVF_FETCH {"pages":8,"queue_ns":2351,"completion_to_wait_return_ns":45511,"crc_ns":546301,"cpu_stage_ns":206977,"commit_ns":94861,"directory_ns":113348,"lease_ns":72078,"net_recv_ns":20724524}
+KVF_FETCH {"pages":8,"queue_ns":23295,"completion_to_wait_return_ns":30688,"crc_ns":929952,"cpu_stage_ns":255262,"commit_ns":123693,"directory_ns":151493,"lease_ns":146501,"net_recv_ns":21290765}
+KVF_FETCH {"pages":8,"queue_ns":15187,"completion_to_wait_return_ns":42923,"crc_ns":414965,"cpu_stage_ns":223085,"commit_ns":103421,"directory_ns":213823,"lease_ns":113196,"net_recv_ns":20941538}
+KVF_FETCH {"pages":8,"queue_ns":3088,"completion_to_wait_return_ns":7027,"crc_ns":598951,"cpu_stage_ns":238414,"commit_ns":114225,"directory_ns":114838,"lease_ns":62887,"net_recv_ns":20999401}
+KVF_FETCH {"pages":8,"queue_ns":2828,"completion_to_wait_return_ns":7625,"crc_ns":761749,"cpu_stage_ns":227376,"commit_ns":104959,"directory_ns":112629,"lease_ns":75386,"net_recv_ns":24023281}
+KVF_FETCH {"pages":8,"queue_ns":14652,"completion_to_wait_return_ns":9041,"crc_ns":476804,"cpu_stage_ns":205588,"commit_ns":105970,"directory_ns":183475,"lease_ns":125214,"net_recv_ns":20850855}
+KVF_FETCH {"pages":8,"queue_ns":3219,"completion_to_wait_return_ns":10129,"crc_ns":780165,"cpu_stage_ns":268139,"commit_ns":125090,"directory_ns":152933,"lease_ns":85155,"net_recv_ns":21399722}
+KVF_FETCH {"pages":8,"queue_ns":17038,"completion_to_wait_return_ns":35522,"crc_ns":515423,"cpu_stage_ns":218957,"commit_ns":103913,"directory_ns":145141,"lease_ns":121608,"net_recv_ns":20738631}
+KVF_FETCH {"pages":8,"queue_ns":16433,"completion_to_wait_return_ns":34305,"crc_ns":457368,"cpu_stage_ns":207626,"commit_ns":105266,"directory_ns":193157,"lease_ns":114468,"net_recv_ns":20894199}
+KVF_FETCH {"pages":8,"queue_ns":2915,"completion_to_wait_return_ns":32421,"crc_ns":471870,"cpu_stage_ns":199508,"commit_ns":102661,"directory_ns":119832,"lease_ns":114296,"net_recv_ns":20931460}
+KVF_FETCH {"pages":8,"queue_ns":17615,"completion_to_wait_return_ns":31599,"crc_ns":731790,"cpu_stage_ns":196602,"commit_ns":100866,"directory_ns":209630,"lease_ns":118480,"net_recv_ns":20883923}
+KVF_FETCH {"pages":8,"queue_ns":18017,"completion_to_wait_return_ns":12026,"crc_ns":426594,"cpu_stage_ns":224588,"commit_ns":109097,"directory_ns":129214,"lease_ns":59456,"net_recv_ns":20897875}
+KVF_FETCH {"pages":8,"queue_ns":17666,"completion_to_wait_return_ns":43800,"crc_ns":432841,"cpu_stage_ns":203337,"commit_ns":108592,"directory_ns":136671,"lease_ns":106575,"net_recv_ns":20741559}
+KVF_FETCH {"pages":8,"queue_ns":17216,"completion_to_wait_return_ns":10325,"crc_ns":523403,"cpu_stage_ns":267485,"commit_ns":118938,"directory_ns":180799,"lease_ns":112600,"net_recv_ns":20942321}
+KVF_FETCH {"pages":8,"queue_ns":3223,"completion_to_wait_return_ns":6880,"crc_ns":617571,"cpu_stage_ns":214394,"commit_ns":105160,"directory_ns":106116,"lease_ns":133898,"net_recv_ns":21285362}
+KVF_FETCH {"pages":8,"queue_ns":3670,"completion_to_wait_return_ns":5897,"crc_ns":467872,"cpu_stage_ns":223779,"commit_ns":107278,"directory_ns":155500,"lease_ns":83264,"net_recv_ns":21104275}
+KVF_FETCH {"pages":8,"queue_ns":20642,"completion_to_wait_return_ns":8074,"crc_ns":499221,"cpu_stage_ns":203537,"commit_ns":103908,"directory_ns":224508,"lease_ns":114096,"net_recv_ns":21042125}
+KVF_FETCH {"pages":8,"queue_ns":7146,"completion_to_wait_return_ns":9330,"crc_ns":732971,"cpu_stage_ns":529122,"commit_ns":70333,"directory_ns":229959,"lease_ns":135736,"net_recv_ns":23478498}
+KVF_FETCH {"pages":8,"queue_ns":5329,"completion_to_wait_return_ns":33072,"crc_ns":530575,"cpu_stage_ns":390530,"commit_ns":64209,"directory_ns":198164,"lease_ns":145825,"net_recv_ns":23302137}
+KVF_FETCH {"pages":8,"queue_ns":5591,"completion_to_wait_return_ns":31742,"crc_ns":519621,"cpu_stage_ns":508270,"commit_ns":68935,"directory_ns":202943,"lease_ns":130920,"net_recv_ns":23435324}
+KVF_FETCH {"pages":8,"queue_ns":23861,"completion_to_wait_return_ns":8772,"crc_ns":570534,"cpu_stage_ns":411742,"commit_ns":64999,"directory_ns":196252,"lease_ns":149790,"net_recv_ns":23723252}
+KVF_FETCH {"pages":8,"queue_ns":4837,"completion_to_wait_return_ns":4571,"crc_ns":509697,"cpu_stage_ns":357752,"commit_ns":71551,"directory_ns":190329,"lease_ns":87743,"net_recv_ns":23356833}
+KVF_FETCH {"pages":8,"queue_ns":17003,"completion_to_wait_return_ns":35452,"crc_ns":408631,"cpu_stage_ns":196042,"commit_ns":102065,"directory_ns":202411,"lease_ns":106199,"net_recv_ns":20954432}
+KVF_FETCH {"pages":8,"queue_ns":19778,"completion_to_wait_return_ns":5376,"crc_ns":451449,"cpu_stage_ns":222719,"commit_ns":101607,"directory_ns":136198,"lease_ns":82257,"net_recv_ns":20825944}
+KVF_FETCH {"pages":8,"queue_ns":15388,"completion_to_wait_return_ns":5240,"crc_ns":469518,"cpu_stage_ns":226034,"commit_ns":105598,"directory_ns":195756,"lease_ns":82018,"net_recv_ns":22510237}
+KVF_FETCH {"pages":8,"queue_ns":15961,"completion_to_wait_return_ns":25426,"crc_ns":566379,"cpu_stage_ns":268211,"commit_ns":132166,"directory_ns":206086,"lease_ns":122215,"net_recv_ns":23564811}
+KVF_FETCH {"pages":8,"queue_ns":2863,"completion_to_wait_return_ns":9351,"crc_ns":541224,"cpu_stage_ns":227781,"commit_ns":105291,"directory_ns":130789,"lease_ns":61012,"net_recv_ns":23811062}
+KVF_FETCH {"pages":8,"queue_ns":17553,"completion_to_wait_return_ns":52421,"crc_ns":498671,"cpu_stage_ns":207667,"commit_ns":102759,"directory_ns":138401,"lease_ns":75592,"net_recv_ns":23960327}
+KVF_FETCH {"pages":8,"queue_ns":16066,"completion_to_wait_return_ns":46757,"crc_ns":478137,"cpu_stage_ns":206772,"commit_ns":105912,"directory_ns":146897,"lease_ns":74536,"net_recv_ns":22126543}
+KVF_FETCH {"pages":8,"queue_ns":2985,"completion_to_wait_return_ns":34662,"crc_ns":609429,"cpu_stage_ns":214505,"commit_ns":102520,"directory_ns":119829,"lease_ns":110223,"net_recv_ns":21605707}
+KVF_FETCH {"pages":8,"queue_ns":2762,"completion_to_wait_return_ns":14759,"crc_ns":682454,"cpu_stage_ns":242384,"commit_ns":115318,"directory_ns":181076,"lease_ns":103012,"net_recv_ns":22268918}
+KVF_FETCH {"pages":8,"queue_ns":14885,"completion_to_wait_return_ns":51733,"crc_ns":540302,"cpu_stage_ns":201406,"commit_ns":101768,"directory_ns":155140,"lease_ns":104323,"net_recv_ns":22137718}
+INFO:     127.0.0.1:55780 - "POST /v1/completions HTTP/1.1" 200 OK
+KVF_FETCH {"pages":8,"queue_ns":4668,"completion_to_wait_return_ns":141325,"crc_ns":334128,"cpu_stage_ns":210942,"commit_ns":120142,"directory_ns":309285,"lease_ns":114603,"net_recv_ns":26338157}
+KVF_FETCH {"pages":8,"queue_ns":18912,"completion_to_wait_return_ns":10555,"crc_ns":439222,"cpu_stage_ns":207370,"commit_ns":99274,"directory_ns":162550,"lease_ns":89151,"net_recv_ns":20700167}
+KVF_FETCH {"pages":8,"queue_ns":2530,"completion_to_wait_return_ns":8231,"crc_ns":419492,"cpu_stage_ns":210268,"commit_ns":104858,"directory_ns":174794,"lease_ns":103047,"net_recv_ns":20594538}
+KVF_FETCH {"pages":8,"queue_ns":20789,"completion_to_wait_return_ns":27573,"crc_ns":398494,"cpu_stage_ns":209699,"commit_ns":110353,"directory_ns":155918,"lease_ns":115021,"net_recv_ns":20617786}
+KVF_FETCH {"pages":8,"queue_ns":16688,"completion_to_wait_return_ns":15298,"crc_ns":444593,"cpu_stage_ns":205794,"commit_ns":99571,"directory_ns":189747,"lease_ns":104652,"net_recv_ns":20818149}
+KVF_FETCH {"pages":8,"queue_ns":3343,"completion_to_wait_return_ns":9348,"crc_ns":415838,"cpu_stage_ns":204607,"commit_ns":103439,"directory_ns":116779,"lease_ns":108438,"net_recv_ns":20524274}
+KVF_FETCH {"pages":8,"queue_ns":17600,"completion_to_wait_return_ns":7609,"crc_ns":464873,"cpu_stage_ns":197267,"commit_ns":95663,"directory_ns":178391,"lease_ns":61481,"net_recv_ns":20546323}
+KVF_FETCH {"pages":8,"queue_ns":2987,"completion_to_wait_return_ns":13402,"crc_ns":461157,"cpu_stage_ns":208645,"commit_ns":100482,"directory_ns":150541,"lease_ns":130169,"net_recv_ns":20660264}
+KVF_FETCH {"pages":8,"queue_ns":16516,"completion_to_wait_return_ns":35277,"crc_ns":395731,"cpu_stage_ns":175912,"commit_ns":94861,"directory_ns":163885,"lease_ns":95064,"net_recv_ns":20396528}
+KVF_FETCH {"pages":8,"queue_ns":5492,"completion_to_wait_return_ns":10526,"crc_ns":515941,"cpu_stage_ns":216734,"commit_ns":106783,"directory_ns":201579,"lease_ns":86760,"net_recv_ns":21007125}
+KVF_FETCH {"pages":8,"queue_ns":2915,"completion_to_wait_return_ns":40304,"crc_ns":379613,"cpu_stage_ns":203743,"commit_ns":104520,"directory_ns":123127,"lease_ns":125301,"net_recv_ns":20759134}
+KVF_FETCH {"pages":8,"queue_ns":19633,"completion_to_wait_return_ns":13536,"crc_ns":460643,"cpu_stage_ns":192622,"commit_ns":105573,"directory_ns":137925,"lease_ns":134293,"net_recv_ns":20347951}
+KVF_FETCH {"pages":8,"queue_ns":17711,"completion_to_wait_return_ns":6723,"crc_ns":464832,"cpu_stage_ns":189166,"commit_ns":103580,"directory_ns":156564,"lease_ns":183216,"net_recv_ns":21343523}
+KVF_FETCH {"pages":8,"queue_ns":18878,"completion_to_wait_return_ns":7392,"crc_ns":465340,"cpu_stage_ns":212276,"commit_ns":103973,"directory_ns":226438,"lease_ns":76441,"net_recv_ns":20703264}
+KVF_FETCH {"pages":8,"queue_ns":4545,"completion_to_wait_return_ns":18822,"crc_ns":385763,"cpu_stage_ns":216999,"commit_ns":102592,"directory_ns":181218,"lease_ns":116010,"net_recv_ns":20390748}
+KVF_FETCH {"pages":8,"queue_ns":5935,"completion_to_wait_return_ns":8558,"crc_ns":373037,"cpu_stage_ns":196157,"commit_ns":93954,"directory_ns":199090,"lease_ns":72259,"net_recv_ns":20709867}
+KVF_FETCH {"pages":8,"queue_ns":6758,"completion_to_wait_return_ns":7329,"crc_ns":416141,"cpu_stage_ns":207619,"commit_ns":96829,"directory_ns":252199,"lease_ns":124134,"net_recv_ns":20947880}
+KVF_FETCH {"pages":8,"queue_ns":18498,"completion_to_wait_return_ns":6838,"crc_ns":520038,"cpu_stage_ns":242652,"commit_ns":111785,"directory_ns":146156,"lease_ns":60496,"net_recv_ns":21084204}
+KVF_FETCH {"pages":8,"queue_ns":15175,"completion_to_wait_return_ns":9568,"crc_ns":532865,"cpu_stage_ns":267102,"commit_ns":125735,"directory_ns":141076,"lease_ns":128216,"net_recv_ns":20558620}
+KVF_FETCH {"pages":8,"queue_ns":2731,"completion_to_wait_return_ns":7003,"crc_ns":408516,"cpu_stage_ns":202764,"commit_ns":109439,"directory_ns":114763,"lease_ns":54875,"net_recv_ns":20480419}
+KVF_FETCH {"pages":8,"queue_ns":16058,"completion_to_wait_return_ns":8601,"crc_ns":440302,"cpu_stage_ns":217607,"commit_ns":107296,"directory_ns":180094,"lease_ns":67827,"net_recv_ns":20667024}
+KVF_FETCH {"pages":8,"queue_ns":2512,"completion_to_wait_return_ns":8175,"crc_ns":690214,"cpu_stage_ns":245017,"commit_ns":115730,"directory_ns":114742,"lease_ns":156134,"net_recv_ns":20581815}
+KVF_FETCH {"pages":8,"queue_ns":5256,"completion_to_wait_return_ns":9210,"crc_ns":380860,"cpu_stage_ns":192869,"commit_ns":103667,"directory_ns":165780,"lease_ns":64363,"net_recv_ns":20586942}
+KVF_FETCH {"pages":8,"queue_ns":3506,"completion_to_wait_return_ns":7959,"crc_ns":459397,"cpu_stage_ns":229715,"commit_ns":101135,"directory_ns":124035,"lease_ns":56967,"net_recv_ns":20865298}
+KVF_FETCH {"pages":8,"queue_ns":4667,"completion_to_wait_return_ns":7785,"crc_ns":433112,"cpu_stage_ns":204361,"commit_ns":95016,"directory_ns":123136,"lease_ns":61701,"net_recv_ns":21114690}
+KVF_FETCH {"pages":8,"queue_ns":4048,"completion_to_wait_return_ns":7343,"crc_ns":470045,"cpu_stage_ns":204997,"commit_ns":95780,"directory_ns":169246,"lease_ns":120818,"net_recv_ns":21033521}
+KVF_FETCH {"pages":8,"queue_ns":3815,"completion_to_wait_return_ns":7918,"crc_ns":456861,"cpu_stage_ns":214820,"commit_ns":104487,"directory_ns":139749,"lease_ns":78508,"net_recv_ns":21023292}
+KVF_FETCH {"pages":8,"queue_ns":4623,"completion_to_wait_return_ns":7986,"crc_ns":418190,"cpu_stage_ns":204926,"commit_ns":107399,"directory_ns":170322,"lease_ns":59629,"net_recv_ns":20807292}
+KVF_FETCH {"pages":8,"queue_ns":4732,"completion_to_wait_return_ns":6232,"crc_ns":410889,"cpu_stage_ns":214462,"commit_ns":102412,"directory_ns":168733,"lease_ns":109451,"net_recv_ns":20890757}
+KVF_FETCH {"pages":8,"queue_ns":4525,"completion_to_wait_return_ns":6777,"crc_ns":426110,"cpu_stage_ns":199942,"commit_ns":109057,"directory_ns":129995,"lease_ns":80865,"net_recv_ns":23057008}
+KVF_FETCH {"pages":8,"queue_ns":5317,"completion_to_wait_return_ns":6260,"crc_ns":596252,"cpu_stage_ns":209673,"commit_ns":104423,"directory_ns":148159,"lease_ns":74360,"net_recv_ns":22655999}
+KVF_FETCH {"pages":8,"queue_ns":18376,"completion_to_wait_return_ns":5816,"crc_ns":390850,"cpu_stage_ns":196357,"commit_ns":93284,"directory_ns":134955,"lease_ns":44627,"net_recv_ns":20453107}
+KVF_FETCH {"pages":8,"queue_ns":3468,"completion_to_wait_return_ns":6670,"crc_ns":391066,"cpu_stage_ns":202425,"commit_ns":101688,"directory_ns":160286,"lease_ns":60209,"net_recv_ns":20903956}
+KVF_FETCH {"pages":8,"queue_ns":15578,"completion_to_wait_return_ns":33458,"crc_ns":421840,"cpu_stage_ns":220722,"commit_ns":112795,"directory_ns":147891,"lease_ns":198001,"net_recv_ns":20829308}
+KVF_FETCH {"pages":8,"queue_ns":38942,"completion_to_wait_return_ns":25453,"crc_ns":503057,"cpu_stage_ns":368303,"commit_ns":67098,"directory_ns":204067,"lease_ns":112019,"net_recv_ns":23398757}
+KVF_FETCH {"pages":8,"queue_ns":4724,"completion_to_wait_return_ns":25149,"crc_ns":546512,"cpu_stage_ns":365205,"commit_ns":69465,"directory_ns":193815,"lease_ns":107525,"net_recv_ns":23186061}
+KVF_FETCH {"pages":8,"queue_ns":4139,"completion_to_wait_return_ns":43648,"crc_ns":429414,"cpu_stage_ns":196723,"commit_ns":96128,"directory_ns":169924,"lease_ns":134330,"net_recv_ns":23399159}
+KVF_FETCH {"pages":8,"queue_ns":3088,"completion_to_wait_return_ns":7298,"crc_ns":480835,"cpu_stage_ns":203690,"commit_ns":105089,"directory_ns":122133,"lease_ns":69979,"net_recv_ns":21056501}
+KVF_FETCH {"pages":8,"queue_ns":2842,"completion_to_wait_return_ns":6665,"crc_ns":756537,"cpu_stage_ns":227722,"commit_ns":108223,"directory_ns":117044,"lease_ns":72672,"net_recv_ns":20690335}
+KVF_FETCH {"pages":8,"queue_ns":2943,"completion_to_wait_return_ns":11010,"crc_ns":693781,"cpu_stage_ns":195332,"commit_ns":96969,"directory_ns":166110,"lease_ns":171839,"net_recv_ns":21295006}
+KVF_FETCH {"pages":8,"queue_ns":18270,"completion_to_wait_return_ns":7978,"crc_ns":462912,"cpu_stage_ns":210098,"commit_ns":100138,"directory_ns":189355,"lease_ns":71675,"net_recv_ns":20842591}
+(APIServer pid=416985) INFO 11-26 15:22:30 [loggers.py:320] Engine 000: Avg prompt throughput: 1567.4 tokens/s, Avg generation throughput: 2.1 tokens/s, Running: 0 reqs, Waiting: 1 reqs, Deferred: 1 reqs, GPU KV cache usage: 28.1%, External prefix cache hit rate: 39.9%
+KVF_FETCH {"pages":8,"queue_ns":16534,"completion_to_wait_return_ns":6459,"crc_ns":396303,"cpu_stage_ns":197585,"commit_ns":96627,"directory_ns":188815,"lease_ns":121417,"net_recv_ns":20860029}
+KVF_FETCH {"pages":8,"queue_ns":4657,"completion_to_wait_return_ns":7629,"crc_ns":444352,"cpu_stage_ns":197836,"commit_ns":94661,"directory_ns":139688,"lease_ns":102585,"net_recv_ns":20776046}
+KVF_FETCH {"pages":8,"queue_ns":9150,"completion_to_wait_return_ns":6710,"crc_ns":398577,"cpu_stage_ns":204738,"commit_ns":98967,"directory_ns":165422,"lease_ns":116497,"net_recv_ns":20752764}
+KVF_FETCH {"pages":8,"queue_ns":4260,"completion_to_wait_return_ns":8745,"crc_ns":389441,"cpu_stage_ns":190179,"commit_ns":95830,"directory_ns":153180,"lease_ns":59157,"net_recv_ns":20755166}
+KVF_FETCH {"pages":8,"queue_ns":4220,"completion_to_wait_return_ns":7824,"crc_ns":418070,"cpu_stage_ns":210147,"commit_ns":99131,"directory_ns":156712,"lease_ns":65735,"net_recv_ns":20646330}
+KVF_FETCH {"pages":8,"queue_ns":4813,"completion_to_wait_return_ns":7608,"crc_ns":500856,"cpu_stage_ns":208161,"commit_ns":101281,"directory_ns":164390,"lease_ns":63006,"net_recv_ns":20727135}
+KVF_FETCH {"pages":8,"queue_ns":4736,"completion_to_wait_return_ns":12464,"crc_ns":365826,"cpu_stage_ns":196273,"commit_ns":104076,"directory_ns":132838,"lease_ns":94950,"net_recv_ns":20712845}
+KVF_FETCH {"pages":8,"queue_ns":5560,"completion_to_wait_return_ns":8476,"crc_ns":479024,"cpu_stage_ns":197566,"commit_ns":110020,"directory_ns":168291,"lease_ns":104889,"net_recv_ns":20575028}
+KVF_FETCH {"pages":8,"queue_ns":4610,"completion_to_wait_return_ns":7030,"crc_ns":449195,"cpu_stage_ns":225100,"commit_ns":100839,"directory_ns":126252,"lease_ns":92919,"net_recv_ns":21247946}
+KVF_FETCH {"pages":8,"queue_ns":4302,"completion_to_wait_return_ns":7583,"crc_ns":446010,"cpu_stage_ns":206046,"commit_ns":105675,"directory_ns":173647,"lease_ns":113899,"net_recv_ns":21112486}
+KVF_FETCH {"pages":8,"queue_ns":3751,"completion_to_wait_return_ns":6909,"crc_ns":422850,"cpu_stage_ns":183198,"commit_ns":97050,"directory_ns":159910,"lease_ns":47335,"net_recv_ns":20536586}
+KVF_FETCH {"pages":8,"queue_ns":16262,"completion_to_wait_return_ns":31954,"crc_ns":468013,"cpu_stage_ns":201939,"commit_ns":101426,"directory_ns":202182,"lease_ns":64274,"net_recv_ns":20835589}
+KVF_FETCH {"pages":8,"queue_ns":17207,"completion_to_wait_return_ns":22405,"crc_ns":491807,"cpu_stage_ns":208222,"commit_ns":103377,"directory_ns":146480,"lease_ns":111846,"net_recv_ns":20769876}
+KVF_FETCH {"pages":8,"queue_ns":2976,"completion_to_wait_return_ns":39327,"crc_ns":376230,"cpu_stage_ns":187177,"commit_ns":95907,"directory_ns":113600,"lease_ns":84464,"net_recv_ns":20673747}
+KVF_FETCH {"pages":8,"queue_ns":16006,"completion_to_wait_return_ns":8500,"crc_ns":374486,"cpu_stage_ns":208355,"commit_ns":102345,"directory_ns":141429,"lease_ns":58575,"net_recv_ns":21003065}
+KVF_FETCH {"pages":8,"queue_ns":2732,"completion_to_wait_return_ns":19042,"crc_ns":479138,"cpu_stage_ns":206003,"commit_ns":101329,"directory_ns":120821,"lease_ns":116137,"net_recv_ns":20988239}
+KVF_FETCH {"pages":8,"queue_ns":17463,"completion_to_wait_return_ns":54736,"crc_ns":406702,"cpu_stage_ns":180229,"commit_ns":88503,"directory_ns":136827,"lease_ns":88957,"net_recv_ns":20687908}
+KVF_FETCH {"pages":8,"queue_ns":2708,"completion_to_wait_return_ns":7847,"crc_ns":471516,"cpu_stage_ns":209656,"commit_ns":101563,"directory_ns":146546,"lease_ns":58949,"net_recv_ns":20920005}
+KVF_FETCH {"pages":8,"queue_ns":3808,"completion_to_wait_return_ns":33972,"crc_ns":523756,"cpu_stage_ns":213077,"commit_ns":104732,"directory_ns":199790,"lease_ns":91028,"net_recv_ns":21368601}
+KVF_FETCH {"pages":8,"queue_ns":12838,"completion_to_wait_return_ns":5698,"crc_ns":408099,"cpu_stage_ns":181155,"commit_ns":92705,"directory_ns":141481,"lease_ns":88732,"net_recv_ns":20895347}
+KVF_FETCH {"pages":8,"queue_ns":3561,"completion_to_wait_return_ns":41487,"crc_ns":470663,"cpu_stage_ns":215576,"commit_ns":100708,"directory_ns":135377,"lease_ns":60198,"net_recv_ns":20805047}
+KVF_FETCH {"pages":8,"queue_ns":3235,"completion_to_wait_return_ns":6997,"crc_ns":477827,"cpu_stage_ns":208835,"commit_ns":107261,"directory_ns":117182,"lease_ns":55945,"net_recv_ns":20822437}
+KVF_FETCH {"pages":8,"queue_ns":30330,"completion_to_wait_return_ns":6644,"crc_ns":442116,"cpu_stage_ns":178326,"commit_ns":94659,"directory_ns":157661,"lease_ns":91855,"net_recv_ns":20592969}
+INFO:     127.0.0.1:57724 - "POST /v1/completions HTTP/1.1" 200 OK
+KVF_FETCH {"pages":8,"queue_ns":24967,"completion_to_wait_return_ns":7745,"crc_ns":401215,"cpu_stage_ns":202902,"commit_ns":128204,"directory_ns":183627,"lease_ns":57208,"net_recv_ns":25484748}
+KVF_FETCH {"pages":8,"queue_ns":18491,"completion_to_wait_return_ns":30878,"crc_ns":502982,"cpu_stage_ns":231577,"commit_ns":106914,"directory_ns":170818,"lease_ns":122546,"net_recv_ns":20568504}
+KVF_FETCH {"pages":8,"queue_ns":3597,"completion_to_wait_return_ns":4867,"crc_ns":437941,"cpu_stage_ns":193474,"commit_ns":94973,"directory_ns":134734,"lease_ns":82776,"net_recv_ns":20555173}
+KVF_FETCH {"pages":8,"queue_ns":2562,"completion_to_wait_return_ns":6174,"crc_ns":437535,"cpu_stage_ns":205919,"commit_ns":103975,"directory_ns":111776,"lease_ns":83376,"net_recv_ns":20556615}
+KVF_FETCH {"pages":8,"queue_ns":2242,"completion_to_wait_return_ns":6214,"crc_ns":453571,"cpu_stage_ns":226788,"commit_ns":105354,"directory_ns":123607,"lease_ns":115496,"net_recv_ns":20442568}
+KVF_FETCH {"pages":8,"queue_ns":5329,"completion_to_wait_return_ns":6150,"crc_ns":404289,"cpu_stage_ns":193077,"commit_ns":103897,"directory_ns":161917,"lease_ns":62148,"net_recv_ns":20487345}
+KVF_FETCH {"pages":8,"queue_ns":2594,"completion_to_wait_return_ns":23324,"crc_ns":386454,"cpu_stage_ns":214309,"commit_ns":103633,"directory_ns":161366,"lease_ns":96211,"net_recv_ns":20531505}
+KVF_FETCH {"pages":8,"queue_ns":20905,"completion_to_wait_return_ns":5434,"crc_ns":456402,"cpu_stage_ns":246841,"commit_ns":87019,"directory_ns":172329,"lease_ns":72274,"net_recv_ns":20689887}
+KVF_FETCH {"pages":8,"queue_ns":3875,"completion_to_wait_return_ns":23967,"crc_ns":466612,"cpu_stage_ns":189434,"commit_ns":106338,"directory_ns":115521,"lease_ns":99493,"net_recv_ns":20556350}
+KVF_FETCH {"pages":8,"queue_ns":2703,"completion_to_wait_return_ns":6382,"crc_ns":396762,"cpu_stage_ns":207552,"commit_ns":105753,"directory_ns":123975,"lease_ns":113577,"net_recv_ns":20599718}
+KVF_FETCH {"pages":8,"queue_ns":2838,"completion_to_wait_return_ns":5266,"crc_ns":553067,"cpu_stage_ns":210016,"commit_ns":102406,"directory_ns":122869,"lease_ns":97075,"net_recv_ns":20688961}
+KVF_FETCH {"pages":8,"queue_ns":17015,"completion_to_wait_return_ns":5415,"crc_ns":393769,"cpu_stage_ns":191989,"commit_ns":106258,"directory_ns":189807,"lease_ns":50002,"net_recv_ns":20619343}
+KVF_FETCH {"pages":8,"queue_ns":16155,"completion_to_wait_return_ns":7068,"crc_ns":389173,"cpu_stage_ns":209406,"commit_ns":111700,"directory_ns":168386,"lease_ns":65856,"net_recv_ns":20650367}
+KVF_FETCH {"pages":8,"queue_ns":17354,"completion_to_wait_return_ns":9241,"crc_ns":590769,"cpu_stage_ns":243203,"commit_ns":116370,"directory_ns":181581,"lease_ns":64675,"net_recv_ns":20532785}
+KVF_FETCH {"pages":8,"queue_ns":2639,"completion_to_wait_return_ns":36059,"crc_ns":403534,"cpu_stage_ns":199001,"commit_ns":109709,"directory_ns":116105,"lease_ns":99406,"net_recv_ns":21019865}
+KVF_FETCH {"pages":8,"queue_ns":16895,"completion_to_wait_return_ns":8361,"crc_ns":467872,"cpu_stage_ns":209603,"commit_ns":99903,"directory_ns":140013,"lease_ns":110966,"net_recv_ns":21214860}
+KVF_FETCH {"pages":8,"queue_ns":2734,"completion_to_wait_return_ns":45187,"crc_ns":478928,"cpu_stage_ns":205753,"commit_ns":102915,"directory_ns":110101,"lease_ns":109528,"net_recv_ns":21119276}
+KVF_FETCH {"pages":8,"queue_ns":18794,"completion_to_wait_return_ns":6511,"crc_ns":389479,"cpu_stage_ns":204420,"commit_ns":100969,"directory_ns":126285,"lease_ns":75698,"net_recv_ns":20682820}
+KVF_FETCH {"pages":8,"queue_ns":16479,"completion_to_wait_return_ns":6069,"crc_ns":490145,"cpu_stage_ns":204482,"commit_ns":105282,"directory_ns":202047,"lease_ns":101721,"net_recv_ns":20837840}
+KVF_FETCH {"pages":8,"queue_ns":6230,"completion_to_wait_return_ns":29193,"crc_ns":487716,"cpu_stage_ns":228743,"commit_ns":92265,"directory_ns":140289,"lease_ns":126602,"net_recv_ns":20683510}
+KVF_FETCH {"pages":8,"queue_ns":19298,"completion_to_wait_return_ns":7499,"crc_ns":482470,"cpu_stage_ns":212797,"commit_ns":95296,"directory_ns":166719,"lease_ns":124042,"net_recv_ns":20633296}
+KVF_FETCH {"pages":8,"queue_ns":10903,"completion_to_wait_return_ns":29699,"crc_ns":496646,"cpu_stage_ns":191135,"commit_ns":95192,"directory_ns":206214,"lease_ns":100847,"net_recv_ns":20670550}
+KVF_FETCH {"pages":8,"queue_ns":11728,"completion_to_wait_return_ns":27589,"crc_ns":428793,"cpu_stage_ns":241962,"commit_ns":92838,"directory_ns":122348,"lease_ns":112196,"net_recv_ns":20695144}
+KVF_FETCH {"pages":8,"queue_ns":21671,"completion_to_wait_return_ns":6776,"crc_ns":470244,"cpu_stage_ns":219115,"commit_ns":107893,"directory_ns":179152,"lease_ns":116188,"net_recv_ns":21295555}
+KVF_FETCH {"pages":8,"queue_ns":4842,"completion_to_wait_return_ns":33220,"crc_ns":454039,"cpu_stage_ns":226485,"commit_ns":89227,"directory_ns":143228,"lease_ns":55566,"net_recv_ns":20609838}
+KVF_FETCH {"pages":8,"queue_ns":20073,"completion_to_wait_return_ns":7068,"crc_ns":445335,"cpu_stage_ns":205880,"commit_ns":105172,"directory_ns":159816,"lease_ns":103091,"net_recv_ns":20826801}
+KVF_FETCH {"pages":8,"queue_ns":4021,"completion_to_wait_return_ns":36476,"crc_ns":510555,"cpu_stage_ns":223644,"commit_ns":113193,"directory_ns":205986,"lease_ns":122927,"net_recv_ns":20858229}
+KVF_FETCH {"pages":8,"queue_ns":6964,"completion_to_wait_return_ns":5692,"crc_ns":399658,"cpu_stage_ns":243257,"commit_ns":85477,"directory_ns":236513,"lease_ns":100144,"net_recv_ns":20557064}
+KVF_FETCH {"pages":8,"queue_ns":18142,"completion_to_wait_return_ns":27896,"crc_ns":467987,"cpu_stage_ns":200108,"commit_ns":107880,"directory_ns":162469,"lease_ns":110602,"net_recv_ns":20771260}
+KVF_FETCH {"pages":8,"queue_ns":4138,"completion_to_wait_return_ns":21604,"crc_ns":464077,"cpu_stage_ns":200324,"commit_ns":95741,"directory_ns":150982,"lease_ns":136610,"net_recv_ns":22965795}
+KVF_FETCH {"pages":8,"queue_ns":19159,"completion_to_wait_return_ns":6777,"crc_ns":390448,"cpu_stage_ns":201089,"commit_ns":85623,"directory_ns":136901,"lease_ns":77330,"net_recv_ns":21826926}
+KVF_FETCH {"pages":8,"queue_ns":19328,"completion_to_wait_return_ns":37602,"crc_ns":442439,"cpu_stage_ns":204004,"commit_ns":98690,"directory_ns":189700,"lease_ns":105615,"net_recv_ns":20945997}
+KVF_FETCH {"pages":8,"queue_ns":5458,"completion_to_wait_return_ns":38252,"crc_ns":457269,"cpu_stage_ns":221296,"commit_ns":103091,"directory_ns":134646,"lease_ns":79119,"net_recv_ns":20844142}
+KVF_FETCH {"pages":8,"queue_ns":14259,"completion_to_wait_return_ns":8936,"crc_ns":536427,"cpu_stage_ns":261632,"commit_ns":129179,"directory_ns":163240,"lease_ns":129154,"net_recv_ns":20706534}
+KVF_FETCH {"pages":8,"queue_ns":29986,"completion_to_wait_return_ns":7734,"crc_ns":461592,"cpu_stage_ns":198843,"commit_ns":99325,"directory_ns":221132,"lease_ns":77051,"net_recv_ns":23026118}
+KVF_FETCH {"pages":8,"queue_ns":2552,"completion_to_wait_return_ns":7270,"crc_ns":433526,"cpu_stage_ns":200754,"commit_ns":103739,"directory_ns":120261,"lease_ns":105239,"net_recv_ns":20950741}
+KVF_FETCH {"pages":8,"queue_ns":27997,"completion_to_wait_return_ns":11682,"crc_ns":519708,"cpu_stage_ns":413830,"commit_ns":65675,"directory_ns":217543,"lease_ns":116535,"net_recv_ns":23701721}
+KVF_FETCH {"pages":8,"queue_ns":5444,"completion_to_wait_return_ns":67591,"crc_ns":519790,"cpu_stage_ns":388841,"commit_ns":63442,"directory_ns":177794,"lease_ns":114526,"net_recv_ns":23548554}
+KVF_FETCH {"pages":8,"queue_ns":6456,"completion_to_wait_return_ns":8034,"crc_ns":508225,"cpu_stage_ns":386431,"commit_ns":67168,"directory_ns":207294,"lease_ns":117551,"net_recv_ns":23266014}
+KVF_FETCH {"pages":8,"queue_ns":8344,"completion_to_wait_return_ns":9233,"crc_ns":388521,"cpu_stage_ns":212572,"commit_ns":103396,"directory_ns":200168,"lease_ns":113165,"net_recv_ns":20969612}
+KVF_FETCH {"pages":8,"queue_ns":2699,"completion_to_wait_return_ns":9123,"crc_ns":668652,"cpu_stage_ns":197585,"commit_ns":104357,"directory_ns":134149,"lease_ns":111026,"net_recv_ns":21147494}
+KVF_FETCH {"pages":8,"queue_ns":4331,"completion_to_wait_return_ns":31509,"crc_ns":504502,"cpu_stage_ns":365945,"commit_ns":62182,"directory_ns":207967,"lease_ns":94318,"net_recv_ns":23237070}
+KVF_FETCH {"pages":8,"queue_ns":25450,"completion_to_wait_return_ns":39329,"crc_ns":508811,"cpu_stage_ns":377340,"commit_ns":66001,"directory_ns":235666,"lease_ns":100365,"net_recv_ns":23492571}
+KVF_FETCH {"pages":8,"queue_ns":4609,"completion_to_wait_return_ns":8838,"crc_ns":484636,"cpu_stage_ns":205288,"commit_ns":98780,"directory_ns":179541,"lease_ns":93352,"net_recv_ns":23032253}
+KVF_FETCH {"pages":8,"queue_ns":26006,"completion_to_wait_return_ns":9935,"crc_ns":342497,"cpu_stage_ns":220495,"commit_ns":88154,"directory_ns":218368,"lease_ns":180954,"net_recv_ns":23180974}
+KVF_FETCH {"pages":8,"queue_ns":5607,"completion_to_wait_return_ns":34427,"crc_ns":503616,"cpu_stage_ns":367402,"commit_ns":61630,"directory_ns":270572,"lease_ns":107765,"net_recv_ns":23003880}
+KVF_FETCH {"pages":8,"queue_ns":4801,"completion_to_wait_return_ns":6332,"crc_ns":488176,"cpu_stage_ns":195125,"commit_ns":96247,"directory_ns":174586,"lease_ns":83507,"net_recv_ns":23222827}
+KVF_FETCH {"pages":8,"queue_ns":2557,"completion_to_wait_return_ns":27905,"crc_ns":460090,"cpu_stage_ns":201489,"commit_ns":99727,"directory_ns":117589,"lease_ns":74809,"net_recv_ns":20766045}
+KVF_FETCH {"pages":8,"queue_ns":19247,"completion_to_wait_return_ns":8526,"crc_ns":461283,"cpu_stage_ns":253698,"commit_ns":86322,"directory_ns":138938,"lease_ns":88534,"net_recv_ns":20935102}
+KVF_FETCH {"pages":8,"queue_ns":24058,"completion_to_wait_return_ns":7863,"crc_ns":362316,"cpu_stage_ns":244152,"commit_ns":82560,"directory_ns":164481,"lease_ns":85007,"net_recv_ns":20764591}
+KVF_FETCH {"pages":8,"queue_ns":23979,"completion_to_wait_return_ns":9173,"crc_ns":470781,"cpu_stage_ns":208706,"commit_ns":105485,"directory_ns":181567,"lease_ns":75171,"net_recv_ns":20995708}
+KVF_FETCH {"pages":8,"queue_ns":3542,"completion_to_wait_return_ns":8343,"crc_ns":435371,"cpu_stage_ns":206730,"commit_ns":95385,"directory_ns":127436,"lease_ns":71025,"net_recv_ns":20942887}
+KVF_FETCH {"pages":8,"queue_ns":25219,"completion_to_wait_return_ns":7420,"crc_ns":395007,"cpu_stage_ns":229073,"commit_ns":86356,"directory_ns":194156,"lease_ns":55962,"net_recv_ns":20517113}
+KVF_FETCH {"pages":8,"queue_ns":19569,"completion_to_wait_return_ns":8309,"crc_ns":523328,"cpu_stage_ns":203923,"commit_ns":107125,"directory_ns":163455,"lease_ns":71272,"net_recv_ns":21020749}
+KVF_FETCH {"pages":8,"queue_ns":4527,"completion_to_wait_return_ns":8469,"crc_ns":417914,"cpu_stage_ns":232428,"commit_ns":84127,"directory_ns":148878,"lease_ns":87863,"net_recv_ns":20803691}
+KVF_FETCH {"pages":8,"queue_ns":19116,"completion_to_wait_return_ns":28412,"crc_ns":445069,"cpu_stage_ns":203061,"commit_ns":94045,"directory_ns":190592,"lease_ns":108074,"net_recv_ns":20731159}
+KVF_FETCH {"pages":8,"queue_ns":2844,"completion_to_wait_return_ns":28525,"crc_ns":388466,"cpu_stage_ns":240223,"commit_ns":92699,"directory_ns":182165,"lease_ns":133856,"net_recv_ns":21000657}
+KVF_FETCH {"pages":8,"queue_ns":3631,"completion_to_wait_return_ns":6786,"crc_ns":573602,"cpu_stage_ns":202960,"commit_ns":100334,"directory_ns":211599,"lease_ns":109828,"net_recv_ns":20963106}
+KVF_FETCH {"pages":8,"queue_ns":3484,"completion_to_wait_return_ns":28106,"crc_ns":435395,"cpu_stage_ns":188555,"commit_ns":92291,"directory_ns":158517,"lease_ns":70867,"net_recv_ns":20859957}
+KVF_FETCH {"pages":8,"queue_ns":18488,"completion_to_wait_return_ns":6108,"crc_ns":383782,"cpu_stage_ns":203046,"commit_ns":98350,"directory_ns":185187,"lease_ns":67197,"net_recv_ns":20667155}
+KVF_FETCH {"pages":8,"queue_ns":16725,"completion_to_wait_return_ns":9577,"crc_ns":549681,"cpu_stage_ns":229431,"commit_ns":107916,"directory_ns":179776,"lease_ns":111446,"net_recv_ns":25051585}
+KVF_FETCH {"pages":8,"queue_ns":4250,"completion_to_wait_return_ns":8016,"crc_ns":427389,"cpu_stage_ns":205391,"commit_ns":101782,"directory_ns":151051,"lease_ns":121265,"net_recv_ns":25192150}
+KVF_FETCH {"pages":8,"queue_ns":3306,"completion_to_wait_return_ns":26959,"crc_ns":637544,"cpu_stage_ns":297928,"commit_ns":120713,"directory_ns":130495,"lease_ns":122447,"net_recv_ns":24381120}
+KVF_FETCH {"pages":8,"queue_ns":3417,"completion_to_wait_return_ns":8511,"crc_ns":442620,"cpu_stage_ns":225693,"commit_ns":88514,"directory_ns":144497,"lease_ns":125192,"net_recv_ns":24552060}
+(APIServer pid=416985) INFO 11-26 15:22:40 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.2 tokens/s, Avg generation throughput: 3.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 56.3%, External prefix cache hit rate: 42.8%
+(APIServer pid=416985) INFO 11-26 15:22:40 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=417196) INFO 11-26 15:22:40 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:57730 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "GET /metrics HTTP/1.1" 200 OK
+(APIServer pid=416985) INFO 11-26 15:22:40 [api_router.py:23] Starting profiler...
+(APIServer pid=416985) INFO 11-26 15:22:40 [api_router.py:25] Profiler started.
+INFO:     127.0.0.1:57754 - "POST /start_profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57760 - "POST /v1/completions HTTP/1.1" 200 OK
+KVF_FETCH {"pages":8,"queue_ns":24723,"completion_to_wait_return_ns":26798,"crc_ns":418325,"cpu_stage_ns":201765,"commit_ns":107741,"directory_ns":475454,"lease_ns":295760,"net_recv_ns":27695059}
+KVF_FETCH {"pages":8,"queue_ns":45956,"completion_to_wait_return_ns":13293,"crc_ns":718842,"cpu_stage_ns":220946,"commit_ns":100944,"directory_ns":355704,"lease_ns":304550,"net_recv_ns":21585236}
+KVF_FETCH {"pages":8,"queue_ns":27217,"completion_to_wait_return_ns":23148,"crc_ns":631139,"cpu_stage_ns":277240,"commit_ns":126511,"directory_ns":379877,"lease_ns":148203,"net_recv_ns":21654794}
+KVF_FETCH {"pages":8,"queue_ns":6438,"completion_to_wait_return_ns":15465,"crc_ns":675251,"cpu_stage_ns":280724,"commit_ns":145440,"directory_ns":146294,"lease_ns":94328,"net_recv_ns":21082322}
+KVF_FETCH {"pages":8,"queue_ns":32943,"completion_to_wait_return_ns":14258,"crc_ns":537957,"cpu_stage_ns":232354,"commit_ns":102019,"directory_ns":203378,"lease_ns":79718,"net_recv_ns":20792064}
+KVF_FETCH {"pages":8,"queue_ns":6325,"completion_to_wait_return_ns":14678,"crc_ns":503773,"cpu_stage_ns":209093,"commit_ns":94389,"directory_ns":194040,"lease_ns":83151,"net_recv_ns":20888577}
+KVF_FETCH {"pages":8,"queue_ns":5304,"completion_to_wait_return_ns":67104,"crc_ns":667005,"cpu_stage_ns":198085,"commit_ns":92075,"directory_ns":126666,"lease_ns":130763,"net_recv_ns":21350954}
+KVF_FETCH {"pages":8,"queue_ns":49318,"completion_to_wait_return_ns":17448,"crc_ns":526143,"cpu_stage_ns":228894,"commit_ns":104972,"directory_ns":174722,"lease_ns":87926,"net_recv_ns":21051453}
+KVF_FETCH {"pages":8,"queue_ns":32610,"completion_to_wait_return_ns":34748,"crc_ns":475063,"cpu_stage_ns":231404,"commit_ns":99996,"directory_ns":151490,"lease_ns":134268,"net_recv_ns":21808269}
+KVF_FETCH {"pages":8,"queue_ns":28350,"completion_to_wait_return_ns":11855,"crc_ns":423051,"cpu_stage_ns":222398,"commit_ns":107862,"directory_ns":151136,"lease_ns":128563,"net_recv_ns":21214053}
+KVF_FETCH {"pages":8,"queue_ns":16261,"completion_to_wait_return_ns":24241,"crc_ns":392773,"cpu_stage_ns":214265,"commit_ns":98539,"directory_ns":131517,"lease_ns":86330,"net_recv_ns":21283001}
+KVF_FETCH {"pages":8,"queue_ns":33170,"completion_to_wait_return_ns":50745,"crc_ns":562804,"cpu_stage_ns":229241,"commit_ns":107547,"directory_ns":155109,"lease_ns":140880,"net_recv_ns":21615303}
+KVF_FETCH {"pages":8,"queue_ns":5610,"completion_to_wait_return_ns":13007,"crc_ns":507692,"cpu_stage_ns":209159,"commit_ns":100745,"directory_ns":143197,"lease_ns":75065,"net_recv_ns":21050867}
+KVF_FETCH {"pages":8,"queue_ns":3749,"completion_to_wait_return_ns":61832,"crc_ns":591185,"cpu_stage_ns":476072,"commit_ns":58707,"directory_ns":210331,"lease_ns":186408,"net_recv_ns":23929126}
+KVF_FETCH {"pages":8,"queue_ns":61384,"completion_to_wait_return_ns":26552,"crc_ns":516105,"cpu_stage_ns":393338,"commit_ns":60403,"directory_ns":271884,"lease_ns":89825,"net_recv_ns":23758268}
+KVF_FETCH {"pages":8,"queue_ns":5388,"completion_to_wait_return_ns":57007,"crc_ns":531435,"cpu_stage_ns":467812,"commit_ns":56279,"directory_ns":165801,"lease_ns":175670,"net_recv_ns":24260869}
+KVF_FETCH {"pages":8,"queue_ns":43957,"completion_to_wait_return_ns":14019,"crc_ns":633725,"cpu_stage_ns":206214,"commit_ns":95298,"directory_ns":243440,"lease_ns":146903,"net_recv_ns":23924112}
+KVF_FETCH {"pages":8,"queue_ns":31313,"completion_to_wait_return_ns":14911,"crc_ns":477322,"cpu_stage_ns":223480,"commit_ns":106424,"directory_ns":211643,"lease_ns":70354,"net_recv_ns":21328223}
+KVF_FETCH {"pages":8,"queue_ns":6892,"completion_to_wait_return_ns":50939,"crc_ns":470540,"cpu_stage_ns":216065,"commit_ns":101140,"directory_ns":162004,"lease_ns":101691,"net_recv_ns":20906154}
+KVF_FETCH {"pages":8,"queue_ns":3962,"completion_to_wait_return_ns":12126,"crc_ns":496084,"cpu_stage_ns":217567,"commit_ns":100999,"directory_ns":101763,"lease_ns":83643,"net_recv_ns":21108694}
+KVF_FETCH {"pages":8,"queue_ns":8791,"completion_to_wait_return_ns":21352,"crc_ns":616609,"cpu_stage_ns":375697,"commit_ns":53212,"directory_ns":182314,"lease_ns":203719,"net_recv_ns":21959160}
+KVF_FETCH {"pages":8,"queue_ns":123836,"completion_to_wait_return_ns":20862,"crc_ns":706618,"cpu_stage_ns":543616,"commit_ns":61658,"directory_ns":244257,"lease_ns":139739,"net_recv_ns":24145520}
+KVF_FETCH {"pages":8,"queue_ns":12063,"completion_to_wait_return_ns":12525,"crc_ns":508785,"cpu_stage_ns":223552,"commit_ns":97073,"directory_ns":270253,"lease_ns":111160,"net_recv_ns":23342518}
+KVF_FETCH {"pages":8,"queue_ns":7520,"completion_to_wait_return_ns":13152,"crc_ns":521754,"cpu_stage_ns":217990,"commit_ns":99983,"directory_ns":150603,"lease_ns":116104,"net_recv_ns":21348633}
+KVF_FETCH {"pages":8,"queue_ns":7470,"completion_to_wait_return_ns":12361,"crc_ns":434373,"cpu_stage_ns":208452,"commit_ns":99559,"directory_ns":131889,"lease_ns":72471,"net_recv_ns":21071951}
+KVF_FETCH {"pages":8,"queue_ns":7629,"completion_to_wait_return_ns":14154,"crc_ns":624138,"cpu_stage_ns":259990,"commit_ns":122975,"directory_ns":178288,"lease_ns":143855,"net_recv_ns":21648722}
+KVF_FETCH {"pages":8,"queue_ns":7553,"completion_to_wait_return_ns":14092,"crc_ns":480047,"cpu_stage_ns":281521,"commit_ns":131583,"directory_ns":132509,"lease_ns":98433,"net_recv_ns":21078117}
+KVF_FETCH {"pages":8,"queue_ns":7530,"completion_to_wait_return_ns":26396,"crc_ns":812542,"cpu_stage_ns":204752,"commit_ns":94009,"directory_ns":143626,"lease_ns":128591,"net_recv_ns":21339906}
+KVF_FETCH {"pages":8,"queue_ns":6820,"completion_to_wait_return_ns":27915,"crc_ns":613662,"cpu_stage_ns":259048,"commit_ns":116865,"directory_ns":193321,"lease_ns":151187,"net_recv_ns":21190152}
+KVF_FETCH {"pages":8,"queue_ns":11762,"completion_to_wait_return_ns":13275,"crc_ns":457920,"cpu_stage_ns":208648,"commit_ns":100932,"directory_ns":213905,"lease_ns":104915,"net_recv_ns":21116002}
+KVF_FETCH {"pages":8,"queue_ns":5975,"completion_to_wait_return_ns":14847,"crc_ns":468484,"cpu_stage_ns":203569,"commit_ns":102018,"directory_ns":174843,"lease_ns":84742,"net_recv_ns":21122782}
+KVF_FETCH {"pages":8,"queue_ns":7149,"completion_to_wait_return_ns":16481,"crc_ns":566590,"cpu_stage_ns":270430,"commit_ns":129837,"directory_ns":137982,"lease_ns":125257,"net_recv_ns":21119642}
+KVF_FETCH {"pages":8,"queue_ns":8946,"completion_to_wait_return_ns":14291,"crc_ns":499608,"cpu_stage_ns":216195,"commit_ns":107179,"directory_ns":187367,"lease_ns":126385,"net_recv_ns":21065833}
+KVF_FETCH {"pages":8,"queue_ns":8917,"completion_to_wait_return_ns":14969,"crc_ns":487751,"cpu_stage_ns":377982,"commit_ns":53015,"directory_ns":225776,"lease_ns":120000,"net_recv_ns":23863606}
+KVF_FETCH {"pages":8,"queue_ns":11059,"completion_to_wait_return_ns":11160,"crc_ns":466499,"cpu_stage_ns":201130,"commit_ns":99786,"directory_ns":202162,"lease_ns":62349,"net_recv_ns":22530555}
+KVF_FETCH {"pages":8,"queue_ns":27056,"completion_to_wait_return_ns":10394,"crc_ns":396649,"cpu_stage_ns":203609,"commit_ns":99478,"directory_ns":198590,"lease_ns":136084,"net_recv_ns":31061752}
+KVF_FETCH {"pages":8,"queue_ns":5571,"completion_to_wait_return_ns":14990,"crc_ns":473896,"cpu_stage_ns":217381,"commit_ns":103347,"directory_ns":205239,"lease_ns":110288,"net_recv_ns":23202557}
+KVF_FETCH {"pages":8,"queue_ns":8871,"completion_to_wait_return_ns":14248,"crc_ns":573809,"cpu_stage_ns":241643,"commit_ns":113450,"directory_ns":216282,"lease_ns":134604,"net_recv_ns":22900934}
+KVF_FETCH {"pages":8,"queue_ns":11247,"completion_to_wait_return_ns":11549,"crc_ns":400621,"cpu_stage_ns":197699,"commit_ns":92435,"directory_ns":147344,"lease_ns":91482,"net_recv_ns":21133576}
+KVF_FETCH {"pages":8,"queue_ns":5297,"completion_to_wait_return_ns":10428,"crc_ns":460799,"cpu_stage_ns":215045,"commit_ns":97259,"directory_ns":157375,"lease_ns":81121,"net_recv_ns":21408324}
+KVF_FETCH {"pages":8,"queue_ns":7387,"completion_to_wait_return_ns":13648,"crc_ns":504146,"cpu_stage_ns":201840,"commit_ns":94967,"directory_ns":172592,"lease_ns":208489,"net_recv_ns":21213236}
+KVF_FETCH {"pages":8,"queue_ns":7139,"completion_to_wait_return_ns":51497,"crc_ns":415924,"cpu_stage_ns":211763,"commit_ns":93744,"directory_ns":189900,"lease_ns":86655,"net_recv_ns":21039448}
+KVF_FETCH {"pages":8,"queue_ns":6034,"completion_to_wait_return_ns":12614,"crc_ns":411169,"cpu_stage_ns":217369,"commit_ns":97849,"directory_ns":156018,"lease_ns":131000,"net_recv_ns":21313127}
+KVF_FETCH {"pages":8,"queue_ns":8372,"completion_to_wait_return_ns":65367,"crc_ns":783481,"cpu_stage_ns":182097,"commit_ns":80594,"directory_ns":212907,"lease_ns":184693,"net_recv_ns":24125138}
+KVF_FETCH {"pages":8,"queue_ns":31913,"completion_to_wait_return_ns":13286,"crc_ns":405337,"cpu_stage_ns":204031,"commit_ns":101013,"directory_ns":138156,"lease_ns":101626,"net_recv_ns":21049826}
+KVF_FETCH {"pages":8,"queue_ns":7562,"completion_to_wait_return_ns":15844,"crc_ns":401675,"cpu_stage_ns":203859,"commit_ns":90514,"directory_ns":188851,"lease_ns":146208,"net_recv_ns":21122422}
+KVF_FETCH {"pages":8,"queue_ns":22992,"completion_to_wait_return_ns":12196,"crc_ns":455914,"cpu_stage_ns":198916,"commit_ns":94212,"directory_ns":223514,"lease_ns":129481,"net_recv_ns":21191252}
+KVF_FETCH {"pages":8,"queue_ns":27173,"completion_to_wait_return_ns":56280,"crc_ns":462643,"cpu_stage_ns":209469,"commit_ns":97964,"directory_ns":180365,"lease_ns":114455,"net_recv_ns":20919639}
+KVF_FETCH {"pages":8,"queue_ns":33042,"completion_to_wait_return_ns":13547,"crc_ns":324826,"cpu_stage_ns":211469,"commit_ns":104044,"directory_ns":239451,"lease_ns":110625,"net_recv_ns":23568974}
+KVF_FETCH {"pages":8,"queue_ns":11168,"completion_to_wait_return_ns":10278,"crc_ns":473471,"cpu_stage_ns":209558,"commit_ns":98506,"directory_ns":190073,"lease_ns":111763,"net_recv_ns":21325300}
+KVF_FETCH {"pages":8,"queue_ns":29279,"completion_to_wait_return_ns":13607,"crc_ns":382354,"cpu_stage_ns":227203,"commit_ns":105274,"directory_ns":189163,"lease_ns":128096,"net_recv_ns":21212597}
+KVF_FETCH {"pages":8,"queue_ns":4227,"completion_to_wait_return_ns":11124,"crc_ns":463574,"cpu_stage_ns":217469,"commit_ns":95974,"directory_ns":138553,"lease_ns":92425,"net_recv_ns":21086688}
+KVF_FETCH {"pages":8,"queue_ns":5238,"completion_to_wait_return_ns":16288,"crc_ns":480138,"cpu_stage_ns":197451,"commit_ns":96091,"directory_ns":149727,"lease_ns":84586,"net_recv_ns":21089467}
+KVF_FETCH {"pages":8,"queue_ns":30366,"completion_to_wait_return_ns":16776,"crc_ns":475777,"cpu_stage_ns":216633,"commit_ns":100873,"directory_ns":154131,"lease_ns":91418,"net_recv_ns":21139681}
+KVF_FETCH {"pages":8,"queue_ns":5265,"completion_to_wait_return_ns":9728,"crc_ns":440669,"cpu_stage_ns":208628,"commit_ns":98264,"directory_ns":173289,"lease_ns":122588,"net_recv_ns":21199038}
+KVF_FETCH {"pages":8,"queue_ns":6014,"completion_to_wait_return_ns":10572,"crc_ns":375798,"cpu_stage_ns":207549,"commit_ns":93241,"directory_ns":162333,"lease_ns":74980,"net_recv_ns":21229561}
+KVF_FETCH {"pages":8,"queue_ns":28389,"completion_to_wait_return_ns":10995,"crc_ns":496438,"cpu_stage_ns":207942,"commit_ns":101646,"directory_ns":189176,"lease_ns":75616,"net_recv_ns":21031749}
+KVF_FETCH {"pages":8,"queue_ns":26129,"completion_to_wait_return_ns":13170,"crc_ns":425326,"cpu_stage_ns":259462,"commit_ns":125737,"directory_ns":146578,"lease_ns":162429,"net_recv_ns":20917607}
+KVF_FETCH {"pages":8,"queue_ns":6518,"completion_to_wait_return_ns":14147,"crc_ns":562499,"cpu_stage_ns":378716,"commit_ns":52776,"directory_ns":225587,"lease_ns":125189,"net_recv_ns":23770668}
+KVF_FETCH {"pages":8,"queue_ns":42823,"completion_to_wait_return_ns":11390,"crc_ns":399573,"cpu_stage_ns":205049,"commit_ns":93159,"directory_ns":227898,"lease_ns":96823,"net_recv_ns":21228236}
+KVF_FETCH {"pages":8,"queue_ns":32680,"completion_to_wait_return_ns":9997,"crc_ns":676088,"cpu_stage_ns":220886,"commit_ns":95239,"directory_ns":177255,"lease_ns":77383,"net_recv_ns":21561562}
+KVF_FETCH {"pages":8,"queue_ns":5084,"completion_to_wait_return_ns":10864,"crc_ns":421037,"cpu_stage_ns":209207,"commit_ns":100196,"directory_ns":124279,"lease_ns":73114,"net_recv_ns":21049512}
+KVF_FETCH {"pages":8,"queue_ns":33134,"completion_to_wait_return_ns":10917,"crc_ns":419834,"cpu_stage_ns":214470,"commit_ns":92016,"directory_ns":142962,"lease_ns":56003,"net_recv_ns":21532665}
+KVF_FETCH {"pages":8,"queue_ns":27366,"completion_to_wait_return_ns":21233,"crc_ns":446429,"cpu_stage_ns":203683,"commit_ns":102742,"directory_ns":142475,"lease_ns":68659,"net_recv_ns":21386315}
+INFO:     127.0.0.1:52962 - "POST /v1/completions HTTP/1.1" 200 OK
+KVF_FETCH {"pages":8,"queue_ns":9471,"completion_to_wait_return_ns":11912,"crc_ns":441587,"cpu_stage_ns":253376,"commit_ns":131028,"directory_ns":120222,"lease_ns":142950,"net_recv_ns":29003836}
+KVF_FETCH {"pages":8,"queue_ns":12700,"completion_to_wait_return_ns":50419,"crc_ns":507063,"cpu_stage_ns":206630,"commit_ns":95311,"directory_ns":287275,"lease_ns":116611,"net_recv_ns":21541350}
+KVF_FETCH {"pages":8,"queue_ns":5236,"completion_to_wait_return_ns":8674,"crc_ns":444626,"cpu_stage_ns":199838,"commit_ns":88375,"directory_ns":129971,"lease_ns":96428,"net_recv_ns":20805647}
+KVF_FETCH {"pages":8,"queue_ns":31173,"completion_to_wait_return_ns":11120,"crc_ns":441188,"cpu_stage_ns":211221,"commit_ns":99206,"directory_ns":180473,"lease_ns":86635,"net_recv_ns":20917392}
+KVF_FETCH {"pages":8,"queue_ns":4890,"completion_to_wait_return_ns":13030,"crc_ns":439673,"cpu_stage_ns":216090,"commit_ns":102137,"directory_ns":126375,"lease_ns":78253,"net_recv_ns":20923455}
+KVF_FETCH {"pages":8,"queue_ns":29036,"completion_to_wait_return_ns":13610,"crc_ns":423626,"cpu_stage_ns":185674,"commit_ns":91048,"directory_ns":144642,"lease_ns":105696,"net_recv_ns":20578566}
+KVF_FETCH {"pages":8,"queue_ns":28754,"completion_to_wait_return_ns":15156,"crc_ns":433447,"cpu_stage_ns":203141,"commit_ns":91683,"directory_ns":182149,"lease_ns":105785,"net_recv_ns":20909756}
+KVF_FETCH {"pages":8,"queue_ns":6155,"completion_to_wait_return_ns":11616,"crc_ns":450271,"cpu_stage_ns":213003,"commit_ns":93125,"directory_ns":122562,"lease_ns":73597,"net_recv_ns":21036711}
+KVF_FETCH {"pages":8,"queue_ns":8792,"completion_to_wait_return_ns":17594,"crc_ns":446752,"cpu_stage_ns":192490,"commit_ns":91581,"directory_ns":127999,"lease_ns":69505,"net_recv_ns":21040713}
+KVF_FETCH {"pages":8,"queue_ns":5566,"completion_to_wait_return_ns":34718,"crc_ns":404962,"cpu_stage_ns":208234,"commit_ns":90065,"directory_ns":138922,"lease_ns":125331,"net_recv_ns":21256330}
+KVF_FETCH {"pages":8,"queue_ns":33704,"completion_to_wait_return_ns":43724,"crc_ns":480919,"cpu_stage_ns":209680,"commit_ns":105830,"directory_ns":132491,"lease_ns":76402,"net_recv_ns":21173468}
+KVF_FETCH {"pages":8,"queue_ns":6945,"completion_to_wait_return_ns":20766,"crc_ns":495739,"cpu_stage_ns":206633,"commit_ns":93380,"directory_ns":168622,"lease_ns":72903,"net_recv_ns":20797706}
+KVF_FETCH {"pages":8,"queue_ns":25907,"completion_to_wait_return_ns":14726,"crc_ns":479164,"cpu_stage_ns":202093,"commit_ns":98790,"directory_ns":189966,"lease_ns":157403,"net_recv_ns":20802200}
+KVF_FETCH {"pages":8,"queue_ns":8154,"completion_to_wait_return_ns":56651,"crc_ns":511097,"cpu_stage_ns":204920,"commit_ns":93462,"directory_ns":232384,"lease_ns":102396,"net_recv_ns":22006844}
+KVF_FETCH {"pages":8,"queue_ns":32547,"completion_to_wait_return_ns":15693,"crc_ns":586640,"cpu_stage_ns":270739,"commit_ns":124603,"directory_ns":154744,"lease_ns":129983,"net_recv_ns":20819130}
+KVF_FETCH {"pages":8,"queue_ns":5765,"completion_to_wait_return_ns":18881,"crc_ns":381111,"cpu_stage_ns":204220,"commit_ns":93837,"directory_ns":125244,"lease_ns":85253,"net_recv_ns":20888858}
+KVF_FETCH {"pages":8,"queue_ns":26597,"completion_to_wait_return_ns":50570,"crc_ns":442912,"cpu_stage_ns":227648,"commit_ns":91309,"directory_ns":189957,"lease_ns":118659,"net_recv_ns":21014540}
+KVF_FETCH {"pages":8,"queue_ns":4771,"completion_to_wait_return_ns":46611,"crc_ns":530797,"cpu_stage_ns":374269,"commit_ns":54210,"directory_ns":153738,"lease_ns":119875,"net_recv_ns":101093206}
+KVF_FETCH {"pages":8,"queue_ns":8765,"completion_to_wait_return_ns":14964,"crc_ns":476661,"cpu_stage_ns":216940,"commit_ns":101772,"directory_ns":191630,"lease_ns":133062,"net_recv_ns":23549454}
+KVF_FETCH {"pages":8,"queue_ns":4469,"completion_to_wait_return_ns":11104,"crc_ns":672327,"cpu_stage_ns":188095,"commit_ns":88274,"directory_ns":130566,"lease_ns":86205,"net_recv_ns":21847429}
+KVF_FETCH {"pages":8,"queue_ns":9080,"completion_to_wait_return_ns":8188,"crc_ns":390881,"cpu_stage_ns":224097,"commit_ns":94879,"directory_ns":163879,"lease_ns":104698,"net_recv_ns":20818605}
+KVF_FETCH {"pages":8,"queue_ns":5590,"completion_to_wait_return_ns":9597,"crc_ns":505453,"cpu_stage_ns":370084,"commit_ns":58914,"directory_ns":216176,"lease_ns":117238,"net_recv_ns":23908909}
+KVF_FETCH {"pages":8,"queue_ns":7154,"completion_to_wait_return_ns":40625,"crc_ns":494806,"cpu_stage_ns":392228,"commit_ns":54409,"directory_ns":198876,"lease_ns":117725,"net_recv_ns":23713171}
+KVF_FETCH {"pages":8,"queue_ns":7479,"completion_to_wait_return_ns":14043,"crc_ns":513200,"cpu_stage_ns":394246,"commit_ns":54061,"directory_ns":193675,"lease_ns":128387,"net_recv_ns":23802523}
+KVF_FETCH {"pages":8,"queue_ns":38647,"completion_to_wait_return_ns":22042,"crc_ns":384748,"cpu_stage_ns":184052,"commit_ns":96452,"directory_ns":211078,"lease_ns":84548,"net_recv_ns":23275476}
+KVF_FETCH {"pages":8,"queue_ns":36720,"completion_to_wait_return_ns":15512,"crc_ns":470708,"cpu_stage_ns":213033,"commit_ns":107227,"directory_ns":205559,"lease_ns":81560,"net_recv_ns":21424808}
+KVF_FETCH {"pages":8,"queue_ns":28750,"completion_to_wait_return_ns":14876,"crc_ns":413799,"cpu_stage_ns":215955,"commit_ns":96162,"directory_ns":180394,"lease_ns":80687,"net_recv_ns":21354114}
+KVF_FETCH {"pages":8,"queue_ns":33857,"completion_to_wait_return_ns":16906,"crc_ns":503647,"cpu_stage_ns":236533,"commit_ns":106686,"directory_ns":213756,"lease_ns":121232,"net_recv_ns":21126722}
+KVF_FETCH {"pages":8,"queue_ns":8970,"completion_to_wait_return_ns":14613,"crc_ns":396439,"cpu_stage_ns":190307,"commit_ns":91851,"directory_ns":247325,"lease_ns":178632,"net_recv_ns":23717976}
+KVF_FETCH {"pages":8,"queue_ns":7482,"completion_to_wait_return_ns":16114,"crc_ns":501325,"cpu_stage_ns":388804,"commit_ns":56855,"directory_ns":235284,"lease_ns":119021,"net_recv_ns":23843851}
+KVF_FETCH {"pages":8,"queue_ns":10605,"completion_to_wait_return_ns":17752,"crc_ns":511132,"cpu_stage_ns":215499,"commit_ns":101261,"directory_ns":212075,"lease_ns":171551,"net_recv_ns":23062046}
+KVF_FETCH {"pages":8,"queue_ns":8044,"completion_to_wait_return_ns":18530,"crc_ns":480844,"cpu_stage_ns":399731,"commit_ns":61676,"directory_ns":217429,"lease_ns":94381,"net_recv_ns":22694257}
+KVF_FETCH {"pages":8,"queue_ns":8127,"completion_to_wait_return_ns":40666,"crc_ns":446335,"cpu_stage_ns":198209,"commit_ns":89021,"directory_ns":219030,"lease_ns":127522,"net_recv_ns":20953730}
+KVF_FETCH {"pages":8,"queue_ns":11158,"completion_to_wait_return_ns":52430,"crc_ns":476747,"cpu_stage_ns":208136,"commit_ns":91190,"directory_ns":220141,"lease_ns":105513,"net_recv_ns":22634045}
+KVF_FETCH {"pages":8,"queue_ns":40437,"completion_to_wait_return_ns":9088,"crc_ns":522484,"cpu_stage_ns":376140,"commit_ns":52445,"directory_ns":215459,"lease_ns":142806,"net_recv_ns":23743351}
+KVF_FETCH {"pages":8,"queue_ns":42739,"completion_to_wait_return_ns":45095,"crc_ns":518298,"cpu_stage_ns":374848,"commit_ns":52897,"directory_ns":201651,"lease_ns":145051,"net_recv_ns":24247758}
+KVF_FETCH {"pages":8,"queue_ns":7538,"completion_to_wait_return_ns":12575,"crc_ns":431357,"cpu_stage_ns":262518,"commit_ns":86275,"directory_ns":202729,"lease_ns":122739,"net_recv_ns":23845256}
+KVF_FETCH {"pages":8,"queue_ns":5913,"completion_to_wait_return_ns":55833,"crc_ns":428392,"cpu_stage_ns":259189,"commit_ns":78270,"directory_ns":150687,"lease_ns":100527,"net_recv_ns":21303332}
+KVF_FETCH {"pages":8,"queue_ns":7590,"completion_to_wait_return_ns":45841,"crc_ns":808737,"cpu_stage_ns":435027,"commit_ns":55791,"directory_ns":229405,"lease_ns":130235,"net_recv_ns":23023173}
+KVF_FETCH {"pages":8,"queue_ns":7728,"completion_to_wait_return_ns":11159,"crc_ns":510874,"cpu_stage_ns":202652,"commit_ns":93235,"directory_ns":200154,"lease_ns":114167,"net_recv_ns":23590240}
+KVF_FETCH {"pages":8,"queue_ns":7375,"completion_to_wait_return_ns":7394,"crc_ns":387772,"cpu_stage_ns":212879,"commit_ns":105941,"directory_ns":191657,"lease_ns":151412,"net_recv_ns":23456174}
+KVF_FETCH {"pages":8,"queue_ns":14974,"completion_to_wait_return_ns":43021,"crc_ns":528133,"cpu_stage_ns":398508,"commit_ns":53177,"directory_ns":229942,"lease_ns":125821,"net_recv_ns":23741533}
+KVF_FETCH {"pages":8,"queue_ns":44068,"completion_to_wait_return_ns":41563,"crc_ns":552311,"cpu_stage_ns":390329,"commit_ns":54497,"directory_ns":226762,"lease_ns":121602,"net_recv_ns":24057972}
+KVF_FETCH {"pages":8,"queue_ns":8466,"completion_to_wait_return_ns":11460,"crc_ns":482073,"cpu_stage_ns":220218,"commit_ns":98175,"directory_ns":185661,"lease_ns":105996,"net_recv_ns":23913963}
+KVF_FETCH {"pages":8,"queue_ns":31270,"completion_to_wait_return_ns":16061,"crc_ns":485854,"cpu_stage_ns":201365,"commit_ns":93053,"directory_ns":182308,"lease_ns":81644,"net_recv_ns":21288142}
+KVF_FETCH {"pages":8,"queue_ns":33305,"completion_to_wait_return_ns":21192,"crc_ns":401766,"cpu_stage_ns":213591,"commit_ns":89751,"directory_ns":189439,"lease_ns":84009,"net_recv_ns":21466918}
+KVF_FETCH {"pages":8,"queue_ns":34055,"completion_to_wait_return_ns":15477,"crc_ns":469941,"cpu_stage_ns":212614,"commit_ns":96812,"directory_ns":168819,"lease_ns":76864,"net_recv_ns":21034727}
+KVF_FETCH {"pages":8,"queue_ns":5864,"completion_to_wait_return_ns":16113,"crc_ns":434555,"cpu_stage_ns":199099,"commit_ns":91626,"directory_ns":188219,"lease_ns":111691,"net_recv_ns":21072176}
+KVF_FETCH {"pages":8,"queue_ns":4972,"completion_to_wait_return_ns":46510,"crc_ns":461478,"cpu_stage_ns":202371,"commit_ns":102190,"directory_ns":211591,"lease_ns":124108,"net_recv_ns":20992841}
+KVF_FETCH {"pages":8,"queue_ns":22229,"completion_to_wait_return_ns":9288,"crc_ns":441535,"cpu_stage_ns":200011,"commit_ns":92838,"directory_ns":133098,"lease_ns":123704,"net_recv_ns":21040539}
+KVF_FETCH {"pages":8,"queue_ns":38052,"completion_to_wait_return_ns":49123,"crc_ns":505049,"cpu_stage_ns":381281,"commit_ns":53747,"directory_ns":129967,"lease_ns":123676,"net_recv_ns":23794383}
+KVF_FETCH {"pages":8,"queue_ns":7601,"completion_to_wait_return_ns":54712,"crc_ns":516257,"cpu_stage_ns":395314,"commit_ns":58903,"directory_ns":184312,"lease_ns":137334,"net_recv_ns":23574089}
+KVF_FETCH {"pages":8,"queue_ns":60408,"completion_to_wait_return_ns":13261,"crc_ns":541911,"cpu_stage_ns":380155,"commit_ns":54410,"directory_ns":245413,"lease_ns":125100,"net_recv_ns":23582543}
+KVF_FETCH {"pages":8,"queue_ns":7749,"completion_to_wait_return_ns":15946,"crc_ns":415336,"cpu_stage_ns":224512,"commit_ns":99641,"directory_ns":184919,"lease_ns":90319,"net_recv_ns":23167191}
+KVF_FETCH {"pages":8,"queue_ns":14992,"completion_to_wait_return_ns":10802,"crc_ns":420951,"cpu_stage_ns":204763,"commit_ns":96760,"directory_ns":131723,"lease_ns":104061,"net_recv_ns":21264651}
+KVF_FETCH {"pages":8,"queue_ns":29696,"completion_to_wait_return_ns":10129,"crc_ns":425864,"cpu_stage_ns":201741,"commit_ns":90572,"directory_ns":150781,"lease_ns":86831,"net_recv_ns":21144604}
+KVF_FETCH {"pages":8,"queue_ns":25739,"completion_to_wait_return_ns":48323,"crc_ns":495401,"cpu_stage_ns":206458,"commit_ns":94668,"directory_ns":141682,"lease_ns":94303,"net_recv_ns":20962963}
+KVF_FETCH {"pages":8,"queue_ns":5415,"completion_to_wait_return_ns":12163,"crc_ns":404893,"cpu_stage_ns":223152,"commit_ns":99988,"directory_ns":126024,"lease_ns":129720,"net_recv_ns":21487242}
+KVF_FETCH {"pages":8,"queue_ns":5521,"completion_to_wait_return_ns":21398,"crc_ns":581280,"cpu_stage_ns":258925,"commit_ns":122280,"directory_ns":131996,"lease_ns":143734,"net_recv_ns":21177850}
+KVF_FETCH {"pages":8,"queue_ns":15742,"completion_to_wait_return_ns":9354,"crc_ns":433030,"cpu_stage_ns":214499,"commit_ns":94280,"directory_ns":211975,"lease_ns":102213,"net_recv_ns":21067582}
+KVF_FETCH {"pages":8,"queue_ns":31550,"completion_to_wait_return_ns":16034,"crc_ns":453936,"cpu_stage_ns":203600,"commit_ns":95842,"directory_ns":151857,"lease_ns":110731,"net_recv_ns":21064022}
+KVF_FETCH {"pages":8,"queue_ns":5836,"completion_to_wait_return_ns":16089,"crc_ns":593380,"cpu_stage_ns":209652,"commit_ns":107746,"directory_ns":174137,"lease_ns":75065,"net_recv_ns":21297045}
+KVF_FETCH {"pages":8,"queue_ns":27041,"completion_to_wait_return_ns":49896,"crc_ns":436807,"cpu_stage_ns":181700,"commit_ns":87425,"directory_ns":207576,"lease_ns":102530,"net_recv_ns":20809639}
+KVF_FETCH {"pages":8,"queue_ns":29145,"completion_to_wait_return_ns":12152,"crc_ns":490635,"cpu_stage_ns":220773,"commit_ns":97846,"directory_ns":146259,"lease_ns":74164,"net_recv_ns":21155061}
+(APIServer pid=416985) INFO 11-26 15:22:50 [loggers.py:320] Engine 000: Avg prompt throughput: 819.2 tokens/s, Avg generation throughput: 1.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 56.3%, External prefix cache hit rate: 45.4%
+INFO:     127.0.0.1:52976 - "POST /v1/completions HTTP/1.1" 200 OK
+KVF_FETCH {"pages":8,"queue_ns":8166,"completion_to_wait_return_ns":10818,"crc_ns":401854,"cpu_stage_ns":207648,"commit_ns":105963,"directory_ns":146887,"lease_ns":58170,"net_recv_ns":26467279}
+KVF_FETCH {"pages":8,"queue_ns":4221,"completion_to_wait_return_ns":46598,"crc_ns":526705,"cpu_stage_ns":376102,"commit_ns":57423,"directory_ns":123967,"lease_ns":90928,"net_recv_ns":34403878}
+KVF_FETCH {"pages":8,"queue_ns":7348,"completion_to_wait_return_ns":8607,"crc_ns":342889,"cpu_stage_ns":215857,"commit_ns":95616,"directory_ns":199046,"lease_ns":130840,"net_recv_ns":23605823}
+KVF_FETCH {"pages":8,"queue_ns":7729,"completion_to_wait_return_ns":12811,"crc_ns":377318,"cpu_stage_ns":222171,"commit_ns":103341,"directory_ns":215300,"lease_ns":54762,"net_recv_ns":30328687}
+KVF_FETCH {"pages":8,"queue_ns":39946,"completion_to_wait_return_ns":52218,"crc_ns":502139,"cpu_stage_ns":200919,"commit_ns":95556,"directory_ns":128682,"lease_ns":79600,"net_recv_ns":21103189}
+KVF_FETCH {"pages":8,"queue_ns":5324,"completion_to_wait_return_ns":56193,"crc_ns":451884,"cpu_stage_ns":216651,"commit_ns":99421,"directory_ns":151079,"lease_ns":99166,"net_recv_ns":28403635}
+KVF_FETCH {"pages":8,"queue_ns":5024,"completion_to_wait_return_ns":13447,"crc_ns":488771,"cpu_stage_ns":222312,"commit_ns":101683,"directory_ns":119352,"lease_ns":52121,"net_recv_ns":21531924}
+KVF_FETCH {"pages":8,"queue_ns":5821,"completion_to_wait_return_ns":11867,"crc_ns":828352,"cpu_stage_ns":496451,"commit_ns":58510,"directory_ns":119825,"lease_ns":85461,"net_recv_ns":29334666}
+KVF_FETCH {"pages":8,"queue_ns":8876,"completion_to_wait_return_ns":22370,"crc_ns":727902,"cpu_stage_ns":438873,"commit_ns":56824,"directory_ns":194121,"lease_ns":87513,"net_recv_ns":26897984}
+KVF_FETCH {"pages":8,"queue_ns":5520,"completion_to_wait_return_ns":50385,"crc_ns":944281,"cpu_stage_ns":198804,"commit_ns":93266,"directory_ns":112907,"lease_ns":86932,"net_recv_ns":32563870}
+KVF_FETCH {"pages":8,"queue_ns":10359,"completion_to_wait_return_ns":16693,"crc_ns":939586,"cpu_stage_ns":241319,"commit_ns":116841,"directory_ns":191209,"lease_ns":75145,"net_recv_ns":23171887}
+KVF_FETCH {"pages":8,"queue_ns":7817,"completion_to_wait_return_ns":19051,"crc_ns":571450,"cpu_stage_ns":223117,"commit_ns":107874,"directory_ns":199360,"lease_ns":89509,"net_recv_ns":22330525}
+KVF_FETCH {"pages":8,"queue_ns":6073,"completion_to_wait_return_ns":16670,"crc_ns":522495,"cpu_stage_ns":224878,"commit_ns":113636,"directory_ns":121745,"lease_ns":66152,"net_recv_ns":28069264}
+KVF_FETCH {"pages":8,"queue_ns":6021,"completion_to_wait_return_ns":48695,"crc_ns":701233,"cpu_stage_ns":228108,"commit_ns":107810,"directory_ns":187131,"lease_ns":80182,"net_recv_ns":24328843}
+KVF_FETCH {"pages":8,"queue_ns":10813,"completion_to_wait_return_ns":15256,"crc_ns":1147582,"cpu_stage_ns":694395,"commit_ns":63958,"directory_ns":200142,"lease_ns":121675,"net_recv_ns":30047870}
+KVF_FETCH {"pages":8,"queue_ns":9066,"completion_to_wait_return_ns":10832,"crc_ns":460533,"cpu_stage_ns":285253,"commit_ns":132460,"directory_ns":209876,"lease_ns":74453,"net_recv_ns":23483500}
+KVF_FETCH {"pages":8,"queue_ns":11577,"completion_to_wait_return_ns":16221,"crc_ns":480675,"cpu_stage_ns":209353,"commit_ns":95497,"directory_ns":140976,"lease_ns":92085,"net_recv_ns":22282897}
+KVF_FETCH {"pages":8,"queue_ns":10438,"completion_to_wait_return_ns":21407,"crc_ns":543145,"cpu_stage_ns":250498,"commit_ns":79123,"directory_ns":211970,"lease_ns":112413,"net_recv_ns":22698651}
+KVF_FETCH {"pages":8,"queue_ns":10564,"completion_to_wait_return_ns":12069,"crc_ns":620833,"cpu_stage_ns":240343,"commit_ns":106711,"directory_ns":239340,"lease_ns":110157,"net_recv_ns":23132392}
+KVF_FETCH {"pages":8,"queue_ns":8100,"completion_to_wait_return_ns":57053,"crc_ns":859264,"cpu_stage_ns":546306,"commit_ns":58044,"directory_ns":219076,"lease_ns":133092,"net_recv_ns":35219553}
+KVF_FETCH {"pages":8,"queue_ns":8192,"completion_to_wait_return_ns":14224,"crc_ns":952491,"cpu_stage_ns":224745,"commit_ns":106082,"directory_ns":238087,"lease_ns":62163,"net_recv_ns":23363422}
+KVF_FETCH {"pages":8,"queue_ns":32168,"completion_to_wait_return_ns":10869,"crc_ns":982200,"cpu_stage_ns":263134,"commit_ns":114669,"directory_ns":177996,"lease_ns":59212,"net_recv_ns":22189220}
+KVF_FETCH {"pages":8,"queue_ns":5061,"completion_to_wait_return_ns":8919,"crc_ns":491187,"cpu_stage_ns":200692,"commit_ns":95370,"directory_ns":105447,"lease_ns":31858,"net_recv_ns":29663699}
+KVF_FETCH {"pages":8,"queue_ns":6483,"completion_to_wait_return_ns":14032,"crc_ns":625656,"cpu_stage_ns":234002,"commit_ns":114977,"directory_ns":115036,"lease_ns":50979,"net_recv_ns":22296828}
+KVF_FETCH {"pages":8,"queue_ns":6811,"completion_to_wait_return_ns":16197,"crc_ns":525040,"cpu_stage_ns":219322,"commit_ns":102816,"directory_ns":160849,"lease_ns":47725,"net_recv_ns":30876388}
+KVF_FETCH {"pages":8,"queue_ns":6581,"completion_to_wait_return_ns":16027,"crc_ns":639342,"cpu_stage_ns":417836,"commit_ns":57493,"directory_ns":154302,"lease_ns":106134,"net_recv_ns":25010801}
+KVF_FETCH {"pages":8,"queue_ns":9903,"completion_to_wait_return_ns":63536,"crc_ns":518979,"cpu_stage_ns":366490,"commit_ns":53849,"directory_ns":191831,"lease_ns":91238,"net_recv_ns":31193520}
+KVF_FETCH {"pages":8,"queue_ns":9476,"completion_to_wait_return_ns":18310,"crc_ns":867335,"cpu_stage_ns":216478,"commit_ns":108435,"directory_ns":183490,"lease_ns":102579,"net_recv_ns":29812459}
+KVF_FETCH {"pages":8,"queue_ns":47380,"completion_to_wait_return_ns":57729,"crc_ns":468080,"cpu_stage_ns":214018,"commit_ns":98976,"directory_ns":125935,"lease_ns":41245,"net_recv_ns":28012096}
+KVF_FETCH {"pages":8,"queue_ns":7707,"completion_to_wait_return_ns":20311,"crc_ns":1191935,"cpu_stage_ns":541840,"commit_ns":65812,"directory_ns":106318,"lease_ns":125325,"net_recv_ns":26660159}
+KVF_FETCH {"pages":8,"queue_ns":11435,"completion_to_wait_return_ns":17876,"crc_ns":571566,"cpu_stage_ns":435382,"commit_ns":56686,"directory_ns":199994,"lease_ns":98610,"net_recv_ns":34277907}
+KVF_FETCH {"pages":8,"queue_ns":8700,"completion_to_wait_return_ns":17887,"crc_ns":509068,"cpu_stage_ns":389761,"commit_ns":54393,"directory_ns":187525,"lease_ns":89315,"net_recv_ns":38964362}
+KVF_FETCH {"pages":8,"queue_ns":11029,"completion_to_wait_return_ns":10232,"crc_ns":547565,"cpu_stage_ns":232348,"commit_ns":107822,"directory_ns":168193,"lease_ns":122656,"net_recv_ns":21974260}
+KVF_FETCH {"pages":8,"queue_ns":26657,"completion_to_wait_return_ns":13787,"crc_ns":531203,"cpu_stage_ns":226202,"commit_ns":106871,"directory_ns":206272,"lease_ns":49806,"net_recv_ns":30873928}
+KVF_FETCH {"pages":8,"queue_ns":41095,"completion_to_wait_return_ns":9413,"crc_ns":644101,"cpu_stage_ns":317498,"commit_ns":76411,"directory_ns":113949,"lease_ns":59507,"net_recv_ns":29855075}
+KVF_FETCH {"pages":8,"queue_ns":6451,"completion_to_wait_return_ns":52955,"crc_ns":708300,"cpu_stage_ns":336178,"commit_ns":76459,"directory_ns":181449,"lease_ns":51571,"net_recv_ns":30174097}
+KVF_FETCH {"pages":8,"queue_ns":9176,"completion_to_wait_return_ns":49761,"crc_ns":850214,"cpu_stage_ns":248411,"commit_ns":116619,"directory_ns":127602,"lease_ns":60890,"net_recv_ns":21517349}
+KVF_FETCH {"pages":8,"queue_ns":40336,"completion_to_wait_return_ns":51452,"crc_ns":649137,"cpu_stage_ns":191502,"commit_ns":91859,"directory_ns":204370,"lease_ns":69571,"net_recv_ns":25906860}
+KVF_FETCH {"pages":8,"queue_ns":8394,"completion_to_wait_return_ns":9521,"crc_ns":476257,"cpu_stage_ns":212839,"commit_ns":101231,"directory_ns":180344,"lease_ns":52777,"net_recv_ns":32385649}
+KVF_FETCH {"pages":8,"queue_ns":11713,"completion_to_wait_return_ns":45965,"crc_ns":740699,"cpu_stage_ns":662729,"commit_ns":62949,"directory_ns":210621,"lease_ns":104774,"net_recv_ns":32767739}
+KVF_FETCH {"pages":8,"queue_ns":44541,"completion_to_wait_return_ns":12683,"crc_ns":732568,"cpu_stage_ns":214004,"commit_ns":100098,"directory_ns":233226,"lease_ns":59251,"net_recv_ns":24040283}
+KVF_FETCH {"pages":8,"queue_ns":30972,"completion_to_wait_return_ns":45833,"crc_ns":500668,"cpu_stage_ns":217973,"commit_ns":107266,"directory_ns":167338,"lease_ns":80722,"net_recv_ns":27906781}
+KVF_FETCH {"pages":8,"queue_ns":44594,"completion_to_wait_return_ns":10641,"crc_ns":635725,"cpu_stage_ns":207982,"commit_ns":97215,"directory_ns":122455,"lease_ns":76735,"net_recv_ns":32329401}
+KVF_FETCH {"pages":8,"queue_ns":5705,"completion_to_wait_return_ns":47557,"crc_ns":487338,"cpu_stage_ns":206875,"commit_ns":98068,"directory_ns":245897,"lease_ns":102838,"net_recv_ns":28243800}
+KVF_FETCH {"pages":8,"queue_ns":4905,"completion_to_wait_return_ns":15745,"crc_ns":489962,"cpu_stage_ns":220737,"commit_ns":96183,"directory_ns":159759,"lease_ns":47076,"net_recv_ns":21170017}
+KVF_FETCH {"pages":8,"queue_ns":30950,"completion_to_wait_return_ns":19813,"crc_ns":692546,"cpu_stage_ns":191613,"commit_ns":89154,"directory_ns":167912,"lease_ns":41148,"net_recv_ns":39010968}
+KVF_FETCH {"pages":8,"queue_ns":26367,"completion_to_wait_return_ns":10595,"crc_ns":602344,"cpu_stage_ns":435045,"commit_ns":61429,"directory_ns":129272,"lease_ns":94412,"net_recv_ns":21675353}
+KVF_FETCH {"pages":8,"queue_ns":9038,"completion_to_wait_return_ns":13197,"crc_ns":487257,"cpu_stage_ns":266045,"commit_ns":77100,"directory_ns":198771,"lease_ns":87803,"net_recv_ns":30862417}
+KVF_FETCH {"pages":8,"queue_ns":12013,"completion_to_wait_return_ns":16435,"crc_ns":496554,"cpu_stage_ns":219122,"commit_ns":94415,"directory_ns":203971,"lease_ns":81200,"net_recv_ns":21581387}
+KVF_FETCH {"pages":8,"queue_ns":12849,"completion_to_wait_return_ns":48627,"crc_ns":496567,"cpu_stage_ns":217385,"commit_ns":99640,"directory_ns":284041,"lease_ns":89121,"net_recv_ns":29769767}
+KVF_FETCH {"pages":8,"queue_ns":8833,"completion_to_wait_return_ns":24174,"crc_ns":1048527,"cpu_stage_ns":609617,"commit_ns":59931,"directory_ns":232919,"lease_ns":177909,"net_recv_ns":36110072}
+KVF_FETCH {"pages":8,"queue_ns":8301,"completion_to_wait_return_ns":10402,"crc_ns":549930,"cpu_stage_ns":230385,"commit_ns":109963,"directory_ns":239130,"lease_ns":83452,"net_recv_ns":30016289}
+KVF_FETCH {"pages":8,"queue_ns":9724,"completion_to_wait_return_ns":48461,"crc_ns":496416,"cpu_stage_ns":370912,"commit_ns":59345,"directory_ns":195912,"lease_ns":121902,"net_recv_ns":24104050}
+KVF_FETCH {"pages":8,"queue_ns":9437,"completion_to_wait_return_ns":8999,"crc_ns":524955,"cpu_stage_ns":384175,"commit_ns":58489,"directory_ns":234050,"lease_ns":92318,"net_recv_ns":29808340}
+KVF_FETCH {"pages":8,"queue_ns":8579,"completion_to_wait_return_ns":10309,"crc_ns":511447,"cpu_stage_ns":220103,"commit_ns":100807,"directory_ns":189701,"lease_ns":34190,"net_recv_ns":21410781}
+KVF_FETCH {"pages":8,"queue_ns":26874,"completion_to_wait_return_ns":56448,"crc_ns":680941,"cpu_stage_ns":489235,"commit_ns":57549,"directory_ns":202161,"lease_ns":78278,"net_recv_ns":43485284}
+KVF_FETCH {"pages":8,"queue_ns":12647,"completion_to_wait_return_ns":11033,"crc_ns":585796,"cpu_stage_ns":485509,"commit_ns":57390,"directory_ns":233666,"lease_ns":89146,"net_recv_ns":23919658}
+KVF_FETCH {"pages":8,"queue_ns":8919,"completion_to_wait_return_ns":41233,"crc_ns":488228,"cpu_stage_ns":205638,"commit_ns":91921,"directory_ns":215849,"lease_ns":77061,"net_recv_ns":21545668}
+KVF_FETCH {"pages":8,"queue_ns":6243,"completion_to_wait_return_ns":41312,"crc_ns":452847,"cpu_stage_ns":208017,"commit_ns":99031,"directory_ns":181736,"lease_ns":101459,"net_recv_ns":24091965}
+KVF_FETCH {"pages":8,"queue_ns":4568,"completion_to_wait_return_ns":11376,"crc_ns":728039,"cpu_stage_ns":216068,"commit_ns":104777,"directory_ns":165051,"lease_ns":38599,"net_recv_ns":21622499}
+KVF_FETCH {"pages":8,"queue_ns":5769,"completion_to_wait_return_ns":48525,"crc_ns":502274,"cpu_stage_ns":208965,"commit_ns":99414,"directory_ns":117066,"lease_ns":70474,"net_recv_ns":44254117}
+KVF_FETCH {"pages":8,"queue_ns":9029,"completion_to_wait_return_ns":44340,"crc_ns":671422,"cpu_stage_ns":525012,"commit_ns":58480,"directory_ns":185794,"lease_ns":89401,"net_recv_ns":24931968}
+KVF_FETCH {"pages":8,"queue_ns":7942,"completion_to_wait_return_ns":21861,"crc_ns":562768,"cpu_stage_ns":519022,"commit_ns":64499,"directory_ns":186226,"lease_ns":132416,"net_recv_ns":30759367}
+KVF_FETCH {"pages":8,"queue_ns":9401,"completion_to_wait_return_ns":45619,"crc_ns":468083,"cpu_stage_ns":218087,"commit_ns":102802,"directory_ns":212324,"lease_ns":82252,"net_recv_ns":22943059}
+(APIServer pid=416985) INFO 11-26 15:22:57 [api_router.py:31] Stopping profiler...
+(APIServer pid=416985) INFO 11-26 15:23:00 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 3.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, External prefix cache hit rate: 46.1%
+(APIServer pid=416985) INFO 11-26 15:23:10 [loggers.py:320] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, External prefix cache hit rate: 46.1%
+(EngineCore pid=417196) INFO 11-26 15:23:11 [wrapper.py:86] Profiler stopped successfully.
+(APIServer pid=416985) INFO 11-26 15:23:11 [api_router.py:33] Profiler stopped.
+INFO:     127.0.0.1:33102 - "POST /stop_profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57220 - "GET /metrics HTTP/1.1" 200 OK
+(EngineCore pid=417196) INFO 11-26 15:23:26 [core.py:1409] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore pid=417196) INFO 11-26 15:23:26 [core.py:1558] [shutdown] EngineCore: start mode=drain timeout=10s
+(EngineCore pid=417196) INFO 11-26 15:23:26 [core.py:1589] [shutdown] EngineCore: request processing complete; starting resource teardown
+(EngineCore pid=417196) INFO 11-26 15:23:26 [core.py:1422] [shutdown] EngineCore: exiting busy loop
+(APIServer pid=416985) INFO 11-26 15:23:26 [launcher.py:128] [shutdown] API server: shutdown triggered
+(APIServer pid=416985) INFO 11-26 15:23:26 [launcher.py:144] [shutdown] API server: stopping engine client mode=drain timeout=10s
+(APIServer pid=416985) INFO 11-26 15:23:26 [core_client.py:762] [shutdown] MPClient: start timeout=10s
+(APIServer pid=416985) INFO 11-26 15:23:26 [core_client.py:764] [shutdown] MPClient: stopping engine manager
+(APIServer pid=416985) INFO 11-26 15:23:26 [utils.py:638] [shutdown] Process manager: send sigterm to process EngineCore
+(APIServer pid=416985) INFO 11-26 15:23:26 [core_client.py:766] [shutdown] MPClient: engine manager stopped
+(APIServer pid=416985) INFO 11-26 15:23:26 [core_client.py:767] [shutdown] MPClient: cleaning up background resources
+(APIServer pid=416985) INFO 11-26 15:23:26 [core_client.py:769] [shutdown] MPClient: complete
+(APIServer pid=416985) INFO 11-26 15:23:26 [launcher.py:153] [shutdown] API server: engine client stopped
+(APIServer pid=416985) INFO 11-26 15:23:26 [launcher.py:156] [shutdown] API server: signalling HTTP server shutdown
+(APIServer pid=416985) INFO 11-26 15:23:26 [launcher.py:178] [shutdown] API server: shutting down FastAPI HTTP server
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+/home/wty/Documents/Codex/2026-10-26/python-office-python-conda-cuda-cpu/.conda-envs/unified/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

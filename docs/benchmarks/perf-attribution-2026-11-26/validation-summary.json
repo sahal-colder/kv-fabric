@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "ttft_before_ms": 4961.137156,
+  "ttft_after_ms": 3675.43671,
+  "ttft_reduction_percent": 25.915438448321748,
+  "verified_e2e_requests": 30,
+  "connector_cases": 8,
+  "connector_gpu_layer_blocks": 3384,
+  "rdma_paired_payload_transfers": 840,
+  "strict_rdma_roundtrips": 60,
+  "ctest": 23,
+  "python_unit_tests": 10,
+  "network_cleanup": true,
+  "counts_scope": "raw measurement validation, not resume prose"
+}

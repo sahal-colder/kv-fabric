@@ -1,0 +1,31 @@
+[  8%] Built target kvfabric
+[ 12%] Built target test_kvf_directory
+[ 13%] Built target test_remote_e2e
+[ 28%] Built target miniinfer_storage
+[ 30%] Built target kvfctl
+[ 32%] Built target kvfabricd
+[ 34%] Built target test_kvf_protocol
+[ 36%] Built target test_graph
+[ 38%] Built target test_kv_cache
+[ 41%] Built target test_tiered
+[ 45%] Built target miniinfer_basic
+[ 45%] Built target test_pool
+[ 47%] Built target test_paged_kv
+Consolidate compiler generated dependencies of target test_spdk_lifecycle
+[ 49%] Built target test_device_boundaries
+[ 51%] Built target test_gpu_mock
+[ 53%] Built target test_storage_audit
+[ 55%] Built target test_direct_io
+[ 56%] Building C object src/worker/CMakeFiles/test_spdk_lifecycle.dir/__/__/tests/worker/test_spdk_lifecycle.c.o
+[ 64%] Built target miniinfer_remote
+[ 66%] Built target test_remote_lifecycle
+[ 68%] Built target test_remote_audit
+[ 75%] Built target kvf_bench
+[ 75%] Built target test_remote_faults
+[ 75%] Built target miniinfer_worker
+[ 83%] Built target miniinfer_nano
+[ 93%] Built target miniinfer
+[ 95%] Built target test_nano_remote_worker
+[ 98%] Built target nanovllm
+[100%] Linking C executable ../../bin/test_spdk_lifecycle
+[100%] Built target test_spdk_lifecycle

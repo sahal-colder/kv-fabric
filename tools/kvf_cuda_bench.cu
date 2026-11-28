@@ -141,4 +141,3 @@ int main(int argc, char **argv) {
     check(cudaFreeHost(input));
     if (raw && std::fclose(raw)) { std::perror("CUDA raw CSV close"); return 1; }
 }
-

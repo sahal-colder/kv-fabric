@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "batch_invariant": 1,
+  "cases": [
+    {
+      "bridge": "cpu",
+      "matched_bytes": 12288,
+      "eviction": true
+    },
+    {
+      "bridge": "direct-uring-fixed",
+      "matched_bytes": 12288,
+      "eviction": true
+    },
+    {
+      "variant": "cpu",
+      "case": "cold",
+      "output_ids": [
+        78,
+        13,
+        220,
+        17,
+        15,
+        17,
+        18,
+        12
+      ],
+      "hit_tokens": 0,
+      "checked_gpu_layer_blocks": 0
+    },
+    {
+      "variant": "cpu",
+      "case": "hot",
+      "output_ids": [
+        78,
+        13,
+        220,
+        17,
+        15,
+        17,
+        18,
+        12
+      ],
+      "hit_tokens": 496,
+      "checked_gpu_layer_blocks": 1116
+    },
+    {
+      "variant": "cpu",
+      "case": "partial",
+      "output_ids": [
+        1623,
+        198,
+        220,
+        16,
+        15,
+        15,
+        15,
+        15
+      ],
+      "hit_tokens": 256,
+      "checked_gpu_layer_blocks": 576
+    },
+    {
+      "variant": "disk",
+      "case": "cold",
+      "output_ids": [
+        78,
+        13,
+        220,
+        17,
+        15,
+        17,
+        18,
+        12
+      ],
+      "hit_tokens": 0,
+      "checked_gpu_layer_blocks": 0
+    },
+    {
+      "variant": "disk",
+      "case": "hot",
+      "output_ids": [
+        78,
+        13,
+        220,
+        17,
+        15,
+        17,
+        18,
+        12
+      ],
+      "hit_tokens": 496,
+      "checked_gpu_layer_blocks": 1116
+    },
+    {
+      "variant": "disk",
+      "case": "partial",
+      "output_ids": [
+        1623,
+        198,
+        220,
+        16,
+        15,
+        15,
+        15,
+        15
+      ],
+      "hit_tokens": 256,
+      "checked_gpu_layer_blocks": 576
+    },
+    {
+      "variant": "timeout",
+      "case": "cold",
+      "output_ids": [
+        78,
+        13,
+        220,
+        17,
+        15,
+        17,
+        18,
+        12
+      ],
+      "hit_tokens": 0,
+      "checked_gpu_layer_blocks": 0
+    },
+    {
+      "variant": "timeout",
+      "case": "timeout",
+      "output_ids": [
+        78,
+        13,
+        220,
+        17,
+        15,
+        17,
+        18,
+        12
+      ],
+      "hit_tokens": 0,
+      "checked_gpu_layer_blocks": 0
+    }
+  ],
+  "gpu_layer_blocks_checked": 3384,
+  "publication_events_enabled": true
+}

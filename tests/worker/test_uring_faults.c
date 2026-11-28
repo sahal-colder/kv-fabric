@@ -4,12 +4,15 @@
 #include <assert.h>
 #include <errno.h>
 #include <liburing.h>
+#include <pthread.h>
+#include <stdatomic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-static int mode, submit_calls, wait_calls;
+static atomic_int mode;
+static int submit_calls, wait_calls;
 struct io_uring_sqe *mi_test_get_sqe(struct io_uring *r) {
     if(mode==1)
         return NULL;
@@ -23,6 +26,8 @@ int mi_test_wait_cqe(struct io_uring *r,struct io_uring_cqe **cqe) {
     if(!result && mode==6)(*cqe)->res=-EIO;
     if(!result && mode==7)(*cqe)->res=0;
     if(!result && mode==9)(*cqe)->res=-EINTR;
+    if(!result && mode==11 && wait_calls==1)(*cqe)->res/=2;
+    if(!result && mode==12 && wait_calls==1)(*cqe)->res=512;
     return result;
 }
 int mi_test_peek_cqe(struct io_uring *r,struct io_uring_cqe **cqe) {
@@ -40,6 +45,12 @@ int __wrap_io_uring_submit(struct io_uring *r) {
     /* Accepted by kernel, error returned to the caller: ambiguous ownership. */
     if(mode==8){(void)__real_io_uring_submit(r);return -EIO;}
     return __real_io_uring_submit(r);
+}
+static pthread_barrier_t close_barrier;
+static void *close_failed_ring(void *arg) {
+    pthread_barrier_wait(&close_barrier);
+    mi_uring_destroy(arg);
+    return NULL;
 }
 int main(void) {
     char path[]="/tmp/kvf-uring-fault.XXXXXX";int fd=mkstemp(path);assert(fd>=0);unlink(path);assert(!ftruncate(fd,4096));
@@ -60,6 +71,24 @@ int main(void) {
             break;
         }
     }
+    /* Completion failure followed by close before the owner consumes its ticket. */
+    mode=4;submit_calls=wait_calls=0;assert(mi_uring_create(fd,2,&r)==MI_OK);
+    char failed[4096];mi_uring_request *pending;
+    assert(mi_uring_submit(r,0,(mi_io_range){.data=failed,.data_bytes=sizeof(failed)},&pending)==MI_OK);
+    assert(!pthread_barrier_init(&close_barrier,NULL,2));pthread_t closer;
+    assert(!pthread_create(&closer,NULL,close_failed_ring,r));
+    pthread_barrier_wait(&close_barrier);usleep(1000);
+    assert(mi_uring_wait(pending)==MI_EIO);pthread_join(closer,NULL);pthread_barrier_destroy(&close_barrier);
+    mode=11;submit_calls=wait_calls=0;assert(mi_uring_create(fd,2,&r)==MI_OK);
+    unsigned char partial[4096],verified[4096];
+    for(unsigned i=0;i<4096;++i)partial[i]=(unsigned char)(i*61u+(i>>8));
+    assert(mi_uring_transfer(r,1,(mi_io_range){.data=partial,.data_bytes=4096})==MI_OK);
+    assert(wait_calls==2 && pread(fd,verified,4096,0)==4096 && !memcmp(partial,verified,4096));
+    mi_uring_destroy(r);
+    mode=12;submit_calls=wait_calls=0;assert(mi_uring_create(fd,2,&r)==MI_OK);
+    assert(!mi_uring_register_buffer(r,-1,4096));
+    assert(mi_uring_transfer_fixed(r,0,(mi_io_range){.data=verified,.data_bytes=4096})==MI_EIO);
+    mi_uring_destroy(r);
     mode=0;assert(mi_uring_create(fd,2,&r)==MI_OK);
     assert(!mi_uring_register_buffer(r,-1,4096));
     char *fixed=mi_uring_buffer(r);assert(fixed);memset(fixed,0x4e,4096);
@@ -83,5 +112,5 @@ int main(void) {
         assert(mi_backend_release(disk,slot)==MI_OK);
     }
     mi_backend_destroy(disk);
-    close(fd);puts("uring SQE NULL, submit/wait EINTR/errors, CQE errors/zero, accepted submit failure: PASS");return 0;
+    close(fd);puts("uring SQE NULL, submit/wait EINTR/errors, CQE errors/zero/short/EINTR, accepted submit failure: PASS");return 0;
 }

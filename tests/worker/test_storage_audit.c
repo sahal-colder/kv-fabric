@@ -223,7 +223,7 @@ static void direct_boundaries(void) {
     char path[]="/tmp/kvf-audit-direct.XXXXXX";int fd=mkstemp(path);assert(fd>=0);assert(!ftruncate(fd,8192));
     mi_direct_io *io=NULL;
     assert(mi_direct_create(fd,-1,8192,0,&io)==MI_EINVAL);
-    assert(mi_direct_create(fd,-1,8192,65,&io)==MI_EINVAL);
+    assert(mi_direct_create(fd,-1,8192,129,&io)==MI_EINVAL);
     unsigned char data[BYTES],out[BYTES];memset(data,0x38,BYTES);
     mi_block_meta m={.id=1,.version=1,.size=BYTES};
     const unsigned depths[]={1,64};

@@ -1,0 +1,12 @@
+
+Directory device nodes and Linux identity
+ls: cannot access '/dev/nvidia0': No such file or directory
+ls: cannot access '/dev/nvidiactl': No such file or directory
+ls: cannot access '/dev/nvidia-uvm': No such file or directory
+ls: cannot access '/dev/nvme0n1p6': No such file or directory
+
+Loopback TCP, io_uring queue setup and O_DIRECT aligned write/read
+AF_INET: errno=1 Operation not permitted
+AF_UNIX: PASS
+io_uring_queue_init: -1 Operation not permitted
+O_DIRECT POSIX: PASS 4096 byte-aligned round trip, byte-for-byte

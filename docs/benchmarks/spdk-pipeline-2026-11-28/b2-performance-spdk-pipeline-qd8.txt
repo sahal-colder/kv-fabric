@@ -1,0 +1,13 @@
+[2026-11-28 11:49:44.813211] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-28 11:49:44.813274] [ DPDK EAL parameters: kvf_backend_compare --no-shconf -l 2 -m 256 --huge-unlink --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --iova-mode=va --base-virtaddr=0x1000000000 --file-prefix=spdk_pid58982 --legacy-mem ]
+EAL: WARNING! Base virtual address hint (0x1400c61000 != 0x7b4243e00000) not respected!
+EAL:    This may cause issues with mapping memory into secondary processes
+EAL: WARNING! Base virtual address hint (0x14018c2000 != 0x7b3e43c00000) not respected!
+EAL:    This may cause issues with mapping memory into secondary processes
+EAL: WARNING! Base virtual address hint (0x1402523000 != 0x7b3a43a00000) not respected!
+EAL:    This may cause issues with mapping memory into secondary processes
+[2026-11-28 11:49:44.884499] app.c: 993:spdk_app_start: *NOTICE*: Total cores available: 1
+[2026-11-28 11:49:44.888457] reactor.c: 996:reactor_run: *NOTICE*: Reactor started on core 2
+[2026-11-28 11:49:45.172291] nvme_qpair.c: 310:spdk_nvme_qpair_print_command: *NOTICE*: [0000:07:00.0,cntlid:5,qid:0,qpair:0x100c1d4960,ENABLED] IDENTIFY (06) qid:0 cid:191 nsid:0 cdw10:00000006 cdw11:00000000 PRP1 0x100b30e000 PRP2 0x0
+[2026-11-28 11:49:45.172321] nvme_qpair.c: 543:spdk_nvme_qpair_print_completion_ext: *NOTICE*: [0000:07:00.0,cntlid:5,qid:0,qpair:0x100c1d4960,ENABLED] INVALID FIELD (00/02) qid:0 cid:191 cdw0:00000000 sqhd:0007 p:1 m:1 dnr:0
+all_rounds_identity_version_crc_cpu_gpu_bytes=PASS

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="2"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="0"
+	timestamp="2026-11-26T09:50:21"
+	>
+	<testcase name="spdk_lifecycle" classname="spdk_lifecycle" time="0.0858969" status="run">
+		<system-out>[2026-11-26 09:50:21.547535] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-26 09:50:21.547637] [ DPDK EAL parameters: miniinfer_storage --no-shconf -l 0 -m 256 --no-pci --no-huge --legacy-mem --iova-mode=va --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --base-virtaddr=0x200000000000 --file-prefix=spdk_pid246201 ]
+[2026-11-26 09:50:21.554375] app.c: 993:spdk_app_start: *NOTICE*: Total cores available: 1
+[2026-11-26 09:50:21.571894] reactor.c: 996:reactor_run: *NOTICE*: Reactor started on core 0
+SPDK malloc bdev I/O + owning-thread close: PASS
+</system-out>
+	</testcase>
+	<testcase name="spdk_init_failure" classname="spdk_init_failure" time="0.0880141" status="run">
+		<system-out>[2026-11-26 09:50:21.632500] Starting SPDK v27.01-pre git sha1 4828014 / DPDK 25.11.0 initialization...
+[2026-11-26 09:50:21.632580] [ DPDK EAL parameters: miniinfer_storage --no-shconf -l 0 -m 256 --no-pci --no-huge --legacy-mem --iova-mode=va --no-telemetry --log-level=lib.eal:6 --log-level=lib.cryptodev:5 --log-level=lib.power:5 --log-level=user1:6 --base-virtaddr=0x200000000000 --file-prefix=spdk_pid246204 ]
+[2026-11-26 09:50:21.643079] app.c: 993:spdk_app_start: *NOTICE*: Total cores available: 1
+[2026-11-26 09:50:21.660847] reactor.c: 996:reactor_run: *NOTICE*: Reactor started on core 0
+[2026-11-26 09:50:21.685858] bdev.c:9114:bdev_open_ext: *NOTICE*: Currently unable to find bdev with name: Absent
+SPDK initialization failure returned safely: PASS
+</system-out>
+	</testcase>
+</testsuite>

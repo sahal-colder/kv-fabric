@@ -1,0 +1,26 @@
+Internal ctest changing into directory: /home/wty/Infra/build-asan
+UpdateCTestConfiguration  from :/home/wty/Infra/build-asan/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/home/wty/Infra/build-asan/DartConfiguration.tcl
+Test project /home/wty/Infra/build-asan
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 12
+    Start 12: uring_faults
+
+12: Test command: /home/wty/Infra/build-asan/bin/test_uring_faults
+12: Test timeout computed to be: 15
+12: MiniInfer: quarantining io_uring with unconfirmed I/O completion
+12: MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=1
+12: uring SQE NULL, submit/wait EINTR/errors, CQE errors/zero, accepted submit failure: PASS
+1/1 Test #12: uring_faults .....................   Passed    0.01 sec
+
+The following tests passed:
+	uring_faults
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec

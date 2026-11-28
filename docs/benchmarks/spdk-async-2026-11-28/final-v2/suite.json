@@ -1,0 +1,34 @@
+{
+  "phases": [
+    {
+      "name": "iopoll",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/wty/Infra/scripts/run_spdk_async_ab.py",
+        "--build",
+        "/home/wty/Infra/build-spdk",
+        "--out",
+        "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v2/iopoll",
+        "--smoke",
+        "--iopoll"
+      ],
+      "required": false,
+      "returncode": 0
+    },
+    {
+      "name": "sqpoll",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/wty/Infra/scripts/run_spdk_async_ab.py",
+        "--build",
+        "/home/wty/Infra/build-spdk",
+        "--out",
+        "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v2/sqpoll",
+        "--smoke",
+        "--sqpoll"
+      ],
+      "required": false,
+      "returncode": 1
+    }
+  ]
+}

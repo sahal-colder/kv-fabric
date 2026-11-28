@@ -1,0 +1,42 @@
+[
+  {
+    "path": "final-rdma/profile-baseline/trace.nsys-rep",
+    "bytes": 4511778,
+    "sha256": "7d3594f99ce5ed6664e5dae7a3bff49a72e4d2058c42b87b4b6691061f0050d4"
+  },
+  {
+    "path": "final-rdma/profile-baseline/trace.sqlite",
+    "bytes": 44560384,
+    "sha256": "f9b779f77d4b8c07cf3fe74eff93d57cf530195f75b1267c7584d8f1c5541f40"
+  },
+  {
+    "path": "final-rdma/profile-optimized/trace.nsys-rep",
+    "bytes": 4370935,
+    "sha256": "35078d02c471028f63ff50ebe3067de03b242ba5f722fa09c59e9c22e043a6a4"
+  },
+  {
+    "path": "final-rdma/profile-optimized/trace.sqlite",
+    "bytes": 42078208,
+    "sha256": "3d96b81717c74efb0fd663c233b7060eea28af21a4d0a65d4a703f4528ea794e"
+  },
+  {
+    "path": "final72-rdma/profile-optimized/trace.nsys-rep",
+    "bytes": 4405174,
+    "sha256": "4af1d3422999886697721726a7e901bf7b22694e4dc0fb99c55486c8e3f29cc0"
+  },
+  {
+    "path": "final72-rdma/profile-optimized/trace.sqlite",
+    "bytes": 42110976,
+    "sha256": "878a642d41712afb731132f6e392f78612916c0981976414e23c2b6136abb877"
+  },
+  {
+    "path": "verified-final-rdma/profile-optimized/trace.nsys-rep",
+    "bytes": 4373308,
+    "sha256": "4f10d378fda7246dfb9c84ad21e293eec54c83c7a52fe2ee03efde43fd0ab23d"
+  },
+  {
+    "path": "verified-final-rdma/profile-optimized/trace.sqlite",
+    "bytes": 42348544,
+    "sha256": "eec1ee0eb3f3085ac1bf8d3e5b1622586067822162e0460557b3a81a854d8c1c"
+  }
+]

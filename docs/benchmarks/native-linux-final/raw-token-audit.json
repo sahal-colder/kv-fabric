@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "requests": 405,
+  "non_reference_compared": 345,
+  "cross_concurrency_reference_checks": 15,
+  "unique_inputs": 45,
+  "output_tokens_per_request": 16,
+  "sources": [
+    {
+      "source": "matrix-c1/kvfabric-cpu/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c1/kvfabric-disk/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c1/native/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c1/recompute/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c2/kvfabric-cpu/requests.jsonl",
+      "requests": 15,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c2/kvfabric-disk/requests.jsonl",
+      "requests": 15,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c2/native/requests.jsonl",
+      "requests": 15,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-c2/recompute/requests.jsonl",
+      "requests": 15,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-legacy-c1/kvfabric-cpu/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-native-external-c1/native/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-native-external-c2/native/requests.jsonl",
+      "requests": 15,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-posix-c1/kvfabric-disk/requests.jsonl",
+      "requests": 45,
+      "all_ids_match": true
+    },
+    {
+      "source": "matrix-posix-c2/kvfabric-disk/requests.jsonl",
+      "requests": 15,
+      "all_ids_match": true
+    }
+  ]
+}

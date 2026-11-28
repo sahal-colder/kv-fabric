@@ -1,0 +1,79 @@
+Internal ctest changing into directory: /home/wty/Infra/build-tsan
+Test project /home/wty/Infra/build-tsan
+      Start  1: kvf_protocol
+ 1/19 Test  #1: kvf_protocol .....................   Passed    0.13 sec
+      Start  2: kvf_directory
+ 2/19 Test  #2: kvf_directory ....................   Passed    0.74 sec
+      Start  3: pool
+ 3/19 Test  #3: pool .............................   Passed   22.69 sec
+      Start  4: graph
+ 4/19 Test  #4: graph ............................   Passed    0.01 sec
+      Start  5: tiered
+ 5/19 Test  #5: tiered ...........................   Passed    0.01 sec
+      Start  6: kv_cache
+ 6/19 Test  #6: kv_cache .........................   Passed    0.01 sec
+      Start  7: paged_kv
+ 7/19 Test  #7: paged_kv .........................   Passed    0.01 sec
+      Start  8: gpu_mock
+ 8/19 Test  #8: gpu_mock .........................   Passed    0.01 sec
+      Start  9: allocator_faults
+ 9/19 Test  #9: allocator_faults .................   Passed    0.01 sec
+      Start 10: device_boundaries_cpu
+10/19 Test #10: device_boundaries_cpu ............   Passed    0.03 sec
+      Start 11: storage_audit
+11/19 Test #11: storage_audit ....................   Passed    0.07 sec
+      Start 12: uring_faults
+12/19 Test #12: uring_faults .....................   Passed    0.01 sec
+      Start 13: direct_io_cpu
+13/19 Test #13: direct_io_cpu ....................   Passed    0.01 sec
+      Start 14: remote_lifecycle
+14/19 Test #14: remote_lifecycle .................   Passed    0.01 sec
+      Start 15: remote_audit
+15/19 Test #15: remote_audit .....................***Failed    8.19 sec
+==================
+WARNING: ThreadSanitizer: data race (pid=294073)
+  Write of size 4 at 0x7b580000047c by main thread:
+    #0 main /home/wty/Infra/tests/worker/test_remote_audit.c:127 (test_remote_audit+0x407347)
+
+  Previous read of size 4 at 0x7b580000047c by thread T27:
+    #0 serve /home/wty/Infra/src/worker/remote/worker.c:31 (test_remote_audit+0x407bff)
+
+  As if synchronized via sleep:
+    #0 nanosleep ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:366 (libtsan.so.0+0x6696c)
+    #1 __wrap_kvf_client_acquire_batch /home/wty/Infra/tests/worker/test_remote_audit.c:17 (test_remote_audit+0x4050f6)
+    #2 resolve_batch /home/wty/Infra/src/worker/remote/cache.c:481 (test_remote_audit+0x412fac)
+    #3 mi_remote_resolve_after /home/wty/Infra/src/worker/remote/cache.c:600 (test_remote_audit+0x414423)
+    #4 main /home/wty/Infra/tests/worker/test_remote_audit.c:121 (test_remote_audit+0x4070c3)
+
+  Location is heap block of size 672 at 0x7b5800000300 allocated by main thread:
+    #0 calloc ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:672 (libtsan.so.0+0x31edc)
+    #1 mi_remote_worker_start /home/wty/Infra/src/worker/remote/worker.c:324 (test_remote_audit+0x409c0e)
+    #2 create /home/wty/Infra/tests/worker/test_remote_audit.c:57 (test_remote_audit+0x4059b1)
+    #3 main /home/wty/Infra/tests/worker/test_remote_audit.c:100 (test_remote_audit+0x40679b)
+
+  Thread T27 (tid=294101, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:969 (libtsan.so.0+0x605b8)
+    #1 start_server /home/wty/Infra/src/worker/remote/worker.c:129 (test_remote_audit+0x4085bc)
+    #2 mi_remote_worker_start /home/wty/Infra/src/worker/remote/worker.c:399 (test_remote_audit+0x40a88d)
+    #3 create /home/wty/Infra/tests/worker/test_remote_audit.c:57 (test_remote_audit+0x4059b1)
+    #4 main /home/wty/Infra/tests/worker/test_remote_audit.c:100 (test_remote_audit+0x40679b)
+
+SUMMARY: ThreadSanitizer: data race /home/wty/Infra/tests/worker/test_remote_audit.c:127 in main
+==================
+
+      Start 16: remote_faults
+16/19 Test #16: remote_faults ....................   Passed    2.81 sec
+      Start 17: remote_e2e_cpu
+17/19 Test #17: remote_e2e_cpu ...................   Passed    2.05 sec
+      Start 18: remote_restart
+18/19 Test #18: remote_restart ...................   Passed    1.68 sec
+      Start 19: nano_remote_inference_cpu
+19/19 Test #19: nano_remote_inference_cpu ........   Passed   10.20 sec
+
+95% tests passed, 1 tests failed out of 19
+
+Total Test time (real) =  48.67 sec
+
+The following tests FAILED:
+	 15 - remote_audit (Failed)
+Errors while running CTest

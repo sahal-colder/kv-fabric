@@ -1,0 +1,167 @@
+-- The C compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- The CUDA compiler identification is NVIDIA 13.4.92
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2") found components: Crypto 
+-- Performing Test KVF_RSOCKETS_LINKS
+-- Performing Test KVF_RSOCKETS_LINKS - Success
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'liburing>=2.3'
+--   Found liburing, version 2.9
+-- Found CUDAToolkit: /usr/local/cuda/include (found version "13.4.92") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/.kvfabric-local/perf-attribution/build-before
+[  2%] Building C object src/control/CMakeFiles/kvfabric.dir/client.c.o
+[  2%] Building C object src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o
+[  2%] Building C object src/control/CMakeFiles/kvfabric.dir/control.c.o
+[  3%] Building C object src/control/CMakeFiles/kvfabric.dir/net.c.o
+[  5%] Building C object src/control/CMakeFiles/kvfabric.dir/wire.c.o
+[  5%] Building C object src/control/CMakeFiles/kvfabric.dir/identity.c.o
+[  6%] Building C object src/control/CMakeFiles/kvfabric.dir/directory.c.o
+[  7%] Linking C static library libkvfabric.a
+[  7%] Built target kvfabric
+[ 10%] Building C object src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o
+[ 10%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o
+[ 10%] Building C object src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o
+[ 11%] Building C object src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o
+[ 12%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o
+[ 15%] Building C object src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o
+[ 15%] Building C object src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o
+[ 15%] Building C object src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o
+[ 16%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o
+[ 17%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o
+[ 18%] Linking C executable ../../bin/kvfctl
+[ 19%] Linking C executable ../../bin/kvfabricd
+[ 20%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o
+[ 21%] Linking C executable ../../bin/test_remote_e2e
+[ 22%] Building C object src/control/CMakeFiles/test_kvf_directory.dir/directory.c.o
+[ 22%] Built target kvfctl
+[ 23%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[ 24%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[ 24%] Built target kvfabricd
+[ 25%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[ 26%] Linking C executable ../../bin/test_kvf_protocol
+[ 26%] Built target test_remote_e2e
+[ 27%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o
+[ 27%] Built target test_kvf_protocol
+[ 28%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 29%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[ 30%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[ 31%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[ 31%] Building CUDA object src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o
+[ 32%] Linking C executable ../../bin/test_kvf_directory
+[ 32%] Built target test_kvf_directory
+[ 33%] Linking CUDA static library libminiinfer_storage.a
+[ 33%] Built target miniinfer_storage
+[ 35%] Building C object src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o
+[ 35%] Building C object src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o
+[ 35%] Building C object src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o
+[ 36%] Building C object src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o
+[ 37%] Building C object src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o
+[ 38%] Building C object src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o
+[ 39%] Building C object src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o
+[ 40%] Building C object src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o
+[ 41%] Linking CUDA executable ../../bin/test_kv_cache
+[ 42%] Linking CUDA executable ../../bin/miniinfer_basic
+[ 43%] Linking CUDA executable ../../bin/test_tiered
+[ 44%] Linking CUDA executable ../../bin/test_paged_kv
+[ 45%] Linking CUDA executable ../../bin/test_graph
+[ 46%] Linking CUDA executable ../../bin/test_gpu_mock
+[ 47%] Linking CUDA executable ../../bin/test_pool
+[ 47%] Built target test_paged_kv
+[ 47%] Built target miniinfer_basic
+[ 47%] Built target test_graph
+[ 47%] Built target test_kv_cache
+[ 48%] Linking CUDA executable ../../bin/kvf_nvme_recovery_bench
+[ 49%] Building C object src/worker/CMakeFiles/test_device_boundaries.dir/__/__/tests/worker/test_device_boundaries.c.o
+[ 50%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 51%] Building C object src/worker/CMakeFiles/test_allocator_faults.dir/__/__/tests/worker/test_allocator_faults.c.o
+[ 51%] Built target test_gpu_mock
+[ 52%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/__/__/tests/worker/test_uring_faults.c.o
+[ 52%] Built target test_tiered
+[ 53%] Building C object src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o
+[ 53%] Built target test_pool
+[ 54%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[ 55%] Building C object src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o
+[ 56%] Linking CUDA executable ../../bin/test_device_boundaries
+[ 57%] Linking CUDA executable ../../bin/test_allocator_faults
+[ 57%] Built target kvf_nvme_recovery_bench
+[ 58%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/uring_io.c.o
+[ 59%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[ 60%] Linking CUDA executable ../../bin/test_remote_lifecycle
+[ 61%] Linking CUDA executable ../../bin/test_direct_io
+[ 61%] Built target test_device_boundaries
+[ 62%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[ 62%] Built target test_allocator_faults
+[ 63%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[ 64%] Linking CUDA executable ../../bin/test_storage_audit
+[ 64%] Built target test_remote_lifecycle
+[ 65%] Linking CUDA executable ../../bin/test_uring_faults
+[ 65%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[ 65%] Built target test_direct_io
+[ 66%] Building C object src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o
+[ 66%] Built target test_storage_audit
+[ 66%] Built target test_uring_faults
+[ 67%] Linking CUDA static library libminiinfer_remote.a
+[ 67%] Built target miniinfer_remote
+[ 70%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o
+[ 70%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o
+[ 70%] Building C object src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o
+[ 70%] Building C object src/worker/CMakeFiles/test_remote_audit.dir/__/__/tests/worker/test_remote_audit.c.o
+[ 71%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o
+[ 72%] Building C object src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o
+[ 72%] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o
+[ 73%] Building C object src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o
+[ 74%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o
+[ 75%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o
+[ 76%] Linking CUDA executable ../../bin/test_remote_audit
+[ 77%] Linking CUDA executable ../../bin/miniinfer_worker
+[ 78%] Linking CUDA executable ../../bin/test_remote_faults
+[ 79%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o
+[ 79%] Built target test_remote_audit
+[ 79%] Built target miniinfer_worker
+[ 81%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o
+[ 81%] Building CUDA object src/integration/CMakeFiles/kvf_vllm.dir/vllm_kv_cuda.cu.o
+[ 82%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o
+[ 83%] Building C object src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o
+[ 84%] Building C object src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o
+[ 84%] Built target test_remote_faults
+[ 86%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o
+[ 86%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o
+[ 87%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o
+[ 89%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o
+[ 89%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o
+[ 90%] Linking CUDA executable ../../bin/kvf_bench
+[ 90%] Building C object src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o
+[ 90%] Built target kvf_bench
+[ 91%] Linking CUDA static library libminiinfer_nano.a
+[ 91%] Built target miniinfer_nano
+[ 93%] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o
+[ 93%] Building C object src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o
+[ 94%] Building C object src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o
+[ 95%] Linking CUDA executable ../../bin/miniinfer
+[ 96%] Linking CUDA executable ../../bin/test_nano_remote_worker
+[ 97%] Linking CUDA executable ../../bin/nanovllm
+[ 97%] Built target miniinfer
+[ 97%] Built target test_nano_remote_worker
+[ 97%] Built target nanovllm
+[ 98%] Linking CUDA shared library libkvf_vllm.so
+[ 98%] Built target kvf_vllm
+[ 99%] Building CUDA object src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o
+[100%] Linking CUDA executable ../../bin/kvf_cuda_bench
+[100%] Built target kvf_cuda_bench

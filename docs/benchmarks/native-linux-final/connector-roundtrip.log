@@ -1,0 +1,12 @@
+COMMAND ["/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/venv/bin/python", "/home/wty/Infra/tests/vllm/test_connector_roundtrip.py", "--model", "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct", "--library", "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration/libkvf_vllm.so", "--directory", "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd", "--require-uring-fixed", "--out", "/home/wty/Infra/docs/benchmarks/native-linux-final/connector-roundtrip"]
+{"bridge": "cpu", "matched_bytes": 12288, "eviction": true}
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=2
+{"bridge": "direct-uring-fixed", "matched_bytes": 12288, "eviction": true}
+{"variant": "cpu", "case": "cold", "output_ids": [78, 13, 220, 17, 15, 17, 18, 12], "hit_tokens": 0, "checked_gpu_layer_blocks": 0}
+{"variant": "cpu", "case": "hot", "output_ids": [78, 13, 220, 17, 15, 17, 18, 12], "hit_tokens": 496, "checked_gpu_layer_blocks": 1116}
+{"variant": "cpu", "case": "partial", "output_ids": [1623, 198, 220, 16, 15, 15, 15, 15], "hit_tokens": 256, "checked_gpu_layer_blocks": 576}
+{"variant": "disk", "case": "cold", "output_ids": [78, 13, 220, 17, 15, 17, 18, 12], "hit_tokens": 0, "checked_gpu_layer_blocks": 0}
+{"variant": "disk", "case": "hot", "output_ids": [78, 13, 220, 17, 15, 17, 18, 12], "hit_tokens": 496, "checked_gpu_layer_blocks": 1116}
+{"variant": "disk", "case": "partial", "output_ids": [1623, 198, 220, 16, 15, 15, 15, 15], "hit_tokens": 256, "checked_gpu_layer_blocks": 576}
+{"variant": "timeout", "case": "cold", "output_ids": [78, 13, 220, 17, 15, 17, 18, 12], "hit_tokens": 0, "checked_gpu_layer_blocks": 0}
+{"variant": "timeout", "case": "timeout", "output_ids": [78, 13, 220, 17, 15, 17, 18, 12], "hit_tokens": 0, "checked_gpu_layer_blocks": 0}

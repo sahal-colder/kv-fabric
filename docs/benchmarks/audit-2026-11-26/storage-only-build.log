@@ -1,0 +1,39 @@
+Consolidate compiler generated dependencies of target miniinfer_storage
+[  2%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[  5%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[  8%] Linking C static library libminiinfer_storage.a
+[ 38%] Built target miniinfer_storage
+Consolidate compiler generated dependencies of target test_tiered
+Consolidate compiler generated dependencies of target test_gpu_mock
+Consolidate compiler generated dependencies of target test_pool
+Consolidate compiler generated dependencies of target test_graph
+Consolidate compiler generated dependencies of target miniinfer_basic
+Consolidate compiler generated dependencies of target test_kv_cache
+Consolidate compiler generated dependencies of target test_paged_kv
+Consolidate compiler generated dependencies of target test_allocator_faults
+[ 44%] Linking C executable ../../bin/test_gpu_mock
+[ 44%] Linking C executable ../../bin/test_pool
+[ 47%] Linking C executable ../../bin/test_tiered
+[ 50%] Linking C executable ../../bin/test_graph
+[ 52%] Linking C executable ../../bin/miniinfer_basic
+[ 55%] Linking C executable ../../bin/test_kv_cache
+[ 61%] Linking C executable ../../bin/test_paged_kv
+[ 61%] Linking C executable ../../bin/test_allocator_faults
+[ 66%] Built target test_pool
+[ 66%] Built target test_gpu_mock
+[ 69%] Built target test_paged_kv
+[ 72%] Built target test_tiered
+Consolidate compiler generated dependencies of target test_device_boundaries
+Consolidate compiler generated dependencies of target test_storage_audit
+[ 75%] Built target miniinfer_basic
+[ 77%] Built target test_graph
+[ 80%] Built target test_allocator_faults
+[ 86%] Linking C executable ../../bin/test_device_boundaries
+[ 86%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 88%] Built target test_kv_cache
+Consolidate compiler generated dependencies of target test_direct_io
+[ 91%] Linking C executable ../../bin/test_direct_io
+[ 94%] Built target test_device_boundaries
+[ 97%] Built target test_direct_io
+[100%] Linking C executable ../../bin/test_storage_audit
+[100%] Built target test_storage_audit

@@ -1,11 +1,8 @@
 # KV-Fabric 工程验证报告
 
-> 历史阶段报告：本页环境与限制只对应当时的WSL2/RTX5060Ti实验。当前原生Linux、RTX4060、完整vLLM和NVMe/RDMA结果见[完整交付指南](PROJECT-DELIVERY.md)。原始大体积归档本地保留；公开脱敏测量见[验证数据](benchmarks/published-validation/README.md)。
-
-
 ## 验证环境
 
-构建和测试使用 Ubuntu 22.04 WSL2、GCC 11.4.0、CMake 3.22.1、OpenBLAS 0.3.20、liburing 2.0、OpenSSL 3.0.2 和 Python 3.10。CUDA Toolkit 为 12.8.93，目标为 SM120，运行于 NVIDIA GeForce RTX 5060 Ti，Windows 驱动 610.88。CMake 的 C 翻译单元命令使用 `-std=c11`。构建、模型和测试溢写文件都在 WSL2 的 ext4 虚拟磁盘上。性能测试使用独立发布进程、消费进程和目录进程，网络为同主机 IPv4 TCP `127.0.0.1`。[正式基准环境记录](benchmarks/published-validation/README.md)
+构建和测试使用 Ubuntu 22.04 WSL2、GCC 11.4.0、CMake 3.22.1、OpenBLAS 0.3.20、liburing 2.0、OpenSSL 3.0.2 和 Python 3.10。CUDA Toolkit 为 12.8.93，目标为 SM120，运行于 NVIDIA GeForce RTX 5060 Ti，Windows 驱动 610.88。CMake 的 C 翻译单元命令使用 `-std=c11`。构建、模型和测试溢写文件都在 WSL2 的 ext4 虚拟磁盘上。性能测试使用独立发布进程、消费进程和目录进程，网络为同主机 IPv4 TCP `127.0.0.1`。[正式基准环境记录](benchmarks/ultimate/environment.txt)
 
 ## 干净构建
 
@@ -104,7 +101,7 @@ python3 scripts/benchmark_nano_remote.py \
 
 正式统计前逐行验证生成一致性、提示长度、5 页复用、276,480 Bytes、目录及数据请求次数、零预取故障和分阶段合计。P50/P95/P99 取最近秩，每个模式 30 样本时 P99 为该组最大值。脚本还报告每轮 Cold 减 Remote 的 TTFT 差值和 5,000 次配对 Bootstrap 的中位差区间。
 
-原提交复测在 `git archive 02fe2db383bad59dc614d8dd124d21f976ae0869` 解包出的独立目录构建 CUDA Release，运行该提交的 `tests/nanovllm/test_remote_inference.py --device cuda --samples 30 --benchmark <输出路径>`。目录、Worker、模型和词表的参数与现有脚本相同。原版记录的是首次生成之后调度 tick 返回的时间，新版直接取首次采样完成的单调时间戳。当前实现的 Cold、Local 和 Remote 使用相同计时点。原提交的探针组单独运行了 10 个 CUDA Remote 样本。[原提交复测请求](benchmarks/published-validation/README.md) · [原提交逐页计时](benchmarks/published-validation/README.md) · [原路径分段探针](benchmarks/published-validation/README.md)
+原提交复测在 `git archive 02fe2db383bad59dc614d8dd124d21f976ae0869` 解包出的独立目录构建 CUDA Release，运行该提交的 `tests/nanovllm/test_remote_inference.py --device cuda --samples 30 --benchmark <输出路径>`。目录、Worker、模型和词表的参数与现有脚本相同。原版记录的是首次生成之后调度 tick 返回的时间，新版直接取首次采样完成的单调时间戳。当前实现的 Cold、Local 和 Remote 使用相同计时点。原提交的探针组单独运行了 10 个 CUDA Remote 样本。[原提交复测请求](benchmarks/ultimate/baseline/cuda-raw.csv) · [原提交逐页计时](benchmarks/ultimate/baseline/cuda-raw-transfers.csv) · [原路径分段探针](benchmarks/ultimate/baseline/cuda-legacy-profile.csv)
 
 ### TTFT 结果
 
@@ -116,7 +113,7 @@ python3 scripts/benchmark_nano_remote.py \
 | 原提交 CUDA Release 复测 | 15.65 / 16.71 / 17.14 | 6.93 / 7.22 / 7.38 | 85.85 / 94.43 / 94.57 |
 | 历史 CUDA 数据 | 15.56 / 16.41 / 16.64 | 6.72 / 7.58 / 7.81 | 79.58 / 84.37 / 84.39 |
 
-CUDA 独立预热组的 Remote TTFT P50 下降 19.1%，30/30 对更快，配对中位差 3.03 ms，95% Bootstrap 区间为 2.74–3.13 ms。匹配原预热设置组下降 20.3%，配对中位差 3.16 ms，区间 2.95–3.29 ms。按同一预热设置与历史 Remote P50 对照，79.58 ms 降至 12.42 ms，降幅 84.4%。三个优化组所有 Remote 请求分别导入 5 页、20 Token 和 276,480 Bytes，各用 1 次目录查询和 1 次数据请求，各组 30 次预取均成功。一并复核了优化组和原提交复测组的生成 Token ID 序列 `297 278 4799 29889 2178 278 916 15006`。[CPU 原始样本](benchmarks/published-validation/README.md) · [CUDA 原始样本](benchmarks/published-validation/README.md) · [匹配原预热 CUDA 样本](benchmarks/published-validation/README.md) · [配对统计](benchmarks/published-validation/README.md) · [匹配组配对统计](benchmarks/published-validation/README.md)
+CUDA 独立预热组的 Remote TTFT P50 下降 19.1%，30/30 对更快，配对中位差 3.03 ms，95% Bootstrap 区间为 2.74–3.13 ms。匹配原预热设置组下降 20.3%，配对中位差 3.16 ms，区间 2.95–3.29 ms。按同一预热设置与历史 Remote P50 对照，79.58 ms 降至 12.42 ms，降幅 84.4%。三个优化组所有 Remote 请求分别导入 5 页、20 Token 和 276,480 Bytes，各用 1 次目录查询和 1 次数据请求，各组 30 次预取均成功。一并复核了优化组和原提交复测组的生成 Token ID 序列 `297 278 4799 29889 2178 278 916 15006`。[CPU 原始样本](benchmarks/ultimate/cpu-raw.csv) · [CUDA 原始样本](benchmarks/ultimate/cuda-raw.csv) · [匹配原预热 CUDA 样本](benchmarks/ultimate/matched/cuda-raw.csv) · [配对统计](benchmarks/ultimate/paired-ttft.csv) · [匹配组配对统计](benchmarks/ultimate/matched/paired-ttft.csv)
 
 ### CUDA Remote 阶段耗时
 
@@ -138,7 +135,7 @@ CUDA 独立预热组的 Remote TTFT P50 下降 19.1%，30/30 对更快，配对�
 | 最后提示位置前向至首次采样 | 139.466 | 4.586 | 5.076 | 5.370 |
 | 端到端 TTFT | 375.407 | 12.671 | 13.183 | 13.220 |
 
-单次请求的阶段耗时从独立时间区间计算。TTFT 还包括提示编码、其他提示 Token 的前向和阶段间未独立列出的开销。[CPU 全阶段汇总](benchmarks/published-validation/README.md) · [CUDA 全阶段汇总](benchmarks/published-validation/README.md) · [匹配组 CUDA 汇总](benchmarks/published-validation/README.md)
+单次请求的阶段耗时从独立时间区间计算。TTFT 还包括提示编码、其他提示 Token 的前向和阶段间未独立列出的开销。[CPU 全阶段汇总](benchmarks/ultimate/cpu-summary.csv) · [CUDA 全阶段汇总](benchmarks/ultimate/cuda-summary.csv) · [匹配组 CUDA 汇总](benchmarks/ultimate/matched/cuda-summary.csv)
 
 ### 消费进程资源
 

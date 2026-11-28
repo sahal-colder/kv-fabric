@@ -1,0 +1,32 @@
+{
+  "phases": [
+    {
+      "name": "raw",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/wty/Infra/scripts/run_spdk_async_ab.py",
+        "--build",
+        "/home/wty/Infra/build-spdk",
+        "--out",
+        "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v3/raw"
+      ],
+      "required": true,
+      "returncode": 0
+    },
+    {
+      "name": "migration",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/wty/Infra/scripts/run_spdk_async_ab.py",
+        "--build",
+        "/home/wty/Infra/build-spdk",
+        "--out",
+        "/home/wty/Infra/docs/benchmarks/spdk-async-2026-11-28/final-v3/migration",
+        "--layer",
+        "migration"
+      ],
+      "required": true,
+      "returncode": 1
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+Internal ctest changing into directory: /home/wty/Infra/build-release
+Test project /home/wty/Infra/build-release
+      Start  1: kvf_protocol
+ 1/16 Test  #1: kvf_protocol .....................   Passed    0.04 sec
+      Start  2: kvf_directory
+ 2/16 Test  #2: kvf_directory ....................   Passed    0.68 sec
+      Start  3: pool
+ 3/16 Test  #3: pool .............................   Passed    0.29 sec
+      Start  4: graph
+ 4/16 Test  #4: graph ............................   Passed    0.00 sec
+      Start  5: tiered
+ 5/16 Test  #5: tiered ...........................   Passed    0.01 sec
+      Start  6: kv_cache
+ 6/16 Test  #6: kv_cache .........................   Passed    0.00 sec
+      Start  7: paged_kv
+ 7/16 Test  #7: paged_kv .........................   Passed    0.00 sec
+      Start  8: gpu_mock
+ 8/16 Test  #8: gpu_mock .........................   Passed    0.00 sec
+      Start  9: storage_audit
+ 9/16 Test  #9: storage_audit ....................   Passed    0.00 sec
+      Start 10: direct_io_cpu
+10/16 Test #10: direct_io_cpu ....................   Passed    0.00 sec
+      Start 11: remote_lifecycle
+11/16 Test #11: remote_lifecycle .................   Passed    0.00 sec
+      Start 12: remote_audit
+12/16 Test #12: remote_audit .....................   Passed    2.91 sec
+      Start 13: remote_faults
+13/16 Test #13: remote_faults ....................   Passed    2.60 sec
+      Start 14: remote_e2e_cpu
+14/16 Test #14: remote_e2e_cpu ...................   Passed    1.21 sec
+      Start 15: remote_restart
+15/16 Test #15: remote_restart ...................   Passed    1.56 sec
+      Start 16: nano_remote_inference_cpu
+16/16 Test #16: nano_remote_inference_cpu ........   Passed    9.22 sec
+
+100% tests passed, 0 tests failed out of 16
+
+Total Test time (real) =  18.55 sec

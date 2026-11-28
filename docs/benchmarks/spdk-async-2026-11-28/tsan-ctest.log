@@ -1,0 +1,150 @@
+Internal ctest changing into directory: /home/wty/Infra/build-tsan
+Test project /home/wty/Infra/build-tsan
+      Start  3: pool
+      Start 27: nano_remote_inference_cpu
+      Start 23: remote_audit
+      Start 24: remote_faults
+      Start 25: remote_e2e_cpu
+      Start 26: remote_restart
+      Start  2: kvf_directory
+      Start  1: kvf_protocol
+ 1/27 Test  #3: pool .............................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x725b67aae000-0x725b67f00000
+
+      Start 11: storage_audit
+ 2/27 Test #23: remote_audit .....................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x71ed822ae000-0x71ed82700000
+
+      Start 10: device_boundaries_cpu
+ 3/27 Test #25: remote_e2e_cpu ...................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7e5856cae000-0x7e5857100000
+
+      Start  5: tiered
+ 4/27 Test #26: remote_restart ...................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x780f420ae000-0x780f42500000
+
+      Start 21: direct_io_cpu
+ 5/27 Test #24: remote_faults ....................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x753591aae000-0x753591f00000
+
+      Start  6: kv_cache
+ 6/27 Test  #1: kvf_protocol .....................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x72d18beae000-0x72d18c300000
+
+      Start 22: remote_lifecycle
+ 7/27 Test #11: storage_audit ....................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7c0ef3aae000-0x7c0ef3f00000
+
+      Start  8: gpu_mock
+ 8/27 Test #10: device_boundaries_cpu ............***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x72c8e42ae000-0x72c8e4700000
+
+      Start  9: allocator_faults
+ 9/27 Test  #5: tiered ...........................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x784d540ae000-0x784d54500000
+
+      Start  7: paged_kv
+10/27 Test #21: direct_io_cpu ....................***Failed    0.01 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x749929eae000-0x74992a300000
+
+      Start  4: graph
+11/27 Test #22: remote_lifecycle .................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7c27be8ae000-0x7c27bed00000
+
+      Start 12: uring_faults
+12/27 Test  #8: gpu_mock .........................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7a82fc2ae000-0x7a82fc700000
+
+      Start 13: uring_async_qd1
+13/27 Test  #7: paged_kv .........................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7a8086cae000-0x7a8087100000
+
+      Start 14: uring_async_qd4
+14/27 Test  #6: kv_cache .........................   Passed    0.01 sec
+      Start 15: uring_async_qd8
+15/27 Test  #4: graph ............................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7cab768ae000-0x7cab76d00000
+
+      Start 16: uring_async_qd16
+16/27 Test #12: uring_faults .....................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7af640eae000-0x7af641300000
+
+      Start 17: uring_async_qd32
+17/27 Test #13: uring_async_qd1 ..................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7764558ae000-0x776455d00000
+
+      Start 18: uring_async_qd64
+18/27 Test #14: uring_async_qd4 ..................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7778082ae000-0x777808700000
+
+      Start 19: uring_async_qd128
+19/27 Test #15: uring_async_qd8 ..................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7e30b22ae000-0x7e30b2700000
+
+      Start 20: migration_parallel
+20/27 Test #16: uring_async_qd16 .................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7d591c8ae000-0x7d591cd00000
+
+21/27 Test #17: uring_async_qd32 .................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7695ae8ae000-0x7695aed00000
+
+22/27 Test #19: uring_async_qd128 ................***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7ce2f5cae000-0x7ce2f6100000
+
+23/27 Test #20: migration_parallel ...............***Failed    0.00 sec
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7414c12ae000-0x7414c1700000
+
+24/27 Test #27: nano_remote_inference_cpu ........***Failed    0.07 sec
+Traceback (most recent call last):
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 790, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 782, in main
+    integration(runs)
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 567, in integration
+    with runs.worker("cold") as reference:
+         ^^^^^^^^^^^^^^^^^^^
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 103, in __enter__
+    ready = self.receive()
+            ^^^^^^^^^^^^^^
+  File "/home/wty/Infra/tests/nanovllm/test_remote_inference.py", line 96, in receive
+    raise RuntimeError(f"{self.process.args[0]} exited {code}\n{self.errors.read()}")
+RuntimeError: /home/wty/Infra/build-tsan/bin/test_nano_remote_worker exited 66
+FATAL: ThreadSanitizer: unexpected memory mapping 0x7a98c36ae000-0x7a98c3b00000
+
+
+25/27 Test  #9: allocator_faults .................***Exception: SegFault  0.08 sec
+
+26/27 Test #18: uring_async_qd64 .................   Passed    0.11 sec
+27/27 Test  #2: kvf_directory ....................   Passed    0.75 sec
+
+11% tests passed, 24 tests failed out of 27
+
+Total Test time (real) =   0.76 sec
+
+The following tests FAILED:
+	  1 - kvf_protocol (Failed)
+	  3 - pool (Failed)
+	  4 - graph (Failed)
+	  5 - tiered (Failed)
+	  7 - paged_kv (Failed)
+	  8 - gpu_mock (Failed)
+	  9 - allocator_faults (SEGFAULT)
+	 10 - device_boundaries_cpu (Failed)
+	 11 - storage_audit (Failed)
+	 12 - uring_faults (Failed)
+	 13 - uring_async_qd1 (Failed)
+	 14 - uring_async_qd4 (Failed)
+	 15 - uring_async_qd8 (Failed)
+	 16 - uring_async_qd16 (Failed)
+	 17 - uring_async_qd32 (Failed)
+	 19 - uring_async_qd128 (Failed)
+	 20 - migration_parallel (Failed)
+	 21 - direct_io_cpu (Failed)
+	 22 - remote_lifecycle (Failed)
+	 23 - remote_audit (Failed)
+	 24 - remote_faults (Failed)
+	 25 - remote_e2e_cpu (Failed)
+	 26 - remote_restart (Failed)
+	 27 - nano_remote_inference_cpu (Failed)
+Errors while running CTest

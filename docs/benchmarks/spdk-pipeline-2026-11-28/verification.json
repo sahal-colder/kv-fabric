@@ -1,0 +1,12 @@
+{
+  "source_archive_files_verified": 205,
+  "all_source_and_binary_hashes_match": true,
+  "source_archive_independently_rebuilt": true,
+  "measured_samples": 2400,
+  "warmup_samples": 240,
+  "all_80_processes_verified_cpu_gpu_bytes_versions_crc_and_actual_qd": true,
+  "original_data_sha256_verified_before_and_after": true,
+  "governors_service_driver_restored": true,
+  "source_commit": "0ad62c3af3ab05b731aafb59569f11e21ccfecec",
+  "restored_at": "2026-11-28T11:51:23.592823+08:00"
+}

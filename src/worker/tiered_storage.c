@@ -8,9 +8,10 @@
 #include "storage_internal.h"
 #include <pthread.h>
 #include <stdatomic.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
-enum { TIER_COUNT = MI_LOCATION_SSD + 1, MAX_MIGRATIONS = 64 };
+enum { TIER_COUNT = MI_LOCATION_SSD + 1, MAX_MIGRATIONS = 128 };
 
 /* 逻辑块记录保存驻留槽、SSD 副本及待清理槽。 */
 typedef struct block_record {
@@ -29,6 +30,7 @@ struct mi_migration_ticket {
     pthread_mutex_t mutex;
     pthread_cond_t changed;
     atomic_uint refs;
+    atomic_bool cancelled;
     int done;
     mi_status status;
 };
@@ -50,8 +52,9 @@ struct mi_tiered_storage {
 
     pthread_mutex_t mutex;
     pthread_cond_t changed;
-    pthread_t worker;
-    int worker_started, stopping;
+    pthread_t workers[MAX_MIGRATIONS];
+    unsigned worker_count, concurrency, running, max_running;
+    int stopping;
     int quarantined, retired;
     struct mi_tiered_storage *retired_next;
     size_t queue_depth, queue_head, queued;
@@ -106,11 +109,12 @@ mi_status mi_tiered_storage_create(mi_storage_config config, mi_storage_backends
             return MI_EINVAL;
     }
 
-    mi_tiered_storage *s = calloc(1, sizeof(*s) + config.max_async_migrations * sizeof(*s->queue));
+    mi_tiered_storage *s = calloc(1, sizeof(*s) + 2 * config.max_async_migrations * sizeof(*s->queue));
     if (!s)
         return MI_ENOMEM;
     s->block_bytes = config.block_bytes;
-    s->queue_depth = config.max_async_migrations;
+    s->queue_depth = 2 * config.max_async_migrations;
+    s->concurrency = (unsigned)config.max_async_migrations;
     s->retain_ssd_copy = config.retain_ssd_copy;
 
     mi_status st = MI_OK;
@@ -414,14 +418,16 @@ static mi_status move_payload(mi_storage_backend *staging, mi_storage_backend *s
     return st;
 }
 
-mi_status mi_storage_migrate(mi_tiered_storage *s, mi_block_id id, mi_location target) {
+static mi_status migrate_block(mi_tiered_storage *s, mi_block_id id, mi_location target, atomic_bool *cancelled) {
     if (!s || (unsigned)target >= TIER_COUNT)
         return MI_EINVAL;
     pthread_mutex_lock(&s->mutex);
     block_record *r = record_at(s, id);
     mi_storage_backend *dst = s->backends[target];
     mi_status st = MI_OK;
-    if (s->quarantined)
+    if (cancelled && atomic_load_explicit(cancelled, memory_order_acquire))
+        st = MI_EBUSY;
+    else if (s->quarantined)
         st = MI_EIO;
     else if (!r)
         st = MI_ENOENT;
@@ -463,6 +469,8 @@ mi_status mi_storage_migrate(mi_tiered_storage *s, mi_block_id id, mi_location t
         pthread_mutex_unlock(&s->mutex);
         return st;
     }
+    /* Cancellation never retires an address until all copy/DMA dependencies finished. */
+    if (st == MI_OK && cancelled && atomic_load_explicit(cancelled, memory_order_acquire)) st = MI_EBUSY;
     mi_storage_handle cleanup = MI_INVALID_HANDLE;
     mi_location cleanup_location = target;
     if (st == MI_OK) {
@@ -505,17 +513,64 @@ mi_status mi_storage_migrate(mi_tiered_storage *s, mi_block_id id, mi_location t
     return st;
 }
 
+/* Running permits cover synchronous callers and worker tasks alike. */
+static mi_status migrate_task(mi_tiered_storage *s, mi_block_id id, mi_location target, atomic_bool *cancelled) {
+    if (!s || (unsigned)target >= TIER_COUNT) return MI_EINVAL;
+    pthread_mutex_lock(&s->mutex);
+    while (s->running == s->concurrency)
+        pthread_cond_wait(&s->changed, &s->mutex);
+    if (++s->running > s->max_running) s->max_running = s->running;
+    pthread_mutex_unlock(&s->mutex);
+    mi_status st = migrate_block(s, id, target, cancelled);
+    pthread_mutex_lock(&s->mutex);
+    --s->running;
+    pthread_cond_broadcast(&s->changed);
+    pthread_mutex_unlock(&s->mutex);
+    return st;
+}
+mi_status mi_storage_migrate(mi_tiered_storage *s, mi_block_id id, mi_location target) {
+    return migrate_task(s, id, target, NULL);
+}
 mi_status mi_storage_migrate_batch(mi_tiered_storage *s, const mi_block_id *ids, size_t count,
                                    mi_location target, mi_status *results) {
-    if (!s || !ids || !results || !count || count > MAX_MIGRATIONS)
-        return MI_EINVAL;
+    if (!s || !ids || !results || !count || (unsigned)target >= TIER_COUNT) return MI_EINVAL;
     mi_status first = MI_OK;
-    for (size_t i = 0; i < count; ++i) {
-        results[i] = mi_storage_migrate(s, ids[i], target);
-        if (first == MI_OK)
-            first = results[i];
+    for (size_t base = 0; base < count;) {
+        mi_migration_ticket *tickets[MAX_MIGRATIONS] = {0};
+        size_t n = count-base;
+        if (n > s->concurrency) n = s->concurrency;
+        size_t accepted = 0;
+        for (; accepted < n;) {
+            mi_status st = mi_storage_migrate_async(s, ids[base+accepted], target, &tickets[accepted]);
+            /* Do not hold a partial window while blocking on another batch. */
+            if (st == MI_EBUSY && accepted) break;
+            if (st == MI_EBUSY) {
+                pthread_mutex_lock(&s->mutex);
+                while (!s->stopping && s->queued == s->queue_depth)
+                    pthread_cond_wait(&s->changed, &s->mutex);
+                int stopping = s->stopping;
+                pthread_mutex_unlock(&s->mutex);
+                if (!stopping) continue;
+            }
+            results[base+accepted++] = st;
+        }
+        n = accepted;
+        for (size_t i = 0; i < n; ++i) {
+            if (tickets[i]) {
+                results[base+i] = mi_migration_wait(tickets[i]);
+                mi_migration_ticket_destroy(tickets[i]);
+            }
+            if (first == MI_OK) first = results[base+i];
+        }
+        base += n;
     }
     return first;
+}
+void mi_storage_migration_stats(mi_tiered_storage *s, mi_migration_stats *out) {
+    if (!s || !out) return;
+    pthread_mutex_lock(&s->mutex);
+    *out = (mi_migration_stats){s->concurrency, s->running, s->max_running, s->queue_depth, s->queued};
+    pthread_mutex_unlock(&s->mutex);
 }
 
 static void ticket_release(mi_migration_ticket *t) {
@@ -526,7 +581,7 @@ static void ticket_release(mi_migration_ticket *t) {
     }
 }
 
-/* 顺序执行队列中的迁移，并将结果发布到票据。 */
+/* Dequeue before executing: queued excludes active tasks. */
 static void *migration_worker(void *arg) {
     mi_tiered_storage *s = arg;
     pthread_mutex_lock(&s->mutex);
@@ -538,14 +593,13 @@ static void *migration_worker(void *arg) {
             return NULL;
         }
         migration_job job = s->queue[s->queue_head];
-        pthread_mutex_unlock(&s->mutex);
-
-        mi_status st = mi_storage_migrate(s, job.id, job.target);
-
-        pthread_mutex_lock(&s->mutex);
         s->queue_head = (s->queue_head + 1) % s->queue_depth;
         --s->queued;
+        pthread_cond_broadcast(&s->changed);
         pthread_mutex_unlock(&s->mutex);
+
+        mi_status st = migrate_task(s, job.id, job.target, &job.ticket->cancelled);
+
         pthread_mutex_lock(&job.ticket->mutex);
         job.ticket->status = st;
         job.ticket->done = 1;
@@ -561,6 +615,7 @@ mi_status mi_storage_migrate_async(mi_tiered_storage *s, mi_block_id id, mi_loca
                                    mi_migration_ticket **out) {
     if (!s || !out || (unsigned)target >= TIER_COUNT)
         return MI_EINVAL;
+    *out = NULL;
     mi_migration_ticket *t = calloc(1, sizeof(*t));
     if (!t)
         return MI_ENOMEM;
@@ -574,17 +629,22 @@ mi_status mi_storage_migrate_async(mi_tiered_storage *s, mi_block_id id, mi_loca
         return MI_EINTERNAL;
     }
     atomic_init(&t->refs, 1);
+    atomic_init(&t->cancelled, false);
     pthread_mutex_lock(&s->mutex);
     mi_status st = MI_OK;
     if (s->stopping || s->queued == s->queue_depth)
         st = MI_EBUSY;
-    else if (!s->worker_started && pthread_create(&s->worker, NULL, migration_worker, s))
-        st = MI_EINTERNAL;
     else {
-        s->worker_started = 1;
+        while (s->worker_count < s->concurrency) {
+            if (pthread_create(&s->workers[s->worker_count], NULL, migration_worker, s)) break;
+            ++s->worker_count;
+        }
+        if (!s->worker_count) st = MI_EINTERNAL;
+    }
+    if (st == MI_OK) {
         atomic_fetch_add_explicit(&t->refs, 1, memory_order_relaxed);
         s->queue[(s->queue_head + s->queued++) % s->queue_depth] = (migration_job){id, target, t};
-        pthread_cond_signal(&s->changed);
+        pthread_cond_broadcast(&s->changed);
     }
     pthread_mutex_unlock(&s->mutex);
     if (st == MI_OK)
@@ -605,6 +665,9 @@ mi_status mi_migration_wait(mi_migration_ticket *t) {
     return st;
 }
 
+void mi_migration_cancel(mi_migration_ticket *t) {
+    if (t) atomic_store_explicit(&t->cancelled, true, memory_order_release);
+}
 void mi_migration_ticket_destroy(mi_migration_ticket *t) {
     if (t)
         ticket_release(t);
@@ -778,8 +841,11 @@ void mi_tiered_storage_destroy(mi_tiered_storage *s) {
     s->stopping = 1;
     pthread_cond_broadcast(&s->changed);
     pthread_mutex_unlock(&s->mutex);
-    if (s->worker_started)
-        pthread_join(s->worker, NULL);
+    for (unsigned i = 0; i < s->worker_count; ++i)
+        pthread_join(s->workers[i], NULL);
+    pthread_mutex_lock(&s->mutex);
+    while (s->running) pthread_cond_wait(&s->changed, &s->mutex);
+    pthread_mutex_unlock(&s->mutex);
     pthread_mutex_lock(&s->mutex);
     if (s->quarantined) {
         s->retired = 1;

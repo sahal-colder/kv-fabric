@@ -57,4 +57,3 @@ cudaError_t kvf_cuda_scatter(const kvf_cuda_layer *layers, const int32_t *blocks
         static_cast<uint4 *>(staging));
     return cudaGetLastError();
 }
-

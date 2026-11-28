@@ -1,0 +1,1202 @@
+[
+  {
+    "path": "build-baseline/bin/test_paged_kv",
+    "bytes": 82192,
+    "sha256": "89e9d955b1eb630ad02b8238973b41e9e941bc3ba5d005c7f9267e4674878734"
+  },
+  {
+    "path": "build-baseline/bin/test_remote_faults",
+    "bytes": 220784,
+    "sha256": "20c95e06b4c8c9bec35b73f0adc4e58d0196e0d3b622ba28d6162cda707224c8"
+  },
+  {
+    "path": "build-baseline/bin/test_gpu_mock",
+    "bytes": 26984,
+    "sha256": "54aec4463b61fe788a5e9eb43d0aeedaf988db861631e80483e4b08faf4b76fc"
+  },
+  {
+    "path": "build-baseline/bin/nanovllm",
+    "bytes": 243080,
+    "sha256": "57b0d613ea1776ab26d623654bbc08b414083107a2b81745ec2cef8078c820d4"
+  },
+  {
+    "path": "build-baseline/bin/test_kvf_directory",
+    "bytes": 122872,
+    "sha256": "095e462a57cffb9b3483a24ef4f6cfb330a4e370a09721d2ba88a0659c166ad5"
+  },
+  {
+    "path": "build-baseline/bin/miniinfer",
+    "bytes": 247648,
+    "sha256": "2a302545fc723ad36bb9204bcf2b02f40ebe6e6e94ea718f08a490177b1ace54"
+  },
+  {
+    "path": "build-baseline/bin/test_graph",
+    "bytes": 35712,
+    "sha256": "ca0397fb4d557a6f0f755c2f0d98553f229a1eb6838a6f0f6a302658626c9993"
+  },
+  {
+    "path": "build-baseline/bin/test_remote_e2e",
+    "bytes": 85336,
+    "sha256": "2eca9299986c7307b12e3f67c3514b1d3025399a1fa0bf41d4a02baee603cc9a"
+  },
+  {
+    "path": "build-baseline/bin/test_pool",
+    "bytes": 35264,
+    "sha256": "7ab40ea717c84b4075487d6a414dd7f7ad4e750e62eef1879ac14999e63e9d84"
+  },
+  {
+    "path": "build-baseline/bin/test_nano_remote_worker",
+    "bytes": 238944,
+    "sha256": "793b98550ad379b12b1adbafe0389c869e8d8865b822817fa28367df1bbe05de"
+  },
+  {
+    "path": "build-baseline/bin/miniinfer_basic",
+    "bytes": 77048,
+    "sha256": "c5bb525a523951e6dcefcd91da03c9d75de9af7913cce3db47eb50db1e0bd760"
+  },
+  {
+    "path": "build-baseline/bin/test_remote_lifecycle",
+    "bytes": 90480,
+    "sha256": "d03369ac7d894188caf6d6c273ed33147413acf58687c2946a81361094843d3c"
+  },
+  {
+    "path": "build-baseline/bin/test_tiered",
+    "bytes": 77112,
+    "sha256": "30b25ab64610d533ca3a66bdbc6bc719b765fcd5c06375177614f5af731d985c"
+  },
+  {
+    "path": "build-baseline/bin/test_direct_io",
+    "bytes": 77368,
+    "sha256": "0fae057839ff32947e08195072c76c80d6e8e048ed537c723203dcd96fecdbe2"
+  },
+  {
+    "path": "build-baseline/bin/kvf_bench",
+    "bytes": 199152,
+    "sha256": "a6c6729b380711cd62aa361bfca4a0594a0d45a64752bb8f86836c65e42c8ebe"
+  },
+  {
+    "path": "build-baseline/bin/kvfctl",
+    "bytes": 75712,
+    "sha256": "fa36cb3aa47707051f771791539a960b5dd727df88ef4b7af1afd2075515a3a5"
+  },
+  {
+    "path": "build-baseline/bin/miniinfer_worker",
+    "bytes": 190632,
+    "sha256": "fb39486e3d19a414766603ef794f375e6b2adad6ef321aec218663b26ae5dc0e"
+  },
+  {
+    "path": "build-baseline/bin/test_kvf_protocol",
+    "bytes": 71080,
+    "sha256": "8ced9e6e89cac235c79f1ed6219129928943bfa13a7ab88169ca9b221e32d9ae"
+  },
+  {
+    "path": "build-baseline/bin/test_kv_cache",
+    "bytes": 81696,
+    "sha256": "658dcdd0eb7c3797a3f71af08b1c80f5bf1366a32916185aad368d4811867ffe"
+  },
+  {
+    "path": "build-baseline/bin/kvfabricd",
+    "bytes": 88904,
+    "sha256": "4092b783551787c427ff4fd9e052ad197a99f54fdbbf8355dd0ea18be03b3577"
+  },
+  {
+    "path": "build-release/bin/test_allocator_faults",
+    "bytes": 27144,
+    "sha256": "5b0f1f9a4de5715b0d90a6add77986ca81fc1a9880ee8e4a8642ebecaa8c54c1"
+  },
+  {
+    "path": "build-release/bin/test_paged_kv",
+    "bytes": 86328,
+    "sha256": "cab80891d99346009df45f8c376c43906542eb728eb6b439390cc3783cc897de"
+  },
+  {
+    "path": "build-release/bin/test_remote_faults",
+    "bytes": 221032,
+    "sha256": "6428a5f3c236189617f512969d6620d044c56d3ee09e686f5e1a5ca65bfa292f"
+  },
+  {
+    "path": "build-release/bin/test_gpu_mock",
+    "bytes": 26984,
+    "sha256": "a973fcb8207299aebaa72c68a7d6213b9bb64c21f852709d95c8a760f62d8414"
+  },
+  {
+    "path": "build-release/bin/nanovllm",
+    "bytes": 247376,
+    "sha256": "675064ff9633b5b4def822599cbd43a53a36ff24b6dbdfbf7a7e4a89608a413f"
+  },
+  {
+    "path": "build-release/bin/test_kvf_directory",
+    "bytes": 127312,
+    "sha256": "f285a31f6f79400d2900a04ba0098fd98dcf472cb068965c994ad8b7f72881c2"
+  },
+  {
+    "path": "build-release/bin/miniinfer",
+    "bytes": 251944,
+    "sha256": "9c79ddb012824b4feac2a5c6cf049409b662b5efca721939b2c798df89259282"
+  },
+  {
+    "path": "build-release/bin/test_graph",
+    "bytes": 35712,
+    "sha256": "dafd7415cb8ee62d43f667952fab1fb6362aaba384e39c120c77a225a20587c9"
+  },
+  {
+    "path": "build-release/bin/test_device_boundaries",
+    "bytes": 17672,
+    "sha256": "602026de1f5575528fc70eff72b61e260b94acd717f9de471154baee97e785e6"
+  },
+  {
+    "path": "build-release/bin/test_remote_e2e",
+    "bytes": 85384,
+    "sha256": "9d61f498ae5f068f5ae0603ac68c4eb010fd4b08ab7a91cc6c141bd7f4a99998"
+  },
+  {
+    "path": "build-release/bin/test_pool",
+    "bytes": 35400,
+    "sha256": "1a645d47fd3e6d9afde09bc97f6af810c67e1e7fe30f0cd308cae0773f3af875"
+  },
+  {
+    "path": "build-release/bin/test_nano_remote_worker",
+    "bytes": 243240,
+    "sha256": "47631a788d2cf048be7ab8e9823a46b11c7b826b2b817ed3748d28a6b026a6fe"
+  },
+  {
+    "path": "build-release/bin/test_storage_audit",
+    "bytes": 95240,
+    "sha256": "3eb05aa4962b6664923f4a37efc3593f122a5cd0c9f772a25f65dc31e5516128"
+  },
+  {
+    "path": "build-release/bin/miniinfer_basic",
+    "bytes": 77088,
+    "sha256": "55e83029ec2ae506e2febba9c5cfd9ce83184d2d168fbaaa4c0f26ccb93c0293"
+  },
+  {
+    "path": "build-release/bin/test_remote_audit",
+    "bytes": 220928,
+    "sha256": "69a0ca67b761cf60d86f64947d8de62e79c755359307fc0a4f5ba3c6fe20be82"
+  },
+  {
+    "path": "build-release/bin/test_remote_lifecycle",
+    "bytes": 90528,
+    "sha256": "9c315004df4da704ae788dcfae285bd85b167f94d38c030b5d0deca4bae0ffb9"
+  },
+  {
+    "path": "build-release/bin/test_tiered",
+    "bytes": 77152,
+    "sha256": "0a2103bb210479c7d142d4c6c0e5b0f2bdd372e575d344ac3920c1ff00dd6b7e"
+  },
+  {
+    "path": "build-release/bin/test_direct_io",
+    "bytes": 81504,
+    "sha256": "c912eb956593829f02054056878db7da072d9be4f3842c135c621b3420fa0986"
+  },
+  {
+    "path": "build-release/bin/kvf_bench",
+    "bytes": 199352,
+    "sha256": "9c62cacccd0d8bea49e10c138de31740b3888892c7eae88f0cac50fdf1bae156"
+  },
+  {
+    "path": "build-release/bin/kvfctl",
+    "bytes": 75760,
+    "sha256": "e5bc61f744e92219e6fa4e7da2f0de54acd0c3643202e6f2df7c6d44243d1187"
+  },
+  {
+    "path": "build-release/bin/miniinfer_worker",
+    "bytes": 194928,
+    "sha256": "5f4875df8fd007e0dae6ab701b55f5632449ea3ba28533cbd80b9945b079c727"
+  },
+  {
+    "path": "build-release/bin/test_kvf_protocol",
+    "bytes": 71128,
+    "sha256": "b944a9ac7cb273ce228d76567f6c0420144a01238cca7cd723a6cc133eabb264"
+  },
+  {
+    "path": "build-release/bin/test_kv_cache",
+    "bytes": 81736,
+    "sha256": "76f2347334b4de423adec730031793addc264cb842a5ca64c06ccf951e53cc7e"
+  },
+  {
+    "path": "build-release/bin/kvfabricd",
+    "bytes": 88992,
+    "sha256": "55ab553af46dee22135487a8fbf8b996f806609a76304675c02e459958750c6a"
+  },
+  {
+    "path": "build-cuda-release/bin/test_uring_faults",
+    "bytes": 100264,
+    "sha256": "51bc1563a39bb095579cf6bd5a58d9a8677bec0095a77d2e90e53f73bdbb066c"
+  },
+  {
+    "path": "build-cuda-release/bin/test_allocator_faults",
+    "bytes": 41120,
+    "sha256": "bde624c35c83fac88820e97fd3681f7bafb12d9c56c13bf54fd176c4a6cb9533"
+  },
+  {
+    "path": "build-cuda-release/bin/test_paged_kv",
+    "bytes": 118728,
+    "sha256": "40a8f2e48b0f20ae173c5ec55558248b1d2fde86602d781d02901214b6119522"
+  },
+  {
+    "path": "build-cuda-release/bin/test_remote_faults",
+    "bytes": 240944,
+    "sha256": "295e46f57c853cbce083025700fc954e027dc36bc6b33246dc8bf3e9e70614e3"
+  },
+  {
+    "path": "build-cuda-release/bin/kvf_cuda_bench",
+    "bytes": 36288,
+    "sha256": "4659eebf0cea577f23af4462c3ec2f3ff0160e4a80bb38a5ce347a6480da4a39"
+  },
+  {
+    "path": "build-cuda-release/bin/test_gpu_mock",
+    "bytes": 109720,
+    "sha256": "e5b31ee5383caead4b0764662b6f2608693bf6e895333a3c94efb06d99802491"
+  },
+  {
+    "path": "build-cuda-release/bin/nanovllm",
+    "bytes": 381992,
+    "sha256": "389b41ca12acf0ed998d72a37a7f083a14f8212f77d5e3ef6a86d2b376a30a05"
+  },
+  {
+    "path": "build-cuda-release/bin/test_kvf_directory",
+    "bytes": 110736,
+    "sha256": "daac9ac5d13e392050b850b7b0114a9d00908a7d19e8fd00fca762c1be6a6b13"
+  },
+  {
+    "path": "build-cuda-release/bin/miniinfer",
+    "bytes": 395232,
+    "sha256": "bf991d981aa133be5522dcf2d3d227d974e949ae6ac95580c234aeee65088513"
+  },
+  {
+    "path": "build-cuda-release/bin/test_graph",
+    "bytes": 41488,
+    "sha256": "91619a7bd75a27addd3c417798f6c108b7226f6d2023192022cbce69d25b9e10"
+  },
+  {
+    "path": "build-cuda-release/bin/test_device_boundaries",
+    "bytes": 27168,
+    "sha256": "59b3522c831e1b942601d3ad919f18210483b7b4f576af7f0fbdd387a49d58a1"
+  },
+  {
+    "path": "build-cuda-release/bin/test_remote_e2e",
+    "bytes": 68808,
+    "sha256": "948c8f83d868c93f0be87ba0f0b4dcd7e34cd983236d435a98ecc9c0feb0e1a2"
+  },
+  {
+    "path": "build-cuda-release/bin/test_pool",
+    "bytes": 49376,
+    "sha256": "f6d04099388ed510a5b6fb6b01c217953a0e7b75404f26dbc249a5e54acdcbf7"
+  },
+  {
+    "path": "build-cuda-release/bin/test_nano_remote_worker",
+    "bytes": 382024,
+    "sha256": "0d016d7fac7538b9985a133717c3cb181fb7b3ec5be7f9b54bc5043505d47a96"
+  },
+  {
+    "path": "build-cuda-release/bin/test_storage_audit",
+    "bytes": 127640,
+    "sha256": "dd6bb39335bdf9712074c29481309667299c36edbd6bd6ed9dae7bf2e2300e8f"
+  },
+  {
+    "path": "build-cuda-release/bin/kvf_nvme_recovery_bench",
+    "bytes": 109928,
+    "sha256": "455bd8f8e4b86bbf9ed9083e74f6278c88f99036e9117eb7c9521aeaaa6501fe"
+  },
+  {
+    "path": "build-cuda-release/bin/miniinfer_basic",
+    "bytes": 109416,
+    "sha256": "89bfcd9637f93bc49430d3bd278886d034209812c8f51cec15fd3423d9b99adf"
+  },
+  {
+    "path": "build-cuda-release/bin/test_remote_audit",
+    "bytes": 232640,
+    "sha256": "29eef170ff926ddcc4f99ca39ffeeb2e55a24ccb0a8731596f48e1d27449447e"
+  },
+  {
+    "path": "build-cuda-release/bin/test_remote_lifecycle",
+    "bytes": 122920,
+    "sha256": "ba6680acb4ff858509707f01a7265f6c33a6557371229d8988940337c42b317c"
+  },
+  {
+    "path": "build-cuda-release/bin/test_tiered",
+    "bytes": 109552,
+    "sha256": "b64acae669f58f22276cb4b6b511f08b88de35078699ad32ac487574e1b39bbc"
+  },
+  {
+    "path": "build-cuda-release/bin/test_direct_io",
+    "bytes": 109808,
+    "sha256": "646e0d5edb8ac3895d95a60843d7180c842ed5e79b2640b6f28e80a0a8866ce7"
+  },
+  {
+    "path": "build-cuda-release/bin/kvf_bench",
+    "bytes": 215088,
+    "sha256": "5e7133446a8b88d64698bae3b3e1b7f308372eba829127a1082a49813a32dfad"
+  },
+  {
+    "path": "build-cuda-release/bin/kvfctl",
+    "bytes": 59184,
+    "sha256": "392a4e4fd63d75557401b99bdf8e602e9532658ca77d692dacfa1a8a2e9b8b35"
+  },
+  {
+    "path": "build-cuda-release/bin/miniinfer_worker",
+    "bytes": 210624,
+    "sha256": "631444f70a5d30cc9900ce15b2d73b180da3cae8dd95b2cc8f3f051b02c890e8"
+  },
+  {
+    "path": "build-cuda-release/bin/test_kvf_protocol",
+    "bytes": 58656,
+    "sha256": "1994f9a9dd846eaf9e4fa66791388856ebf64f0b34a3e7025d6b33b33eee1acd"
+  },
+  {
+    "path": "build-cuda-release/bin/test_kv_cache",
+    "bytes": 114136,
+    "sha256": "4f34c414ff51d52d71edd1fe4510389e9c8a1ed1b9c7a859e03394474965ef11"
+  },
+  {
+    "path": "build-cuda-release/bin/kvfabricd",
+    "bytes": 72416,
+    "sha256": "88253a5a88e1a454ed0c4308a724f9c958f11c9eaa67cfb485fd1e9f55550c0c"
+  },
+  {
+    "path": "build-asan/bin/test_uring_faults",
+    "bytes": 552592,
+    "sha256": "c9b93194e7c655979848e1f2060f2dcf424f20e9c42970303150b1e0cc7594d6"
+  },
+  {
+    "path": "build-asan/bin/test_allocator_faults",
+    "bytes": 209280,
+    "sha256": "77d4e5c858142cef6d7ab3367894bf3fb937ff65363f47d608111f5ee86a64d3"
+  },
+  {
+    "path": "build-asan/bin/test_paged_kv",
+    "bytes": 887224,
+    "sha256": "43cb7914113831b95376dda05dc96bfea3dc1b72e7c86f42dcc7a31011d914ee"
+  },
+  {
+    "path": "build-asan/bin/test_remote_faults",
+    "bytes": 2058240,
+    "sha256": "3dca746df18586483e6e496bb6dffd4d8885399db1cf4cfa6ddc0d27136be6ed"
+  },
+  {
+    "path": "build-asan/bin/test_gpu_mock",
+    "bytes": 203192,
+    "sha256": "22c2e758a61b78bbfcb1c287ab302474468a91e4374e78f3a409a0da66af3ac1"
+  },
+  {
+    "path": "build-asan/bin/nanovllm",
+    "bytes": 2547016,
+    "sha256": "24a17e2b39f49bf7fb1406d646aac39748fffb958bfba7a91dd7aae19816b2ef"
+  },
+  {
+    "path": "build-asan/bin/test_kvf_directory",
+    "bytes": 684160,
+    "sha256": "b4ba7893f9a06f607a2dea661b46fb7ffbab07c39cdb4a5abb88bf01d71f171a"
+  },
+  {
+    "path": "build-asan/bin/miniinfer",
+    "bytes": 2621344,
+    "sha256": "265a229a7ae253e7a344f11d8371e85d92777fface916530f854bc9d9f49f261"
+  },
+  {
+    "path": "build-asan/bin/test_graph",
+    "bytes": 274032,
+    "sha256": "e942d5cc23a8df7f48d00409de273330f68a1575a2648e60806eb9f3d4b062c1"
+  },
+  {
+    "path": "build-asan/bin/test_device_boundaries",
+    "bytes": 44632,
+    "sha256": "4ae8d45a3cac9049d20d84d1f4503858cbac0c0e693fe92217222898318faa39"
+  },
+  {
+    "path": "build-asan/bin/test_remote_e2e",
+    "bytes": 391112,
+    "sha256": "64188731934682c54f0a198dc3e5073aa194355ff61b9b39b6e5eba3601686d4"
+  },
+  {
+    "path": "build-asan/bin/test_pool",
+    "bytes": 248872,
+    "sha256": "f4969a4a90faddae2716a314a63ce5bd7403d8768ee40f21113cbbf308909f5d"
+  },
+  {
+    "path": "build-asan/bin/test_nano_remote_worker",
+    "bytes": 2537352,
+    "sha256": "4c189dbf468c0f21eb6f5e0cb9e38ebd9890933e8b7b68131fe9e789f8f6b031"
+  },
+  {
+    "path": "build-asan/bin/test_storage_audit",
+    "bytes": 923376,
+    "sha256": "a41445774ad872b09ba989c55c2ee235351ee50c75f1a3a46c2c1310c70ff883"
+  },
+  {
+    "path": "build-asan/bin/miniinfer_basic",
+    "bytes": 732888,
+    "sha256": "ca1bb4a4710c641c20d7142cc2d8286010ce92fd6d381813b94ca95e04624f5e"
+  },
+  {
+    "path": "build-asan/bin/test_remote_audit",
+    "bytes": 2047688,
+    "sha256": "4591e532080e20e40299590b51b7015a910aa3a1a447fd296918164ec3041aec"
+  },
+  {
+    "path": "build-asan/bin/test_remote_lifecycle",
+    "bytes": 897448,
+    "sha256": "0eba8d6c45c825ac90dc59f5181250f85bdc6d014cb8f050b16361d349022850"
+  },
+  {
+    "path": "build-asan/bin/test_tiered",
+    "bytes": 738064,
+    "sha256": "03185b795d75292e5dea30eabcf0c4244a55337c054fd4c5f75299de8260696b"
+  },
+  {
+    "path": "build-asan/bin/test_direct_io",
+    "bytes": 746624,
+    "sha256": "b108c25f0e08828fa9b2567ea71b14b8998a17176c6403c49b6642e0eec6a3df"
+  },
+  {
+    "path": "build-asan/bin/kvf_bench",
+    "bytes": 1903416,
+    "sha256": "5ab1d744a306d835192f6ad34b03eb56ec69933ffb7efa450ca7a917acacf9f9"
+  },
+  {
+    "path": "build-asan/bin/kvfctl",
+    "bytes": 329688,
+    "sha256": "2c705d03f1f6318cf36bf396fa9196147dff5c194dd59fbc08f2387fbd645a4e"
+  },
+  {
+    "path": "build-asan/bin/miniinfer_worker",
+    "bytes": 1797976,
+    "sha256": "2aa8ab036773dd71e1c212b4c57e1ecc24fe6cea232edd2fcaad62a3247d7472"
+  },
+  {
+    "path": "build-asan/bin/test_kvf_protocol",
+    "bytes": 306544,
+    "sha256": "53c4a011d3c518cf7c6d45b6460be110d77bb7dbb34961bd7fcbe069132dc684"
+  },
+  {
+    "path": "build-asan/bin/test_kv_cache",
+    "bytes": 819080,
+    "sha256": "1a749105eab54ed1387803e70c7a08e6352384cd575b65370b4ae83de80432f5"
+  },
+  {
+    "path": "build-asan/bin/kvfabricd",
+    "bytes": 537336,
+    "sha256": "45ea60c2c72fc166dd385665351b6c5a6a9fd816bf5daabd9a46eeaea748f04b"
+  },
+  {
+    "path": "build-tsan/bin/test_uring_faults",
+    "bytes": 172376,
+    "sha256": "b718e54272117eb02b313a3836aa8ace2b74bf8f4c9c1a86731d7c1eef2779bf"
+  },
+  {
+    "path": "build-tsan/bin/test_allocator_faults",
+    "bytes": 61872,
+    "sha256": "b9f07c7e150eac484125e3924b0a6848bd07ad371baaea10835cf3a9d356acbb"
+  },
+  {
+    "path": "build-tsan/bin/test_paged_kv",
+    "bytes": 229728,
+    "sha256": "2f69cdc0b985e43b29715865c021218bccce09347c3d0b8ec63df46496fa535f"
+  },
+  {
+    "path": "build-tsan/bin/test_remote_faults",
+    "bytes": 550464,
+    "sha256": "892c178d967a2d26072134b9a29e526e546a6b4df80dfe5ce554d51f0ebfa86e"
+  },
+  {
+    "path": "build-tsan/bin/test_gpu_mock",
+    "bytes": 60944,
+    "sha256": "2380703770c92f0a605def3bf04d5be3925b78c651af66c832bc83cd8748e55d"
+  },
+  {
+    "path": "build-tsan/bin/nanovllm",
+    "bytes": 616680,
+    "sha256": "9a0ad7bc34add0cb60cee584d3c9ebd31d05523ad261cbe4f9e3708b204d005c"
+  },
+  {
+    "path": "build-tsan/bin/test_kvf_directory",
+    "bytes": 221392,
+    "sha256": "b15c14ef0892306406f6669e6d95e5604a4c05d235e1ddf12f95f6fca6f05403"
+  },
+  {
+    "path": "build-tsan/bin/miniinfer",
+    "bytes": 638728,
+    "sha256": "7ae5ad427ddc5826652d4b39922f2772acb8163d68588ff8d6b11a38ad871363"
+  },
+  {
+    "path": "build-tsan/bin/test_graph",
+    "bytes": 79864,
+    "sha256": "904780c6df23c97f3cac91c771746e0820ed109fe7669975efd1da0eaa79b7ae"
+  },
+  {
+    "path": "build-tsan/bin/test_device_boundaries",
+    "bytes": 31632,
+    "sha256": "02338a8cf6144ea36c97e899fea1f83bc2da0724c1f2d3f244ebd7d49a6eb28a"
+  },
+  {
+    "path": "build-tsan/bin/test_remote_e2e",
+    "bytes": 150904,
+    "sha256": "74238ad8b07fe1f03f0669bba9ee286846a87fdb1f14414785e5bcc30ddb5855"
+  },
+  {
+    "path": "build-tsan/bin/test_pool",
+    "bytes": 77704,
+    "sha256": "1f0ae0ed0382e6800ac6e87e93ef1a455cb5893688a7a776a18c5296fef7cc33"
+  },
+  {
+    "path": "build-tsan/bin/test_nano_remote_worker",
+    "bytes": 617248,
+    "sha256": "cb914febe48bac891ffb471f18991d196e20cb1daec3d2a6efb078580a3ffc31"
+  },
+  {
+    "path": "build-tsan/bin/test_storage_audit",
+    "bytes": 238696,
+    "sha256": "dc3582cd3689d8f0a73a4c0025a7b1dc4c429c89e59156170208d49a6d4cfd70"
+  },
+  {
+    "path": "build-tsan/bin/miniinfer_basic",
+    "bytes": 200768,
+    "sha256": "0c88a68bad78c6a1aeb1115fe2950e86db319f970bb6fee95df9e02e48b9cc95"
+  },
+  {
+    "path": "build-tsan/bin/test_remote_audit",
+    "bytes": 538888,
+    "sha256": "fdf75518a26c87a09d47f09b5d51ce253af5c38e3649c19c4ca64448fe0db680"
+  },
+  {
+    "path": "build-tsan/bin/test_remote_lifecycle",
+    "bytes": 231144,
+    "sha256": "d9767d0ef723fe271bd45468a248b9cc5959c0765dc8b77a6338600e9b00b8d6"
+  },
+  {
+    "path": "build-tsan/bin/test_tiered",
+    "bytes": 200968,
+    "sha256": "4a8d8dd4eccd8d709e40e119ad1792c2d2e37bebaf03e5fa676e720f2920d88b"
+  },
+  {
+    "path": "build-tsan/bin/test_direct_io",
+    "bytes": 206616,
+    "sha256": "c6a5ec483d48836dddfe1135ea8e88ec38b5431a60b2c5ec9ad07c54fe13d82f"
+  },
+  {
+    "path": "build-tsan/bin/kvf_bench",
+    "bytes": 503456,
+    "sha256": "21fd4866758b0d0374d8c78068f46deeb419fa49792608fb2a6ec388d8601599"
+  },
+  {
+    "path": "build-tsan/bin/kvfctl",
+    "bytes": 123024,
+    "sha256": "395302d88c6316ecdf8cb63388ba81904ecc148106852d0ab7e5562b3291816b"
+  },
+  {
+    "path": "build-tsan/bin/miniinfer_worker",
+    "bytes": 484992,
+    "sha256": "964ae10b171067dd6c0e7ce37d75af722ccd1c95c068d7e751fe09c55a0e7d26"
+  },
+  {
+    "path": "build-tsan/bin/test_kvf_protocol",
+    "bytes": 114400,
+    "sha256": "3a798dbadf3ce5c37813aa7784d5b910d3a0be4bad216b4402c3c56766723097"
+  },
+  {
+    "path": "build-tsan/bin/test_kv_cache",
+    "bytes": 212936,
+    "sha256": "044d5ee2e86523c51217f7ff5543725d228f3e5714fabe9cc7ef9d10c23ac4c8"
+  },
+  {
+    "path": "build-tsan/bin/kvfabricd",
+    "bytes": 153656,
+    "sha256": "67d7437621b6352f15b52798d9a291d049528b42794e3517a845ef7fad23082e"
+  },
+  {
+    "path": "build-spdk/bin/test_allocator_faults",
+    "bytes": 35336,
+    "sha256": "c5e0f8b5e8830de55374d7fe4d8993a6b5b54893dfed64b6669211e62e2d3b3d"
+  },
+  {
+    "path": "build-spdk/bin/test_paged_kv",
+    "bytes": 96000,
+    "sha256": "57192eccad72892376b9c1bc073ce0be52df0a7fab217d99b4a861644852b543"
+  },
+  {
+    "path": "build-spdk/bin/test_remote_faults",
+    "bytes": 234800,
+    "sha256": "0fac0435e51a79d4fa787b71eef8d0b40fa80bf04d2faffeffacd25e951febc0"
+  },
+  {
+    "path": "build-spdk/bin/test_gpu_mock",
+    "bytes": 35176,
+    "sha256": "f83a71966d318b3774c4266c6bdeeb4f4b5f5ab6015f534240bd07d80186543f"
+  },
+  {
+    "path": "build-spdk/bin/nanovllm",
+    "bytes": 261144,
+    "sha256": "0cccc364327156b2b8b58a9ef9d7a35428c9f08daf030a6cc985b47955b950fe"
+  },
+  {
+    "path": "build-spdk/bin/test_kvf_directory",
+    "bytes": 127312,
+    "sha256": "f285a31f6f79400d2900a04ba0098fd98dcf472cb068965c994ad8b7f72881c2"
+  },
+  {
+    "path": "build-spdk/bin/miniinfer",
+    "bytes": 265720,
+    "sha256": "9ae0345608659f87376b93370e74440d61b13ca5063ef164ba2d36d59d808677"
+  },
+  {
+    "path": "build-spdk/bin/test_spdk_lifecycle",
+    "bytes": 31144,
+    "sha256": "c065ac70adfebecdda4b14583b030eb0541a55379dc7c893955fa39b75c5f496"
+  },
+  {
+    "path": "build-spdk/bin/test_graph",
+    "bytes": 39808,
+    "sha256": "eafb8197274d10c59806e4036c89c841a356558e8ba48eea5615f1b42562edd3"
+  },
+  {
+    "path": "build-spdk/bin/test_device_boundaries",
+    "bytes": 21768,
+    "sha256": "fce697da5284f354fe9f5fd9354681275332750984d78e88584e5e6611e00071"
+  },
+  {
+    "path": "build-spdk/bin/test_remote_e2e",
+    "bytes": 85384,
+    "sha256": "9d61f498ae5f068f5ae0603ac68c4eb010fd4b08ab7a91cc6c141bd7f4a99998"
+  },
+  {
+    "path": "build-spdk/bin/test_pool",
+    "bytes": 43592,
+    "sha256": "33e0ad61b2819d6334641123aa0a266e41da97db8f29e16ab6651173f8fc5291"
+  },
+  {
+    "path": "build-spdk/bin/test_nano_remote_worker",
+    "bytes": 257008,
+    "sha256": "6eb062bcf222c6e245dbb3d23c732b923e4bed7e0339a16e562c571e973ff2fa"
+  },
+  {
+    "path": "build-spdk/bin/test_storage_audit",
+    "bytes": 104912,
+    "sha256": "79947eb6a55ad5d147f5d1bddfb716dfe68dd06310a22328d28fe44ee69145d7"
+  },
+  {
+    "path": "build-spdk/bin/miniinfer_basic",
+    "bytes": 86760,
+    "sha256": "046b33a6699b3542c892a7add59643f825fb604010f33b4b7474f071dfb66277"
+  },
+  {
+    "path": "build-spdk/bin/test_remote_audit",
+    "bytes": 230600,
+    "sha256": "3be221b26c181d9ed0c226e97f19928372b85bf05aa03b5ddf77e860662b0ea8"
+  },
+  {
+    "path": "build-spdk/bin/test_remote_lifecycle",
+    "bytes": 96104,
+    "sha256": "f3f4ba49fe692d87e49bf461f38fea92997b1353db93de5314b2ba11ee63a798"
+  },
+  {
+    "path": "build-spdk/bin/test_tiered",
+    "bytes": 86824,
+    "sha256": "01c99bdba859dfadb803ff710acc4b5b5a38d2a36cd61e253a6aee2468408df0"
+  },
+  {
+    "path": "build-spdk/bin/test_direct_io",
+    "bytes": 91176,
+    "sha256": "aefb6aaf18fa6a6d3744b2110a9cd5e6a2fee9ef9cf65aae2f1868f66aa9656d"
+  },
+  {
+    "path": "build-spdk/bin/kvf_bench",
+    "bytes": 213120,
+    "sha256": "66253e6d8800added428a4ca31d800212546e41ff836e76d6c0edccb6ddf733b"
+  },
+  {
+    "path": "build-spdk/bin/kvfctl",
+    "bytes": 75760,
+    "sha256": "e5bc61f744e92219e6fa4e7da2f0de54acd0c3643202e6f2df7c6d44243d1187"
+  },
+  {
+    "path": "build-spdk/bin/miniinfer_worker",
+    "bytes": 204600,
+    "sha256": "763e9e3f3475a64210994bcbce77e7d98033a224bd9dbbd7fcabe3cc8d8484ce"
+  },
+  {
+    "path": "build-spdk/bin/test_kvf_protocol",
+    "bytes": 71128,
+    "sha256": "b944a9ac7cb273ce228d76567f6c0420144a01238cca7cd723a6cc133eabb264"
+  },
+  {
+    "path": "build-spdk/bin/test_kv_cache",
+    "bytes": 91408,
+    "sha256": "210f8e678b2769f9b555d9f6556dac4a6beff3b5ca393f9f474b5b657f9780f9"
+  },
+  {
+    "path": "build-spdk/bin/kvfabricd",
+    "bytes": 88992,
+    "sha256": "55ab553af46dee22135487a8fbf8b996f806609a76304675c02e459958750c6a"
+  },
+  {
+    "path": "build-tcp/bin/test_allocator_faults",
+    "bytes": 27144,
+    "sha256": "5b0f1f9a4de5715b0d90a6add77986ca81fc1a9880ee8e4a8642ebecaa8c54c1"
+  },
+  {
+    "path": "build-tcp/bin/test_paged_kv",
+    "bytes": 86328,
+    "sha256": "cab80891d99346009df45f8c376c43906542eb728eb6b439390cc3783cc897de"
+  },
+  {
+    "path": "build-tcp/bin/test_remote_faults",
+    "bytes": 220360,
+    "sha256": "bc17e78ae440c3a9f45fc6f3a8298edf4894d81076108eeb5ff6c3c871856284"
+  },
+  {
+    "path": "build-tcp/bin/test_gpu_mock",
+    "bytes": 26984,
+    "sha256": "a973fcb8207299aebaa72c68a7d6213b9bb64c21f852709d95c8a760f62d8414"
+  },
+  {
+    "path": "build-tcp/bin/nanovllm",
+    "bytes": 246704,
+    "sha256": "ac106b09a9e284afae163044e06bc545d8a0e0ba5df07130cd8372c07332530d"
+  },
+  {
+    "path": "build-tcp/bin/test_kvf_directory",
+    "bytes": 127312,
+    "sha256": "f285a31f6f79400d2900a04ba0098fd98dcf472cb068965c994ad8b7f72881c2"
+  },
+  {
+    "path": "build-tcp/bin/miniinfer",
+    "bytes": 251272,
+    "sha256": "fa23d6628a544a11c91dd697c69650124f458433b963db52dfc9c65a5185a1e4"
+  },
+  {
+    "path": "build-tcp/bin/test_graph",
+    "bytes": 35712,
+    "sha256": "dafd7415cb8ee62d43f667952fab1fb6362aaba384e39c120c77a225a20587c9"
+  },
+  {
+    "path": "build-tcp/bin/test_device_boundaries",
+    "bytes": 17672,
+    "sha256": "602026de1f5575528fc70eff72b61e260b94acd717f9de471154baee97e785e6"
+  },
+  {
+    "path": "build-tcp/bin/test_remote_e2e",
+    "bytes": 85384,
+    "sha256": "9d61f498ae5f068f5ae0603ac68c4eb010fd4b08ab7a91cc6c141bd7f4a99998"
+  },
+  {
+    "path": "build-tcp/bin/test_pool",
+    "bytes": 35400,
+    "sha256": "1a645d47fd3e6d9afde09bc97f6af810c67e1e7fe30f0cd308cae0773f3af875"
+  },
+  {
+    "path": "build-tcp/bin/test_nano_remote_worker",
+    "bytes": 238464,
+    "sha256": "2e9050e3bcaf8b98bb15ff083e6db215c863ab4b973017befc34f6fdae595b52"
+  },
+  {
+    "path": "build-tcp/bin/test_storage_audit",
+    "bytes": 95240,
+    "sha256": "3eb05aa4962b6664923f4a37efc3593f122a5cd0c9f772a25f65dc31e5516128"
+  },
+  {
+    "path": "build-tcp/bin/miniinfer_basic",
+    "bytes": 77088,
+    "sha256": "55e83029ec2ae506e2febba9c5cfd9ce83184d2d168fbaaa4c0f26ccb93c0293"
+  },
+  {
+    "path": "build-tcp/bin/test_remote_audit",
+    "bytes": 211800,
+    "sha256": "17f7d7c41bd459a4f16b602a10c6c5ff9f8fadeec14497dac3ad9fd1ee8a82b5"
+  },
+  {
+    "path": "build-tcp/bin/test_remote_lifecycle",
+    "bytes": 90528,
+    "sha256": "9c315004df4da704ae788dcfae285bd85b167f94d38c030b5d0deca4bae0ffb9"
+  },
+  {
+    "path": "build-tcp/bin/test_tiered",
+    "bytes": 77152,
+    "sha256": "0a2103bb210479c7d142d4c6c0e5b0f2bdd372e575d344ac3920c1ff00dd6b7e"
+  },
+  {
+    "path": "build-tcp/bin/test_direct_io",
+    "bytes": 81504,
+    "sha256": "c912eb956593829f02054056878db7da072d9be4f3842c135c621b3420fa0986"
+  },
+  {
+    "path": "build-tcp/bin/kvf_bench",
+    "bytes": 194576,
+    "sha256": "cb2c576d7d108abd2cd4fae01d47c79d9d0c833d1a7a93909420546ed8d50435"
+  },
+  {
+    "path": "build-tcp/bin/kvfctl",
+    "bytes": 75760,
+    "sha256": "e5bc61f744e92219e6fa4e7da2f0de54acd0c3643202e6f2df7c6d44243d1187"
+  },
+  {
+    "path": "build-tcp/bin/miniinfer_worker",
+    "bytes": 190160,
+    "sha256": "d4adcbc646d7c72e7ddd65dad9f111269cc0f29afb85907f10c8b8b94ece03db"
+  },
+  {
+    "path": "build-tcp/bin/test_kvf_protocol",
+    "bytes": 71128,
+    "sha256": "b944a9ac7cb273ce228d76567f6c0420144a01238cca7cd723a6cc133eabb264"
+  },
+  {
+    "path": "build-tcp/bin/test_kv_cache",
+    "bytes": 81736,
+    "sha256": "76f2347334b4de423adec730031793addc264cb842a5ca64c06ccf951e53cc7e"
+  },
+  {
+    "path": "build-tcp/bin/kvfabricd",
+    "bytes": 88992,
+    "sha256": "55ab553af46dee22135487a8fbf8b996f806609a76304675c02e459958750c6a"
+  },
+  {
+    "path": "build-storage-only/bin/test_allocator_faults",
+    "bytes": 27144,
+    "sha256": "5b0f1f9a4de5715b0d90a6add77986ca81fc1a9880ee8e4a8642ebecaa8c54c1"
+  },
+  {
+    "path": "build-storage-only/bin/test_paged_kv",
+    "bytes": 86400,
+    "sha256": "334b8c89af246627fec79e46420c7d9ddc77c0c3635d35d82240fd54fa657533"
+  },
+  {
+    "path": "build-storage-only/bin/test_gpu_mock",
+    "bytes": 26984,
+    "sha256": "a973fcb8207299aebaa72c68a7d6213b9bb64c21f852709d95c8a760f62d8414"
+  },
+  {
+    "path": "build-storage-only/bin/test_graph",
+    "bytes": 35712,
+    "sha256": "dafd7415cb8ee62d43f667952fab1fb6362aaba384e39c120c77a225a20587c9"
+  },
+  {
+    "path": "build-storage-only/bin/test_device_boundaries",
+    "bytes": 17672,
+    "sha256": "602026de1f5575528fc70eff72b61e260b94acd717f9de471154baee97e785e6"
+  },
+  {
+    "path": "build-storage-only/bin/test_pool",
+    "bytes": 35400,
+    "sha256": "1a645d47fd3e6d9afde09bc97f6af810c67e1e7fe30f0cd308cae0773f3af875"
+  },
+  {
+    "path": "build-storage-only/bin/test_storage_audit",
+    "bytes": 95312,
+    "sha256": "0f554aa47edf20d83c956250ad26a38e921270f2ef4346d255546267adc8f94d"
+  },
+  {
+    "path": "build-storage-only/bin/miniinfer_basic",
+    "bytes": 77160,
+    "sha256": "76b856ee180c20a69db799f2f8836ae03ff164ae36c273b0bdae0e2eb97e0dd5"
+  },
+  {
+    "path": "build-storage-only/bin/test_tiered",
+    "bytes": 77224,
+    "sha256": "8b71c563d4ee6095d42ee05ed0c8de88a538dbdf1a354115674c941a0be64606"
+  },
+  {
+    "path": "build-storage-only/bin/test_direct_io",
+    "bytes": 81576,
+    "sha256": "30fe4b28b7d1bdae4d9089c90d279ae321c25fd31a6884af855158c744928af2"
+  },
+  {
+    "path": "build-storage-only/bin/test_kv_cache",
+    "bytes": 81808,
+    "sha256": "2d79c09915f8b5c0c89309cbd1e8b6443c70d07a2fce6cc5d144c88b41477f05"
+  },
+  {
+    "path": "build-legacy-release/bin/test_redis",
+    "bytes": 32856,
+    "sha256": "dc6f6789104d54d4ac949b6a11e21d0cd99a31f992299b9466b17cb543be563d"
+  },
+  {
+    "path": "build-legacy-release/bin/test_skiptable",
+    "bytes": 32328,
+    "sha256": "c0cd08631fe0f987e996867cea500c59253eb954c74c168decbd006a8a9a8493"
+  },
+  {
+    "path": "build-legacy-release/bin/test_allocator",
+    "bytes": 52072,
+    "sha256": "62a00e8878a3653d369808424a27e1ac9c7bf2d4b9c052f12bbd19ff750e0232"
+  },
+  {
+    "path": "build-legacy-release/bin/test_hash",
+    "bytes": 33048,
+    "sha256": "faf032551699c89f8593eaa7f9f26d7c08f06165fb7049d0a6a39d3e09a489bf"
+  },
+  {
+    "path": "build-legacy-release/bin/kvstore",
+    "bytes": 427144,
+    "sha256": "34ba219b9b203f30ea09c0adc69788477fecc1ced59308b8d89b85751c63d876"
+  },
+  {
+    "path": "build-legacy-release/bin/test_rbtree",
+    "bytes": 32328,
+    "sha256": "bde2ece129a828021c3455c85562bc8a5dd79a5ca8876d53e64ec67ab7344251"
+  },
+  {
+    "path": "build-legacy-release/bin/test_replication",
+    "bytes": 47360,
+    "sha256": "f90472c19ec6291faa2cabb2b0b2fcdf0ddd4eff38432a5b9ac6402d21e150ec"
+  },
+  {
+    "path": "build-legacy-release/bin/test_sync_wire",
+    "bytes": 108992,
+    "sha256": "3c30f91080d26645b4909f66a766577cd81d6969d1e618be4c95cbb802d5b0bf"
+  },
+  {
+    "path": "build-legacy-release/bin/test_audit_auth",
+    "bytes": 46880,
+    "sha256": "df50b7b89a8b737b07ecf69d9bcf0791f4637a72b5f4fef8fdd41583062b00fa"
+  },
+  {
+    "path": "build-legacy-release/bin/test_array",
+    "bytes": 32376,
+    "sha256": "381db08053e19e50f20b3e5b8f93681996af839c26cdd04f9ed51dcc91ed3189"
+  },
+  {
+    "path": "build-legacy-release/bin/test_snapshot_resp",
+    "bytes": 259664,
+    "sha256": "7216d29a6c5effc3a9962ac60c31f09cfe81ba65e5de3529c0497fe85e9db3fd"
+  },
+  {
+    "path": "build-legacy-release/bin/test_config",
+    "bytes": 64176,
+    "sha256": "cd17f433057104ef2fc71fa39ce482275313b0d1ade0ada4cc19bfd8cd665526"
+  },
+  {
+    "path": "build-legacy-release/bin/test_protocol",
+    "bytes": 32176,
+    "sha256": "8676962912bdeb05e1355a0854b6a3270aefa9d8027bbc877fde2673582c9dbc"
+  },
+  {
+    "path": "build-legacy-release/bin/test_audit_atomic",
+    "bytes": 191984,
+    "sha256": "49a37b23830b0caf97bc6ba6cac28306aa9ecb4eda5d6688cbe6b8648ee3cd5c"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_redis",
+    "bytes": 59280,
+    "sha256": "8eac0a3e74347076733cd07ab85649355c03aeae7b94a78f8be4b2b03c225cba"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_skiptable",
+    "bytes": 55848,
+    "sha256": "f2baaff6e172558a2409473ad6ec192d26d8e0c61a79fa977079d19b72d6ec3c"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_allocator",
+    "bytes": 130344,
+    "sha256": "931feab4bd69545f9fe0d70f4ac8cf102efc0b7b4dd6a3cf2e9e8eab48e9290d"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_hash",
+    "bytes": 59920,
+    "sha256": "a7c4ba420fe85fe1d570d7c7d31f5c18ab6a2affb2106a89af7e92a1d7a9f00d"
+  },
+  {
+    "path": "build-legacy-asan/bin/kvstore",
+    "bytes": 1181144,
+    "sha256": "1b930e84123ab9702bb96c94029d9f59e4e10c3b61a43d0848dd30359fba2c6e"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_rbtree",
+    "bytes": 55840,
+    "sha256": "ce20dffbb14e628895e7daccf5c9484f8605387caea368a0888fadfdb2e21a69"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_replication",
+    "bytes": 79912,
+    "sha256": "5d57f237d5a65fd2f023a2ce31bd05836f6434328e80dee94b158c22593a1fd2"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_sync_wire",
+    "bytes": 256856,
+    "sha256": "e4f63d6a7548628f28d11b846056dc5b880814ba1204bffe8388311469c93d97"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_audit_auth",
+    "bytes": 79880,
+    "sha256": "694aa1fe615670b62d5f1552df8aa285ea129ce38d18d49fccd1e63929edf684"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_array",
+    "bytes": 55880,
+    "sha256": "7fecb9a84a4fb538f0b5af58b3628d4f950591d79f7c00ab9c40dee7bf6b40a2"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_snapshot_resp",
+    "bytes": 802976,
+    "sha256": "27927b95c69d385c5f0ed62f1a9922dd1beede70b04fbd730279bce0b7e984b9"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_config",
+    "bytes": 197456,
+    "sha256": "eaa77b9d7cd631fa6a57d57489cdffc239654c3379e231e79a56b2e5b3b86eff"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_protocol",
+    "bytes": 51016,
+    "sha256": "32c061012ed25626841acee3696d75bc68c7d5b8877efa76f7e8801601114619"
+  },
+  {
+    "path": "build-legacy-asan/bin/test_audit_atomic",
+    "bytes": 638552,
+    "sha256": "6cccfa37440834ad371835c723b4d4831536288ba5be639e7a8b53517d84b60e"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_redis",
+    "bytes": 36008,
+    "sha256": "1b7d07e03e6650f819cf544cb8c2beed9e09c9ad5a5346871e2f5853c89687ab"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_skiptable",
+    "bytes": 35448,
+    "sha256": "ca72308449ba6f3238d7f1d42f47480b87b52d26cccb92c2b5f2ec9cad92e46f"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_allocator",
+    "bytes": 57360,
+    "sha256": "b99de990f23f2073d3619b35f9679d97a770808168c0d4142b5695bc0941f03a"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_hash",
+    "bytes": 36248,
+    "sha256": "1e80febcba076c7322e5fcedc40ef772817963205a703d58b2ad44e2ebcfe5ff"
+  },
+  {
+    "path": "build-legacy-tsan/bin/kvstore",
+    "bytes": 515200,
+    "sha256": "98aff6cbf4dcc4daf66e426dfda03d6027644fd57b8e6c3642c53ee7193bb4fb"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_rbtree",
+    "bytes": 35448,
+    "sha256": "680689147d704d3669d2013d70f75e75c165edaa6fa5fa038b25b1c0a85d617e"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_replication",
+    "bytes": 51736,
+    "sha256": "1cef1e2ea2d266a87f9f0b97dee72f9be64af5eb91077c058a8d3f540490ae3b"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_sync_wire",
+    "bytes": 130832,
+    "sha256": "25ddfb0ef318f1f52c0910211b0b9a4c8de8a90aa0950ca57eef8fd3fb8d6ed3"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_audit_auth",
+    "bytes": 52760,
+    "sha256": "c4fcf167a0e2b5873b190c7a1dd935e9b88843fdbae26565604698e90c3f1409"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_array",
+    "bytes": 35496,
+    "sha256": "28f4b591d046ea5ae979c3f45d97c60b40b61e475f229b641828de0277b6525b"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_snapshot_resp",
+    "bytes": 333896,
+    "sha256": "3c84a74bca897cc9fe8fed4df73cf57149eb69d19099ab57c25a5f7bf2a5ed3f"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_config",
+    "bytes": 76328,
+    "sha256": "8070382b07495577df56c83451451e1942ede9edfa50590aa3ee0e0f1eb1c792"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_protocol",
+    "bytes": 35288,
+    "sha256": "45195d0c9a8655e93ad8cd60562b2a0dece6520b3d5b245c51263540b42ecacf"
+  },
+  {
+    "path": "build-legacy-tsan/bin/test_audit_atomic",
+    "bytes": 256880,
+    "sha256": "ce1c6d2f2987036d756715d0c4b83973b53a461ff99babc1326af2c7e4486ab2"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_redis",
+    "bytes": 32856,
+    "sha256": "dc6f6789104d54d4ac949b6a11e21d0cd99a31f992299b9466b17cb543be563d"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_skiptable",
+    "bytes": 32328,
+    "sha256": "c0cd08631fe0f987e996867cea500c59253eb954c74c168decbd006a8a9a8493"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_allocator",
+    "bytes": 52072,
+    "sha256": "62a00e8878a3653d369808424a27e1ac9c7bf2d4b9c052f12bbd19ff750e0232"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_hash",
+    "bytes": 33048,
+    "sha256": "faf032551699c89f8593eaa7f9f26d7c08f06165fb7049d0a6a39d3e09a489bf"
+  },
+  {
+    "path": "build-legacy-rdma/bin/kvstore",
+    "bytes": 429216,
+    "sha256": "a3384b5c55f9e113c1c57b1d18224125c44c9c93d4cd6d29140003d3d4397fc7"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_rbtree",
+    "bytes": 32328,
+    "sha256": "bde2ece129a828021c3455c85562bc8a5dd79a5ca8876d53e64ec67ab7344251"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_replication",
+    "bytes": 47360,
+    "sha256": "f90472c19ec6291faa2cabb2b0b2fcdf0ddd4eff38432a5b9ac6402d21e150ec"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_sync_wire",
+    "bytes": 111096,
+    "sha256": "b7bc84407b2be2ff98d886c1de30f992908ef50016553da197f9811dc9af7cec"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_audit_auth",
+    "bytes": 54568,
+    "sha256": "577e9269b332b0b870bac8e26dc57a28f6290d12b15e567e403df41b832db89f"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_array",
+    "bytes": 32376,
+    "sha256": "381db08053e19e50f20b3e5b8f93681996af839c26cdd04f9ed51dcc91ed3189"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_snapshot_resp",
+    "bytes": 259640,
+    "sha256": "d59a2020d1424853b640f38efd96af823b23c33ddc1a005aaeb5ac80a0ff45b2"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_config",
+    "bytes": 64152,
+    "sha256": "2aa9bf210ba988a923f6ff860d9034841822f48141d64b004da2977eb6bdb313"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_protocol",
+    "bytes": 32176,
+    "sha256": "8676962912bdeb05e1355a0854b6a3270aefa9d8027bbc877fde2673582c9dbc"
+  },
+  {
+    "path": "build-legacy-rdma/bin/test_audit_atomic",
+    "bytes": 191816,
+    "sha256": "8240218af5418de176f42d807202ef96c40569ed3d2a8c707345c8c8807c89b1"
+  },
+  {
+    "path": "build-legacy-ntyco/bin/kvstore",
+    "bytes": 466056,
+    "sha256": "f0d73a2d93e9844ea12ba506627a4e73de3357f90891064ce0aa801f2d0fc4b7"
+  },
+  {
+    "path": "/tmp/kvf-audit/original-cuda/bin/kvf_nvme_recovery_bench",
+    "bytes": 109736,
+    "sha256": "effd378ace6032408fec6b11aa38e33208311130379a1c91f053969871437ce9"
+  },
+  {
+    "path": "/tmp/kvf-audit/original-cuda/bin/test_nano_remote_worker",
+    "bytes": 377632,
+    "sha256": "c30405bd99a4b2973f5fc05cc364e53f944e2f2d5efcb963595beb3f618a2c84"
+  }
+]

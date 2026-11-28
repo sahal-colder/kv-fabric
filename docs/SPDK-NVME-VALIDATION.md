@@ -1,6 +1,6 @@
 # SPDK 物理 NVMe 验收（2026-11-28）
 
-本轮在原生 Ubuntu 主机上完成 SAMSUNG MZVLQ512HALU-00000 的真实 SPDK PCIe 读写。设备容量 512110190592 字节（476.94 GiB），PCI 地址 `0000:07:00.0`，独占 IOMMU 组 16，SPDK bdev 名为 `Samsungn1`。当前整块盘由 `vfio-pci` 管理，供部署时指定的用户使用；SPDK 直接访问 bdev，无文件系统挂载点。
+本轮在原生 Ubuntu 主机上完成 SAMSUNG MZVLQ512HALU-00000 的真实 SPDK PCIe 读写。设备容量 512110190592 字节（476.94 GiB），PCI 地址 `0000:07:00.0`，独占 IOMMU 组 16，SPDK bdev 名为 `Samsungn1`。当前整块盘由 `vfio-pci` 管理，供用户 `wty` 使用；SPDK 直接访问 bdev，无文件系统挂载点。
 
 未检测到分区表或文件系统签名。测试前备份了盘首/盘尾各 1 MiB，以及从 1 GiB 开始的 128 MiB 测试区域。所有测试写入均局限于该区域，测试完成后恢复原始内容，并切回内核驱动、刷新缓存、重新读取校验三处 SHA-256。系统 UMIS 盘保持原驱动与挂载。
 
@@ -14,7 +14,7 @@ SPDK SDK 是 v27.01-pre `4828014`，DPDK 25.11.0。该主机的 DMAR Host addres
 
 `kvfabric-spdk-samsung.service` 已启用开机启动，安装的管理程序是 `/usr/local/lib/kvfabric/spdk_device.py`，源码见 `scripts/spdk_device.py`。服务在每次新启动时按序列号查找设备，检查挂载、swap、占用和 IOMMU 隔离，分配至少 512 MiB 大页，然后仅绑定目标盘。VFIO 节点仅允许目标用户访问。设备 JSON 按实际 PCI 地址生成至 `/etc/kvfabric/spdk-samsung.json`，设备状态保存在 `/var/lib/kvfabric-spdk/device.json`。
 
-服务已完成启动、停止、内核驱动恢复、数据校验和再次启动验证；没有重启整台主机。服务还设置满足 PCI uevent 监听要求的 `net.core.rmem_max`，避免 SPDK 接收缓冲区不足。验收用户的 memlock 上限约 1964 MiB，足以容纳 256 MiB 的 SPDK 应用内存。
+服务已完成启动、停止、内核驱动恢复、数据校验和再次启动验证；没有重启整台主机。服务还设置满足 PCI uevent 监听要求的 `net.core.rmem_max`，避免 SPDK 接收缓冲区不足。当前用户的 memlock 上限约 1964 MiB，足以容纳 256 MiB 的 SPDK 应用内存。
 
 ```bash
 systemctl status kvfabric-spdk-samsung.service

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="10"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="0"
+	timestamp="2026-11-26T11:46:11"
+	>
+	<testcase name="pool" classname="pool" time="0.289687" status="run">
+		<system-out>pool ok
+</system-out>
+	</testcase>
+	<testcase name="graph" classname="graph" time="0.00104256" status="run">
+		<system-out>graph ok
+</system-out>
+	</testcase>
+	<testcase name="tiered" classname="tiered" time="0.00503017" status="run">
+		<system-out>tiered ok
+</system-out>
+	</testcase>
+	<testcase name="kv_cache" classname="kv_cache" time="0.00137608" status="run">
+		<system-out>kv cache ok
+</system-out>
+	</testcase>
+	<testcase name="paged_kv" classname="paged_kv" time="0.000943635" status="run">
+		<system-out>paged kv ok
+</system-out>
+	</testcase>
+	<testcase name="gpu_mock" classname="gpu_mock" time="0.000974498" status="run">
+		<system-out>CUDA-disabled contract ok
+</system-out>
+	</testcase>
+	<testcase name="allocator_faults" classname="allocator_faults" time="0.000946955" status="run">
+		<system-out>allocator metadata allocation failure recovery: 10 points PASS
+</system-out>
+	</testcase>
+	<testcase name="device_boundaries_cpu" classname="device_boundaries_cpu" time="0.00230879" status="run">
+		<system-out>device boundaries + 4 streams x 100 bidirectional copies: PASS
+</system-out>
+	</testcase>
+	<testcase name="storage_audit" classname="storage_audit" time="0.00758607" status="run">
+		<system-out>MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=1
+MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=64
+migration rollback + replica preservation; lease retirement; direct boundaries/CRC: PASS
+</system-out>
+	</testcase>
+	<testcase name="direct_io_cpu" classname="direct_io_cpu" time="0.00346797" status="run">
+		<system-out>MiniInfer SSD: statfs=0xef53 mode=direct-posix slots=2
+observed file mode: direct-posix
+</system-out>
+	</testcase>
+</testsuite>

@@ -1,0 +1,102 @@
+Internal ctest changing into directory: /home/wty/Infra/build-spdk
+Test project /home/wty/Infra/build-spdk
+      Start 48: nano_remote_inference_cuda
+      Start 47: nano_remote_inference_cpu
+      Start 46: remote_e2e_cuda
+      Start 42: remote_audit
+      Start 13: storage_retirement_cuda
+      Start 11: device_boundaries_cuda
+      Start 43: remote_faults
+      Start 40: direct_io_cuda
+ 1/48 Test #40: direct_io_cuda ...................   Passed    2.41 sec
+      Start 45: remote_restart
+ 2/48 Test #11: device_boundaries_cuda ...........   Passed    2.48 sec
+      Start 44: remote_e2e_cpu
+ 3/48 Test #13: storage_retirement_cuda ..........   Passed    2.53 sec
+      Start  2: kvf_directory
+ 4/48 Test #43: remote_faults ....................   Passed    2.71 sec
+      Start  8: gpu_mock
+ 5/48 Test  #8: gpu_mock .........................   Passed    0.24 sec
+      Start  3: pool
+ 6/48 Test  #2: kvf_directory ....................   Passed    0.68 sec
+      Start 36: migration_direct_backpressure
+ 7/48 Test  #3: pool .............................   Passed    0.31 sec
+      Start  1: kvf_protocol
+ 8/48 Test  #1: kvf_protocol .....................   Passed    0.04 sec
+      Start 32: uring_sqpoll_qd1
+ 9/48 Test #32: uring_sqpoll_qd1 .................   Passed    0.02 sec
+      Start 25: uring_async_qd1
+10/48 Test #25: uring_async_qd1 ..................   Passed    0.02 sec
+      Start 12: storage_audit
+11/48 Test #12: storage_audit ....................   Passed    0.02 sec
+      Start 26: uring_async_qd4
+12/48 Test #36: migration_direct_backpressure ....   Passed    0.17 sec
+      Start 28: uring_async_qd16
+13/48 Test #26: uring_async_qd4 ..................   Passed    0.02 sec
+      Start 27: uring_async_qd8
+14/48 Test #28: uring_async_qd16 .................   Passed    0.02 sec
+      Start 30: uring_async_qd64
+15/48 Test #27: uring_async_qd8 ..................   Passed    0.02 sec
+      Start 29: uring_async_qd32
+16/48 Test #30: uring_async_qd64 .................   Passed    0.02 sec
+      Start 31: uring_async_qd128
+17/48 Test #29: uring_async_qd32 .................   Passed    0.02 sec
+      Start 34: uring_sqpoll_qd128
+18/48 Test #31: uring_async_qd128 ................   Passed    0.02 sec
+      Start 35: migration_parallel
+19/48 Test #34: uring_sqpoll_qd128 ...............   Passed    0.02 sec
+      Start 33: uring_sqpoll_qd32
+20/48 Test #35: migration_parallel ...............   Passed    0.01 sec
+      Start 39: direct_io_cpu
+21/48 Test #33: uring_sqpoll_qd32 ................   Passed    0.02 sec
+      Start 10: device_boundaries_cpu
+22/48 Test #39: direct_io_cpu ....................   Passed    0.02 sec
+      Start  6: kv_cache
+23/48 Test  #6: kv_cache .........................   Passed    0.01 sec
+      Start  5: tiered
+24/48 Test #10: device_boundaries_cpu ............   Passed    0.02 sec
+      Start  4: graph
+25/48 Test  #5: tiered ...........................   Passed    0.01 sec
+      Start 41: remote_lifecycle
+26/48 Test  #4: graph ............................   Passed    0.01 sec
+      Start  9: allocator_faults
+27/48 Test #41: remote_lifecycle .................   Passed    0.01 sec
+      Start  7: paged_kv
+28/48 Test  #9: allocator_faults .................   Passed    0.02 sec
+      Start 16: uring_faults
+29/48 Test  #7: paged_kv .........................   Passed    0.02 sec
+30/48 Test #16: uring_faults .....................   Passed    0.02 sec
+31/48 Test #44: remote_e2e_cpu ...................   Passed    1.32 sec
+32/48 Test #45: remote_restart ...................   Passed    1.61 sec
+33/48 Test #46: remote_e2e_cuda ..................   Passed    5.56 sec
+34/48 Test #42: remote_audit .....................   Passed    6.02 sec
+35/48 Test #47: nano_remote_inference_cpu ........   Passed   10.03 sec
+36/48 Test #48: nano_remote_inference_cuda .......   Passed   19.53 sec
+      Start 17: spdk_faults
+37/48 Test #17: spdk_faults ......................   Passed    0.10 sec
+      Start 38: migration_spdk_strict
+38/48 Test #38: migration_spdk_strict ............   Passed    0.10 sec
+      Start 24: spdk_async_qd128
+39/48 Test #24: spdk_async_qd128 .................   Passed    0.09 sec
+      Start 37: migration_spdk
+40/48 Test #37: migration_spdk ...................   Passed    0.09 sec
+      Start 22: spdk_async_qd32
+41/48 Test #22: spdk_async_qd32 ..................   Passed    0.09 sec
+      Start 18: spdk_async_qd1
+42/48 Test #18: spdk_async_qd1 ...................   Passed    0.10 sec
+      Start 19: spdk_async_qd4
+43/48 Test #19: spdk_async_qd4 ...................   Passed    0.09 sec
+      Start 23: spdk_async_qd64
+44/48 Test #23: spdk_async_qd64 ..................   Passed    0.09 sec
+      Start 20: spdk_async_qd8
+45/48 Test #20: spdk_async_qd8 ...................   Passed    0.09 sec
+      Start 21: spdk_async_qd16
+46/48 Test #21: spdk_async_qd16 ..................   Passed    0.09 sec
+      Start 14: spdk_lifecycle
+47/48 Test #14: spdk_lifecycle ...................   Passed    0.10 sec
+      Start 15: spdk_init_failure
+48/48 Test #15: spdk_init_failure ................   Passed    0.09 sec
+
+100% tests passed, 0 tests failed out of 48
+
+Total Test time (real) =  20.65 sec

@@ -1,0 +1,362 @@
+vllm serve /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct --host 127.0.0.1 --port 59445 --served-model-name kvf-bench --dtype bfloat16 --block-size 16 --attention-backend FLASH_ATTN --max-model-len 16400 --kv-cache-memory-bytes 1073741824 --max-num-seqs 1 --max-num-batched-tokens 2048 --enforce-eager --generation-config vllm --shutdown-timeout 10 --enable-prefix-caching --kv-offloading-backend native --kv-offloading-size 1.5
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:347] 
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.31.0
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:347] 
+(APIServer pid=89205) INFO 11-25 16:24:40 [api_utils.py:286] non-default args: {'model_tag': '/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', 'host': '127.0.0.1', 'port': 59445, 'model': '/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 16400, 'enforce_eager': True, 'served_model_name': ['kvf-bench'], 'generation_config': 'vllm', 'attention_backend': 'FLASH_ATTN', 'block_size': 16, 'kv_cache_memory_bytes': 1073741824, 'enable_prefix_caching': True, 'kv_offloading_size': 1.5, 'max_num_batched_tokens': 2048, 'max_num_seqs': 1, 'shutdown_timeout': 10}
+(APIServer pid=89205) INFO 11-25 16:24:40 [model.py:699] Resolved architecture: Qwen2ForCausalLM
+(APIServer pid=89205) INFO 11-25 16:24:40 [model.py:2109] Using max model len 16400
+(APIServer pid=89205) WARNING 11-25 16:24:40 [vllm.py:1706] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+(APIServer pid=89205) WARNING 11-25 16:24:40 [vllm.py:1750] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(APIServer pid=89205) INFO 11-25 16:24:40 [kernel.py:408] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(APIServer pid=89205) INFO 11-25 16:24:40 [vllm.py:1968] Cudagraph is disabled under eager mode
+(APIServer pid=89205) INFO 11-25 16:24:40 [compilation.py:331] Enabled custom fusions: norm_quant, act_quant
+(EngineCore pid=89572) INFO 11-25 16:24:45 [core.py:129] Initializing a V1 LLM engine (v0.31.0) with config: model='/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', speculative_config=None, tokenizer='/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/models/Qwen2.5-3B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=16400, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=None, quantization_config=None, enforce_eager=True, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=kvf-bench, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=False, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+[W1125 16:24:46.484742349 Context.cpp:597] Warning: torch.backends.cuda.preferred_blas_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+(EngineCore pid=89572) INFO 11-25 16:24:46 [parallel_state.py:1825] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_151bca0d8f674d8ba9850b49d3bcb529 backend=nccl
+(EngineCore pid=89572) INFO 11-25 16:24:46 [parallel_state.py:2269] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=89572) INFO 11-25 16:24:46 [gpu_worker.py:479] Using V2 Model Runner
+(EngineCore pid=89572) INFO 11-25 16:24:46 [model_runner.py:375] Loading model from scratch...
+(EngineCore pid=89572) INFO 11-25 16:24:46 [cuda.py:466] Using AttentionBackendEnum.FLASH_ATTN backend.
+(EngineCore pid=89572) INFO 11-25 16:24:46 [flash_attn.py:1167] Using FlashAttention version 2
+(EngineCore pid=89572) INFO 11-25 16:24:46 [weight_utils.py:1063] Filesystem type for checkpoints: EXT4. Checkpoint size: 5.75 GiB. Available RAM: 9.22 GiB.
+(EngineCore pid=89572) INFO 11-25 16:24:46 [weight_utils.py:1086] Auto-prefetch is disabled because the filesystem (EXT4) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.98it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  2.43it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:00<00:00,  2.35it/s]
+
+(EngineCore pid=89572) INFO 11-25 16:24:47 [default_loader.py:484] Loading weights took 0.88 seconds
+(EngineCore pid=89572) INFO 11-25 16:24:47 [model_runner.py:407] Model loading took 5.79 GiB memory and 1.525974 seconds
+(EngineCore pid=89572) INFO 11-25 16:24:48 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+(EngineCore pid=89572) INFO 11-25 16:24:48 [torch_utils.py:286] Reducing Torch threads from 14 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=89572) INFO 11-25 16:24:48 [utils.py:343] Using LBHNC KV cache layout.
+(EngineCore pid=89572) INFO 11-25 16:24:49 [gpu_worker.py:603] Initial free memory 7.59 GiB, reserved 1.0 GiB memory for KV Cache as specified by kv_cache_memory_bytes config and skipped memory profiling. This does not respect the gpu_memory_utilization config. Only use kv_cache_memory_bytes config when you want manual control of KV cache memory size. If OOM'ed, check the difference of initial free memory between the current run and the previous run where kv_cache_memory_bytes is suggested and update it correspondingly.
+(EngineCore pid=89572) INFO 11-25 16:24:49 [kv_cache_utils.py:2464] GPU KV cache size: 29,120 tokens, Maximum concurrency for 16,400 tokens per request: 1.78x
+(EngineCore pid=89572) INFO 11-25 16:24:49 [factory.py:62] Creating v1 connector with name: OffloadingConnector and engine_id: a8d0a226-de09-4e9b-a5fc-9e6274c591f9
+(EngineCore pid=89572) WARNING 11-25 16:24:49 [base.py:209] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+(EngineCore pid=89572) INFO 11-25 16:24:49 [factory.py:57] Creating offloading spec with name: CPUOffloadingSpec
+(EngineCore pid=89572) INFO 11-25 16:24:49 [shared_offload_region.py:142] Created mmap file /dev/shm/vllm_offload_a8d0a226-de09-4e9b-a5fc-9e6274c591f9.mmap (1.61 GB)
+(EngineCore pid=89572) INFO 11-25 16:24:49 [shared_offload_region.py:202] Unlinked mmap file /dev/shm/vllm_offload_a8d0a226-de09-4e9b-a5fc-9e6274c591f9.mmap
+(EngineCore pid=89572) INFO 11-25 16:24:49 [gpu_worker.py:817] Allocating 36 CPU tensors...
+(EngineCore pid=89572) INFO 11-25 16:24:49 [core.py:380] init engine (profile, create kv cache, warmup model) took 1.56 s
+(EngineCore pid=89572) INFO 11-25 16:24:50 [factory.py:62] Creating v1 connector with name: OffloadingConnector and engine_id: a8d0a226-de09-4e9b-a5fc-9e6274c591f9
+(EngineCore pid=89572) WARNING 11-25 16:24:50 [base.py:209] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+(EngineCore pid=89572) INFO 11-25 16:24:50 [factory.py:57] Creating offloading spec with name: CPUOffloadingSpec
+(EngineCore pid=89572) WARNING 11-25 16:24:50 [vllm.py:1706] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+(EngineCore pid=89572) WARNING 11-25 16:24:50 [vllm.py:1750] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore pid=89572) INFO 11-25 16:24:50 [kernel.py:408] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+(EngineCore pid=89572) INFO 11-25 16:24:50 [vllm.py:1968] Cudagraph is disabled under eager mode
+(EngineCore pid=89572) INFO 11-25 16:24:50 [compilation.py:331] Enabled custom fusions: norm_quant, act_quant
+(APIServer pid=89205) INFO 11-25 16:24:50 [entry.py:132] Supported tasks: ['generate']
+(APIServer pid=89205) WARNING 11-25 16:24:50 [__init__.py:44] SECURITY WARNING: Development endpoints are enabled! This should NOT be used in production!
+(APIServer pid=89205) INFO 11-25 16:24:50 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(APIServer pid=89205) INFO 11-25 16:24:50 [hf.py:646] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+(APIServer pid=89205) INFO 11-25 16:24:50 [entry.py:136] Starting vLLM server on http://127.0.0.1:59445
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:60] Available routes are:
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /openapi.json, Methods: HEAD, GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /docs, Methods: HEAD, GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /redoc, Methods: HEAD, GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /load, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /version, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /kv_event_sources, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /health, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /metrics, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /tokenize, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /detokenize, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/models, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /ping, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /ping, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /invocations, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /reset_prefix_cache, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /reset_mm_cache, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /reset_encoder_cache, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /pause, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /resume, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /abort_requests, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /is_paused, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /init_weight_transfer_engine, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /start_weight_update, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /start_draft_weight_update, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /update_weights, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /finish_weight_update, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /update_weight_version, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /weight_info, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /get_world_size, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /collective_rpc, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /server_info, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /sleep, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /release_kv_cache_memory, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /wake_up, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /is_sleeping, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/chat/completions, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/chat/completions/batch, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/responses, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/responses/{response_id}, Methods: GET
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/completions, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/messages, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /v1/messages/count_tokens, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /generative_scoring, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /scale_elastic_ep, Methods: POST
+(APIServer pid=89205) INFO 11-25 16:24:50 [launcher.py:69] Route: /is_scaling_elastic_ep, Methods: POST
+INFO:     Started server process [89205]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:37814 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37818 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37820 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37830 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37844 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37846 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:24:55 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:24:55 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:37862 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37874 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37880 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:24:56 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:24:56 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:37892 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37906 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:24:57 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:24:57 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:37918 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37934 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:24:58 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:24:58 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:37948 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37952 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:00 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:00 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39380 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39394 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:00 [loggers.py:320] Engine 000: Avg prompt throughput: 1572.7 tokens/s, Avg generation throughput: 11.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 14.1%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 35.6%
+(APIServer pid=89205) INFO 11-25 16:25:00 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_lookup_sync_delay_seconds_count=10, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.00024427699827356264, vllm:kv_offload_cpu_cache_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_allocation_size_count=10, vllm:kv_offload_cpu_allocation_size_sum=1156, vllm:kv_offload_cpu_cache_write_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=606339072, vllm:kv_offload_store_time=0.05822099208831787, vllm:kv_offload_store_size_count=9, vllm:kv_offload_store_size_sum=606339072, vllm:kv_offload_load_bytes=377487360, vllm:kv_offload_load_time=0.0374773120880127, vllm:kv_offload_load_size_count=5, vllm:kv_offload_load_size_sum=377487360
+(APIServer pid=89205) INFO 11-25 16:25:01 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:01 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39404 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39420 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:02 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:02 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39424 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39440 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:03 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:03 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39452 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39460 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:05 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:05 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39462 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39476 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:06 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:06 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39482 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39490 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:07 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:07 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39504 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39514 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:08 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:08 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:39526 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39532 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:10 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:10 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:58092 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58102 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:10 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 14.1%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 43.3%
+(APIServer pid=89205) INFO 11-25 16:25:10 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_write_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=603979776, vllm:kv_offload_store_time=0.05634793567657471, vllm:kv_offload_store_size_count=8, vllm:kv_offload_store_size_sum=603979776, vllm:kv_offload_lookup_sync_delay_seconds_count=8, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0002807459986797767, vllm:kv_offload_load_bytes=603979776, vllm:kv_offload_load_time=0.05014319896697999, vllm:kv_offload_load_size_count=8, vllm:kv_offload_load_size_sum=603979776, vllm:kv_offload_cpu_allocation_size_count=8, vllm:kv_offload_cpu_allocation_size_sum=1024
+(APIServer pid=89205) INFO 11-25 16:25:11 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:11 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:58114 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58116 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:12 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:12 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:58118 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58126 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58138 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58144 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58150 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58152 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58154 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:20 [loggers.py:320] Engine 000: Avg prompt throughput: 2252.8 tokens/s, Avg generation throughput: 8.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 28.2%, Prefix cache hit rate: 37.5%, External prefix cache hit rate: 35.7%
+(APIServer pid=89205) INFO 11-25 16:25:20 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_write_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=679477248, vllm:kv_offload_store_time=0.06422006416320801, vllm:kv_offload_store_size_count=9, vllm:kv_offload_store_size_sum=679477248, vllm:kv_offload_lookup_sync_delay_seconds_count=6, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.000106154999230057, vllm:kv_offload_load_bytes=150994944, vllm:kv_offload_load_time=0.01244979190826416, vllm:kv_offload_load_size_count=2, vllm:kv_offload_load_size_sum=150994944, vllm:kv_offload_cpu_allocation_size_count=10, vllm:kv_offload_cpu_allocation_size_sum=1280
+(APIServer pid=89205) INFO 11-25 16:25:21 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:21 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:52248 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52262 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52272 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:23 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:23 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:52284 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52298 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:25 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:25 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:52300 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52314 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:27 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:27 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:52326 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52330 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:29 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:29 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:50020 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50030 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:30 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 7.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 28.1%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 40.3%
+(APIServer pid=89205) INFO 11-25 16:25:30 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_store_bytes=754974720, vllm:kv_offload_store_time=0.07197596836090088, vllm:kv_offload_store_size_count=10, vllm:kv_offload_store_size_sum=754974720, vllm:kv_offload_cpu_cache_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_write_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_lookup_sync_delay_seconds_count=5, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.00031003499861981254, vllm:kv_offload_load_bytes=754974720, vllm:kv_offload_load_time=0.06192211246490479, vllm:kv_offload_load_size_count=5, vllm:kv_offload_load_size_sum=754974720, vllm:kv_offload_cpu_allocation_size_count=10, vllm:kv_offload_cpu_allocation_size_sum=1280
+(APIServer pid=89205) INFO 11-25 16:25:31 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:31 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:50042 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50054 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:33 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:33 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:50060 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50070 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:35 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:35 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:50084 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50086 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:37 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:37 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:50090 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50100 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:39 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:39 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:49066 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49080 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:40 [loggers.py:320] Engine 000: Avg prompt throughput: 2048.0 tokens/s, Avg generation throughput: 8.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 28.1%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 42.7%
+(APIServer pid=89205) INFO 11-25 16:25:40 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_write_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=754974720, vllm:kv_offload_store_time=0.07022492790222168, vllm:kv_offload_store_size_count=10, vllm:kv_offload_store_size_sum=754974720, vllm:kv_offload_lookup_sync_delay_seconds_count=5, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.00030994400185591076, vllm:kv_offload_load_bytes=754974720, vllm:kv_offload_load_time=0.06214316654205323, vllm:kv_offload_load_size_count=5, vllm:kv_offload_load_size_sum=754974720, vllm:kv_offload_cpu_allocation_size_count=10, vllm:kv_offload_cpu_allocation_size_sum=1280
+(APIServer pid=89205) INFO 11-25 16:25:41 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:41 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:49082 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49098 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:43 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:43 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:49102 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49106 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:45 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:45 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:49116 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49130 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:47 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:47 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:49142 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49144 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:49 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:25:49 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:59882 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59898 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:25:50 [loggers.py:320] Engine 000: Avg prompt throughput: 2048.0 tokens/s, Avg generation throughput: 8.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 21.1%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 44.1%
+(APIServer pid=89205) INFO 11-25 16:25:50 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_write_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=754974720, vllm:kv_offload_store_time=0.07165280008316041, vllm:kv_offload_store_size_count=10, vllm:kv_offload_store_size_sum=754974720, vllm:kv_offload_lookup_sync_delay_seconds_count=5, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0003042840016860282, vllm:kv_offload_load_bytes=754974720, vllm:kv_offload_load_time=0.062218976020813, vllm:kv_offload_load_size_count=5, vllm:kv_offload_load_size_sum=754974720, vllm:kv_offload_cpu_allocation_size_count=9, vllm:kv_offload_cpu_allocation_size_sum=1152
+INFO:     127.0.0.1:59902 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59904 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59908 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59922 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:00 [loggers.py:320] Engine 000: Avg prompt throughput: 2047.9 tokens/s, Avg generation throughput: 3.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 49.3%, Prefix cache hit rate: 33.3%, External prefix cache hit rate: 39.5%
+(APIServer pid=89205) INFO 11-25 16:26:00 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.14065934065934066, vllm:kv_offload_cpu_allocation_size_count=12, vllm:kv_offload_cpu_allocation_size_sum=1536, vllm:kv_offload_cpu_cache_write_usage_perc=0.14065934065934066, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=754974720, vllm:kv_offload_store_time=0.06966876792907714, vllm:kv_offload_store_size_count=10, vllm:kv_offload_store_size_sum=754974720, vllm:kv_offload_lookup_sync_delay_seconds_count=3, vllm:kv_offload_lookup_sync_delay_seconds_sum=2.6465000701136887e-05
+INFO:     127.0.0.1:52432 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:06 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:06 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:52434 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52440 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52442 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:10 [loggers.py:320] Engine 000: Avg prompt throughput: 2457.5 tokens/s, Avg generation throughput: 4.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 56.3%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 38.9%
+(APIServer pid=89205) INFO 11-25 16:26:10 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_store_bytes=905969664, vllm:kv_offload_store_time=0.08560316753387451, vllm:kv_offload_store_size_count=12, vllm:kv_offload_store_size_sum=905969664, vllm:kv_offload_cpu_cache_usage_perc=0.0, vllm:kv_offload_cpu_allocation_size_count=9, vllm:kv_offload_cpu_allocation_size_sum=1152, vllm:kv_offload_cpu_cache_write_usage_perc=0.0, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_lookup_sync_delay_seconds_count=2, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0001351489972876152, vllm:kv_offload_load_bytes=301989888, vllm:kv_offload_load_time=0.02495283126831055, vllm:kv_offload_load_size_count=1, vllm:kv_offload_load_size_sum=301989888
+(APIServer pid=89205) INFO 11-25 16:26:10 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:10 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:53568 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53574 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:14 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:14 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:53584 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53588 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:18 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:18 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:53602 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53610 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:20 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 3.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 49.3%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 40.7%
+(APIServer pid=89205) INFO 11-25 16:26:20 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.14065934065934066, vllm:kv_offload_cpu_cache_write_usage_perc=0.14065934065934066, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_lookup_sync_delay_seconds_count=3, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0003359220008860575, vllm:kv_offload_load_bytes=905969664, vllm:kv_offload_load_time=0.07480419158935546, vllm:kv_offload_load_size_count=3, vllm:kv_offload_load_size_sum=905969664, vllm:kv_offload_cpu_allocation_size_count=11, vllm:kv_offload_cpu_allocation_size_sum=1408, vllm:kv_offload_store_bytes=603979776, vllm:kv_offload_store_time=0.05643552017211915, vllm:kv_offload_store_size_count=8, vllm:kv_offload_store_size_sum=603979776
+(APIServer pid=89205) INFO 11-25 16:26:22 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:22 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:54218 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:26 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:26 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:54224 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54236 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:30 [loggers.py:320] Engine 000: Avg prompt throughput: 2457.4 tokens/s, Avg generation throughput: 3.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 56.3%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 41.6%
+(APIServer pid=89205) INFO 11-25 16:26:30 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_store_bytes=905969664, vllm:kv_offload_store_time=0.0881951355934143, vllm:kv_offload_store_size_count=12, vllm:kv_offload_store_size_sum=905969664, vllm:kv_offload_cpu_cache_usage_perc=0.0, vllm:kv_offload_cpu_allocation_size_count=9, vllm:kv_offload_cpu_allocation_size_sum=1152, vllm:kv_offload_cpu_cache_write_usage_perc=0.0, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_lookup_sync_delay_seconds_count=2, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0002335719982511364, vllm:kv_offload_load_bytes=603979776, vllm:kv_offload_load_time=0.05051564788818359, vllm:kv_offload_load_size_count=2, vllm:kv_offload_load_size_sum=603979776
+(APIServer pid=89205) INFO 11-25 16:26:31 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:31 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:42608 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42612 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:35 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:35 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:42614 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42626 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:39 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:39 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:42638 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42642 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:40 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 4.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 42.2%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 42.6%
+(APIServer pid=89205) INFO 11-25 16:26:40 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_write_usage_perc=0.09377289377289377, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_lookup_sync_delay_seconds_count=3, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0003213620020687813, vllm:kv_offload_load_bytes=905969664, vllm:kv_offload_load_time=0.07476576042175292, vllm:kv_offload_load_size_count=3, vllm:kv_offload_load_size_sum=905969664, vllm:kv_offload_cpu_allocation_size_count=10, vllm:kv_offload_cpu_allocation_size_sum=1280, vllm:kv_offload_store_bytes=603979776, vllm:kv_offload_store_time=0.05677135992050172, vllm:kv_offload_store_size_count=8, vllm:kv_offload_store_size_sum=603979776
+(APIServer pid=89205) INFO 11-25 16:26:43 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:43 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:33604 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33616 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:47 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:47 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:33626 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33642 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:50 [loggers.py:320] Engine 000: Avg prompt throughput: 1638.3 tokens/s, Avg generation throughput: 3.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 56.3%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 43.2%
+(APIServer pid=89205) INFO 11-25 16:26:50 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_cpu_cache_usage_perc=0.14065934065934066, vllm:kv_offload_cpu_allocation_size_count=10, vllm:kv_offload_cpu_allocation_size_sum=1280, vllm:kv_offload_cpu_cache_write_usage_perc=0.14065934065934066, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_store_bytes=679477248, vllm:kv_offload_store_time=0.06395558452606201, vllm:kv_offload_store_size_count=9, vllm:kv_offload_store_size_sum=679477248, vllm:kv_offload_lookup_sync_delay_seconds_count=2, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0002167469992855331, vllm:kv_offload_load_bytes=603979776, vllm:kv_offload_load_time=0.049660705566406255, vllm:kv_offload_load_size_count=2, vllm:kv_offload_load_size_sum=603979776
+(APIServer pid=89205) INFO 11-25 16:26:51 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:51 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:55744 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55754 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:55 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:55 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:55758 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55774 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:26:59 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:26:59 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:48022 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48024 - "POST /v1/completions HTTP/1.1" 200 OK
+(APIServer pid=89205) INFO 11-25 16:27:00 [loggers.py:320] Engine 000: Avg prompt throughput: 2457.3 tokens/s, Avg generation throughput: 4.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 35.2%, Prefix cache hit rate: 0.0%, External prefix cache hit rate: 43.9%
+(APIServer pid=89205) INFO 11-25 16:27:00 [metrics.py:103] KV Transfer metrics: vllm:kv_offload_store_bytes=830472192, vllm:kv_offload_store_time=0.07893020820617676, vllm:kv_offload_store_size_count=11, vllm:kv_offload_store_size_sum=830472192, vllm:kv_offload_cpu_cache_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_write_usage_perc=0.046886446886446886, vllm:kv_offload_cpu_cache_read_usage_perc=0.0, vllm:kv_offload_lookup_sync_delay_seconds_count=3, vllm:kv_offload_lookup_sync_delay_seconds_sum=0.0003312640001240652, vllm:kv_offload_load_bytes=905969664, vllm:kv_offload_load_time=0.07429955101013183, vllm:kv_offload_load_size_count=3, vllm:kv_offload_load_size_sum=905969664, vllm:kv_offload_cpu_allocation_size_count=9, vllm:kv_offload_cpu_allocation_size_sum=1152
+(APIServer pid=89205) INFO 11-25 16:27:03 [api_router.py:39] Resetting prefix cache...
+(EngineCore pid=89572) INFO 11-25 16:27:03 [block_pool.py:864] Successfully reset prefix cache
+INFO:     127.0.0.1:48036 - "POST /reset_prefix_cache HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48038 - "POST /v1/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48040 - "GET /metrics HTTP/1.1" 200 OK
+(EngineCore pid=89572) INFO 11-25 16:27:08 [core.py:1409] [shutdown] EngineCore: trigger received signal=SIGTERM
+(APIServer pid=89205) INFO 11-25 16:27:08 [launcher.py:128] [shutdown] API server: shutdown triggered
+(EngineCore pid=89572) INFO 11-25 16:27:08 [core.py:1558] [shutdown] EngineCore: start mode=drain timeout=10s
+(APIServer pid=89205) INFO 11-25 16:27:08 [launcher.py:144] [shutdown] API server: stopping engine client mode=drain timeout=10s
+(EngineCore pid=89572) INFO 11-25 16:27:08 [core.py:1589] [shutdown] EngineCore: request processing complete; starting resource teardown
+(EngineCore pid=89572) INFO 11-25 16:27:08 [core.py:1422] [shutdown] EngineCore: exiting busy loop
+(APIServer pid=89205) INFO 11-25 16:27:08 [core_client.py:762] [shutdown] MPClient: start timeout=10s
+(APIServer pid=89205) INFO 11-25 16:27:08 [core_client.py:764] [shutdown] MPClient: stopping engine manager
+(APIServer pid=89205) INFO 11-25 16:27:08 [utils.py:638] [shutdown] Process manager: send sigterm to process EngineCore
+(APIServer pid=89205) INFO 11-25 16:27:08 [core_client.py:766] [shutdown] MPClient: engine manager stopped
+(APIServer pid=89205) INFO 11-25 16:27:08 [core_client.py:767] [shutdown] MPClient: cleaning up background resources
+(APIServer pid=89205) INFO 11-25 16:27:08 [core_client.py:769] [shutdown] MPClient: complete
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871] AsyncLLM output_handler failed.
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871] Traceback (most recent call last):
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871]   File "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/venv/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 817, in output_handler
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871]     outputs = await engine_core.get_output_async()
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871]   File "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/venv/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 1215, in get_output_async
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871]     raise self._format_exception(outputs) from None
+(APIServer pid=89205) ERROR 11-25 16:27:08 [async_llm.py:871] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(APIServer pid=89205) INFO 11-25 16:27:08 [launcher.py:153] [shutdown] API server: engine client stopped
+(APIServer pid=89205) INFO 11-25 16:27:08 [launcher.py:156] [shutdown] API server: signalling HTTP server shutdown
+(APIServer pid=89205) INFO 11-25 16:27:08 [launcher.py:178] [shutdown] API server: shutting down FastAPI HTTP server
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+/home/wty/Documents/Codex/2026-10-26/python-office-python-conda-cuda-cpu/.conda-envs/unified/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

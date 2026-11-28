@@ -41,7 +41,9 @@ static const char cli_name[] = "miniinfer";
 typedef struct {
     const char *ssd_mode;
     const char *ssd_dir;
+    const char *ssd_device;
     int ssd_slots;
+    unsigned ssd_io_cpu_plus_one;
     int spdk_offset_set;
     mi_spdk_config spdk;
 } StorageOptions;
@@ -88,8 +90,9 @@ static void usage(FILE *file) {
 #ifdef NANO_WITH_STORAGE
     fputs(
             "  --ssd-slots N number of spill slots (default 0, disabled)\n"
-            "  --ssd-mode posix|uring|spdk (default posix)\n"
+            "  --ssd-mode posix|uring|spdk|raw-uring (default posix)\n"
             "  --ssd-dir DIR directory for the private POSIX/io_uring spill file\n"
+            "  --ssd-device PATH --ssd-offset BYTES (raw-uring dedicated backed-up region)\n"
             "  --spdk-config PATH --spdk-bdev NAME --spdk-offset BYTES\n"
             "                explicit bdev and dedicated byte region\n"
             "  --spdk-no-pci use the SPDK software bdev environment\n"
@@ -179,6 +182,13 @@ static int parse_value(StorageOptions *options, const char *flag, const char *va
         options->ssd_mode = value;
     else if (strcmp(flag, "--ssd-dir") == 0)
         options->ssd_dir = value;
+    else if (strcmp(flag, "--ssd-io-cpu") == 0) {
+        int cpu = integer(value);
+        if (cpu < 0 || cpu >= 1024) nv_fatal("invalid SSD I/O CPU");
+        options->ssd_io_cpu_plus_one = (unsigned)cpu + 1;
+    }
+    else if (strcmp(flag, "--ssd-device") == 0)
+        options->ssd_device = value;
     else if (strcmp(flag, "--spdk-config") == 0)
         options->spdk.json_config = value;
     else if (strcmp(flag, "--spdk-bdev") == 0)
@@ -198,7 +208,7 @@ static int parse_value(StorageOptions *options, const char *flag, const char *va
             nv_fatal("expected a nonnegative base virtual address");
         options->spdk.base_virtaddr = (uint64_t)address;
     }
-    else if (strcmp(flag, "--spdk-offset") == 0) {
+    else if ((strcmp(flag, "--spdk-offset") == 0 || strcmp(flag, "--ssd-offset") == 0)) {
         char *end;
         errno = 0;
         uintmax_t offset = strtoumax(value, &end, 10);
@@ -214,8 +224,11 @@ static int parse_value(StorageOptions *options, const char *flag, const char *va
 
 static void validate(const StorageOptions *options) {
     const char *mode = options->ssd_mode;
-    if (strcmp(mode, "posix") && strcmp(mode, "uring") && strcmp(mode, "spdk"))
-        nv_fatal("SSD mode must be posix, uring, or spdk");
+    if (strcmp(mode, "posix") && strcmp(mode, "uring") && strcmp(mode, "spdk") && strcmp(mode, "raw-uring"))
+        nv_fatal("SSD mode must be posix, uring, spdk, or raw-uring");
+    if (options->ssd_slots && !strcmp(mode, "raw-uring") &&
+        (!options->ssd_device || !options->spdk_offset_set))
+        nv_fatal("raw-uring requires --ssd-device and --ssd-offset for a dedicated region");
     if (options->ssd_slots && !strcmp(mode, "spdk") &&
         (!options->spdk.json_config || !options->spdk.bdev_name || !options->spdk_offset_set))
         nv_fatal("SPDK requires --spdk-config, --spdk-bdev and --spdk-offset for a dedicated region");
@@ -232,8 +245,9 @@ static void attach_ssd(NvCache *cache, const StorageOptions *storage) {
         nv_fatal("SSD slot size overflow");
     int is_spdk = strcmp(storage->ssd_mode, "spdk") == 0;
     size_t record = payload + 64;
-    if (is_spdk)
-        record = (record + 4095) & ~(size_t)4095;
+    int raw_uring = strcmp(storage->ssd_mode, "raw-uring") == 0;
+    if (is_spdk || raw_uring)
+        record = 4096 + ((payload + 4095) & ~(size_t)4095);
     if ((size_t)storage->ssd_slots > SIZE_MAX / record)
         nv_fatal("SSD capacity overflow");
 
@@ -243,6 +257,10 @@ static void attach_ssd(NvCache *cache, const StorageOptions *storage) {
         mi_spdk_config config = storage->spdk;
         config.capacity_bytes = record * storage->ssd_slots;
         status = mi_ssd_spdk_backend_create(config, payload, MI_SSD_VERIFY_ON_READ, &backend);
+    } else if (raw_uring) {
+        status = mi_ssd_raw_uring_backend_create(storage->ssd_device, storage->spdk.offset_bytes,
+            record * storage->ssd_slots, payload, MI_SSD_VERIFY_ON_READ, 8,
+            -1, storage->ssd_io_cpu_plus_one, &backend);
     } else {
         mi_ssd_file_mode mode = strcmp(storage->ssd_mode, "uring") == 0 ? MI_SSD_FILE_URING : MI_SSD_FILE_POSIX;
         status = mi_ssd_temp_backend_create(storage->ssd_dir, payload, record * storage->ssd_slots,
@@ -258,7 +276,8 @@ static void print_stats(const StorageOptions *options, const NvCache *cache) {
         return;
     uint64_t reads, writes;
     nv_spill_stats(cache, &reads, &writes);
-    fprintf(stderr, "ssd_mode=%s ssd_reads=%" PRIu64 " ssd_writes=%" PRIu64 "\n", options->ssd_mode, reads, writes);
+    fprintf(stderr, "ssd_mode=%s ssd_reads=%" PRIu64 " ssd_writes=%" PRIu64 " ssd_restore_wait_ns=%" PRIu64 "\n",
+            options->ssd_mode, reads, writes, nv_spill_wait_ns(cache));
 }
 
 #endif

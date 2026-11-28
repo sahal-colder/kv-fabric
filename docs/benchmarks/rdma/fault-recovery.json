@@ -1,0 +1,757 @@
+[
+  {
+    "case": "disconnect",
+    "transport": "RDMA_RSOCKET",
+    "source_port": 44635,
+    "timeout_ms": 500,
+    "interrupted_request_elapsed_ns": 210890518,
+    "interrupted_request_ttft_ns": 138479840,
+    "interrupted_request_net_recv_ns": 10897447,
+    "cold_match": true,
+    "remote_failures": 1,
+    "local_prefill_fallbacks": 1,
+    "healthy_before_bytes": 276480,
+    "failed_received_bytes": 0,
+    "recovered_bytes": 331776,
+    "recovered_tokens": 24,
+    "trace": [
+      "4981 fd=11 FETCH_BATCH pause=0",
+      "4981 fd=11 FETCH_BATCH pause=1"
+    ],
+    "connected_before": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 195,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 4981,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44635",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 196,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 4995,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:48143",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 197,
+          "lqpn": 143,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 4997,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:46265",
+          "dst-addr": "198.18.0.1:44635"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 198,
+          "lqpn": 144,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 4981,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44635",
+          "dst-addr": "198.18.0.1:46265"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 143,
+          "rqpn": 144,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 6244161,
+          "sq-psn": 15482395,
+          "path-mig-state": "MIGRATED",
+          "pdn": 71,
+          "pid": 5009,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 144,
+          "rqpn": 143,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 15482395,
+          "sq-psn": 6244161,
+          "path-mig-state": "MIGRATED",
+          "pdn": 70,
+          "pid": 4984,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 430,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "connected_at_fault": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 195,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 4981,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44635",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 196,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 4995,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:48143",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 197,
+          "lqpn": 143,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 4997,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:46265",
+          "dst-addr": "198.18.0.1:44635"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 198,
+          "lqpn": 144,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 4981,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44635",
+          "dst-addr": "198.18.0.1:46265"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 143,
+          "rqpn": 144,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 6244161,
+          "sq-psn": 15482397,
+          "path-mig-state": "MIGRATED",
+          "pdn": 71,
+          "pid": 5009,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 144,
+          "rqpn": 143,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 15482397,
+          "sq-psn": 6244161,
+          "path-mig-state": "MIGRATED",
+          "pdn": 70,
+          "pid": 4984,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 430,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "after_failed_transfer": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 196,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 4995,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:48143",
+          "dst-addr": "0.0.0.0:0"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 434,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "after_reconnect": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 196,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 4995,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:48143",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 200,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5018,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44635",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 201,
+          "lqpn": 146,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 4997,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44642",
+          "dst-addr": "198.18.0.1:44635"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 202,
+          "lqpn": 147,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5018,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44635",
+          "dst-addr": "198.18.0.1:44642"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 146,
+          "rqpn": 147,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 2298625,
+          "sq-psn": 16293516,
+          "path-mig-state": "MIGRATED",
+          "pdn": 71,
+          "pid": 5032,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 147,
+          "rqpn": 146,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 16293516,
+          "sq-psn": 2298625,
+          "path-mig-state": "MIGRATED",
+          "pdn": 72,
+          "pid": 5021,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 437,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "after_process_cleanup": {
+      "cm_id": [],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 439,
+          "comm": "ib_core"
+        }
+      ]
+    }
+  },
+  {
+    "case": "timeout",
+    "transport": "RDMA_RSOCKET",
+    "source_port": 47019,
+    "timeout_ms": 500,
+    "interrupted_request_elapsed_ns": 710937301,
+    "interrupted_request_ttft_ns": 634047856,
+    "interrupted_request_net_recv_ns": 498316007,
+    "cold_match": true,
+    "remote_failures": 1,
+    "local_prefill_fallbacks": 1,
+    "healthy_before_bytes": 276480,
+    "failed_received_bytes": 0,
+    "recovered_bytes": 331776,
+    "recovered_tokens": 24,
+    "trace": [
+      "5058 fd=11 FETCH_BATCH pause=0",
+      "5058 fd=11 FETCH_BATCH pause=1"
+    ],
+    "connected_before": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 203,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 204,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5072,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44759",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 205,
+          "lqpn": 148,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5074,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:46667",
+          "dst-addr": "198.18.0.1:47019"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 206,
+          "lqpn": 149,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "198.18.0.1:46667"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 148,
+          "rqpn": 149,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 11569642,
+          "sq-psn": 4334556,
+          "path-mig-state": "MIGRATED",
+          "pdn": 74,
+          "pid": 5074,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 149,
+          "rqpn": 148,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 4334556,
+          "sq-psn": 11569642,
+          "path-mig-state": "MIGRATED",
+          "pdn": 73,
+          "pid": 5061,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 442,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "connected_at_fault": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 203,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 204,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5072,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44759",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 205,
+          "lqpn": 148,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5074,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:46667",
+          "dst-addr": "198.18.0.1:47019"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 206,
+          "lqpn": 149,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "198.18.0.1:46667"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 148,
+          "rqpn": 149,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 11569642,
+          "sq-psn": 4334558,
+          "path-mig-state": "MIGRATED",
+          "pdn": 74,
+          "pid": 5074,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 149,
+          "rqpn": 148,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 4334558,
+          "sq-psn": 11569642,
+          "path-mig-state": "MIGRATED",
+          "pdn": 73,
+          "pid": 5061,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 442,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "after_failed_transfer": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 203,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 204,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5072,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44759",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 206,
+          "lqpn": 149,
+          "qp-type": "RC",
+          "state": "DISCONNECT",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "198.18.0.1:46667"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 149,
+          "rqpn": 148,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 4334559,
+          "sq-psn": 11569642,
+          "path-mig-state": "MIGRATED",
+          "pdn": 73,
+          "pid": 5061,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 443,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "after_reconnect": {
+      "cm_id": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 203,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 204,
+          "state": "LISTEN",
+          "ps": "TCP",
+          "pid": 5072,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:44759",
+          "dst-addr": "0.0.0.0:0"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 207,
+          "lqpn": 150,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5074,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47078",
+          "dst-addr": "198.18.0.1:47019"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "cm-idn": 208,
+          "lqpn": 151,
+          "qp-type": "RC",
+          "state": "CONNECT",
+          "ps": "TCP",
+          "pid": 5058,
+          "comm": "test_nano_remot",
+          "src-addr": "198.18.0.1:47019",
+          "dst-addr": "198.18.0.1:47078"
+        }
+      ],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 150,
+          "rqpn": 151,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 11246527,
+          "sq-psn": 15562065,
+          "path-mig-state": "MIGRATED",
+          "pdn": 74,
+          "pid": 5094,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 151,
+          "rqpn": 150,
+          "type": "RC",
+          "state": "RTS",
+          "rq-psn": 15562065,
+          "sq-psn": 11246527,
+          "path-mig-state": "MIGRATED",
+          "pdn": 73,
+          "pid": 5061,
+          "comm": "test_nano_remot"
+        },
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 447,
+          "comm": "ib_core"
+        }
+      ]
+    },
+    "after_process_cleanup": {
+      "cm_id": [],
+      "qp": [
+        {
+          "ifindex": 0,
+          "ifname": "rxe0",
+          "port": 1,
+          "lqpn": 1,
+          "type": "GSI",
+          "state": "RTS",
+          "sq-psn": 451,
+          "comm": "ib_core"
+        }
+      ]
+    }
+  }
+]

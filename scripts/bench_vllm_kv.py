@@ -119,25 +119,33 @@ def generate(url, ids, new, seed=123):
         "stream_options": {"include_usage": True},
     }).encode()
     request = urllib.request.Request(f"{url}/v1/completions", body, {"Content-Type": "application/json"})
+    ttft_scope = ExitStack()
+    if os.environ.get("KVF_CLIENT_TRACE") == "1":
+        import nvtx
+        ttft_scope.enter_context(nvtx.annotate("rdma.client.ttft"))
     start = time.monotonic_ns()
     stamps, output, chunks = [], [], []
     request_id = None
-    with HTTP.open(request, timeout=180) as response:
-        for line in response:
-            if not line.startswith(b"data: ") or line.startswith(b"data: [DONE]"):
-                continue
-            event = json.loads(line[6:])
-            request_id = event["id"]
-            for choice in event["choices"]:
-                tokens = choice.get("token_ids") or []
-                if tokens:
-                    stamps.append(time.monotonic_ns())
-                    chunks.append(len(tokens))
-                    output.extend(tokens)
+    with ttft_scope:
+        with HTTP.open(request, timeout=180) as response:
+            for line in response:
+                if not line.startswith(b"data: ") or line.startswith(b"data: [DONE]"):
+                    continue
+                event = json.loads(line[6:])
+                request_id = event["id"]
+                for choice in event["choices"]:
+                    tokens = choice.get("token_ids") or []
+                    if tokens:
+                        stamps.append(time.monotonic_ns())
+                        if len(stamps) == 1:
+                            ttft_scope.close()
+                        chunks.append(len(tokens))
+                        output.extend(tokens)
     if len(output) != new:
         raise RuntimeError(f"{request_id}: expected {new} output IDs, got {len(output)}")
     return {
         "request_id": request_id, "prompt_tokens": len(ids), "output_ids": output,
+        "start_monotonic_ns": start, "first_token_monotonic_ns": stamps[0],
         "prompt_sha256": hashlib.sha256(json.dumps(ids, separators=(",", ":")).encode()).hexdigest(),
         "ttft_ms": (stamps[0] - start) / 1e6, "tpot_ms": (stamps[-1] - stamps[0]) / (new - 1) / 1e6
         if new > 1 else None, "itl_ms": [(b - a) / 1e6 for a, b in zip(stamps, stamps[1:])],
@@ -488,6 +496,8 @@ def benchmark(args):
                         summaries.write(json.dumps(result) + "\n")
                         summaries.flush()
                         print(json.dumps(result), flush=True)
+                        if args.require_cache_write_success and result["kvfabric_save_failures"]:
+                            raise RuntimeError("Cache write failures invalidate this performance result; raw rows preserved")
                         if mode.startswith("kvfabric"):
                             wait_kvf_idle(run / "kvfabric.jsonl")
 
@@ -520,6 +530,8 @@ def main():
     parser.add_argument("--reference", type=Path, help="recompute requests.jsonl from an identical workload")
     parser.add_argument("--legacy-cuda", action="store_true", help="measure the original per-segment connector")
     parser.add_argument("--expected-io-mode", choices=("direct-uring-fixed", "direct-posix"))
+    parser.add_argument("--require-cache-write-success", action="store_true",
+                        help="reject performance claims with backend publication errors; best-effort skips remain counted")
     parser.add_argument("--reset-gpu-between-batches", action="store_true",
                         help="force Host/offload imports between measured bursts; excludes reset RPCs from throughput")
     parser.add_argument("--resume", action="store_true", help="retain complete modes from an identical workload")

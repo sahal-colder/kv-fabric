@@ -45,6 +45,7 @@ void nv_cache_discard_remote(NvCache *cache, int block);
 /* 接入 SSD 后端。之后由缓存负责关闭后端。 */
 void nv_cache_attach_ssd(NvCache *cache, struct mi_storage_backend *backend, int slots);
 /* 查询成功写回和恢复的次数。 */
+uint64_t nv_spill_wait_ns(const NvCache *cache);
 void nv_spill_stats(const NvCache *cache, uint64_t *reads, uint64_t *writes);
 /* 将待淘汰的前缀页写回 SSD。 */
 void nv_spill_evict(NvCache *cache, int block);

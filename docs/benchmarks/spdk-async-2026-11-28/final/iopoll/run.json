@@ -1,0 +1,96 @@
+{
+  "started": "2026-11-28T13:02:18.798414+08:00",
+  "initial_state": {
+    "time": "2026-11-28T13:02:18.795284+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  },
+  "manifest": {
+    "serial": "S4Y4NX0R755035",
+    "pci": "0000:07:00.0",
+    "device_bytes": 512110190592,
+    "regions": [
+      {
+        "name": "first",
+        "offset": 0,
+        "length": 1048576,
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/first.original.bin"
+      },
+      {
+        "name": "scratch",
+        "offset": 1073741824,
+        "length": 134217728,
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/scratch.original.bin"
+      },
+      {
+        "name": "last",
+        "offset": 512109142016,
+        "length": 1048576,
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "backup": "/home/wty/Infra/.kvfabric-local/spdk-samsung/last.original.bin"
+      }
+    ]
+  },
+  "production_engines": true,
+  "layer": "raw",
+  "rounds": 30,
+  "warmup": 3,
+  "original_hugepages_2m": 256,
+  "original_nvme_poll_queues": "0",
+  "requested_iopoll": true,
+  "requested_sqpoll": false,
+  "smoke": true,
+  "commands": [],
+  "checks": {
+    "before": [
+      {
+        "name": "first",
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15"
+      },
+      {
+        "name": "scratch",
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917"
+      },
+      {
+        "name": "last",
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58"
+      }
+    ],
+    "after": [
+      {
+        "name": "first",
+        "sha256": "5f80513ceef293b98d109e6a4746ef36ec28cf503159bf746dc28433999e9a15",
+        "matches_original": true
+      },
+      {
+        "name": "scratch",
+        "sha256": "254bcc3fc4f27172636df4bf32de9f107f620d559b20d760197e452b97453917",
+        "matches_original": true
+      },
+      {
+        "name": "last",
+        "sha256": "30e14955ebf1352266dc2ff8067e68104607e750abb9d3b36582b8af909fcb58",
+        "matches_original": true
+      }
+    ]
+  },
+  "durability": "non-durable completion",
+  "cpu_cycles_per_io": null,
+  "cpu_cycles_reason": "per-thread PMU instrumentation; unavailable samples explicitly marked cycles_measured=0",
+  "cpu_affinity": {
+    "submitter": 4,
+    "io_owner": 2
+  },
+  "numa_policy": "host default, recorded by lscpu",
+  "error": "RuntimeError('1 GiB hugepages needed for 128 x 4 MiB DMA plus runtime')",
+  "final_nvme_poll_queues": "0",
+  "final_hugepages_2m": 256,
+  "final_state": {
+    "time": "2026-11-28T13:02:19.892404+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  },
+  "finished": "2026-11-28T13:02:19.896996+08:00"
+}

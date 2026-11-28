@@ -1,0 +1,30 @@
+Internal ctest changing into directory: /home/wty/Infra/build-tsan
+Test project /home/wty/Infra/build-tsan
+      Start  2: kvf_directory
+      Start 19: uring_async_qd128
+      Start 13: uring_async_qd1
+      Start 16: uring_async_qd16
+      Start 17: uring_async_qd32
+      Start 14: uring_async_qd4
+      Start 18: uring_async_qd64
+      Start 15: uring_async_qd8
+ 1/12 Test #14: uring_async_qd4 ..................   Passed    0.10 sec
+      Start 20: migration_parallel
+ 2/12 Test #15: uring_async_qd8 ..................   Passed    0.10 sec
+      Start 11: storage_audit
+ 3/12 Test #16: uring_async_qd16 .................   Passed    0.12 sec
+      Start 21: direct_io_cpu
+ 4/12 Test #17: uring_async_qd32 .................   Passed    0.14 sec
+      Start 12: uring_faults
+ 5/12 Test #19: uring_async_qd128 ................   Passed    0.15 sec
+ 6/12 Test #21: direct_io_cpu ....................   Passed    0.02 sec
+ 7/12 Test #18: uring_async_qd64 .................   Passed    0.15 sec
+ 8/12 Test #13: uring_async_qd1 ..................   Passed    0.16 sec
+ 9/12 Test #12: uring_faults .....................   Passed    0.03 sec
+10/12 Test #20: migration_parallel ...............   Passed    0.09 sec
+11/12 Test #11: storage_audit ....................   Passed    0.21 sec
+12/12 Test  #2: kvf_directory ....................   Passed    0.78 sec
+
+100% tests passed, 0 tests failed out of 12
+
+Total Test time (real) =   0.78 sec

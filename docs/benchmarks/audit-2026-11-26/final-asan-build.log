@@ -1,0 +1,86 @@
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/build-asan
+Consolidate compiler generated dependencies of target kvfabric
+[  8%] Built target kvfabric
+Consolidate compiler generated dependencies of target test_kvf_protocol
+Consolidate compiler generated dependencies of target test_kvf_directory
+Consolidate compiler generated dependencies of target miniinfer_storage
+Consolidate compiler generated dependencies of target kvfctl
+Consolidate compiler generated dependencies of target kvfabricd
+Consolidate compiler generated dependencies of target test_remote_e2e
+[ 10%] Built target test_kvf_protocol
+[ 13%] Built target test_kvf_directory
+[ 15%] Built target kvfabricd
+[ 16%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[ 18%] Built target kvfctl
+[ 21%] Built target test_remote_e2e
+[ 22%] Linking C static library libminiinfer_storage.a
+[ 34%] Built target miniinfer_storage
+Consolidate compiler generated dependencies of target test_graph
+Consolidate compiler generated dependencies of target test_tiered
+Consolidate compiler generated dependencies of target test_gpu_mock
+Consolidate compiler generated dependencies of target miniinfer_basic
+Consolidate compiler generated dependencies of target test_kv_cache
+Consolidate compiler generated dependencies of target test_pool
+Consolidate compiler generated dependencies of target test_paged_kv
+Consolidate compiler generated dependencies of target test_allocator_faults
+[ 35%] Linking C executable ../../bin/test_graph
+[ 37%] Linking C executable ../../bin/test_kv_cache
+[ 37%] Linking C executable ../../bin/test_gpu_mock
+[ 38%] Linking C executable ../../bin/miniinfer_basic
+[ 39%] Linking C executable ../../bin/test_tiered
+[ 40%] Linking C executable ../../bin/test_pool
+[ 41%] Linking C executable ../../bin/test_paged_kv
+[ 42%] Linking C executable ../../bin/test_allocator_faults
+[ 44%] Built target test_pool
+[ 44%] Built target test_kv_cache
+[ 45%] Built target test_tiered
+[ 47%] Built target miniinfer_basic
+[ 47%] Built target test_gpu_mock
+Consolidate compiler generated dependencies of target test_storage_audit
+Consolidate compiler generated dependencies of target test_device_boundaries
+Consolidate compiler generated dependencies of target test_direct_io
+Consolidate compiler generated dependencies of target miniinfer_remote
+Consolidate compiler generated dependencies of target test_uring_faults
+[ 48%] Linking C executable ../../bin/test_device_boundaries
+[ 49%] Linking C executable ../../bin/test_direct_io
+[ 50%] Linking C executable ../../bin/test_storage_audit
+[ 57%] Built target miniinfer_remote
+[ 58%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/__/__/tests/worker/test_uring_faults.c.o
+[ 60%] Built target test_graph
+[ 60%] Built target test_allocator_faults
+Consolidate compiler generated dependencies of target test_remote_lifecycle
+[ 61%] Building C object src/worker/CMakeFiles/test_uring_faults.dir/uring_io.c.o
+Consolidate compiler generated dependencies of target test_remote_audit
+[ 62%] Linking C executable ../../bin/test_remote_lifecycle
+[ 63%] Linking C executable ../../bin/test_remote_audit
+[ 64%] Built target test_paged_kv
+Consolidate compiler generated dependencies of target test_remote_faults
+[ 65%] Linking C executable ../../bin/test_remote_faults
+[ 66%] Built target test_device_boundaries
+Consolidate compiler generated dependencies of target miniinfer_nano
+[ 67%] Built target test_storage_audit
+[ 74%] Built target miniinfer_nano
+Consolidate compiler generated dependencies of target miniinfer_worker
+Consolidate compiler generated dependencies of target miniinfer
+Consolidate compiler generated dependencies of target kvf_bench
+[ 75%] Linking C executable ../../bin/test_uring_faults
+[ 76%] Linking C executable ../../bin/miniinfer_worker
+[ 77%] Built target test_remote_lifecycle
+[ 78%] Linking C executable ../../bin/kvf_bench
+[ 79%] Linking C executable ../../bin/miniinfer
+Consolidate compiler generated dependencies of target nanovllm
+[ 81%] Linking C executable ../../bin/nanovllm
+[ 81%] Built target test_remote_audit
+[ 82%] Built target test_direct_io
+Consolidate compiler generated dependencies of target test_nano_remote_worker
+[ 83%] Linking C executable ../../bin/test_nano_remote_worker
+[ 84%] Built target miniinfer_worker
+[ 86%] Built target kvf_bench
+[ 87%] Built target test_remote_faults
+[ 87%] Built target test_uring_faults
+[ 96%] Built target miniinfer
+[ 97%] Built target test_nano_remote_worker
+[100%] Built target nanovllm

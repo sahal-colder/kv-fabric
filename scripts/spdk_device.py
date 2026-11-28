@@ -150,10 +150,10 @@ def main():
         config_dir.mkdir(mode=0o755, exist_ok=True)
         config = {'subsystems': [
             {'subsystem': 'iobuf', 'config': [{'method': 'iobuf_set_options', 'params': {
-                'small_pool_count': 1024, 'large_pool_count': 64}}]},
+                'small_pool_count': 1024, 'large_pool_count': 256}}]},
             {'subsystem': 'bdev', 'config': [
                 {'method': 'bdev_set_options', 'params': {
-                    'bdev_io_pool_size': 1024, 'bdev_io_cache_size': 64}},
+                    'bdev_io_pool_size': 8192, 'bdev_io_cache_size': 256}},
                 {'method': 'bdev_nvme_attach_controller', 'params': {
                     'name': 'Samsung', 'trtype': 'PCIe', 'traddr': pci.name}}]}]}
         (config_dir / 'spdk-samsung.json').write_text(json.dumps(config, indent=2) + '\n')

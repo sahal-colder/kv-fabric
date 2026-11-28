@@ -1,0 +1,2 @@
+.kvfabric-local/perf-attribution/build-after/bin/kvfabricd --config docs/benchmarks/perf-attribution-2026-11-26/nsys-final-disk/directory.conf
+READY 127.0.0.1:57499

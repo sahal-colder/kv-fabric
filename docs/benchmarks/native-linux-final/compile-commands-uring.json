@@ -1,0 +1,1244 @@
+[
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "CMakeFiles/test.util",
+    "output": "test"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "CMakeFiles/edit_cache.util",
+    "output": "edit_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "CMakeFiles/rebuild_cache.util",
+    "output": "rebuild_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring && /usr/bin/cmake -P cmake_install.cmake",
+    "file": "all",
+    "output": "CMakeFiles/install.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "CMakeFiles/install.util",
+    "output": "install"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake",
+    "file": "all",
+    "output": "CMakeFiles/install/local.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "CMakeFiles/install/local.util",
+    "output": "install/local"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake",
+    "file": "all",
+    "output": "CMakeFiles/install/strip.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "CMakeFiles/install/strip.util",
+    "output": "install/strip"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/kvfabric.dir",
+    "output": "cmake_object_order_depends_target_kvfabric"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/identity.c.o -MF src/control/CMakeFiles/kvfabric.dir/identity.c.o.d -o src/control/CMakeFiles/kvfabric.dir/identity.c.o -c /home/wty/Infra/src/control/identity.c",
+    "file": "/home/wty/Infra/src/control/identity.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/identity.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/wire.c.o -MF src/control/CMakeFiles/kvfabric.dir/wire.c.o.d -o src/control/CMakeFiles/kvfabric.dir/wire.c.o -c /home/wty/Infra/src/control/wire.c",
+    "file": "/home/wty/Infra/src/control/wire.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/wire.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/net.c.o -MF src/control/CMakeFiles/kvfabric.dir/net.c.o.d -o src/control/CMakeFiles/kvfabric.dir/net.c.o -c /home/wty/Infra/src/control/net.c",
+    "file": "/home/wty/Infra/src/control/net.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/net.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/directory.c.o -MF src/control/CMakeFiles/kvfabric.dir/directory.c.o.d -o src/control/CMakeFiles/kvfabric.dir/directory.c.o -c /home/wty/Infra/src/control/directory.c",
+    "file": "/home/wty/Infra/src/control/directory.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/directory.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/control.c.o -MF src/control/CMakeFiles/kvfabric.dir/control.c.o.d -o src/control/CMakeFiles/kvfabric.dir/control.c.o -c /home/wty/Infra/src/control/control.c",
+    "file": "/home/wty/Infra/src/control/control.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/control.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/client.c.o -MF src/control/CMakeFiles/kvfabric.dir/client.c.o.d -o src/control/CMakeFiles/kvfabric.dir/client.c.o -c /home/wty/Infra/src/control/client.c",
+    "file": "/home/wty/Infra/src/control/client.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/client.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_CRC32C=1 -I/home/wty/Infra/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o -MF src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o.d -o src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o -c /home/wty/Infra/third_party/infer-io/src/base/crc32c.c",
+    "file": "/home/wty/Infra/third_party/infer-io/src/base/crc32c.c",
+    "output": "src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cmake -E rm -f src/control/libkvfabric.a && /usr/bin/ar qc src/control/libkvfabric.a  src/control/CMakeFiles/kvfabric.dir/identity.c.o src/control/CMakeFiles/kvfabric.dir/wire.c.o src/control/CMakeFiles/kvfabric.dir/net.c.o src/control/CMakeFiles/kvfabric.dir/directory.c.o src/control/CMakeFiles/kvfabric.dir/control.c.o src/control/CMakeFiles/kvfabric.dir/client.c.o src/control/CMakeFiles/kvfabric.dir/__/__/third_party/infer-io/src/base/crc32c.c.o && /usr/bin/ranlib src/control/libkvfabric.a && :",
+    "file": "src/control/CMakeFiles/kvfabric.dir/identity.c.o",
+    "output": "src/control/libkvfabric.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_kvfabricd"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc  -I/home/wty/Infra/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o -MF src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o.d -o src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o -c /home/wty/Infra/tools/kvfabricd.c",
+    "file": "/home/wty/Infra/tools/kvfabricd.c",
+    "output": "src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cc -O3 -DNDEBUG  src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o -o bin/kvfabricd  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so && :",
+    "file": "src/control/CMakeFiles/kvfabricd.dir/__/__/tools/kvfabricd.c.o",
+    "output": "bin/kvfabricd"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_kvfctl"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc  -I/home/wty/Infra/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o -MF src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o.d -o src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o -c /home/wty/Infra/tools/kvfctl.c",
+    "file": "/home/wty/Infra/tools/kvfctl.c",
+    "output": "src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cc -O3 -DNDEBUG  src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o -o bin/kvfctl  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so && :",
+    "file": "src/control/CMakeFiles/kvfctl.dir/__/__/tools/kvfctl.c.o",
+    "output": "bin/kvfctl"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_kvf_protocol"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc  -I/home/wty/Infra/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -UNDEBUG -std=c11 -MD -MT src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o -MF src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o.d -o src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o -c /home/wty/Infra/tests/control/test_protocol.c",
+    "file": "/home/wty/Infra/tests/control/test_protocol.c",
+    "output": "src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cc -O3 -DNDEBUG  src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o -o bin/test_kvf_protocol  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so && :",
+    "file": "src/control/CMakeFiles/test_kvf_protocol.dir/__/__/tests/control/test_protocol.c.o",
+    "output": "bin/test_kvf_protocol"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_kvf_directory"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc  -I/home/wty/Infra/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -UNDEBUG -std=c11 -MD -MT src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o -MF src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o.d -o src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o -c /home/wty/Infra/tests/control/test_directory.c",
+    "file": "/home/wty/Infra/tests/control/test_directory.c",
+    "output": "src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cc -O3 -DNDEBUG  src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o -o bin/test_kvf_directory  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so && :",
+    "file": "src/control/CMakeFiles/test_kvf_directory.dir/__/__/tests/control/test_directory.c.o",
+    "output": "bin/test_kvf_directory"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/test.util",
+    "output": "src/control/test"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/edit_cache.util",
+    "output": "src/control/edit_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/rebuild_cache.util",
+    "output": "src/control/rebuild_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/control && /usr/bin/cmake -P cmake_install.cmake",
+    "file": "src/control/all",
+    "output": "src/control/CMakeFiles/install.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/install.util",
+    "output": "src/control/install"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/control && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake",
+    "file": "src/control/all",
+    "output": "src/control/CMakeFiles/install/local.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/install/local.util",
+    "output": "src/control/install/local"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/control && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake",
+    "file": "src/control/all",
+    "output": "src/control/CMakeFiles/install/strip.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/CMakeFiles/install/strip.util",
+    "output": "src/control/install/strip"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_miniinfer_storage"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o -c /home/wty/Infra/src/worker/common.c",
+    "file": "/home/wty/Infra/src/worker/common.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o -c /home/wty/Infra/src/worker/allocator.c",
+    "file": "/home/wty/Infra/src/worker/allocator.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o -c /home/wty/Infra/src/worker/device_transfer.c",
+    "file": "/home/wty/Infra/src/worker/device_transfer.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o -c /home/wty/Infra/src/worker/model_mapping.c",
+    "file": "/home/wty/Infra/src/worker/model_mapping.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o -c /home/wty/Infra/src/worker/segment_pool.c",
+    "file": "/home/wty/Infra/src/worker/segment_pool.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o -c /home/wty/Infra/src/worker/graph_allocator.c",
+    "file": "/home/wty/Infra/src/worker/graph_allocator.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o -c /home/wty/Infra/src/worker/storage_backend.c",
+    "file": "/home/wty/Infra/src/worker/storage_backend.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o -c /home/wty/Infra/src/worker/tiered_storage.c",
+    "file": "/home/wty/Infra/src/worker/tiered_storage.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o -c /home/wty/Infra/src/worker/file_io.c",
+    "file": "/home/wty/Infra/src/worker/file_io.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o -c /home/wty/Infra/src/worker/direct_io.c",
+    "file": "/home/wty/Infra/src/worker/direct_io.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o -c /home/wty/Infra/src/worker/kv_cache.c",
+    "file": "/home/wty/Infra/src/worker/kv_cache.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o -c /home/wty/Infra/src/worker/paged_kv.c",
+    "file": "/home/wty/Infra/src/worker/paged_kv.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o.d -o src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o -c /home/wty/Infra/src/worker/uring_io.c",
+    "file": "/home/wty/Infra/src/worker/uring_io.c",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMINIINFER_WITH_CUDA=1 -DMINIINFER_WITH_KVFABRIC=1 -DMINIINFER_WITH_NVTX=1 -DMINIINFER_WITH_URING -I/home/wty/Infra/include -I/home/wty/Infra/third_party/infer-io/include/c -isystem=/usr/local/cuda/targets/x86_64-linux/include -isystem=/usr/local/cuda/include -O3 -DNDEBUG --generate-code=arch=compute_89,code=[compute_89,sm_89] -Xcompiler=-fPIC -MD -MT src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o -MF src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o.d -x cu -c /home/wty/Infra/src/worker/device_cuda.cu -o src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o",
+    "file": "/home/wty/Infra/src/worker/device_cuda.cu",
+    "output": "src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cmake -E rm -f src/worker/libminiinfer_storage.a && /usr/bin/ar qc src/worker/libminiinfer_storage.a  src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o && /usr/bin/ranlib src/worker/libminiinfer_storage.a && :",
+    "file": "src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o",
+    "output": "src/worker/libminiinfer_storage.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_kvf_nvme_recovery_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o -MF src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o.d -o src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o -c /home/wty/Infra/tools/kvf_nvme_recovery_bench.c",
+    "file": "/home/wty/Infra/tools/kvf_nvme_recovery_bench.c",
+    "output": "src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o -o bin/kvf_nvme_recovery_bench  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/kvf_nvme_recovery_bench.dir/__/__/tools/kvf_nvme_recovery_bench.c.o",
+    "output": "bin/kvf_nvme_recovery_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_miniinfer_basic"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o -MF src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o.d -o src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o -c /home/wty/Infra/examples/basic.c",
+    "file": "/home/wty/Infra/examples/basic.c",
+    "output": "src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o -o bin/miniinfer_basic  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/miniinfer_basic.dir/__/__/examples/basic.c.o",
+    "output": "bin/miniinfer_basic"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_pool"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o -MF src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o.d -o src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o -c /home/wty/Infra/tests/worker/test_pool.c",
+    "file": "/home/wty/Infra/tests/worker/test_pool.c",
+    "output": "src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o -o bin/test_pool  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_pool.dir/__/__/tests/worker/test_pool.c.o",
+    "output": "bin/test_pool"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_graph"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o -MF src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o.d -o src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o -c /home/wty/Infra/tests/worker/test_graph.c",
+    "file": "/home/wty/Infra/tests/worker/test_graph.c",
+    "output": "src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o -o bin/test_graph  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_graph.dir/__/__/tests/worker/test_graph.c.o",
+    "output": "bin/test_graph"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_tiered"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o -MF src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o.d -o src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o -c /home/wty/Infra/tests/worker/test_tiered.c",
+    "file": "/home/wty/Infra/tests/worker/test_tiered.c",
+    "output": "src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o -o bin/test_tiered  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_tiered.dir/__/__/tests/worker/test_tiered.c.o",
+    "output": "bin/test_tiered"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_kv_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o -MF src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o.d -o src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o -c /home/wty/Infra/tests/worker/test_kv_cache.c",
+    "file": "/home/wty/Infra/tests/worker/test_kv_cache.c",
+    "output": "src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o -o bin/test_kv_cache  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_kv_cache.dir/__/__/tests/worker/test_kv_cache.c.o",
+    "output": "bin/test_kv_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_paged_kv"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o -MF src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o.d -o src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o -c /home/wty/Infra/tests/worker/test_paged_kv.c",
+    "file": "/home/wty/Infra/tests/worker/test_paged_kv.c",
+    "output": "src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o -o bin/test_paged_kv  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_paged_kv.dir/__/__/tests/worker/test_paged_kv.c.o",
+    "output": "bin/test_paged_kv"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_gpu_mock"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o -MF src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o.d -o src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o -c /home/wty/Infra/tests/worker/test_gpu_mock.c",
+    "file": "/home/wty/Infra/tests/worker/test_gpu_mock.c",
+    "output": "src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o -o bin/test_gpu_mock  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_gpu_mock.dir/__/__/tests/worker/test_gpu_mock.c.o",
+    "output": "bin/test_gpu_mock"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_direct_io"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o -MF src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o.d -o src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o -c /home/wty/Infra/tests/worker/test_direct_io.c",
+    "file": "/home/wty/Infra/tests/worker/test_direct_io.c",
+    "output": "src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o -o bin/test_direct_io  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_direct_io.dir/__/__/tests/worker/test_direct_io.c.o",
+    "output": "bin/test_direct_io"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_miniinfer_remote"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_HAS_RSOCKETS=1 -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o -MF src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o.d -o src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o -c /home/wty/Infra/src/worker/remote/worker.c",
+    "file": "/home/wty/Infra/src/worker/remote/worker.c",
+    "output": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_HAS_RSOCKETS=1 -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o -MF src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o.d -o src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o -c /home/wty/Infra/src/worker/remote/transfer.c",
+    "file": "/home/wty/Infra/src/worker/remote/transfer.c",
+    "output": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_HAS_RSOCKETS=1 -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o -MF src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o.d -o src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o -c /home/wty/Infra/src/worker/remote/cache.c",
+    "file": "/home/wty/Infra/src/worker/remote/cache.c",
+    "output": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_HAS_RSOCKETS=1 -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o -MF src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o.d -o src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o -c /home/wty/Infra/src/worker/remote/peer.c",
+    "file": "/home/wty/Infra/src/worker/remote/peer.c",
+    "output": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_HAS_RSOCKETS=1 -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o -MF src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o.d -o src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o -c /home/wty/Infra/src/worker/remote/prefetch.c",
+    "file": "/home/wty/Infra/src/worker/remote/prefetch.c",
+    "output": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DKVF_HAS_RSOCKETS=1 -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o -MF src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o.d -o src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o -c /home/wty/Infra/src/worker/remote/remote_sock.c",
+    "file": "/home/wty/Infra/src/worker/remote/remote_sock.c",
+    "output": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cmake -E rm -f src/worker/libminiinfer_remote.a && /usr/bin/ar qc src/worker/libminiinfer_remote.a  src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o && /usr/bin/ranlib src/worker/libminiinfer_remote.a && :",
+    "file": "src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o",
+    "output": "src/worker/libminiinfer_remote.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_miniinfer_worker"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o -MF src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o.d -o src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o -c /home/wty/Infra/src/worker/remote/cli.c",
+    "file": "/home/wty/Infra/src/worker/remote/cli.c",
+    "output": "src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o -o bin/miniinfer_worker  -Wl,-rpath,/usr/local/lib:  src/worker/libminiinfer_remote.a  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/miniinfer_worker.dir/remote/cli.c.o",
+    "output": "bin/miniinfer_worker"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_kvf_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o -MF src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o.d -o src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o -c /home/wty/Infra/tools/kvf_bench.c",
+    "file": "/home/wty/Infra/tools/kvf_bench.c",
+    "output": "src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o -MF src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o.d -o src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o -c /home/wty/Infra/tools/fixture.c",
+    "file": "/home/wty/Infra/tools/fixture.c",
+    "output": "src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/fixture.c.o -o bin/kvf_bench  -Wl,-rpath,/usr/local/lib:  src/worker/libminiinfer_remote.a  -lm  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/kvf_bench.dir/__/__/tools/kvf_bench.c.o",
+    "output": "bin/kvf_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_remote_lifecycle"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o -MF src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o.d -o src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o -c /home/wty/Infra/tests/worker/test_remote_lifecycle.c",
+    "file": "/home/wty/Infra/tests/worker/test_remote_lifecycle.c",
+    "output": "src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o -o bin/test_remote_lifecycle  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_remote_lifecycle.dir/__/__/tests/worker/test_remote_lifecycle.c.o",
+    "output": "bin/test_remote_lifecycle"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_remote_faults"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -I/home/wty/Infra/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -UNDEBUG -std=c11 -MD -MT src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o -MF src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o.d -o src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o -c /home/wty/Infra/tests/worker/test_remote_faults.c",
+    "file": "/home/wty/Infra/tests/worker/test_remote_faults.c",
+    "output": "src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o -o bin/test_remote_faults  -Wl,-rpath,/usr/local/lib  src/worker/libminiinfer_remote.a  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/worker/CMakeFiles/test_remote_faults.dir/__/__/tests/worker/test_remote_faults.c.o",
+    "output": "bin/test_remote_faults"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_remote_e2e"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc  -I/home/wty/Infra/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o -MF src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o.d -o src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o -c /home/wty/Infra/tests/worker/test_remote_e2e.c",
+    "file": "/home/wty/Infra/tests/worker/test_remote_e2e.c",
+    "output": "src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc  -I/home/wty/Infra/include -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o -MF src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o.d -o src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o -c /home/wty/Infra/tools/fixture.c",
+    "file": "/home/wty/Infra/tools/fixture.c",
+    "output": "src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cc -O3 -DNDEBUG  src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tools/fixture.c.o -o bin/test_remote_e2e  src/control/libkvfabric.a  -lm  /usr/lib/x86_64-linux-gnu/libcrypto.so && :",
+    "file": "src/worker/CMakeFiles/test_remote_e2e.dir/__/__/tests/worker/test_remote_e2e.c.o",
+    "output": "bin/test_remote_e2e"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/CMakeFiles/test.util",
+    "output": "src/worker/test"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/CMakeFiles/edit_cache.util",
+    "output": "src/worker/edit_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/CMakeFiles/rebuild_cache.util",
+    "output": "src/worker/rebuild_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/worker && /usr/bin/cmake -P cmake_install.cmake",
+    "file": "src/worker/all",
+    "output": "src/worker/CMakeFiles/install.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/CMakeFiles/install.util",
+    "output": "src/worker/install"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/worker && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake",
+    "file": "src/worker/all",
+    "output": "src/worker/CMakeFiles/install/local.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/CMakeFiles/install/local.util",
+    "output": "src/worker/install/local"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/worker && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake",
+    "file": "src/worker/all",
+    "output": "src/worker/CMakeFiles/install/strip.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/CMakeFiles/install/strip.util",
+    "output": "src/worker/install/strip"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_miniinfer_nano"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o.d -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o -c /home/wty/Infra/src/nanovllm/cache.c",
+    "file": "/home/wty/Infra/src/nanovllm/cache.c",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o.d -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o -c /home/wty/Infra/src/nanovllm/engine.c",
+    "file": "/home/wty/Infra/src/nanovllm/engine.c",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o.d -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o -c /home/wty/Infra/src/nanovllm/model.c",
+    "file": "/home/wty/Infra/src/nanovllm/model.c",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o.d -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o -c /home/wty/Infra/src/nanovllm/sampler.c",
+    "file": "/home/wty/Infra/src/nanovllm/sampler.c",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o.d -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o -c /home/wty/Infra/src/nanovllm/tokenizer.c",
+    "file": "/home/wty/Infra/src/nanovllm/tokenizer.c",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o.d -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o -c /home/wty/Infra/src/nanovllm/nano_remote_kv.c",
+    "file": "/home/wty/Infra/src/nanovllm/nano_remote_kv.c",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem=/usr/local/cuda/include -isystem=/usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG --generate-code=arch=compute_89,code=[compute_89,sm_89] -std=c++17 -MD -MT src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_cuda.cu.o -MF src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_cuda.cu.o.d -x cu -c /home/wty/Infra/src/nanovllm/nano_cuda.cu -o src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_cuda.cu.o",
+    "file": "/home/wty/Infra/src/nanovllm/nano_cuda.cu",
+    "output": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_cuda.cu.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/cmake -E rm -f src/nanovllm/libminiinfer_nano.a && /usr/bin/ar qc src/nanovllm/libminiinfer_nano.a  src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o src/nanovllm/CMakeFiles/miniinfer_nano.dir/engine.c.o src/nanovllm/CMakeFiles/miniinfer_nano.dir/model.c.o src/nanovllm/CMakeFiles/miniinfer_nano.dir/sampler.c.o src/nanovllm/CMakeFiles/miniinfer_nano.dir/tokenizer.c.o src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_remote_kv.c.o src/nanovllm/CMakeFiles/miniinfer_nano.dir/nano_cuda.cu.o && /usr/bin/ranlib src/nanovllm/libminiinfer_nano.a && :",
+    "file": "src/nanovllm/CMakeFiles/miniinfer_nano.dir/cache.c.o",
+    "output": "src/nanovllm/libminiinfer_nano.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_nanovllm"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -std=c11 -MD -MT src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o -MF src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o.d -o src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o -c /home/wty/Infra/src/nanovllm/main.c",
+    "file": "/home/wty/Infra/src/nanovllm/main.c",
+    "output": "src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -std=c11 -MD -MT src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o -MF src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o.d -o src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o -c /home/wty/Infra/src/nanovllm/cli.c",
+    "file": "/home/wty/Infra/src/nanovllm/cli.c",
+    "output": "src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o src/nanovllm/CMakeFiles/nanovllm.dir/cli.c.o -o bin/nanovllm  -Wl,-rpath,/usr/local/lib:/usr/lib/x86_64-linux-gnu/openblas-pthread:  src/nanovllm/libminiinfer_nano.a  -lm  src/worker/libminiinfer_remote.a  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblas.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/nanovllm/CMakeFiles/nanovllm.dir/main.c.o",
+    "output": "bin/nanovllm"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_test_nano_remote_worker"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -I/home/wty/Infra/src/nanovllm -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o -MF src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o.d -o src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o -c /home/wty/Infra/tests/nanovllm/remote_worker.c",
+    "file": "/home/wty/Infra/tests/nanovllm/remote_worker.c",
+    "output": "src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o -o bin/test_nano_remote_worker  -Wl,-rpath,/usr/local/lib:/usr/lib/x86_64-linux-gnu/openblas-pthread  src/nanovllm/libminiinfer_nano.a  /usr/local/cuda/lib64/libcudart.so  -lm  src/worker/libminiinfer_remote.a  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblas.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/nanovllm/CMakeFiles/test_nano_remote_worker.dir/__/__/tests/nanovllm/remote_worker.c.o",
+    "output": "bin/test_nano_remote_worker"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/CMakeFiles/test.util",
+    "output": "src/nanovllm/test"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/CMakeFiles/edit_cache.util",
+    "output": "src/nanovllm/edit_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/CMakeFiles/rebuild_cache.util",
+    "output": "src/nanovllm/rebuild_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/nanovllm && /usr/bin/cmake -P cmake_install.cmake",
+    "file": "src/nanovllm/all",
+    "output": "src/nanovllm/CMakeFiles/install.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/CMakeFiles/install.util",
+    "output": "src/nanovllm/install"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/nanovllm && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake",
+    "file": "src/nanovllm/all",
+    "output": "src/nanovllm/CMakeFiles/install/local.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/CMakeFiles/install/local.util",
+    "output": "src/nanovllm/install/local"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/nanovllm && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake",
+    "file": "src/nanovllm/all",
+    "output": "src/nanovllm/CMakeFiles/install/strip.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/CMakeFiles/install/strip.util",
+    "output": "src/nanovllm/install/strip"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_miniinfer"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o -c /home/wty/Infra/src/nanovllm/main.c",
+    "file": "/home/wty/Infra/src/nanovllm/main.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o -c /home/wty/Infra/src/nanovllm/cli.c",
+    "file": "/home/wty/Infra/src/nanovllm/cli.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o -c /home/wty/Infra/src/nanovllm/cache.c",
+    "file": "/home/wty/Infra/src/nanovllm/cache.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o -c /home/wty/Infra/src/nanovllm/engine.c",
+    "file": "/home/wty/Infra/src/nanovllm/engine.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o -c /home/wty/Infra/src/nanovllm/model.c",
+    "file": "/home/wty/Infra/src/nanovllm/model.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o -c /home/wty/Infra/src/nanovllm/sampler.c",
+    "file": "/home/wty/Infra/src/nanovllm/sampler.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o -c /home/wty/Infra/src/nanovllm/tokenizer.c",
+    "file": "/home/wty/Infra/src/nanovllm/tokenizer.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o -c /home/wty/Infra/src/nanovllm/nano_spill.c",
+    "file": "/home/wty/Infra/src/nanovllm/nano_spill.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem /usr/local/cuda/include -isystem /usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o.d -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o -c /home/wty/Infra/src/nanovllm/nano_remote_kv.c",
+    "file": "/home/wty/Infra/src/nanovllm/nano_remote_kv.c",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMINIINFER_WITH_CUDA=1 -DNANO_WITH_CUDA=1 -DNANO_WITH_REMOTE_KV=1 -DNANO_WITH_STORAGE=1 -DNV_USE_MINIINFER_CUDA_POOL=1 -DNV_USE_MINIINFER_POOL=1 -DNV_USE_OPENBLAS=1 -I/home/wty/Infra/include/nanovllm -I/home/wty/Infra/include -isystem=/usr/local/cuda/include -isystem=/usr/include/x86_64-linux-gnu/openblas-pthread -O3 -DNDEBUG --generate-code=arch=compute_89,code=[compute_89,sm_89] -std=c++17 -MD -MT src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_cuda.cu.o -MF src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_cuda.cu.o.d -x cu -c /home/wty/Infra/src/nanovllm/nano_cuda.cu -o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_cuda.cu.o",
+    "file": "/home/wty/Infra/src/nanovllm/nano_cuda.cu",
+    "output": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_cuda.cu.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cli.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/cache.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/engine.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/model.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/sampler.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/tokenizer.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_spill.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_remote_kv.c.o src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/nano_cuda.cu.o -o bin/miniinfer  -Wl,-rpath,/usr/local/lib:/usr/lib/x86_64-linux-gnu/openblas-pthread:  src/worker/libminiinfer_storage.a  -lm  src/worker/libminiinfer_remote.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblas.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/integration/CMakeFiles/miniinfer.dir/__/nanovllm/main.c.o",
+    "output": "bin/miniinfer"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvfabric",
+    "output": "cmake_object_order_depends_target_kvf_vllm"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cc -DMINIINFER_WITH_CUDA=1 -Dkvf_vllm_EXPORTS -I/home/wty/Infra/include -isystem /usr/local/cuda/targets/x86_64-linux/include -isystem /usr/local/cuda/include -O3 -DNDEBUG -fPIC -Wall -Wextra -Wpedantic -std=c11 -MD -MT src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o -MF src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o.d -o src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o -c /home/wty/Infra/src/integration/vllm_bridge.c",
+    "file": "/home/wty/Infra/src/integration/vllm_bridge.c",
+    "output": "src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMINIINFER_WITH_CUDA=1 -Dkvf_vllm_EXPORTS -I/home/wty/Infra/include -isystem=/usr/local/cuda/targets/x86_64-linux/include -isystem=/usr/local/cuda/include -O3 -DNDEBUG --generate-code=arch=compute_89,code=[compute_89,sm_89] -Xcompiler=-fPIC -lineinfo -std=c++17 -MD -MT src/integration/CMakeFiles/kvf_vllm.dir/vllm_kv_cuda.cu.o -MF src/integration/CMakeFiles/kvf_vllm.dir/vllm_kv_cuda.cu.o.d -x cu -c /home/wty/Infra/src/integration/vllm_kv_cuda.cu -o src/integration/CMakeFiles/kvf_vllm.dir/vllm_kv_cuda.cu.o",
+    "file": "/home/wty/Infra/src/integration/vllm_kv_cuda.cu",
+    "output": "src/integration/CMakeFiles/kvf_vllm.dir/vllm_kv_cuda.cu.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++ -fPIC  -shared -Wl,-soname,libkvf_vllm.so -o src/integration/libkvf_vllm.so src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o src/integration/CMakeFiles/kvf_vllm.dir/vllm_kv_cuda.cu.o  -Wl,-rpath,/usr/local/lib:  src/worker/libminiinfer_remote.a  src/worker/libminiinfer_storage.a  src/control/libkvfabric.a  /usr/lib/x86_64-linux-gnu/libcrypto.so  /usr/local/lib/liburing.so  /usr/local/cuda/lib64/libcudart.so  -ldl  /usr/lib/x86_64-linux-gnu/librdmacm.so  /usr/lib/x86_64-linux-gnu/libibverbs.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/integration/CMakeFiles/kvf_vllm.dir/vllm_bridge.c.o",
+    "output": "src/integration/libkvf_vllm.so"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "cmake_object_order_depends_target_kvf_vllm",
+    "output": "cmake_object_order_depends_target_kvf_cuda_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  -I/home/wty/Infra/include -isystem=/usr/local/cuda/include -O3 -DNDEBUG --generate-code=arch=compute_89,code=[compute_89,sm_89] -std=c++17 -MD -MT src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o -MF src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o.d -x cu -c /home/wty/Infra/tools/kvf_cuda_bench.cu -o src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o",
+    "file": "/home/wty/Infra/tools/kvf_cuda_bench.cu",
+    "output": "src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": ": && /usr/bin/g++  src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o -o bin/kvf_cuda_bench  -Wl,-rpath,/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration  src/integration/libkvf_vllm.so  /usr/local/cuda/lib64/libcudart.so  -lcudadevrt  -lcudart_static  -lrt  -lpthread  -ldl -L\"/usr/local/cuda/targets/x86_64-linux/lib/stubs\" -L\"/usr/local/cuda/targets/x86_64-linux/lib\" && :",
+    "file": "src/integration/CMakeFiles/kvf_cuda_bench.dir/__/__/tools/kvf_cuda_bench.cu.o",
+    "output": "bin/kvf_cuda_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/CMakeFiles/test.util",
+    "output": "src/integration/test"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/CMakeFiles/edit_cache.util",
+    "output": "src/integration/edit_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/CMakeFiles/rebuild_cache.util",
+    "output": "src/integration/rebuild_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration && /usr/bin/cmake -P cmake_install.cmake",
+    "file": "src/integration/all",
+    "output": "src/integration/CMakeFiles/install.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/CMakeFiles/install.util",
+    "output": "src/integration/install"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake",
+    "file": "src/integration/all",
+    "output": "src/integration/CMakeFiles/install/local.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/CMakeFiles/install/local.util",
+    "output": "src/integration/install/local"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "cd /home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake",
+    "file": "src/integration/all",
+    "output": "src/integration/CMakeFiles/install/strip.util"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/CMakeFiles/install/strip.util",
+    "output": "src/integration/install/strip"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/kvf_bench",
+    "output": "kvf_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/kvf_cuda_bench",
+    "output": "kvf_cuda_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/kvf_nvme_recovery_bench",
+    "output": "kvf_nvme_recovery_bench"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/libkvf_vllm.so",
+    "output": "kvf_vllm"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/libkvfabric.a",
+    "output": "kvfabric"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/kvfabricd",
+    "output": "kvfabricd"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/kvfctl",
+    "output": "kvfctl"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/integration/libkvf_vllm.so",
+    "output": "libkvf_vllm.so"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/libkvfabric.a",
+    "output": "libkvfabric.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/libminiinfer_nano.a",
+    "output": "libminiinfer_nano.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/libminiinfer_remote.a",
+    "output": "libminiinfer_remote.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/libminiinfer_storage.a",
+    "output": "libminiinfer_storage.a"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/miniinfer",
+    "output": "miniinfer"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/miniinfer_basic",
+    "output": "miniinfer_basic"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/libminiinfer_nano.a",
+    "output": "miniinfer_nano"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/libminiinfer_remote.a",
+    "output": "miniinfer_remote"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/libminiinfer_storage.a",
+    "output": "miniinfer_storage"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/miniinfer_worker",
+    "output": "miniinfer_worker"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/nanovllm",
+    "output": "nanovllm"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_direct_io",
+    "output": "test_direct_io"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_gpu_mock",
+    "output": "test_gpu_mock"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_graph",
+    "output": "test_graph"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_kv_cache",
+    "output": "test_kv_cache"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_kvf_directory",
+    "output": "test_kvf_directory"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_kvf_protocol",
+    "output": "test_kvf_protocol"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_nano_remote_worker",
+    "output": "test_nano_remote_worker"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_paged_kv",
+    "output": "test_paged_kv"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_pool",
+    "output": "test_pool"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_remote_e2e",
+    "output": "test_remote_e2e"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_remote_faults",
+    "output": "test_remote_faults"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_remote_lifecycle",
+    "output": "test_remote_lifecycle"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/test_tiered",
+    "output": "test_tiered"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/all",
+    "output": "all"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/control/libkvfabric.a",
+    "output": "src/control/all"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "bin/miniinfer",
+    "output": "src/integration/all"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/nanovllm/libminiinfer_nano.a",
+    "output": "src/nanovllm/all"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "",
+    "file": "src/worker/libminiinfer_storage.a",
+    "output": "src/worker/all"
+  },
+  {
+    "directory": "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "command": "/usr/bin/cmake --regenerate-during-build -S/home/wty/Infra -B/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring",
+    "file": "../../../../CMakeLists.txt",
+    "output": "build.ninja"
+  }
+]

@@ -1,0 +1,582 @@
+{"event": "backend", "tier": "cpu", "io_mode": "cpu"}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-91f3cce60345a250-0-8a41ffdb", "first": 0, "tokens": 64}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-91f3cce60345a250-0-8a41ffdb", "tokens": 64}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-91f3cce60345a250-0-8a41ffdb", "first": 0, "tokens": 64}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "first": 0, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "first": 128, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "first": 0, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-89d591f703fb3abe-0-af62087a", "first": 128, "tokens": 2048}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "first": 256, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "first": 384, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "first": 256, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-85cb5d0555ce3593-0-baac54c9", "first": 384, "tokens": 2048}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "first": 256, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "first": 384, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "first": 256, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-96f2f62a3a1932f2-0-9337b0c3", "first": 384, "tokens": 2048}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "first": 256, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "first": 384, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "first": 256, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-9dd156390dc7180e-0-a7f01f2f", "first": 384, "tokens": 2048}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "first": 256, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "first": 384, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "first": 256, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a03f458c5540ea29-0-bafe2352", "first": 384, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b77d360e6c073666-0-88643ac9", "first": 511, "tokens": 16}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "first": 256, "tokens": 2048}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "first": 384, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "first": 256, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a0963f555b546442-0-923da8de", "first": 384, "tokens": 2048}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "first": 256, "tokens": 2032}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-b38ba73b149fd11e-0-927b877f", "first": 511, "tokens": 16}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "first": 256, "tokens": 2032}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-818422260f5866e7-0-a80b5b12", "first": 511, "tokens": 16}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "first": 256, "tokens": 2032}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-96686a15d97f2445-0-a0a82cc9", "first": 511, "tokens": 16}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "first": 256, "tokens": 2032}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "first": 256, "tokens": 2032}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-897db74f57f22454-0-939e36cf", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 4096, "blocks_checked": 0}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-87b8cfd8e213ad20-0-936aab3b", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-87b8cfd8e213ad20-0-936aab3b", "reason": "staging busy"}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-87b8cfd8e213ad20-0-936aab3b", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-87b8cfd8e213ad20-0-936aab3b", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-a9d5c8cbba75d4b1-0-8204ef3f", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-a9d5c8cbba75d4b1-0-8204ef3f", "reason": "staging busy"}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-a9d5c8cbba75d4b1-0-8204ef3f", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-a9d5c8cbba75d4b1-0-8204ef3f", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-8e47c7d35d45bfe1-0-9c0e8cbc", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "first": 256, "tokens": 2032}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "first": 256, "tokens": 2032}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-8a5c556a477e5f52-0-aaba6989", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-8a5c556a477e5f52-0-aaba6989", "reason": "staging busy"}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-8a5c556a477e5f52-0-aaba6989", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "tokens": 128}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-bd68339c5169915c-0-82b384b1", "first": 383, "tokens": 2048}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-87b8cfd8e213ad20-0-936aab3b", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-87b8cfd8e213ad20-0-936aab3b", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-8a5c556a477e5f52-0-aaba6989", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "hit", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 4096, "blocks_checked": 0}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "first": 256, "tokens": 2032}
+{"event": "save_skipped", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "reason": "staging busy"}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-9866d154dba49b1d-0-88043ad6", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "save_queued", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-a7b777fdcbf36791-0-8fc95218", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-8a5c556a477e5f52-0-aaba6989", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-8a5c556a477e5f52-0-aaba6989", "first": 511, "tokens": 16}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 128}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 112}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "first": 256, "tokens": 2032}
+{"event": "stored", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "tokens": 16}
+{"event": "save_complete", "tier": "cpu", "request_id": "cmpl-976947658b731147-0-b961490b", "first": 511, "tokens": 16}

@@ -23,3 +23,14 @@ CMakeLists.txt text eol=lf
 
 # Vendored archives must never be line-ending normalized.
 *.gz binary
+
+# Audit evidence hashes refer to exact captured bytes, including CSV/patch CRLF.
+docs/benchmarks/audit-2026-11-26/** -text
+
+# Benchmark evidence hashes refer to original captured bytes.
+docs/benchmarks/** -text
+
+*.cu text eol=lf
+
+# Last rule wins: captured source snapshots must retain original CRLF bytes too.
+docs/benchmarks/** -text

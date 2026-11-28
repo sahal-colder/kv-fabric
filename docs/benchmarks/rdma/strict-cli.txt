@@ -1,0 +1,49 @@
+miniinfer stories15M.bin --ids --trace (TCP and strict RDMA against independent publishers)
+
+cpu, tcp, 20 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 2178 278 916 15006
+request=0 ttft_ns=30855511 dir_lookup_ns=911413 conn_acquire_ns=42767 net_recv_ns=3652946 crc_verify_ns=155671 cpu_stage_ns=315717 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=8865 sched_resume_ns=52627 first_decode_ns=8258276 prefetch_queue_ns=21690 lease_check_ns=583221 received_bytes=276480 data_requests=1
+active_transport: TCP
+remote_lookup_requests=1 remote_lookup_hits=5 remote_hit_pages=5 remote_hit_tokens=20 remote_import_bytes=276480 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=20 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=191761 remote_transfer_samples=5 remote_published_pages=1 active_transport=TCP
+
+cpu, rdma, 20 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 2178 278 916 15006
+request=0 ttft_ns=37037453 dir_lookup_ns=1333245 conn_acquire_ns=2005248 net_recv_ns=2983418 crc_verify_ns=254599 cpu_stage_ns=506326 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=11907 sched_resume_ns=36437 first_decode_ns=10457404 prefetch_queue_ns=36092 lease_check_ns=619401 received_bytes=276480 data_requests=1
+active_transport: RDMA_RSOCKET
+remote_lookup_requests=1 remote_lookup_hits=5 remote_hit_pages=5 remote_hit_tokens=20 remote_import_bytes=276480 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=20 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=283329 remote_transfer_samples=5 remote_published_pages=1 active_transport=RDMA_RSOCKET
+
+cpu, tcp, 120 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 450 4996 1701 29916
+request=0 ttft_ns=60618949 dir_lookup_ns=3406070 conn_acquire_ns=76658 net_recv_ns=6837581 crc_verify_ns=324459 cpu_stage_ns=2596936 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=57838 sched_resume_ns=45430 first_decode_ns=9888623 prefetch_queue_ns=58834 lease_check_ns=2632410 received_bytes=1658880 data_requests=4
+active_transport: TCP
+remote_lookup_requests=4 remote_lookup_hits=30 remote_hit_pages=30 remote_hit_tokens=120 remote_import_bytes=1658880 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=120 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=1550565 remote_transfer_samples=30 remote_published_pages=1 active_transport=TCP
+
+cpu, rdma, 120 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 450 4996 1701 29916
+request=0 ttft_ns=68341900 dir_lookup_ns=3920060 conn_acquire_ns=2181490 net_recv_ns=10553641 crc_verify_ns=303619 cpu_stage_ns=2648358 cuda_h2d_ns=0 cuda_sync_ns=0 kv_commit_ns=67749 sched_resume_ns=33772 first_decode_ns=10914564 prefetch_queue_ns=38565 lease_check_ns=3275028 received_bytes=1658880 data_requests=4
+active_transport: RDMA_RSOCKET
+remote_lookup_requests=4 remote_lookup_hits=30 remote_hit_pages=30 remote_hit_tokens=120 remote_import_bytes=1658880 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=120 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=1509754 remote_transfer_samples=30 remote_published_pages=1 active_transport=RDMA_RSOCKET
+
+cuda, tcp, 20 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 2178 278 916 15006
+request=0 ttft_ns=11604549 dir_lookup_ns=924093 conn_acquire_ns=59398 net_recv_ns=1704907 crc_verify_ns=367791 cpu_stage_ns=262075 cuda_h2d_ns=88113 cuda_sync_ns=41462 kv_commit_ns=53287 sched_resume_ns=54663 first_decode_ns=4928175 prefetch_queue_ns=91362 lease_check_ns=827201 received_bytes=276480 data_requests=1
+active_transport: TCP
+remote_lookup_requests=1 remote_lookup_hits=5 remote_hit_pages=5 remote_hit_tokens=20 remote_import_bytes=276480 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=20 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=295175 remote_transfer_samples=5 remote_published_pages=1 active_transport=TCP
+
+cuda, rdma, 20 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 2178 278 916 15006
+request=0 ttft_ns=14346096 dir_lookup_ns=796548 conn_acquire_ns=1727395 net_recv_ns=2962194 crc_verify_ns=171993 cpu_stage_ns=351770 cuda_h2d_ns=133306 cuda_sync_ns=38897 kv_commit_ns=15042 sched_resume_ns=87059 first_decode_ns=5057117 prefetch_queue_ns=70397 lease_check_ns=589583 received_bytes=276480 data_requests=1
+active_transport: RDMA_RSOCKET
+remote_lookup_requests=1 remote_lookup_hits=5 remote_hit_pages=5 remote_hit_tokens=20 remote_import_bytes=276480 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=20 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=343135 remote_transfer_samples=5 remote_published_pages=1 active_transport=RDMA_RSOCKET
+
+cuda, tcp, 120 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 450 4996 1701 29916
+request=0 ttft_ns=39460547 dir_lookup_ns=3409229 conn_acquire_ns=84880 net_recv_ns=6018669 crc_verify_ns=302709 cpu_stage_ns=1461407 cuda_h2d_ns=105471 cuda_sync_ns=132600 kv_commit_ns=65110 sched_resume_ns=67930 first_decode_ns=5874717 prefetch_queue_ns=78894 lease_check_ns=2636623 received_bytes=1658880 data_requests=4
+active_transport: TCP
+remote_lookup_requests=4 remote_lookup_hits=30 remote_hit_pages=30 remote_hit_tokens=120 remote_import_bytes=1658880 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=120 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=1443669 remote_transfer_samples=30 remote_published_pages=1 active_transport=TCP
+
+cuda, rdma, 120 remotely reused tokens
+stdout (identical to --no-cache): [0] 297 278 4799 29889 450 4996 1701 29916
+request=0 ttft_ns=46466093 dir_lookup_ns=3159164 conn_acquire_ns=1757465 net_recv_ns=10520071 crc_verify_ns=315083 cpu_stage_ns=1769832 cuda_h2d_ns=112364 cuda_sync_ns=69768 kv_commit_ns=65915 sched_resume_ns=93763 first_decode_ns=5624987 prefetch_queue_ns=88116 lease_check_ns=2337880 received_bytes=1658880 data_requests=4
+active_transport: RDMA_RSOCKET
+remote_lookup_requests=4 remote_lookup_hits=30 remote_hit_pages=30 remote_hit_tokens=120 remote_import_bytes=1658880 remote_prefetch_requests=1 remote_prefetch_failures=0 remote_prefetch_cancelled=0 remote_admission_skips=0 remote_publish_retries=0 remote_publish_failures=0 remote_prefill_skipped_tokens=120 remote_prefill_fallbacks=0 remote_cache_evictions=0 remote_transfer_latency_ns=1749533 remote_transfer_samples=30 remote_published_pages=1 active_transport=RDMA_RSOCKET

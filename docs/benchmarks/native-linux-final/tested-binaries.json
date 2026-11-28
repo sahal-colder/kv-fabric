@@ -1,0 +1,34 @@
+{
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvfabricd": {
+    "sha256": "5e6d1cb553970092ac4ef5ca7ae64dbdea03435e87e2cb4168316aef4a00a481",
+    "bytes": 72376
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_cuda_bench": {
+    "sha256": "285d00c65d773cd7e7df83420ac2f1f8ec75f98b98d71456202c10240a796a3f",
+    "bytes": 36288
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/bin/kvf_nvme_recovery_bench": {
+    "sha256": "0ae6826e2c08b684b3579333592c1c940a87698912429176beabff8c7ee1ac93",
+    "bytes": 109736
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-uring/src/integration/libkvf_vllm.so": {
+    "sha256": "7230910ebe7f538f2d2b767d51421b0143b0a972fe5bf92367cf0149ba5c9017",
+    "bytes": 269376
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix/bin/kvfabricd": {
+    "sha256": "5e6d1cb553970092ac4ef5ca7ae64dbdea03435e87e2cb4168316aef4a00a481",
+    "bytes": 72376
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix/bin/kvf_cuda_bench": {
+    "sha256": "0a5bf9343cc1e41907ffb8bacd570d47f644234d0393bf42e4e2a47fc36bdcb6",
+    "bytes": 36288
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix/bin/kvf_nvme_recovery_bench": {
+    "sha256": "fc79f31343193e1911006806612816dd02f645cb9960c2db1c7aef7043429388",
+    "bytes": 105088
+  },
+  "/home/wty/Infra/.kvfabric-local/native-linux-final/20261125T153218+0800/build-cuda-posix/src/integration/libkvf_vllm.so": {
+    "sha256": "519705d4888c2a598683748bbd3f0f8d4505140bfd425b7a386c6e96cf31872b",
+    "bytes": 264624
+  }
+}

@@ -24,7 +24,8 @@ if [[ $mode == bench ]]; then
     if "$ncu" --kernel-name "regex:${kernel}_kv_pages" --launch-count 1 \
         --section SpeedOfLight --section Occupancy \
         --section MemoryWorkloadAnalysis --section MemoryWorkloadAnalysis_Tables \
-        --metrics dram__bytes.sum.per_second \
+        --clock-control base \
+        --metrics dram__bytes.sum.per_second,dram__bytes_read.sum,dram__bytes_write.sum,dram__cycles_elapsed.avg.per_second,gpu__time_duration.sum,l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum \
         --force-overwrite -o "$report" "$bench" vector >"$report.log" 2>&1; then
       if [[ "$report.ncu-repz" -nt "$report.ncu-rep" ]]; then
         report="$report.ncu-repz"

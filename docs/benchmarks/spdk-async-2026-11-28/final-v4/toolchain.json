@@ -1,0 +1,87 @@
+{
+  "compiler": {
+    "argv": [
+      "cc",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "cc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "stderr": ""
+  },
+  "cmake": {
+    "argv": [
+      "cmake",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "cmake version 3.22.1\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).\n",
+    "stderr": ""
+  },
+  "cuda": {
+    "argv": [
+      "/usr/local/cuda/bin/nvcc",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Tue_Sep_01_08:45:21_PDT_2026\nCuda compilation tools, release 13.4, V13.4.92\nBuild cuda_13.4.r13.4/compiler.38855100_0\n",
+    "stderr": ""
+  },
+  "nsight": {
+    "argv": [
+      "nsys",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "NVIDIA Nsight Systems version 2026.3.2.476-263238834031v0\n",
+    "stderr": ""
+  },
+  "liburing": {
+    "argv": [
+      "pkg-config",
+      "--modversion",
+      "liburing"
+    ],
+    "returncode": 0,
+    "stdout": "2.9\n",
+    "stderr": ""
+  },
+  "spdk": {
+    "argv": [
+      "pkg-config",
+      "--modversion",
+      "spdk_event"
+    ],
+    "returncode": 0,
+    "stdout": "16.0\n",
+    "stderr": "",
+    "pkg_config_version_is_library_abi": true
+  },
+  "cpu_topology": {
+    "argv": [
+      "lscpu",
+      "-e=CPU,CORE,SOCKET,NODE,ONLINE"
+    ],
+    "returncode": 0,
+    "stdout": "CPU CORE SOCKET NODE ONLINE\n  0    0      0    0     \u662f\n  1    0      0    0     \u662f\n  2    1      0    0     \u662f\n  3    1      0    0     \u662f\n  4    2      0    0     \u662f\n  5    2      0    0     \u662f\n  6    3      0    0     \u662f\n  7    3      0    0     \u662f\n  8    4      0    0     \u662f\n  9    4      0    0     \u662f\n 10    5      0    0     \u662f\n 11    5      0    0     \u662f\n 12    6      0    0     \u662f\n 13    7      0    0     \u662f\n 14    8      0    0     \u662f\n 15    9      0    0     \u662f\n 16   10      0    0     \u662f\n 17   11      0    0     \u662f\n 18   12      0    0     \u662f\n 19   13      0    0     \u662f\n",
+    "stderr": ""
+  },
+  "git_head": {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "760190f5d2ab839f51290a85030359a7b538e2a5\n",
+    "stderr": ""
+  },
+  "file_inventory": "task-files.json",
+  "network_sources_unchanged": true,
+  "spdk_source_version": {
+    "MAJOR": "27",
+    "MINOR": "1",
+    "PATCH": "0",
+    "SUFFIX": "\"-pre\""
+  },
+  "spdk_runtime_log_version": "v27.01-pre git sha1 4828014 / DPDK 25.11.0"
+}

@@ -1,0 +1,52 @@
+[  8%] Built target kvfabric
+Consolidate compiler generated dependencies of target miniinfer_storage
+[ 11%] Built target test_remote_e2e
+[ 15%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[ 15%] Built target test_kvf_directory
+[ 16%] Building C object src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 18%] Built target test_kvf_protocol
+[ 21%] Built target kvfabricd
+[ 23%] Built target kvfctl
+[ 24%] Linking C static library libminiinfer_storage.a
+[ 34%] Built target miniinfer_storage
+[ 37%] Linking C executable ../../bin/test_tiered
+[ 37%] Linking C executable ../../bin/miniinfer_basic
+[ 37%] Linking C executable ../../bin/test_kv_cache
+[ 38%] Linking C executable ../../bin/test_paged_kv
+[ 40%] Linking C executable ../../bin/test_allocator_faults
+[ 41%] Linking C executable ../../bin/test_pool
+[ 43%] Linking C executable ../../bin/test_graph
+[ 43%] Linking C executable ../../bin/test_gpu_mock
+[ 44%] Built target test_paged_kv
+[ 45%] Built target miniinfer_basic
+[ 47%] Built target test_graph
+[ 47%] Built target test_allocator_faults
+[ 48%] Built target test_gpu_mock
+[ 49%] Built target test_pool
+[ 51%] Linking C executable ../../bin/test_device_boundaries
+[ 51%] Built target test_kv_cache
+[ 52%] Built target test_tiered
+[ 53%] Building C object src/worker/CMakeFiles/test_storage_audit.dir/__/__/tests/worker/test_storage_audit.c.o
+[ 54%] Linking C executable ../../bin/test_direct_io
+[ 57%] Linking C executable ../../bin/test_remote_lifecycle
+[ 63%] Built target miniinfer_remote
+[ 64%] Linking C executable ../../bin/kvf_bench
+[ 65%] Linking C executable ../../bin/test_remote_audit
+[ 68%] Built target test_device_boundaries
+[ 68%] Linking C executable ../../bin/test_remote_faults
+[ 68%] Linking C executable ../../bin/miniinfer_worker
+[ 69%] Built target test_direct_io
+[ 76%] Built target miniinfer_nano
+[ 77%] Built target test_remote_lifecycle
+[ 78%] Linking C executable ../../bin/miniinfer
+[ 80%] Linking C executable ../../bin/nanovllm
+[ 81%] Linking C executable ../../bin/test_nano_remote_worker
+[ 82%] Linking C executable ../../bin/test_storage_audit
+[ 83%] Built target test_remote_audit
+[ 84%] Built target test_remote_faults
+[ 86%] Built target kvf_bench
+[ 87%] Built target miniinfer_worker
+[ 87%] Built target test_storage_audit
+[ 96%] Built target miniinfer
+[ 97%] Built target test_nano_remote_worker
+[100%] Built target nanovllm

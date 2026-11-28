@@ -20,7 +20,7 @@ typedef struct mi_storage_config {
     size_t gpu_bytes;
     /* SSD 层预算，包含记录头与对齐开销。 */
     size_t ssd_bytes;
-    /* 排队和执行中的异步迁移总数上限。 */
+    /* 同时执行的迁移上限（同步调用也计入）；待执行队列容量为该值的两倍。 */
     size_t max_async_migrations;
     /* 块从 SSD 迁回内存后，保留 SSD 副本。 */
     int retain_ssd_copy;
@@ -56,6 +56,10 @@ typedef struct mi_lease {
 } mi_lease;
 
 typedef struct mi_migration_ticket mi_migration_ticket;
+typedef struct mi_migration_stats {
+    size_t concurrency, running, max_running, queue_capacity, queued;
+} mi_migration_stats;
+void mi_storage_migration_stats(mi_tiered_storage *storage, mi_migration_stats *out);
 
 /* 填入默认块大小与容量配置。 */
 void mi_storage_config_default(mi_storage_config *config);
@@ -88,7 +92,7 @@ mi_status mi_storage_metadata(mi_tiered_storage *storage, mi_block_id id,
 /* 将块迁到目标层，保留逻辑 ID 和数据版本。 */
 mi_status mi_storage_migrate(mi_tiered_storage *storage, mi_block_id id, mi_location target);
 
-/* 顺序迁移各块，逐项写入 results，并返回首个错误。 */
+/* 有界并行迁移各块，逐项写入 results，并返回首个错误。 */
 mi_status mi_storage_migrate_batch(mi_tiered_storage *storage, const mi_block_id *ids,
                                    size_t count, mi_location target, mi_status *results);
 
@@ -97,6 +101,8 @@ mi_status mi_storage_migrate_async(mi_tiered_storage *storage, mi_block_id id,
                                    mi_location target, mi_migration_ticket **out);
 /* 等待票据完成并返回迁移结果。 */
 mi_status mi_migration_wait(mi_migration_ticket *ticket);
+/* Cooperative cancellation: wait still required; an already committed move may succeed. */
+void mi_migration_cancel(mi_migration_ticket *ticket);
 /* 释放调用方持有的票据引用。 */
 void mi_migration_ticket_destroy(mi_migration_ticket *ticket);
 

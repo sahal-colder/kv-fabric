@@ -1,0 +1,6 @@
+snapshot replace: Input/output error
+SNAPSHOT_RESP_PASS
+network framing, pipeline, concurrency, slow reader and shutdown: PASS (proactor)
+AOF crash restart, incomplete tail, bad replay and short write: PASS
+internal snapshot short write, atomic replacement, truncation and CRC: PASS
+replica full resync and offline AOF restart: PASS

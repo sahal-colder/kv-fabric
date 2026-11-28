@@ -22,7 +22,9 @@ def main():
     parser.add_argument("out", type=Path)
     parser.add_argument("--profile", action="store_true")
     parser.add_argument("--reference", type=Path, help="same workload from the recompute mode")
-    parser.add_argument("--requests", type=int, choices=(2, 3, 4), default=2)
+    parser.add_argument("--requests", type=int, default=2)
+    parser.add_argument("--disk-dir", type=Path, help="profile the physical file-backed NVMe tier")
+    parser.add_argument("--io-depth", type=int, default=4)
     parser.add_argument("--warmup-requests", type=int, default=5,
                         help="full-length warmups; five fill the bounded 1.5GiB external cache")
     args = parser.parse_args()
@@ -47,6 +49,8 @@ def main():
         config = dict(library=str((args.build / "src/integration/libkvf_vllm.so").resolve()),
                       control=ctl, cache_pages=2730, load_timeout_ms=30000,
                       metrics_file=str(events_path), cuda_batch=args.mode == "optimized")
+        if args.disk_dir:
+            config.update(disk_dir=str(args.disk_dir.resolve()), io_depth=args.io_depth)
         options = ["--no-enable-prefix-caching"]
         if args.mode != "recompute":
             options += kvfabric_config(config)

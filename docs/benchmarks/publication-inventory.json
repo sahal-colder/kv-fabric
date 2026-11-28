@@ -1,0 +1,340 @@
+{
+  "repository": "sahal-colder/kv-fabric",
+  "branch": "codex/spdk-async-io-20261128",
+  "release_tag": "spdk-async-io-20261128",
+  "reports": [
+    {
+      "path": "docs/KV-FABRIC-AUDIT-REMEDIATION.md",
+      "bytes": 45695,
+      "sha256": "574a607398d24beb9a3b1ffd8faef3316dbc9988663fed9575042f633beccabf"
+    },
+    {
+      "path": "docs/KV-FABRIC-CODE-AUDIT.md",
+      "bytes": 15441,
+      "sha256": "ab61f5acb1144fc952a449f926757fe499871aa7df33dadbd8c4852eb1d2b0fa"
+    },
+    {
+      "path": "docs/KV-FABRIC-IMPLEMENTATION-REPORT.md",
+      "bytes": 11622,
+      "sha256": "266c25922b2ee3ef752e67386cf5dc035c9130a55def10c9897a3d709660fbbc"
+    },
+    {
+      "path": "docs/KV-FABRIC-RDMA-INTEGRATION.md",
+      "bytes": 12472,
+      "sha256": "4ec9dba9c43e109a71fe290211dd48f3c37dadfea72e40c39e7c6e3135f89184"
+    },
+    {
+      "path": "docs/KV-FABRIC-REFACTOR-REPORT.md",
+      "bytes": 9045,
+      "sha256": "0ea8c3b1ab39a9224ae7a199b3f281b18dd43db46ec04d2d207ce63a85bf191e"
+    },
+    {
+      "path": "docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md",
+      "bytes": 10067,
+      "sha256": "f48f6a98d57d7c3c44fdaa63c749a2802853f5655987533f9c763c8d5ba04835"
+    },
+    {
+      "path": "docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md",
+      "bytes": 12283,
+      "sha256": "83eff5752283d89fef36d229b56f2df39d9a72f06d3d54c45245839dbd0b9acf"
+    },
+    {
+      "path": "docs/KV-FABRIC-VALIDATION-REPORT.md",
+      "bytes": 29514,
+      "sha256": "ef08c922d809d431cfac17aabdae747d9c1184f002aa5afe02093e340005ef98"
+    },
+    {
+      "path": "docs/NANOVLLM-REMOTE-KV-INTEGRATION.md",
+      "bytes": 18568,
+      "sha256": "42c20d0ab413dd02b949037a76771628245e9813570e454d95a62652c856b40f"
+    },
+    {
+      "path": "docs/PERFORMANCE-ATTRIBUTION-AUDIT.md",
+      "bytes": 19945,
+      "sha256": "06514aca3e5ba997349e9021326ee2c77fa92cf4c58301d8efc654d765a0f1ae"
+    },
+    {
+      "path": "docs/PERFORMANCE-REPORTS.md",
+      "bytes": 4943,
+      "sha256": "93d09f005f1b1c3ce2610ce78012c5f00c70fc77010e3b1075e1bb3165e7d088"
+    },
+    {
+      "path": "docs/PROJECT-DELIVERY.md",
+      "bytes": 5851,
+      "sha256": "07d0b2e396eb161b9d71820d9748ac278d37691f58f62e61c9709f9b8a3e5946"
+    },
+    {
+      "path": "docs/RDMA-CROSS-INSTANCE-AUDIT.md",
+      "bytes": 16738,
+      "sha256": "254ef21265dd54c209bb54d13d12f116b68d0c8e996c8a683bba8fdf3fb0a014"
+    },
+    {
+      "path": "docs/READING-GUIDE.md",
+      "bytes": 7052,
+      "sha256": "cb0a6731144dbc3ad6f3caa4ec2a9fb89efb9b5d4279d67cdbc29686e10a91c4"
+    },
+    {
+      "path": "docs/README-VISUALS.md",
+      "bytes": 2979,
+      "sha256": "2e9a5771cd74ebd324c010b6ab70d7c4b6fe3ff6b9794c18bdfd094d8bb81720"
+    },
+    {
+      "path": "docs/SPDK-ASYNC-IO-AUDIT.md",
+      "bytes": 4817,
+      "sha256": "fa3af483cfdbf302133d3696c133cb6beb026b0d07579a98ef0786b8bc2d8d1b"
+    },
+    {
+      "path": "docs/SPDK-ASYNC-IO-BENCHMARK.md",
+      "bytes": 14455,
+      "sha256": "ddaf9882ce98bd81777f4fe13c77a83c033d158ce031e7a481a566d8a7cde307"
+    },
+    {
+      "path": "docs/SPDK-ASYNC-IO-DESIGN.md",
+      "bytes": 5694,
+      "sha256": "54a506fa2e6457916a014dfee1def5f4e985507bfa9e18aab36797d99a4bdb86"
+    },
+    {
+      "path": "docs/SPDK-ASYNC-IO-IMPLEMENTATION.md",
+      "bytes": 14106,
+      "sha256": "d066cbd43197e8f0bfd9c7d9df0380364137ae3d6bddb44915b67766cf9964f8"
+    },
+    {
+      "path": "docs/SPDK-IOURING-COMPARISON.md",
+      "bytes": 21906,
+      "sha256": "19867453a48df9567c7589ead1e8b88375c244d07b56e3fb4c80ab24501ef38f"
+    },
+    {
+      "path": "docs/SPDK-NVME-VALIDATION.md",
+      "bytes": 6858,
+      "sha256": "37f0c65715f1e5af462a986f0a9b81a93e65c72fdc30b0fd8d215be33385f1b8"
+    },
+    {
+      "path": "docs/SPDK-PIPELINE-OPTIMIZATION.md",
+      "bytes": 11863,
+      "sha256": "5d1fe9cbde9a3422fe1739fe81f18f9e91e9fd45644bbf9d7aafb443f9bceac5"
+    },
+    {
+      "path": "docs/benchmarks/audit-2026-11-26/README.md",
+      "bytes": 5165,
+      "sha256": "8b56abc1ff2e1a0e1c3b02cfb266102755b25b20ce8fd1e741abfcdb24ca9f06"
+    },
+    {
+      "path": "docs/benchmarks/kvf-ultimate-comparison.md",
+      "bytes": 4208,
+      "sha256": "2656237914b6fed11680a850e9ba07942d2e48d7ee3bc7c544b8b9f6fafd76bd"
+    },
+    {
+      "path": "docs/benchmarks/native-linux-final/README.md",
+      "bytes": 8864,
+      "sha256": "81b81beb4ff469eba663b25be6c020b8b896d343c0f72205bb86a1e02d6f786d"
+    },
+    {
+      "path": "docs/benchmarks/native-linux-final/prior-unverified-20261125T153218+0800/interview_prep_kv_fabric.md",
+      "bytes": 2426,
+      "sha256": "e9ec94d4a9d1fb5825321d1b2a2041f8082a3f20d6666f93f3c4e186164725df"
+    },
+    {
+      "path": "docs/benchmarks/published-validation/README.md",
+      "bytes": 2625,
+      "sha256": "eda817e2cad95cb88db61ba066095f4176cd82b231512d453a51b9c35526f2d5"
+    },
+    {
+      "path": "docs/benchmarks/resume-eval/README.md",
+      "bytes": 7834,
+      "sha256": "db19b5ab1911d97f621b095d761cc7f74d5289e3c204d1136684970e9072d691"
+    },
+    {
+      "path": "docs/benchmarks/resume-eval/REPRODUCE.md",
+      "bytes": 57767,
+      "sha256": "fded1a92d7128f6187dcaa26fd51b155e2cee260508f075ce4703a60b50b7010"
+    },
+    {
+      "path": "docs/benchmarks/spdk-nvme-2026-11-28/README.md",
+      "bytes": 2127,
+      "sha256": "27df2400e83e8f6533fc15ce58da40d345bbd894f71027d614fc6c56de31b865"
+    },
+    {
+      "path": "docs/benchmarks/spdk-pipeline-2026-11-28/README.md",
+      "bytes": 1028,
+      "sha256": "7cb2a7b61901e3ae4321ebbb2545b6db58cc1247e828394b08b31ef33648eb55"
+    },
+    {
+      "path": "docs/benchmarks/spdk-uring-2026-11-28/README.md",
+      "bytes": 1392,
+      "sha256": "116ce0f9eeb4f66614b0351bd94018ef9ca99c27fc6679b1f7ee599638df1886"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-AUDIT-REMEDIATION.md",
+      "bytes": 3602,
+      "sha256": "50ae4b7e07a5e5ac2a5355eaf84caf0a235cfc77612739d9da9d5800e061ea8b"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-RDMA-INTEGRATION.md",
+      "bytes": 1123,
+      "sha256": "f88019fbc65cea7d5d94fd0120f5fd4bfc93d2d1f31edbccb83788531d6c4a35"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md",
+      "bytes": 10366,
+      "sha256": "a80d6bbc35eb35f99ab21aa487f170263f6e0468abbd0bf5f1c361a90f383dd2"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md",
+      "bytes": 12610,
+      "sha256": "7f8ecdee8caf8f85d9f6e4f6b7d91dca175410ebdf82326c3bd745106780ef59"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-VALIDATION-REPORT.md",
+      "bytes": 5448,
+      "sha256": "86d174fbf0cac2e2a68aca33e3ace7804180ed09f81e3b0526a5553ef1561897"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/PROJECT-DELIVERY.md",
+      "bytes": 5796,
+      "sha256": "b89b9dda876f37bb255271cd80dd61841eaeac5234196e839b31ffe7d9febf6e"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/SPDK-NVME-VALIDATION.md",
+      "bytes": 6869,
+      "sha256": "c5eb90744fb96383a5b3a277d112ba62e7fdc10b687525ef9ddec90c2de50ce6"
+    },
+    {
+      "path": "docs/config-sync-miniinfer.md",
+      "bytes": 7825,
+      "sha256": "ad5904efbcc55c3ab9e4d7d834c26e2d63192560372a85b163ecbd819dd6a4b4"
+    },
+    {
+      "path": "docs/kvfabric-data-plane.md",
+      "bytes": 5202,
+      "sha256": "05d3cf6a4ea1f2c5775fd601d52c2a44b400249273c8559b5d1847b4f59d4252"
+    },
+    {
+      "path": "docs/kvfabric-protocol.md",
+      "bytes": 4007,
+      "sha256": "c111ab3214252cdf045903bd8c27544da7adb387c8ac07bb2ad7dee1aafea94e"
+    },
+    {
+      "path": "docs/kvstore-refactor-report.md",
+      "bytes": 8212,
+      "sha256": "30b25b57441efaf6aa9205a14dc1e7bcc83c57b8511c6bd0b6ad3391cf64f6b1"
+    },
+    {
+      "path": "docs/kvstore.md",
+      "bytes": 10697,
+      "sha256": "309ae0aaa49c92c6512da014ce84764dc4914d1229383e7f7f3ac9c304d84fa4"
+    },
+    {
+      "path": "docs/miniinfer.md",
+      "bytes": 12125,
+      "sha256": "0a68be1d519aea47636e289d0fb1a59a978bc365b6431d9870c131408b883c36"
+    },
+    {
+      "path": "docs/nanovllm.md",
+      "bytes": 2758,
+      "sha256": "307e153753561ef4f5c879e034797bf830d933f1def8f5b78140ae642c4ab673"
+    },
+    {
+      "path": "docs/performance.md",
+      "bytes": 3110,
+      "sha256": "076ab1c48b189f1ba42a92b72a54bdca2a65457a1b1bd4aa5cc124dab920acaa"
+    },
+    {
+      "path": "docs/validation-2026-10-28.md",
+      "bytes": 3023,
+      "sha256": "da653bd292d6e8bd7f20e2b54b09fa6ec592c283fd834ed65e598c96bfa85fea"
+    },
+    {
+      "path": "docs/\u6e90\u7801\u5b66\u4e60\u6559\u7a0b.md",
+      "bytes": 13893,
+      "sha256": "72b652dbae6b0d69f0f77a476e2483f84c9d9ef3105fd10bc08f63224462878e"
+    }
+  ],
+  "experiment_directories": [
+    {
+      "path": "docs/benchmarks/audit-2026-11-26",
+      "directly_published_files": 1087
+    },
+    {
+      "path": "docs/benchmarks/native-linux-final",
+      "directly_published_files": 277
+    },
+    {
+      "path": "docs/benchmarks/perf-attribution-2026-11-26",
+      "directly_published_files": 1135
+    },
+    {
+      "path": "docs/benchmarks/published-validation",
+      "directly_published_files": 18
+    },
+    {
+      "path": "docs/benchmarks/rdma",
+      "directly_published_files": 6
+    },
+    {
+      "path": "docs/benchmarks/rdma-cross-instance-2026-11-26",
+      "directly_published_files": 98
+    },
+    {
+      "path": "docs/benchmarks/refactor",
+      "directly_published_files": 58
+    },
+    {
+      "path": "docs/benchmarks/resume-eval",
+      "directly_published_files": 19
+    },
+    {
+      "path": "docs/benchmarks/spdk-async-2026-11-28",
+      "directly_published_files": 5334
+    },
+    {
+      "path": "docs/benchmarks/spdk-nvme-2026-11-28",
+      "directly_published_files": 3
+    },
+    {
+      "path": "docs/benchmarks/spdk-pipeline-2026-11-28",
+      "directly_published_files": 171
+    },
+    {
+      "path": "docs/benchmarks/spdk-uring-2026-11-28",
+      "directly_published_files": 160
+    },
+    {
+      "path": "docs/benchmarks/ultimate",
+      "directly_published_files": 16
+    }
+  ],
+  "large_originals_losslessly_archived": 520,
+  "large_original_bytes": 3017923114,
+  "release_assets": [
+    {
+      "name": "kvfabric-performance-native-linux-final.tar",
+      "bytes": 481116160,
+      "sha256": "d4689ed362e73c0f9772a19c0bf6e80ac4749ccf6742fa1f06feb3edbc251200",
+      "parts": 16,
+      "url": "https://github.com/sahal-colder/kv-fabric/releases/download/spdk-async-io-20261128/kvfabric-performance-native-linux-final.tar"
+    },
+    {
+      "name": "kvfabric-performance-perf-attribution-2026-11-26.tar",
+      "bytes": 255375360,
+      "sha256": "39c695590a7bf30f70350cb3345dc2e1e00c1c9e1739286b649de31881972d69",
+      "parts": 11,
+      "url": "https://github.com/sahal-colder/kv-fabric/releases/download/spdk-async-io-20261128/kvfabric-performance-perf-attribution-2026-11-26.tar"
+    },
+    {
+      "name": "kvfabric-performance-spdk-async-2026-11-28.tar",
+      "bytes": 189890560,
+      "sha256": "8c4e2a0f561089f19e2759cfb6fd07d2195163aa8a9a64071dc55a524c5da522",
+      "parts": 499,
+      "url": "https://github.com/sahal-colder/kv-fabric/releases/download/spdk-async-io-20261128/kvfabric-performance-spdk-async-2026-11-28.tar"
+    }
+  ],
+  "restoration_utility_actual_raw_csv_test_passed": true,
+  "public_clean_build_ctest_passed": 48,
+  "excluded": "docs/benchmarks/publication-exclusions.json",
+  "archive_index": "docs/benchmarks/archive-index.json",
+  "scope_note": "All report histories, warmups and diagnostic/failure evidence retained; compiled outputs, model fixtures and private resume tooling excluded; unrelated KVStore source changes remain in original worktree.",
+  "merged_upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+  "merge_validation_ctest_passed": 48,
+  "critical_storage_sources_match_measured_workspace_ignoring_eol": true,
+  "upstream_historical_variants": "docs/benchmarks/upstream-dev-47d9f18/versions.json"
+}

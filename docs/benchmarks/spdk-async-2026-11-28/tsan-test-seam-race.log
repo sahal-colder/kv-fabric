@@ -1,0 +1,120 @@
+Internal ctest changing into directory: /home/wty/Infra/build-async-spdk-tsan
+Test project /home/wty/Infra/build-async-spdk-tsan
+      Start  3: pool
+      Start 39: remote_audit
+      Start 43: nano_remote_inference_cpu
+      Start 40: remote_faults
+      Start 41: remote_e2e_cpu
+      Start 42: remote_restart
+      Start  2: kvf_directory
+      Start  1: kvf_protocol
+ 1/43 Test  #1: kvf_protocol .....................   Passed    0.15 sec
+      Start 30: uring_sqpoll_qd1
+ 2/43 Test #30: uring_sqpoll_qd1 .................   Passed    0.13 sec
+      Start 11: storage_audit
+ 3/43 Test #11: storage_audit ....................   Passed    0.11 sec
+      Start 32: uring_sqpoll_qd128
+ 4/43 Test #32: uring_sqpoll_qd128 ...............   Passed    0.08 sec
+      Start 31: uring_sqpoll_qd32
+ 5/43 Test #31: uring_sqpoll_qd32 ................   Passed    0.08 sec
+      Start 29: uring_async_qd128
+ 6/43 Test #29: uring_async_qd128 ................   Passed    0.10 sec
+      Start 28: uring_async_qd64
+ 7/43 Test #28: uring_async_qd64 .................   Passed    0.08 sec
+      Start 23: uring_async_qd1
+ 8/43 Test  #2: kvf_directory ....................   Passed    0.74 sec
+      Start 24: uring_async_qd4
+ 9/43 Test #24: uring_async_qd4 ..................   Passed    0.08 sec
+      Start 26: uring_async_qd16
+10/43 Test #23: uring_async_qd1 ..................   Passed    0.11 sec
+      Start 25: uring_async_qd8
+11/43 Test #26: uring_async_qd16 .................   Passed    0.08 sec
+      Start 27: uring_async_qd32
+12/43 Test #25: uring_async_qd8 ..................   Passed    0.09 sec
+      Start 33: migration_parallel
+13/43 Test #33: migration_parallel ...............   Passed    0.07 sec
+      Start 10: device_boundaries_cpu
+14/43 Test #27: uring_async_qd32 .................   Passed    0.13 sec
+      Start 14: uring_faults
+15/43 Test #10: device_boundaries_cpu ............   Passed    0.04 sec
+      Start 37: direct_io_cpu
+16/43 Test #37: direct_io_cpu ....................   Passed    0.03 sec
+      Start  6: kv_cache
+17/43 Test  #6: kv_cache .........................   Passed    0.02 sec
+      Start 38: remote_lifecycle
+18/43 Test #38: remote_lifecycle .................   Passed    0.03 sec
+      Start  9: allocator_faults
+19/43 Test  #9: allocator_faults .................   Passed    0.02 sec
+      Start  7: paged_kv
+20/43 Test  #7: paged_kv .........................   Passed    0.03 sec
+      Start  5: tiered
+21/43 Test #14: uring_faults .....................***Failed    0.16 sec
+MiniInfer: quarantining io_uring with unconfirmed I/O completion
+==================
+WARNING: ThreadSanitizer: data race (pid=176990)
+  Write of size 4 at 0x00000042238c by main thread:
+    #0 main /home/wty/Infra/tests/worker/test_uring_faults.c:82 (test_uring_faults+0x4064c8)
+
+  Previous read of size 4 at 0x00000042238c by thread T14:
+    #0 mi_test_peek_cqe /home/wty/Infra/tests/worker/test_uring_faults.c:31 (test_uring_faults+0x405893)
+    #1 engine /home/wty/Infra/src/worker/uring_io.c:327 (test_uring_faults+0x409c46)
+
+  Location is global 'mode' of size 4 at 0x00000042238c (test_uring_faults+0x00000042238c)
+
+  Thread T14 (tid=177023, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:969 (libtsan.so.0+0x605b8)
+    #1 submit /home/wty/Infra/src/worker/uring_io.c:361 (test_uring_faults+0x40a27e)
+    #2 mi_uring_transfer_fixed /home/wty/Infra/src/worker/uring_io.c:413 (test_uring_faults+0x40ac73)
+    #3 main /home/wty/Infra/tests/worker/test_uring_faults.c:78 (test_uring_faults+0x406376)
+
+SUMMARY: ThreadSanitizer: data race /home/wty/Infra/tests/worker/test_uring_faults.c:82 in main
+==================
+MiniInfer SSD: statfs=0xef53 mode=direct-uring-fixed slots=1
+ThreadSanitizer: reported 1 warnings
+uring SQE NULL, submit/wait EINTR/errors, CQE errors/zero/short/EINTR, accepted submit failure: PASS
+
+      Start  4: graph
+22/43 Test  #5: tiered ...........................   Passed    0.02 sec
+      Start  8: gpu_mock
+23/43 Test  #4: graph ............................   Passed    0.02 sec
+      Start 34: migration_direct_backpressure
+24/43 Test  #8: gpu_mock .........................   Passed    0.02 sec
+25/43 Test #34: migration_direct_backpressure ....   Passed    0.35 sec
+26/43 Test #42: remote_restart ...................   Passed    1.76 sec
+27/43 Test #41: remote_e2e_cpu ...................   Passed    2.29 sec
+28/43 Test #40: remote_faults ....................   Passed    2.86 sec
+29/43 Test #43: nano_remote_inference_cpu ........   Passed   11.28 sec
+30/43 Test #39: remote_audit .....................   Passed   11.92 sec
+31/43 Test  #3: pool .............................   Passed   21.97 sec
+      Start 36: migration_spdk_strict
+32/43 Test #36: migration_spdk_strict ............   Passed    1.41 sec
+      Start 35: migration_spdk
+33/43 Test #35: migration_spdk ...................   Passed    1.42 sec
+      Start 20: spdk_async_qd32
+34/43 Test #20: spdk_async_qd32 ..................   Passed    1.39 sec
+      Start 18: spdk_async_qd8
+35/43 Test #18: spdk_async_qd8 ...................   Passed    1.40 sec
+      Start 17: spdk_async_qd4
+36/43 Test #17: spdk_async_qd4 ...................   Passed    1.40 sec
+      Start 19: spdk_async_qd16
+37/43 Test #19: spdk_async_qd16 ..................   Passed    1.40 sec
+      Start 16: spdk_async_qd1
+38/43 Test #16: spdk_async_qd1 ...................   Passed    1.39 sec
+      Start 22: spdk_async_qd128
+39/43 Test #22: spdk_async_qd128 .................   Passed    1.39 sec
+      Start 21: spdk_async_qd64
+40/43 Test #21: spdk_async_qd64 ..................   Passed    1.39 sec
+      Start 12: spdk_lifecycle
+41/43 Test #12: spdk_lifecycle ...................   Passed    1.40 sec
+      Start 15: spdk_faults
+42/43 Test #15: spdk_faults ......................   Passed    1.39 sec
+      Start 13: spdk_init_failure
+43/43 Test #13: spdk_init_failure ................   Passed    1.31 sec
+
+98% tests passed, 1 tests failed out of 43
+
+Total Test time (real) =  38.67 sec
+
+The following tests FAILED:
+	 14 - uring_faults (Failed)
+Errors while running CTest

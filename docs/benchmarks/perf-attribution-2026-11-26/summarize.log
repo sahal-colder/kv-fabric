@@ -1,0 +1,70 @@
+{
+  "nsys-before-disk": [
+    {
+      "ttft_ms": 4767.519738,
+      "fetch_wall_ms": 1527.860896,
+      "peak_io": 1
+    },
+    {
+      "ttft_ms": 4795.08539,
+      "fetch_wall_ms": 1589.127508,
+      "peak_io": 1
+    },
+    {
+      "ttft_ms": 5274.27147,
+      "fetch_wall_ms": 2044.577531,
+      "peak_io": 1
+    }
+  ],
+  "nsys-before-diagnostic": [
+    {
+      "ttft_ms": 4755.105196,
+      "fetch_wall_ms": 1514.533951,
+      "peak_io": 1
+    },
+    {
+      "ttft_ms": 4817.475579,
+      "fetch_wall_ms": 1602.314211,
+      "peak_io": 1
+    },
+    {
+      "ttft_ms": 5146.051186,
+      "fetch_wall_ms": 1892.651159,
+      "peak_io": 1
+    }
+  ],
+  "nsys-cpu": [
+    {
+      "ttft_ms": 3271.269922,
+      "fetch_wall_ms": 38.371194,
+      "peak_io": 0
+    },
+    {
+      "ttft_ms": 3269.508107,
+      "fetch_wall_ms": 37.984244,
+      "peak_io": 0
+    },
+    {
+      "ttft_ms": 3271.197061,
+      "fetch_wall_ms": 38.602449,
+      "peak_io": 0
+    }
+  ],
+  "nsys-after-disk-serial": [
+    {
+      "ttft_ms": 3586.212383,
+      "fetch_wall_ms": 377.193921,
+      "peak_io": 4
+    },
+    {
+      "ttft_ms": 3594.952452,
+      "fetch_wall_ms": 382.998339,
+      "peak_io": 4
+    },
+    {
+      "ttft_ms": 3612.605287,
+      "fetch_wall_ms": 396.065946,
+      "peak_io": 4
+    }
+  ]
+}

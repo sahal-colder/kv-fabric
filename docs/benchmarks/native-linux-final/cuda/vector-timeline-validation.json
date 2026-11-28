@@ -1,0 +1,26 @@
+{
+  "source": "vector-timeline.sqlite",
+  "kernel_ms": {
+    "scatter": [
+      0.678206,
+      0.74483,
+      0.74515,
+      0.745246,
+      0.742782,
+      0.749118,
+      0.750846,
+      0.746622
+    ],
+    "gather": [
+      0.738366,
+      0.743038,
+      0.749726,
+      0.745886,
+      0.744702,
+      0.743166,
+      0.744254,
+      0.841342
+    ]
+  },
+  "scope": "CUDA microbenchmark only; not 16K vLLM TTFT profiling"
+}

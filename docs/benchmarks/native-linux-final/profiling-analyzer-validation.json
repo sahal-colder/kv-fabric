@@ -1,0 +1,6 @@
+{
+  "type": "synthetic interval logic checks; not hardware benchmark values",
+  "dma_tail_bandwidth_uses_complete_activity": "pass",
+  "overlap_uses_ttft_clipped_dma": "pass",
+  "legacy_generic_copy_kernels_excluded_by_correlation": "pass"
+}

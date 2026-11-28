@@ -1,0 +1,12 @@
+{
+  "status": "resolved_with_sudo",
+  "error": "ERR_NVGPUCTRPERM",
+  "sudo_noninteractive": "password required",
+  "remedy": "Run sudo ncu or configure NVreg_RestrictProfilingToAdminUsers=0 and reload/reboot",
+  "metrics_available": true,
+  "reports": [
+    "ncu-root/gather.ncu-repz",
+    "ncu-root/scatter.ncu-repz"
+  ],
+  "report_format": "Nsight Compute 2026 compressed .ncu-repz; wide raw CSV exported"
+}

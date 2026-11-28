@@ -1,0 +1,2110 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0e6b87f..fd14ba3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -9,6 +9,8 @@ include(GNUInstallDirs)
+ enable_testing()
+ 
+ option(MINIINFER_WITH_KVFABRIC "Build the directory and distributed Worker" ON)
++set(MINIINFER_WITH_RDMA "AUTO" CACHE STRING "Worker rsockets backend: AUTO, ON (probe), or OFF")
++set_property(CACHE MINIINFER_WITH_RDMA PROPERTY STRINGS AUTO ON OFF)
+ option(MINIINFER_BUILD_STORAGE "Build the MiniInfer storage library" ON)
+ option(MINIINFER_BUILD_NANOVLLM "Build the standalone nano-vLLM engine" ON)
+ option(MINIINFER_BUILD_INTEGRATION "Build the MiniInfer inference CLI" ON)
+@@ -28,7 +30,8 @@ endif()
+ 
+ option(MINIINFER_WITH_CUDA "Build the CUDA Runtime transfer backend" OFF)
+ option(NANO_WITH_CUDA "Enable the optional nano-vLLM CUDA inference kernels" OFF)
+-if((MINIINFER_BUILD_STORAGE AND MINIINFER_WITH_CUDA) OR (MINIINFER_BUILD_NANOVLLM AND NANO_WITH_CUDA))
++if((MINIINFER_BUILD_STORAGE AND MINIINFER_WITH_CUDA) OR (MINIINFER_BUILD_NANOVLLM AND NANO_WITH_CUDA)
++   OR (MINIINFER_BUILD_INTEGRATION AND MINIINFER_BUILD_VLLM_BRIDGE AND MINIINFER_VLLM_CUDA))
+     enable_language(CUDA)
+ endif()
+ 
+@@ -39,6 +42,37 @@ if(MINIINFER_WITH_KVFABRIC)
+     find_package(OpenSSL REQUIRED COMPONENTS Crypto)
+     add_subdirectory(src/control)
+ endif()
++if(MINIINFER_WITH_KVFABRIC AND MINIINFER_BUILD_STORAGE)
++    if(NOT MINIINFER_WITH_RDMA MATCHES "^(AUTO|ON|OFF)$")
++        message(FATAL_ERROR "MINIINFER_WITH_RDMA must be AUTO, ON or OFF")
++    endif()
++    set(KVF_HAS_RSOCKETS 0)
++    if(NOT MINIINFER_WITH_RDMA STREQUAL "OFF")
++        find_path(KVF_RSOCKET_INCLUDE_DIR rdma/rsocket.h)
++        find_library(KVF_RDMACM_LIBRARY rdmacm)
++        find_library(KVF_IBVERBS_LIBRARY ibverbs)
++        if(KVF_RSOCKET_INCLUDE_DIR AND KVF_RDMACM_LIBRARY AND KVF_IBVERBS_LIBRARY)
++            include(CheckCSourceCompiles)
++            include(CMakePushCheckState)
++            cmake_push_check_state(RESET)
++            set(CMAKE_REQUIRED_INCLUDES "${KVF_RSOCKET_INCLUDE_DIR}")
++            set(CMAKE_REQUIRED_LIBRARIES "${KVF_RDMACM_LIBRARY}" "${KVF_IBVERBS_LIBRARY}")
++            check_c_source_compiles([=[
++                #include <rdma/rsocket.h>
++                int main(void) {
++                    struct ibv_device **devices = ibv_get_device_list(0);
++                    if (devices) ibv_free_device_list(devices);
++                    return rsocket(AF_INET, SOCK_STREAM, 0);
++                }
++            ]=] KVF_RSOCKETS_LINKS)
++            cmake_pop_check_state()
++            if(KVF_RSOCKETS_LINKS)
++                set(KVF_HAS_RSOCKETS 1)
++            endif()
++        endif()
++    endif()
++    message(STATUS "KV-Fabric Worker rsockets support: ${KVF_HAS_RSOCKETS} (MINIINFER_WITH_RDMA=${MINIINFER_WITH_RDMA})")
++endif()
+ if(MINIINFER_BUILD_STORAGE)
+     add_subdirectory(src/worker)
+ endif()
+diff --git a/README.md b/README.md
+index 6ef7876..e813bfa 100644
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+ # KV-Fabric
+ 
+-KV-Fabric 是一套 C11 分布式 KV Cache。目录服务维护 KV 前缀、副本和租约。Worker 通过 TCP 直接传输 Tensor，使用 CPU 或 NVIDIA CUDA 导入本地分层缓存。
++KV-Fabric 是一套 C11 分布式 KV Cache。目录服务维护 KV 前缀、副本和租约。Worker 默认通过 TCP 直接传输 Tensor，也可使用 RDMA rsockets 数据面，再由 CPU 或 NVIDIA CUDA 导入本地分层缓存。
+ 
+ | 路径 | 职责 |
+ | --- | --- |
+@@ -27,6 +27,7 @@ cmake --install build-release --prefix "$PWD/build-release/install"
+ 
+ | 可选构建开关 | 用途 |
+ | --- | --- |
++| `-DMINIINFER_WITH_RDMA=AUTO` | 默认探测 rsockets 头文件和库。`ON` 同样探测，`OFF` 构建纯 TCP Worker |
+ | `-DMINIINFER_WITH_CUDA=ON` | 启用 Worker 的 CUDA C Runtime 搬运，需要 CUDA Toolkit |
+ | `-DNANO_WITH_CUDA=ON` | 启用 Nano-VLLM 的 CUDA 前向、CUDA Graph 和 KV 页复制 |
+ | `-DMINIINFER_WITH_URING=ON` | 启用 io_uring 文件后端，需要 liburing 开发包 |
+@@ -59,6 +60,8 @@ build-release/bin/nanovllm MODEL -z TOKENIZER -i 'The quick brown fox jumps' -n
+ 
+ 构建时检测到 Python 3 即会登记推理端到端测试。`ctest --test-dir build-release -R nano_remote_inference --output-on-failure` 会启动独立目录、发布者与消费者，校验生成结果、完整 K/V 页摘要和实际 Prefill 计数。
+ 
++在具备 IB/RoCE 和可用 IPv4 路由的 Linux 主机上，给发布者和消费者加上 `--kv-transport rdma`，并将 `--kv-listen-endpoint` 指向 RDMA 接口的 IPv4 地址。`miniinfer_worker serve|pull` 在位置参数之后接受同样的传输选项。默认启用 `--kv-rdma-fallback`，无可用设备时会告警并切到 TCP。使用 `--no-kv-rdma-fallback` 验证纯 RDMA，使用 `--trace` 查看 `active_transport`。
++
+ ## 文档
+ 
+ - [CUDA、io_uring 和双机演示](docs/kvfabric-data-plane.md)
+@@ -67,3 +70,4 @@ build-release/bin/nanovllm MODEL -z TOKENIZER -i 'The quick brown fox jumps' -n
+ - [通用 KVStore 的 Make 构建与测试](docs/kvstore.md)
+ - [MiniInfer 存储库与推理 CLI](docs/miniinfer.md)
+ - [Nano-VLLM 远程 KV 集成与验收](docs/NANOVLLM-REMOTE-KV-INTEGRATION.md)
++- [rsockets 数据面、回退策略与验证记录](docs/KV-FABRIC-RDMA-INTEGRATION.md)
+diff --git a/include/kvfabric/kvfabric.h b/include/kvfabric/kvfabric.h
+index 638f861..592f245 100644
+--- a/include/kvfabric/kvfabric.h
++++ b/include/kvfabric/kvfabric.h
+@@ -38,9 +38,14 @@ typedef struct { uint8_t bytes[32]; } kvf_hash;
+ 
+ typedef struct {
+     uint8_t ipv4[4];      /* Network-order address octets. */
+-    uint16_t port;       /* Host-order TCP port. Zero is allowed only when binding. */
++    uint16_t port;       /* Host-order port. Zero is allowed only when binding. */
+ } kvf_endpoint;
+ 
++typedef enum {
++    KVF_TRANSPORT_TCP = 0,
++    KVF_TRANSPORT_RDMA_RSOCKET
++} kvf_transport;
++
+ typedef enum {
+     KVF_F32 = 1,
+     KVF_F16,
+diff --git a/include/kvfabric/wire.h b/include/kvfabric/wire.h
+index 735f1a5..63dd876 100644
+--- a/include/kvfabric/wire.h
++++ b/include/kvfabric/wire.h
+@@ -88,6 +88,10 @@ kvf_status kvf_manifest_digest(const kvf_manifest *manifest, kvf_hash *out);
+ void kvf_put_batch(kvf_writer *w, const kvf_batch_page *pages, uint32_t count);
+ uint32_t kvf_get_batch(kvf_reader *r, kvf_batch_page pages[KVF_MAX_BATCH_PAGES]);
+ 
++/* Wire V3 framing shared by the TCP RPC and Worker data transports. */
++kvf_status kvf_frame_encode_header(kvf_frame frame, const void *payload, uint8_t header[KVF_HEADER_BYTES]);
++kvf_status kvf_frame_decode_header(const uint8_t header[KVF_HEADER_BYTES], kvf_frame *frame,
++                                   uint32_t *payload_crc, uint64_t *crc_verify_ns);
+ uint64_t kvf_now_ns(void);
+ uint64_t kvf_now_ms(void);
+ kvf_status kvf_connect(kvf_endpoint endpoint, uint64_t deadline, int *fd);
+diff --git a/include/miniinfer/remote_cache.h b/include/miniinfer/remote_cache.h
+index a72fba0..4bf1642 100644
+--- a/include/miniinfer/remote_cache.h
++++ b/include/miniinfer/remote_cache.h
+@@ -21,6 +21,8 @@ typedef struct {
+     uint32_t peer_connections; /* Zero requests short connections, useful as the baseline. */
+     uint32_t peer_idle_ms;     /* Upper bound for idle socket retention. */
+     mi_location location;
++    kvf_transport transport_mode;
++    int rdma_strict;           /* Require RDMA if selected, with no TCP fallback. */
+ } mi_remote_config;
+ 
+ typedef struct {
+@@ -51,11 +53,15 @@ typedef struct {
+ 
+ /* Storage is borrowed. The Worker owns its Paged KV and one cache namespace. */
+ void mi_remote_config_defaults(mi_remote_config *config);
++kvf_status mi_remote_transport_parse(const char *name, kvf_transport *out);
++const char *mi_remote_transport_name(kvf_transport transport);
+ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config config,
+                                     mi_remote_worker **out);
+ mi_paged_kv *mi_remote_worker_cache(mi_remote_worker *worker);
+ void mi_remote_worker_info(mi_remote_worker *worker, kvf_worker_info *info);
+ kvf_endpoint mi_remote_worker_listen_endpoint(const mi_remote_worker *worker);
++/* Last successful outbound data transfer, or the startup transport before any fetch. */
++kvf_transport mi_remote_worker_active_transport(const mi_remote_worker *worker);
+ /* Call after joining local callers and destroying sequences and page leases. */
+ void mi_remote_worker_stop(mi_remote_worker *worker);
+ 
+@@ -79,6 +85,11 @@ uint64_t mi_remote_worker_evictions(const mi_remote_worker *worker);
+ kvf_status mi_remote_append_page(mi_remote_worker *worker, mi_kv_sequence *sequence);
+ /* Close source publication before releasing the cache's prefix references. */
+ kvf_status mi_remote_evict_prefixes(mi_remote_worker *worker);
++/* Read a locally owned active export using the same snapshot and CRC checks
++ * as the socket server. A miss leaves the caller free to fetch by lease. */
++kvf_status mi_remote_read_owned_page(mi_remote_worker *worker, kvf_hash page,
++                                     uint64_t deadline_ms, void *data);
++
+ /* On remote failure, return the longest already verified prefix for recompute. */
+ kvf_status mi_remote_resolve(mi_remote_worker *worker, const int32_t *tokens, size_t token_count,
+                               mi_kv_sequence **out, mi_remote_result *result);
+diff --git a/include/nanovllm/nv.h b/include/nanovllm/nv.h
+index e433d58..ca8ab2b 100644
+--- a/include/nanovllm/nv.h
++++ b/include/nanovllm/nv.h
+@@ -8,6 +8,9 @@
+ #include <stddef.h>
+ #include <stdint.h>
+ #include <stdio.h>
++#ifdef NANO_WITH_REMOTE_KV
++#include "kvfabric/kvfabric.h"
++#endif
+ 
+ #ifdef __cplusplus
+ extern "C" {
+@@ -254,6 +257,10 @@ typedef struct {
+     /* Optional capacity for individual verified page transfer samples. */
+     size_t transfer_sample_capacity;
+     int publish_generated;
++#ifdef NANO_WITH_REMOTE_KV
++    kvf_transport transport_mode;
++    int rdma_strict;
++#endif
+ } NvRemoteOptions;
+ 
+ typedef struct {
+@@ -264,6 +271,7 @@ typedef struct {
+     uint64_t remote_prefill_skipped_tokens, remote_prefill_fallbacks, remote_cache_evictions;
+     uint64_t remote_transfer_latency_ns, remote_transfer_samples;
+     uint32_t remote_published_pages;
++    const char *active_transport; /* Static name, NULL when remote KV is inactive. */
+ } NvRemoteStats;
+ 
+ typedef struct NvRequestSet {
+diff --git a/src/control/net.c b/src/control/net.c
+index 68f0097..36bd4be 100644
+--- a/src/control/net.c
++++ b/src/control/net.c
+@@ -135,11 +135,10 @@ static int valid_frame(kvf_frame f) {
+         f.request_id && f.size <= max && (f.status == KVF_OK || (f.response && !f.size));
+ }
+ 
+-kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t deadline) {
++kvf_status kvf_frame_encode_header(kvf_frame f, const void *payload, uint8_t header[KVF_HEADER_BYTES]) {
+     if (!valid_frame(f) || (!payload && f.size))
+         return KVF_INVALID;
+-    uint8_t header[KVF_HEADER_BYTES];
+-    kvf_writer w = {.buffer = header, .capacity = sizeof(header)};
++    kvf_writer w = {.buffer = header, .capacity = KVF_HEADER_BYTES};
+     kvf_put_u32(&w, KVF_MAGIC);
+     kvf_put_u16(&w, KVF_WIRE_VERSION);
+     kvf_put_u16(&w, KVF_HEADER_BYTES);
+@@ -150,6 +149,14 @@ kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t dea
+     kvf_put_u32(&w, f.size);
+     kvf_put_u32(&w, kvf_crc32c(payload, f.size));
+     kvf_put_u32(&w, kvf_crc32c(header, w.size));
++    return KVF_OK;
++}
++
++kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t deadline) {
++    uint8_t header[KVF_HEADER_BYTES];
++    kvf_status encoded = kvf_frame_encode_header(f, payload, header);
++    if (encoded != KVF_OK)
++        return encoded;
+     struct iovec parts[] = {{header, sizeof(header)}, {(void *)payload, f.size}};
+     struct msghdr msg = {.msg_iov = parts, .msg_iovlen = f.size ? 2 : 1};
+     while (msg.msg_iovlen) {
+@@ -178,21 +185,9 @@ kvf_status kvf_send_frame(int fd, kvf_frame f, const void *payload, uint64_t dea
+     return KVF_OK;
+ }
+ 
+-static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t capacity,
+-                             uint64_t deadline, kvf_receive_timing *timing) {
+-    if (!frame)
+-        return KVF_INVALID;
+-    uint8_t header[KVF_HEADER_BYTES];
+-    uint64_t start = timing ? kvf_now_ns() : 0;
+-    kvf_status st = receive(fd, header, sizeof(header), deadline, NULL);
+-    if (timing) {
+-        uint64_t elapsed = kvf_now_ns() - start;
+-        timing->net_recv_ns += elapsed;
+-        timing->reply_wait_ns += elapsed;
+-    }
+-    if (st != KVF_OK)
+-        return st;
+-    kvf_reader r = {.buffer = header, .size = sizeof(header)};
++kvf_status kvf_frame_decode_header(const uint8_t header[KVF_HEADER_BYTES], kvf_frame *frame,
++                                   uint32_t *payload_crc, uint64_t *crc_verify_ns) {
++    kvf_reader r = {.buffer = header, .size = KVF_HEADER_BYTES};
+     if (kvf_get_u32(&r) != KVF_MAGIC || kvf_get_u16(&r) != KVF_WIRE_VERSION ||
+         kvf_get_u16(&r) != KVF_HEADER_BYTES)
+         return KVF_PROTOCOL;
+@@ -205,15 +200,41 @@ static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t cap
+     f.status = (kvf_status)status;
+     f.request_id = kvf_get_u64(&r);
+     f.size = kvf_get_u32(&r);
+-    uint32_t payload_crc = kvf_get_u32(&r);
++    uint32_t expected = kvf_get_u32(&r);
+     uint32_t header_crc = kvf_get_u32(&r);
+-    start = timing ? kvf_now_ns() : 0;
+-    uint32_t actual = kvf_crc32c(header, sizeof(header) - sizeof(header_crc));
+-    if (timing)
+-        timing->crc_verify_ns += kvf_now_ns() - start;
++    uint64_t start = crc_verify_ns ? kvf_now_ns() : 0;
++    uint32_t actual = kvf_crc32c(header, KVF_HEADER_BYTES - sizeof(header_crc));
++    if (crc_verify_ns)
++        *crc_verify_ns += kvf_now_ns() - start;
+     if (actual != header_crc)
+         return KVF_CRC;
+-    if (!valid_frame(f) || f.size > capacity || (f.size && !payload))
++    if (!valid_frame(f))
++        return KVF_PROTOCOL;
++    *frame = f;
++    *payload_crc = expected;
++    return KVF_OK;
++}
++
++static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t capacity,
++                             uint64_t deadline, kvf_receive_timing *timing) {
++    if (!frame)
++        return KVF_INVALID;
++    uint8_t header[KVF_HEADER_BYTES];
++    uint64_t start = timing ? kvf_now_ns() : 0;
++    kvf_status st = receive(fd, header, sizeof(header), deadline, NULL);
++    if (timing) {
++        uint64_t elapsed = kvf_now_ns() - start;
++        timing->net_recv_ns += elapsed;
++        timing->reply_wait_ns += elapsed;
++    }
++    if (st != KVF_OK)
++        return st;
++    kvf_frame f;
++    uint32_t payload_crc;
++    st = kvf_frame_decode_header(header, &f, &payload_crc, timing ? &timing->crc_verify_ns : NULL);
++    if (st != KVF_OK)
++        return st;
++    if (f.size > capacity || (f.size && !payload))
+         return KVF_PROTOCOL;
+     start = timing ? kvf_now_ns() : 0;
+     st = receive(fd, payload, f.size, deadline, timing ? &timing->received_bytes : NULL);
+@@ -222,7 +243,7 @@ static kvf_status recv_frame(int fd, kvf_frame *frame, void *payload, size_t cap
+     if (st != KVF_OK)
+         return st;
+     start = timing ? kvf_now_ns() : 0;
+-    actual = kvf_crc32c(payload, f.size);
++    uint32_t actual = kvf_crc32c(payload, f.size);
+     if (timing)
+         timing->crc_verify_ns += kvf_now_ns() - start;
+     if (actual != payload_crc)
+diff --git a/src/integration/CMakeLists.txt b/src/integration/CMakeLists.txt
+index d4fc0ae..1d13711 100644
+--- a/src/integration/CMakeLists.txt
++++ b/src/integration/CMakeLists.txt
+@@ -65,3 +65,34 @@ elseif(NOT MINIINFER_NANO_CUDA_POOL STREQUAL "DIRECT")
+ endif()
+ 
+ install(TARGETS miniinfer RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
++
++option(MINIINFER_VLLM_CUDA "Build CUDA page packing for the vLLM bridge" OFF)
++option(MINIINFER_BUILD_VLLM_BRIDGE "Build the vLLM V1 KV-Fabric shared library" OFF)
++if(MINIINFER_BUILD_VLLM_BRIDGE)
++    if(NOT TARGET miniinfer_remote)
++        message(FATAL_ERROR "The vLLM bridge requires MINIINFER_WITH_KVFABRIC")
++    endif()
++    find_path(KVF_NVTX_INCLUDE_DIR nvtx3/nvToolsExt.h
++        HINTS "${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES}" /usr/local/cuda/include REQUIRED)
++    set_target_properties(kvfabric miniinfer_storage miniinfer_remote
++        PROPERTIES POSITION_INDEPENDENT_CODE ON)
++    target_include_directories(miniinfer_storage SYSTEM PRIVATE "${KVF_NVTX_INCLUDE_DIR}")
++    target_compile_definitions(miniinfer_storage PRIVATE MINIINFER_WITH_NVTX=1)
++    target_link_libraries(miniinfer_storage PUBLIC ${CMAKE_DL_LIBS})
++
++    add_library(kvf_vllm SHARED vllm_bridge.c)
++    target_include_directories(kvf_vllm SYSTEM PRIVATE "${KVF_NVTX_INCLUDE_DIR}")
++    target_compile_options(kvf_vllm PRIVATE $<$<COMPILE_LANGUAGE:C>:-Wall;-Wextra;-Wpedantic>)
++    if(MINIINFER_VLLM_CUDA)
++        find_package(CUDAToolkit REQUIRED)
++        target_sources(kvf_vllm PRIVATE vllm_kv_cuda.cu)
++        target_compile_options(kvf_vllm PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-lineinfo>)
++        set_target_properties(kvf_vllm PROPERTIES CUDA_STANDARD 17 CUDA_STANDARD_REQUIRED ON)
++        add_executable(kvf_cuda_bench "${PROJECT_SOURCE_DIR}/tools/kvf_cuda_bench.cu")
++        target_include_directories(kvf_cuda_bench PRIVATE "${PROJECT_SOURCE_DIR}/include")
++        target_link_libraries(kvf_cuda_bench PRIVATE kvf_vllm CUDA::cudart)
++        set_target_properties(kvf_cuda_bench PROPERTIES CUDA_STANDARD 17 CUDA_STANDARD_REQUIRED ON)
++    endif()
++    target_link_libraries(kvf_vllm PRIVATE miniinfer_remote)
++    install(TARGETS kvf_vllm LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
++endif()
+diff --git a/src/nanovllm/CMakeLists.txt b/src/nanovllm/CMakeLists.txt
+index aeabcb1..6bf0a44 100644
+--- a/src/nanovllm/CMakeLists.txt
++++ b/src/nanovllm/CMakeLists.txt
+@@ -51,6 +51,9 @@ if(TARGET miniinfer_remote AND MINIINFER_BUILD_TESTS)
+         if(MINIINFER_BUILD_INTEGRATION)
+             list(APPEND NANO_REMOTE_TEST --cli $<TARGET_FILE:miniinfer>)
+         endif()
++        if(NOT KVF_HAS_RSOCKETS)
++            list(APPEND NANO_REMOTE_TEST --rdma-unavailable)
++        endif()
+         add_test(NAME nano_remote_inference_cpu COMMAND ${NANO_REMOTE_TEST} --device cpu)
+         set_tests_properties(nano_remote_inference_cpu PROPERTIES TIMEOUT 180)
+         if(NANO_WITH_CUDA)
+diff --git a/src/nanovllm/cli.c b/src/nanovllm/cli.c
+index 2dfb8dd..33e7f20 100644
+--- a/src/nanovllm/cli.c
++++ b/src/nanovllm/cli.c
+@@ -5,6 +5,9 @@
+ #define _POSIX_C_SOURCE 200809L
+ #include "nano_cache.h"
+ #include "nano_cli.h"
++#ifdef NANO_WITH_REMOTE_KV
++#include "miniinfer/remote_cache.h"
++#endif
+ #ifdef NANO_WITH_STORAGE
+ #include "miniinfer/model_mapping.h"
+ #include "miniinfer/storage_backend.h"
+@@ -72,6 +75,8 @@ static void usage(FILE *file) {
+         "  --kv-control-endpoint IP:PORT    directory (default 127.0.0.1:9000)\n"
+         "  --kv-listen-endpoint IP:PORT     worker bind (default 127.0.0.1:0)\n"
+         "  --kv-advertise-endpoint IP:PORT  reachable worker address\n"
++        "  --kv-transport tcp|rdma  worker data transport (default tcp)\n"
++        "  --[no-]kv-rdma-fallback  allow TCP fallback when RDMA is selected (default on)\n"
+         "  --kv-tenant NAME           cache namespace (default default)\n"
+         "  --kv-page-size N           tokens per page, same as --block-size\n"
+         "  --kv-cache-capacity N      worker export pages (default --blocks)\n"
+@@ -108,6 +113,10 @@ static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value)
+         o->listen_endpoint = value;
+     else if (strcmp(flag, "--kv-advertise-endpoint") == 0)
+         o->advertise_endpoint = value;
++    else if (strcmp(flag, "--kv-transport") == 0) {
++        if (mi_remote_transport_parse(value, &o->transport_mode) != KVF_OK)
++            nv_fatal("--kv-transport must be tcp or rdma");
++    }
+     else if (strcmp(flag, "--kv-tenant") == 0)
+         o->tenant = value;
+     else if (strcmp(flag, "--kv-page-size") == 0)
+@@ -127,10 +136,13 @@ static int parse_remote(NvRemoteOptions *o, const char *flag, const char *value)
+     return 1;
+ }
+ 
+-static void print_remote_stats(NvEngine *engine) {
++static void print_remote_stats(NvEngine *engine, int trace) {
+     NvRemoteStats stats;
+     nv_engine_remote_flush(engine);
+     nv_engine_remote_stats(engine, &stats);
++    const char *active = stats.active_transport ? stats.active_transport : "OFF";
++    if (trace)
++        fprintf(stderr, "active_transport: %s\n", active);
+     fprintf(stderr,
+             "remote_lookup_requests=%" PRIu64 " remote_lookup_hits=%" PRIu64
+             " remote_hit_pages=%" PRIu64 " remote_hit_tokens=%" PRIu64
+@@ -139,14 +151,14 @@ static void print_remote_stats(NvEngine *engine) {
+             " remote_admission_skips=%" PRIu64 " remote_publish_retries=%" PRIu64 " remote_publish_failures=%" PRIu64
+             " remote_prefill_skipped_tokens=%" PRIu64 " remote_prefill_fallbacks=%" PRIu64
+             " remote_cache_evictions=%" PRIu64 " remote_transfer_latency_ns=%" PRIu64
+-            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 "\n",
++            " remote_transfer_samples=%" PRIu64 " remote_published_pages=%" PRIu32 " active_transport=%s\n",
+             stats.remote_lookup_requests, stats.remote_lookup_hits, stats.remote_hit_pages,
+             stats.remote_hit_tokens, stats.remote_import_bytes, stats.remote_prefetch_requests,
+             stats.remote_prefetch_failures, stats.remote_prefetch_cancelled,
+             stats.remote_admission_skips, stats.remote_publish_retries, stats.remote_publish_failures,
+             stats.remote_prefill_skipped_tokens, stats.remote_prefill_fallbacks,
+             stats.remote_cache_evictions, stats.remote_transfer_latency_ns, stats.remote_transfer_samples,
+-            stats.remote_published_pages);
++            stats.remote_published_pages, active);
+ }
+ #endif
+ 
+@@ -387,6 +399,11 @@ int nv_cli_run(int argc, char **argv) {
+             remote.publish_generated = remote_configured = 1;
+             continue;
+         }
++        if (!strcmp(flag, "--kv-rdma-fallback") || !strcmp(flag, "--no-kv-rdma-fallback")) {
++            remote.rdma_strict = !strcmp(flag, "--no-kv-rdma-fallback");
++            remote_configured = 1;
++            continue;
++        }
+ #endif
+         if (strcmp(flag, "--remote-kv") == 0) {
+ #ifdef NANO_WITH_REMOTE_KV
+@@ -484,11 +501,18 @@ int nv_cli_run(int argc, char **argv) {
+ #ifdef NANO_WITH_STORAGE
+     attach_ssd(&engine.cache, &storage);
+ #endif
++    char *line = NULL;
++    int ok;
+ #ifdef NANO_WITH_REMOTE_KV
+     if (remote_enabled) {
+         int status = nv_engine_enable_remote(&engine, &tokenizer, remote);
+         if (status < 0)
+             nv_fatal("invalid remote KV options or unsupported layout; see --help");
++        if (!status && remote.transport_mode == KVF_TRANSPORT_RDMA_RSOCKET && remote.rdma_strict) {
++            fputs("remote KV could not start with required RDMA transport\n", stderr);
++            ok = 0;
++            goto done;
++        }
+         if (!status)
+             fputs("remote KV unavailable; using local prefill\n", stderr);
+     }
+@@ -503,7 +527,6 @@ int nv_cli_run(int argc, char **argv) {
+     fprintf(stderr, "KV pool: %.2f MiB; requests=%d device=%s\n",
+             (double)kv_bytes / 1048576.0, options.max_requests, device);
+ 
+-    char *line = NULL;
+     size_t line_capacity = 0;
+     do {
+         if (read_stdin) {
+@@ -527,13 +550,16 @@ int nv_cli_run(int argc, char **argv) {
+ #endif
+ #ifdef NANO_WITH_REMOTE_KV
+         if (remote_enabled)
+-            print_remote_stats(&engine);
++            print_remote_stats(&engine, trace);
+ #endif
+         fflush(stdout);
+         (void)nv_engine_clear_requests(&engine);
+     } while (read_stdin);
+ 
+-    int ok = !read_stdin || !ferror(stdin);
++    ok = !read_stdin || !ferror(stdin);
++#ifdef NANO_WITH_REMOTE_KV
++done:
++#endif
+     free(line);
+     nv_engine_free(&engine);
+     nv_tokenizer_free(&tokenizer);
+diff --git a/src/nanovllm/nano_cuda.cu b/src/nanovllm/nano_cuda.cu
+index 9c34d2a..dd60707 100644
+--- a/src/nanovllm/nano_cuda.cu
++++ b/src/nanovllm/nano_cuda.cu
+@@ -145,7 +145,9 @@ __global__ static void attend(float *out, const float *queries, const float *key
+         scores[t] = value;
+         maximum = fmaxf(maximum, value);
+     }
+-    maximum = Reduce(scratch).Reduce(maximum, cub::Max());
++    maximum = Reduce(scratch).Reduce(maximum, [](float left, float right) {
++        return left < right ? right : left;
++    });
+     if (threadIdx.x == 0)
+         max_score = maximum;
+     __syncthreads();
+diff --git a/src/nanovllm/nano_remote_kv.c b/src/nanovllm/nano_remote_kv.c
+index 419239d..a3b04c6 100644
+--- a/src/nanovllm/nano_remote_kv.c
++++ b/src/nanovllm/nano_remote_kv.c
+@@ -186,6 +186,8 @@ static int configure_worker(mi_remote_config *cfg, NvRemoteOptions o) {
+     cfg->max_exports = o.cache_capacity;
+     cfg->timeout_ms = o.prefetch_timeout_ms;
+     cfg->location = MI_LOCATION_CPU;
++    cfg->transport_mode = o.transport_mode;
++    cfg->rdma_strict = o.rdma_strict;
+     return 1;
+ }
+ 
+@@ -363,6 +365,7 @@ int nv_engine_enable_remote(NvEngine *e, const NvTokenizer *tokenizer, NvRemoteO
+         !tokenizer->vocab || !tokenizer->scores || tokenizer->vocab_size != e->model->config.vocab_size ||
+         !e->cache.enabled || e->remote || e->num_requests || !o.tenant || !*o.tenant ||
+         o.tp_size != 1 || o.pp_size != 1 || !o.prefetch_timeout_ms || o.prefetch_timeout_ms > 30000 ||
++        (unsigned)o.transport_mode > KVF_TRANSPORT_RDMA_RSOCKET ||
+         (o.page_size && o.page_size != (unsigned)e->cache.block_size))
+         return -1;
+     if (!o.cache_capacity)
+@@ -912,6 +915,7 @@ void nv_engine_remote_stats(const NvEngine *e, NvRemoteStats *out) {
+         mi_remote_worker_info(e->remote->worker, &info);
+         out->remote_published_pages = info.published_pages;
+         out->remote_cache_evictions = mi_remote_worker_evictions(e->remote->worker);
++        out->active_transport = mi_remote_transport_name(mi_remote_worker_active_transport(e->remote->worker));
+     }
+ }
+ 
+diff --git a/src/worker/CMakeLists.txt b/src/worker/CMakeLists.txt
+index e114056..fe9642b 100644
+--- a/src/worker/CMakeLists.txt
++++ b/src/worker/CMakeLists.txt
+@@ -50,6 +50,9 @@ if(MINIINFER_WITH_CUDA)
+     target_sources(miniinfer_storage PRIVATE device_cuda.cu)
+     target_compile_definitions(miniinfer_storage PUBLIC MINIINFER_WITH_CUDA=1)
+     target_link_libraries(miniinfer_storage PUBLIC CUDA::cudart)
++    add_executable(kvf_nvme_recovery_bench "${PROJECT_SOURCE_DIR}/tools/kvf_nvme_recovery_bench.c")
++    target_link_libraries(kvf_nvme_recovery_bench PRIVATE miniinfer_storage)
++    target_compile_options(kvf_nvme_recovery_bench PRIVATE -Wall -Wextra -Wpedantic)
+ endif()
+ 
+ if(MINIINFER_BUILD_EXAMPLES)
+@@ -82,9 +85,14 @@ install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/miniinfer" DESTINATION "${CMAKE
+ 
+ if(MINIINFER_WITH_KVFABRIC)
+     add_library(miniinfer_remote STATIC remote/worker.c remote/transfer.c
+-        remote/cache.c remote/peer.c remote/prefetch.c)
++        remote/cache.c remote/peer.c remote/prefetch.c remote/remote_sock.c)
+     target_link_libraries(miniinfer_remote PUBLIC miniinfer_storage)
+     target_compile_options(miniinfer_remote PRIVATE -Wall -Wextra -Wpedantic)
++    target_compile_definitions(miniinfer_remote PRIVATE KVF_HAS_RSOCKETS=${KVF_HAS_RSOCKETS})
++    if(KVF_HAS_RSOCKETS)
++        target_include_directories(miniinfer_remote SYSTEM PRIVATE "${KVF_RSOCKET_INCLUDE_DIR}")
++        target_link_libraries(miniinfer_remote PRIVATE "${KVF_RDMACM_LIBRARY}" "${KVF_IBVERBS_LIBRARY}")
++    endif()
+     add_executable(miniinfer_worker remote/cli.c)
+     set_target_properties(miniinfer_worker PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+     target_link_libraries(miniinfer_worker PRIVATE miniinfer_remote)
+@@ -117,6 +125,11 @@ if(MINIINFER_WITH_KVFABRIC)
+         add_test(NAME remote_restart COMMAND test_remote_e2e
+             $<TARGET_FILE:kvfabricd> $<TARGET_FILE:miniinfer_worker> cpu restart)
+         set_tests_properties(remote_restart PROPERTIES TIMEOUT 60)
++        if(NOT KVF_HAS_RSOCKETS)
++            add_test(NAME remote_rdma_unavailable COMMAND test_remote_e2e
++                $<TARGET_FILE:kvfabricd> $<TARGET_FILE:miniinfer_worker> cpu rdma-unavailable)
++            set_tests_properties(remote_rdma_unavailable PROPERTIES TIMEOUT 30)
++        endif()
+         if(MINIINFER_WITH_CUDA)
+             add_test(NAME remote_e2e_cuda COMMAND test_remote_e2e
+                 $<TARGET_FILE:kvfabricd> $<TARGET_FILE:miniinfer_worker> cuda)
+diff --git a/src/worker/direct_io.c b/src/worker/direct_io.c
+index 72ce778..a63018e 100644
+--- a/src/worker/direct_io.c
++++ b/src/worker/direct_io.c
+@@ -9,6 +9,9 @@
+ #include "io_transfer.h"
+ #include "segment_pool.h"
+ #include "storage_crc.h"
++#ifdef MINIINFER_WITH_NVTX
++#include <nvtx3/nvToolsExt.h>
++#endif
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <stdio.h>
+@@ -116,13 +119,21 @@ static int valid_record(const unsigned char *header, const mi_block_meta *meta)
+ 
+ static mi_status record_io(mi_direct_io *io, mi_segment *slot, int write, uint64_t offset) {
+     mi_io_range range = {.data = slot->data, .data_bytes = io->pool->stride, .offset = offset};
++#ifdef MINIINFER_WITH_NVTX
++    nvtxRangePushA(write ? "kvfabric.disk_io.write" : "kvfabric.disk_io.read");
++#endif
+ #ifdef MINIINFER_WITH_URING
+     mi_uring *ring = io->rings[slot - io->pool->slots];
+-    if (ring)
+-        return mi_uring_transfer_fixed(ring, write, range);
++    mi_status st = ring ? mi_uring_transfer_fixed(ring, write, range) :
++#else
++    mi_status st =
+ #endif
+-    return io->odirect ? mi_posix_transfer_direct(io->fd, write, range)
+-                      : mi_posix_transfer(io->fd, write, range);
++        io->odirect ? mi_posix_transfer_direct(io->fd, write, range)
++                    : mi_posix_transfer(io->fd, write, range);
++#ifdef MINIINFER_WITH_NVTX
++    nvtxRangePop();
++#endif
++    return st;
+ }
+ 
+ mi_status mi_direct_record(mi_direct_io *io, int write, uint64_t offset,
+diff --git a/src/worker/remote/cli.c b/src/worker/remote/cli.c
+index b7fdc82..bd62774 100644
+--- a/src/worker/remote/cli.c
++++ b/src/worker/remote/cli.c
+@@ -135,7 +135,8 @@ static mi_status tensor_io(const char *path, mi_kv_sequence *sequence, size_t pa
+ }
+ 
+ static void usage(FILE *out) {
+-    fputs("usage: miniinfer_worker serve|pull NAME CONTROL LISTEN cpu|cuda[:ID] NAMESPACE TOKENS TENSORS\n", out);
++    fputs("usage: miniinfer_worker serve|pull NAME CONTROL LISTEN cpu|cuda[:ID] NAMESPACE TOKENS TENSORS\n"
++          "       [--kv-transport tcp|rdma] [--kv-rdma-fallback | --no-kv-rdma-fallback]\n", out);
+ }
+ 
+ static uint64_t monotonic_us(void) {
+@@ -149,7 +150,7 @@ int main(int argc, char **argv) {
+         usage(stdout);
+         return 0;
+     }
+-    if (argc != 9 || (strcmp(argv[1], "serve") && strcmp(argv[1], "pull"))) {
++    if (argc < 9 || (strcmp(argv[1], "serve") && strcmp(argv[1], "pull"))) {
+         usage(stderr);
+         return 2;
+     }
+@@ -171,6 +172,21 @@ int main(int argc, char **argv) {
+     }
+     mi_remote_config c;
+     mi_remote_config_defaults(&c);
++    for (int i = 9; i < argc; ++i) {
++        if (!strcmp(argv[i], "--kv-rdma-fallback")) {
++            c.rdma_strict = 0;
++            continue;
++        }
++        if (!strcmp(argv[i], "--no-kv-rdma-fallback")) {
++            c.rdma_strict = 1;
++            continue;
++        }
++        if (!strcmp(argv[i], "--kv-transport") && i + 1 < argc &&
++            mi_remote_transport_parse(argv[++i], &c.transport_mode) == KVF_OK)
++            continue;
++        usage(stderr);
++        return 2;
++    }
+     const char *lanes = getenv("MINIINFER_WORKER_LANES");
+     const char *peers = getenv("MINIINFER_WORKER_PEERS");
+     const char *advertise = getenv("MINIINFER_WORKER_ADVERTISE");
+@@ -301,6 +317,7 @@ int main(int argc, char **argv) {
+         char endpoint[KVF_ENDPOINT_TEXT];
+         mi_remote_worker_info(worker, &info);
+         kvf_endpoint_format(info.endpoint, endpoint);
++        fprintf(stderr, "active_transport: %s\n", mi_remote_transport_name(mi_remote_worker_active_transport(worker)));
+         printf("READY %s %u\n", endpoint, info.published_pages);
+         int signal_number;
+         rc = fflush(stdout) != 0 || sigwait(&signals, &signal_number) != 0;
+@@ -312,6 +329,7 @@ int main(int argc, char **argv) {
+         uint64_t elapsed = monotonic_us() - begin;
+         if (remote != KVF_OK)
+             goto remote_error;
++        fprintf(stderr, "active_transport: %s\n", mi_remote_transport_name(mi_remote_worker_active_transport(worker)));
+         size_t verified = mi_kv_sequence_page_count(seq);
+         operation = "write verified layers";
+         st = tensor_io(argv[8], seq, verified, &c, 0, device, stream, stage);
+diff --git a/src/worker/remote/internal.h b/src/worker/remote/internal.h
+index 3ee481b..769af22 100644
+--- a/src/worker/remote/internal.h
++++ b/src/worker/remote/internal.h
+@@ -7,11 +7,13 @@
+ #define MINIINFER_REMOTE_INTERNAL_H
+ 
+ #include "miniinfer/remote_cache.h"
+-#include "kvfabric/wire.h"
++#include "remote_sock.h"
+ #include "../segment_pool.h"
+ #include <pthread.h>
+ #include <stdatomic.h>
+ 
++#define MI_REMOTE_MAX_PEERS 64u
++
+ typedef enum {
+     EXPORT_EMPTY, EXPORT_PENDING, EXPORT_PUBLISHING, EXPORT_ACTIVE, EXPORT_RETRY, EXPORT_RETIRING, EXPORT_FAILED
+ } export_state;
+@@ -41,6 +43,7 @@ static inline int mi_remote_publish_retryable(kvf_status st) {
+ typedef struct mi_peer_pool mi_peer_pool;
+ typedef struct mi_peer_conn mi_peer_conn;
+ typedef struct mi_prefetch_queue mi_prefetch_queue;
++typedef struct mi_remote_server mi_remote_server;
+ 
+ typedef struct {
+     void *data;
+@@ -50,12 +53,16 @@ typedef struct {
+ struct mi_remote_worker {
+     mi_tiered_storage *storage;  /* Borrowed, outlives all service threads. */
+     mi_paged_kv *cache;          /* Owned, one Trie per namespace. */
+-    kvf_server *server;          /* Owns incoming sockets and accepts up to lanes at once. */
++    mi_remote_server *server;     /* Owns incoming sockets and accepts up to lanes at once. */
+     kvf_client control;          /* Value handle for metadata RPCs. */
+     kvf_identity identity;      /* Immutable full namespace. */
+     kvf_hash space;              /* Identity digest for fast namespace checks. */
+     kvf_worker_info info;        /* Immutable registry identity, endpoint and capacity. */
+     mi_location location;        /* Destination tier for newly imported layers. */
++    kvf_transport transport_mode; /* Preferred transport selected at startup. */
++    int rdma_strict;
++    _Atomic kvf_transport active_transport;
++    atomic_bool warned_peer_fallback;
+     int device;                  /* Storage ordinal or -1 for a CPU-only Worker. */
+     uint32_t heartbeat_ms;       /* Period between registry refreshes. */
+     uint32_t peer_idle_ms;       /* Accepted idle stream timeout. */
+@@ -82,7 +89,7 @@ struct mi_remote_worker {
+ };
+ 
+ kvf_status mi_remote_from_storage(mi_status status);
+-void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline);
++void mi_remote_serve(mi_remote_worker *w, unsigned lane, mi_remote_socket socket, uint64_t deadline);
+ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *sequence, size_t page,
+                              const kvf_grant *grant, uint64_t deadline_ms, const atomic_bool *cancel);
+ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, const kvf_batch_page *pages,
+@@ -122,9 +129,9 @@ static inline kvf_status mi_remote_request_client(kvf_client client, uint64_t de
+ kvf_status mi_peer_pool_create(unsigned capacity, uint32_t idle_ms, mi_peer_pool **out);
+ void mi_peer_pool_destroy(mi_peer_pool *pool);
+ void mi_peer_pool_reap(mi_peer_pool *pool);
+-kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *grant, uint64_t deadline,
+-                           mi_peer_conn **out, int *fd, int *reused);
+-void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *peer, int reusable);
++kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *grant, kvf_transport transport,
++                           uint64_t deadline, mi_peer_conn **peer, mi_remote_socket *out, int *reused);
++void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *peer, mi_remote_socket socket, int reusable);
+ 
+ kvf_status mi_prefetch_start(mi_remote_worker *w);
+ void mi_prefetch_stop(mi_remote_worker *w);
+diff --git a/src/worker/remote/peer.c b/src/worker/remote/peer.c
+index 78b5b81..d9a0613 100644
+--- a/src/worker/remote/peer.c
++++ b/src/worker/remote/peer.c
+@@ -1,18 +1,18 @@
+ /*
+- * Data-plane TCP connection pool. Each checked-out slot has one fd owner.
+- * The peer lock protects slot lifetimes. Connect runs after releasing the lock.
++ * Data-plane connection pool. Each checked-out slot has one fd owner.
++ * The peer lock protects slot lifetimes. Connect and close run after releasing
++ * the lock because librdmacm can wait for completions during close.
+  * Neither Directory nor Storage metadata locks enter this module.
+  */
+ #include "internal.h"
+-#include <poll.h>
++#include <errno.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <unistd.h>
+ 
+ struct mi_peer_conn {
+     kvf_endpoint endpoint; /* Destination advertised for boot. */
+     kvf_uuid boot;         /* A reconnect to a new boot cannot reuse the old fd. */
+-    int fd;                /* Owned by this slot, -1 when empty or connecting. */
++    mi_remote_socket socket; /* Transport is part of the key. fd is -1 when empty or connecting. */
+     uint64_t idle_since;   /* Monotonic time at last healthy return. */
+     unsigned used;         /* An active importer exclusively owns the fd. */
+     unsigned retire;       /* Close on return if a newer boot was observed. */
+@@ -20,7 +20,7 @@ struct mi_peer_conn {
+ 
+ struct mi_peer_pool {
+     pthread_mutex_t lock;   /* Protects entry identity and checkout state. */
+-    unsigned capacity;     /* Maximum simultaneous sockets, including ongoing connects. */
++    unsigned capacity;     /* Maximum reserved slots, including ongoing connects. */
+     uint32_t idle_ms;       /* Idle lifetime bounded even when connections are healthy. */
+     mi_peer_conn peers[];   /* Owned and closed by this pool. */
+ };
+@@ -38,22 +38,22 @@ kvf_status mi_peer_pool_create(unsigned capacity, uint32_t idle_ms, mi_peer_pool
+     pool->capacity = capacity;
+     pool->idle_ms = idle_ms;
+     for (unsigned i = 0; i < capacity; ++i)
+-        pool->peers[i].fd = -1;
++        pool->peers[i].socket.fd = -1;
+     *out = pool;
+     return KVF_OK;
+ }
+ 
+-static void close_peer(mi_peer_conn *p) {
+-    if (p->fd >= 0)
+-        close(p->fd);
+-    *p = (mi_peer_conn){.fd = -1};
++static mi_remote_socket detach_peer(mi_peer_conn *p) {
++    mi_remote_socket old = p->socket;
++    *p = (mi_peer_conn){.socket = {.fd = -1}};
++    return old;
+ }
+ 
+ void mi_peer_pool_destroy(mi_peer_pool *pool) {
+     if (!pool)
+         return;
+     for (unsigned i = 0; i < pool->capacity; ++i)
+-        close_peer(&pool->peers[i]);
++        remote_close(pool->peers[i].socket);
+     pthread_mutex_destroy(&pool->lock);
+     free(pool);
+ }
+@@ -62,18 +62,30 @@ void mi_peer_pool_reap(mi_peer_pool *pool) {
+     if (!pool)
+         return;
+     uint64_t now = kvf_now_ms();
++    mi_remote_socket expired[MI_REMOTE_MAX_PEERS];
++    unsigned count = 0;
+     pthread_mutex_lock(&pool->lock);
+     for (unsigned i = 0; i < pool->capacity; ++i) {
+         mi_peer_conn *p = &pool->peers[i];
+-        if (!p->used && p->fd >= 0 && now - p->idle_since >= pool->idle_ms)
+-            close_peer(p);
++        if (!p->used && p->socket.fd >= 0 && now - p->idle_since >= pool->idle_ms)
++            expired[count++] = detach_peer(p);
+     }
+     pthread_mutex_unlock(&pool->lock);
++    for (unsigned i = 0; i < count; ++i)
++        remote_close(expired[i]);
+ }
+ 
+-kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *g, uint64_t deadline,
+-                           mi_peer_conn **out, int *fd, int *reused) {
++kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *g, kvf_transport transport,
++                           uint64_t deadline, mi_peer_conn **out, mi_remote_socket *socket, int *reused) {
++    *out = NULL;
++    if (reused)
++        *reused = 0;
++    if (!pool)
++        return remote_connect(g->endpoint, transport, deadline, socket);
++
+     mi_peer_conn *matching = NULL, *available = NULL;
++    mi_remote_socket expired[MI_REMOTE_MAX_PEERS];
++    unsigned count = 0;
+     uint64_t now = kvf_now_ms();
+     pthread_mutex_lock(&pool->lock);
+     for (unsigned i = 0; i < pool->capacity; ++i) {
+@@ -86,55 +98,65 @@ kvf_status mi_peer_borrow(mi_peer_pool *pool, const kvf_grant *g, uint64_t deadl
+                 p->retire = 1;
+             continue;
+         }
+-        if (p->fd >= 0 && (replaced || now - p->idle_since >= pool->idle_ms))
+-            close_peer(p);
+-        if (p->fd >= 0 && same_endpoint)
++        if (p->socket.fd >= 0 && (replaced || now - p->idle_since >= pool->idle_ms))
++            expired[count++] = detach_peer(p);
++        if (p->socket.fd >= 0 && same_endpoint && p->socket.transport == transport)
+             matching = p;
+-        if (!available || p->fd < 0 || (available->fd >= 0 && p->idle_since < available->idle_since))
++        if (!available || p->socket.fd < 0 ||
++            (available->socket.fd >= 0 && p->idle_since < available->idle_since))
+             available = p;
+     }
+     mi_peer_conn *p = matching ? matching : available;
+     if (p) {
+         if (!matching) {
+-            close_peer(p);
++            if (p->socket.fd >= 0)
++                expired[count++] = detach_peer(p);
+             p->endpoint = g->endpoint;
+             p->boot = g->manifest.owner.boot;
++            p->socket.transport = transport;
+         }
+         p->used = 1;
+     }
+     pthread_mutex_unlock(&pool->lock);
++    for (unsigned i = 0; i < count; ++i)
++        remote_close(expired[i]);
+     if (!p)
+         return KVF_LIMIT;
+ 
+-    if (p->fd >= 0) {
++    if (p->socket.fd >= 0) {
+         /* No bytes are expected on an idle stream. Readability includes an orderly EOF. */
+-        struct pollfd health = {.fd = p->fd, .events = POLLIN};
+-        if (poll(&health, 1, 0) != 0) {
+-            close(p->fd);
+-            p->fd = -1;
++        struct pollfd health = {.fd = p->socket.fd, .events = POLLIN};
++        int ready = remote_poll(transport, &health, 1, 0);
++        if (ready > 0 || (ready < 0 && errno != EINTR)) {
++            remote_close(p->socket);
++            p->socket.fd = -1;
+         }
+     }
+     if (reused)
+-        *reused = p->fd >= 0;
+-    kvf_status st = p->fd >= 0 ? KVF_OK : kvf_connect(g->endpoint, deadline, &p->fd);
++        *reused = p->socket.fd >= 0;
++    kvf_status st = p->socket.fd >= 0 ? KVF_OK : remote_connect(g->endpoint, transport, deadline, &p->socket);
+     if (st != KVF_OK) {
+-        mi_peer_return(pool, p, 0);
++        mi_peer_return(pool, p, p->socket, 0);
+         return st;
+     }
+     *out = p;
+-    *fd = p->fd;
++    *socket = p->socket;
+     return KVF_OK;
+ }
+ 
+-void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *p, int reusable) {
+-    if (!p)
++void mi_peer_return(mi_peer_pool *pool, mi_peer_conn *p, mi_remote_socket socket, int reusable) {
++    if (!p) {
++        remote_close(socket);
+         return;
++    }
+     pthread_mutex_lock(&pool->lock);
+     if (!reusable || p->retire) {
+-        close_peer(p);
+-    } else {
+-        p->idle_since = kvf_now_ms();
+-        p->used = 0;
++        socket = detach_peer(p);
++        pthread_mutex_unlock(&pool->lock);
++        remote_close(socket);
++        return;
+     }
++    p->idle_since = kvf_now_ms();
++    p->used = 0;
+     pthread_mutex_unlock(&pool->lock);
+ }
+diff --git a/src/worker/remote/transfer.c b/src/worker/remote/transfer.c
+index 417f5a6..7a20db1 100644
+--- a/src/worker/remote/transfer.c
++++ b/src/worker/remote/transfer.c
+@@ -1,12 +1,130 @@
+ /*
+  * Peer transfer layer. The source owns one staging segment per active request.
+  * The destination owns temporary WRITE leases and two DMA segments per importer.
+- * Order: exports_lock -> Trie, then release both before Storage snapshot and TCP I/O.
++ * Order: exports_lock -> Trie, then release both before Storage snapshot and network I/O.
+  */
+ #include "internal.h"
+ #include "../tiered_internal.h"
++#include <errno.h>
++#include <stdio.h>
+ #include <stdlib.h>
++#include <sys/socket.h>
+ #include <unistd.h>
++#if KVF_HAS_RSOCKETS
++#include <rdma/rsocket.h>
++#endif
++
++static kvf_status remote_send_all(mi_remote_socket s, const uint8_t *data, size_t size, int flags,
++                                  uint64_t deadline) {
++    while (size) {
++        if (kvf_now_ms() >= deadline)
++            return KVF_TIMEOUT;
++        ssize_t n =
++#if KVF_HAS_RSOCKETS
++            s.transport == KVF_TRANSPORT_RDMA_RSOCKET ? rsend(s.fd, data, size, MSG_DONTWAIT) :
++#endif
++            send(s.fd, data, size, MSG_DONTWAIT | MSG_NOSIGNAL | flags);
++        if (n > 0) {
++            data += n;
++            size -= (size_t)n;
++            continue;
++        }
++        if (n == 0 || (errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK))
++            return KVF_IO;
++        if (errno != EINTR) {
++            kvf_status st = remote_wait(s, POLLOUT, deadline);
++            if (st != KVF_OK)
++                return st;
++        }
++    }
++    return KVF_OK;
++}
++
++static kvf_status remote_recv_all(mi_remote_socket s, uint8_t *data, size_t size, uint64_t deadline,
++                                  uint64_t *received) {
++    while (size) {
++        if (kvf_now_ms() >= deadline)
++            return KVF_TIMEOUT;
++        ssize_t n =
++#if KVF_HAS_RSOCKETS
++            s.transport == KVF_TRANSPORT_RDMA_RSOCKET ? rrecv(s.fd, data, size, MSG_DONTWAIT) :
++#endif
++            recv(s.fd, data, size, MSG_DONTWAIT);
++        if (n > 0) {
++            data += n;
++            size -= (size_t)n;
++            if (received)
++                *received += (uint64_t)n;
++            continue;
++        }
++        if (n == 0 || (errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK))
++            return KVF_IO;
++        if (errno != EINTR) {
++            kvf_status st = remote_wait(s, POLLIN, deadline);
++            if (st != KVF_OK)
++                return st;
++        }
++    }
++    return KVF_OK;
++}
++
++static kvf_status remote_send_frame(mi_remote_socket s, kvf_frame f, const void *payload, uint64_t end) {
++    uint8_t header[KVF_HEADER_BYTES];
++    kvf_status st = kvf_frame_encode_header(f, payload, header);
++    if (st != KVF_OK)
++        return st;
++    /* Coalesce the TCP header and payload without copying them into one buffer. */
++    st = remote_send_all(s, header, sizeof(header), f.size ? MSG_MORE : 0, end);
++    return st == KVF_OK ? remote_send_all(s, payload, f.size, 0, end) : st;
++}
++
++static kvf_status remote_recv_frame(mi_remote_socket s, kvf_frame *f, void *payload, size_t capacity,
++                                    uint64_t end, kvf_receive_timing *timing) {
++    uint8_t header[KVF_HEADER_BYTES];
++    uint64_t start = timing ? kvf_now_ns() : 0;
++    kvf_status st = remote_recv_all(s, header, sizeof(header), end, NULL);
++    if (timing) {
++        uint64_t ns = kvf_now_ns() - start;
++        timing->reply_wait_ns += ns;
++        timing->net_recv_ns += ns;
++    }
++    if (st != KVF_OK)
++        return st;
++    uint32_t payload_crc;
++    st = kvf_frame_decode_header(header, f, &payload_crc, timing ? &timing->crc_verify_ns : NULL);
++    if (st != KVF_OK)
++        return st;
++    if (f->size > capacity)
++        return KVF_PROTOCOL;
++    start = timing ? kvf_now_ns() : 0;
++    st = remote_recv_all(s, payload, f->size, end, timing ? &timing->received_bytes : NULL);
++    if (timing)
++        timing->net_recv_ns += kvf_now_ns() - start;
++    if (st != KVF_OK)
++        return st;
++    start = timing ? kvf_now_ns() : 0;
++    uint32_t actual = kvf_crc32c(payload, f->size);
++    if (timing)
++        timing->crc_verify_ns += kvf_now_ns() - start;
++    return actual == payload_crc ? KVF_OK : KVF_CRC;
++}
++
++static kvf_status remote_fetch(mi_remote_socket s, kvf_opcode op, const kvf_writer *request,
++                               void *payload, size_t size, uint64_t end, kvf_receive_timing *timing) {
++    static _Atomic uint64_t next = 1;
++    if (request->failed)
++        return KVF_INVALID;
++    uint64_t id = atomic_fetch_add_explicit(&next, 1, memory_order_relaxed);
++    kvf_frame f = {.opcode = op, .request_id = id, .size = (uint32_t)request->size};
++    kvf_status st = remote_send_frame(s, f, request->buffer, end);
++    if (st == KVF_OK)
++        st = remote_recv_frame(s, &f, payload, size, end, timing);
++    if (st != KVF_OK)
++        return st;
++    if (!f.response || f.opcode != op || f.request_id != id || (f.status == KVF_OK && f.size != size))
++        return KVF_PROTOCOL;
++    return f.status;
++}
+ 
+ static kvf_status copy_export(mi_remote_worker *w, mi_segment *stage, const kvf_fetch_request *r) {
+     mi_page_ref ref = {0};
+@@ -44,7 +162,7 @@ static kvf_status validate(mi_remote_worker *w, const kvf_fetch_request *r, uint
+ }
+ 
+ static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f,
+-                              uint8_t *bytes, size_t capacity, int fd, uint64_t deadline) {
++                              uint8_t *bytes, size_t capacity, mi_remote_socket socket, uint64_t deadline) {
+     kvf_reader reader = {.buffer = bytes, .size = f.size};
+     kvf_fetch_request r;
+     kvf_get_fetch(&reader, &r);
+@@ -82,19 +200,22 @@ static kvf_status send_layer(mi_remote_worker *w, mi_segment *stage, kvf_frame f
+     }
+ reply:
+     /* Only the independent staging Segment stays live during socket backpressure. */
+-    return kvf_send_frame(fd, f, payload, deadline);
++    return remote_send_frame(socket, f, payload, deadline);
+ }
+ 
+ /* A cloned ref pins the block IDs. Snapshot reads verify Storage's live generation,
+  * committed version and, on SSD, the stored record checksum. */
+-static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, const kvf_batch_page *page,
++static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, kvf_page_key key, const kvf_hash *digest,
+                                   unsigned char *dst, uint64_t deadline) {
+     mi_page_ref ref = {0};
+     kvf_layer layers[KVF_MAX_LAYERS];
+     pthread_mutex_lock(&w->exports_lock);
+-    mi_remote_export *e = mi_remote_find_export(w, page->key);
++    mi_remote_export *e = mi_remote_find_export(w, key);
+     kvf_status st = KVF_STALE;
+-    if (mi_remote_export_visible(e) && kvf_hash_equal(e->digest, page->manifest_digest)) {
++    /* Self-reads only see committed local exports. Network reads can also
++     * serve an acknowledged Directory lease during publication retries. */
++    if (mi_remote_export_visible(e) &&
++        (digest ? kvf_hash_equal(e->digest, *digest) : e->state == EXPORT_ACTIVE)) {
+         st = mi_remote_from_storage(mi_page_ref_clone(&e->ref, &ref));
+         for (uint32_t i = 0; i < w->identity.layers; ++i)
+             layers[i] = e->manifest.layer[i];
+@@ -111,7 +232,7 @@ static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, const
+             st = KVF_STALE;
+         else
+             st = mi_remote_from_storage(mi_storage_read_snapshot_event(w->storage, id, layer.version,
+-                                             dst, layer.size, stage->stream, stage->event, &meta));
++                                             dst, layer.size, stage ? stage->stream : NULL, stage ? stage->event : NULL, &meta));
+         if (st == KVF_OK && kvf_crc32c(dst, layer.size) != layer.checksum)
+             st = KVF_CRC;
+         dst += layer.size;
+@@ -120,8 +241,15 @@ static kvf_status copy_batch_page(mi_remote_worker *w, mi_segment *stage, const
+     return st;
+ }
+ 
++kvf_status mi_remote_read_owned_page(mi_remote_worker *w, kvf_hash page,
++                                     uint64_t deadline, void *data) {
++    if (!w || !data || w->location != MI_LOCATION_CPU)
++        return KVF_INVALID;
++    return copy_batch_page(w, NULL, (kvf_page_key){w->space, page}, NULL, data, deadline);
++}
++
+ static kvf_status send_batch(mi_remote_worker *w, mi_segment *stage, mi_batch_buffer *buffer, kvf_frame f,
+-                              const uint8_t *bytes, int fd, uint64_t deadline) {
++                              const uint8_t *bytes, mi_remote_socket socket, uint64_t deadline) {
+     kvf_reader reader = {.buffer = bytes, .size = f.size};
+     kvf_batch_page pages[KVF_MAX_BATCH_PAGES];
+     uint32_t count = kvf_get_batch(&reader, pages);
+@@ -147,7 +275,7 @@ static kvf_status send_batch(mi_remote_worker *w, mi_segment *stage, mi_batch_bu
+         }
+     }
+     for (uint32_t i = 0; st == KVF_OK && i < count; ++i)
+-        st = copy_batch_page(w, stage, &pages[i], (unsigned char *)buffer->data + i * page_bytes, deadline);
++        st = copy_batch_page(w, stage, pages[i].key, &pages[i].manifest_digest, (unsigned char *)buffer->data + i * page_bytes, deadline);
+     if (st == KVF_OK)
+         st = kvf_client_validate_batch_on(control_fd, deadline, pages, count);
+     if (control_fd >= 0)
+@@ -166,14 +294,13 @@ static kvf_status send_batch(mi_remote_worker *w, mi_segment *stage, mi_batch_bu
+     f.response = 1;
+     f.status = st;
+     f.size = st == KVF_OK ? (uint32_t)size : 0;
+-    return kvf_send_frame(fd, f, buffer->data, deadline);
++    return remote_send_frame(socket, f, buffer->data, deadline);
+ }
+ 
+-void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline) {
+-    mi_remote_worker *w = context;
++void mi_remote_serve(mi_remote_worker *w, unsigned lane, mi_remote_socket socket, uint64_t deadline) {
+     uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
+     kvf_frame f;
+-    while (kvf_recv_frame(fd, &f, bytes, sizeof(bytes), deadline) == KVF_OK && !f.response) {
++    while (remote_recv_frame(socket, &f, bytes, sizeof(bytes), deadline, NULL) == KVF_OK && !f.response) {
+         if (f.opcode < KVF_FETCH || f.opcode > KVF_FETCH_BATCH)
+             return;
+         mi_segment *stage = mi_segment_acquire(w->segments, lane, lane + 1);
+@@ -182,8 +309,8 @@ void mi_remote_serve(void *context, unsigned lane, int fd, uint64_t deadline) {
+         atomic_fetch_add_explicit(&w->active_transfers, 1, memory_order_relaxed);
+         uint64_t end = kvf_now_ms() + w->control.timeout_ms;
+         kvf_status st = f.opcode == KVF_FETCH_BATCH
+-            ? send_batch(w, stage, &w->batch_send[lane], f, bytes, fd, end)
+-            : send_layer(w, stage, f, bytes, sizeof(bytes), fd, end);
++            ? send_batch(w, stage, &w->batch_send[lane], f, bytes, socket, end)
++            : send_layer(w, stage, f, bytes, sizeof(bytes), socket, end);
+         atomic_fetch_sub_explicit(&w->active_transfers, 1, memory_order_relaxed);
+         mi_segment_release(stage);
+         if (st != KVF_OK || (f.opcode != KVF_FETCH_STREAM && f.opcode != KVF_FETCH_BATCH))
+@@ -206,6 +333,31 @@ static uint64_t transfer_deadline(kvf_client client, uint64_t deadline) {
+     return deadline && deadline < end ? deadline : end;
+ }
+ 
++static int tcp_fallback(mi_remote_worker *w, kvf_transport mode, kvf_status st, uint64_t deadline) {
++    if (mode != KVF_TRANSPORT_RDMA_RSOCKET || w->rdma_strict || kvf_now_ms() >= deadline ||
++        (st != KVF_IO && st != KVF_TIMEOUT && st != KVF_UNAVAILABLE))
++        return 0;
++    if (!atomic_exchange_explicit(&w->warned_peer_fallback, 1, memory_order_relaxed))
++        fprintf(stderr, "kv-fabric: warning: RDMA_RSOCKET peer transfer failed (%s). Retrying over TCP.\n",
++                kvf_status_string(st));
++    return 1;
++}
++
++static kvf_status borrow_peer(mi_remote_worker *w, const kvf_grant *g, kvf_transport mode, uint64_t end,
++                              mi_peer_conn **peer, mi_remote_socket *socket, int *reused) {
++    uint64_t connect_end = end;
++    if (mode == KVF_TRANSPORT_RDMA_RSOCKET && !w->rdma_strict) {
++        /* Leave room in the original request budget for a failed CM connection. */
++        uint64_t now = kvf_now_ms();
++        if (end > now)
++            connect_end = now + (end - now) / 2;
++    }
++    kvf_status st = mi_peer_borrow(w->peers, g, mode, connect_end, peer, socket, reused);
++    if (tcp_fallback(w, mode, st, end))
++        st = mi_peer_borrow(w->peers, g, KVF_TRANSPORT_TCP, end, peer, socket, reused);
++    return st;
++}
++
+ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant, const kvf_batch_page *pages,
+                                    uint32_t count, size_t size, uint64_t deadline_ms,
+                                    const atomic_bool *cancel, mi_remote_timing *timing) {
+@@ -217,38 +369,54 @@ kvf_status mi_remote_receive_batch(mi_remote_worker *w, const kvf_grant *grant,
+             return KVF_LIMIT;
+         w->batch_recv = (mi_batch_buffer){data, size};
+     }
++    uint8_t bytes[4 + KVF_MAX_BATCH_PAGES * 156];
++    kvf_writer request = {.buffer = bytes, .capacity = sizeof(bytes)};
++    kvf_put_batch(&request, pages, count);
+     uint64_t end = transfer_deadline(w->control, deadline_ms);
+-    kvf_status st;
+-    for (int attempt = 0; attempt < 2; ++attempt) {
++    kvf_transport mode = w->transport_mode;
++    int reconnected = 0;
++    for (;;) {
+         if (mi_remote_cancelled(cancel))
+             return KVF_CANCELLED;
+-        int fd = -1, reused = 0;
+-        mi_peer_conn *peer = NULL;
++        mi_remote_socket socket;
++        int reused;
++        mi_peer_conn *peer;
+         uint64_t start = kvf_now_ns();
+-        st = w->peers ? mi_peer_borrow(w->peers, grant, end, &peer, &fd, &reused)
+-                       : kvf_connect(grant->endpoint, end, &fd);
++        kvf_status st = borrow_peer(w, grant, mode, end, &peer, &socket, &reused);
+         timing->conn_acquire_ns += kvf_now_ns() - start;
+         if (st != KVF_OK)
+             return st;
++        mode = socket.transport;
+         kvf_receive_timing wire = {0};
+-        ++timing->data_requests;
+-        st = kvf_client_fetch_batch_on(fd, end, pages, count, w->batch_recv.data, size, &wire);
++        if (mi_remote_cancelled(cancel)) {
++            st = KVF_CANCELLED;
++        } else {
++            ++timing->data_requests;
++            st = remote_fetch(socket, KVF_FETCH_BATCH, &request, w->batch_recv.data, size, end, &wire);
++        }
+         timing->net_recv_ns += wire.net_recv_ns;
+         timing->reply_wait_ns += wire.reply_wait_ns;
+         timing->received_bytes += wire.received_bytes;
+         timing->crc_verify_ns += wire.crc_verify_ns;
+         if (mi_remote_cancelled(cancel))
+             st = KVF_CANCELLED;
+-        if (peer)
+-            mi_peer_return(w->peers, peer, st == KVF_OK);
+-        else
+-            close(fd);
++        mi_peer_return(w->peers, peer, socket, st == KVF_OK);
++        if (st == KVF_OK) {
++            atomic_store_explicit(&w->active_transport, mode, memory_order_relaxed);
++            return KVF_OK;
++        }
+         /* FIN can race a healthy idle check. A read-only request without a
+          * received body can reconnect once, under the same deadline and lease. */
+-        if (st != KVF_IO || !reused || wire.received_bytes)
+-            break;
++        if (wire.received_bytes)
++            return st;
++        if (st == KVF_IO && reused && !reconnected) {
++            reconnected = 1;
++            continue;
++        }
++        if (!tcp_fallback(w, mode, st, end))
++            return st;
++        mode = KVF_TRANSPORT_TCP;
+     }
+-    return st;
+ }
+ 
+ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
+@@ -259,7 +427,7 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
+     mi_segment *stage[2] = {0};
+     mi_page_lease leases[2] = {0};
+     mi_peer_conn *peer = NULL;
+-    int fd = -1;
++    mi_remote_socket socket = {.fd = -1};
+     kvf_client client;
+     kvf_status st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+     if (st != KVF_OK)
+@@ -275,11 +443,12 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
+         }
+     }
+     if (w->peers) {
+-        st = mi_peer_borrow(w->peers, g, transfer_deadline(client, deadline_ms), &peer, &fd, NULL);
++        st = borrow_peer(w, g, w->transport_mode, transfer_deadline(client, deadline_ms), &peer, &socket, NULL);
+         if (st != KVF_OK)
+             goto done;
+     }
+ 
++    kvf_transport mode = peer ? socket.transport : w->transport_mode;
+     uint64_t renew_at = kvf_now_ms() + g->ttl_ms / 2;
+     for (uint32_t i = 0; i < g->manifest.layer_count; ++i) {
+         st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+@@ -303,15 +472,34 @@ kvf_status mi_remote_import(mi_remote_worker *w, mi_kv_sequence *s, size_t page,
+             goto done;
+         r.layer_index = i;
+         r.layer = g->manifest.layer[i];
++        if (r.layer.size > lease->lease.size) {
++            st = KVF_INVALID;
++            goto done;
++        }
+         void *dst = stage[slot] ? stage[slot]->data : lease->lease.data;
+         st = mi_remote_request_client(w->control, deadline_ms, cancel, &client);
+         if (st != KVF_OK)
+             goto done;
+-        st = fd >= 0 ? kvf_client_fetch_on(fd, transfer_deadline(client, deadline_ms),
+-                                           &r, dst, lease->lease.size)
+-                     : kvf_client_fetch(g->endpoint, client.timeout_ms, &r, dst, lease->lease.size);
++        uint64_t end = transfer_deadline(client, deadline_ms);
++        if (!peer) {
++            st = borrow_peer(w, g, mode, end, &peer, &socket, NULL);
++            if (st != KVF_OK)
++                goto done;
++        }
++        uint8_t bytes[156];
++        kvf_writer request = {.buffer = bytes, .capacity = sizeof(bytes)};
++        kvf_put_fetch(&request, &r);
++        st = remote_fetch(socket, peer ? KVF_FETCH_STREAM : KVF_FETCH, &request, dst, r.layer.size, end, NULL);
++        mode = socket.transport;
++        if (!peer) {
++            remote_close(socket);
++            socket.fd = -1;
++        }
++        if (st == KVF_OK && kvf_crc32c(dst, r.layer.size) != r.layer.checksum)
++            st = KVF_CRC;
+         if (st != KVF_OK)
+             goto done;
++        atomic_store_explicit(&w->active_transport, mode, memory_order_relaxed);
+         if (stream) {
+             mi_status local = mi_device_copy_from_host(w->device, lease->lease.data, dst, lease->lease.size, stream);
+             if (local == MI_OK)
+@@ -339,6 +527,6 @@ done:
+             (void)mi_page_lease_abort(&leases[i]);
+         mi_segment_release(stage[i]);
+     }
+-    mi_peer_return(w->peers, peer, st == KVF_OK);
++    mi_peer_return(w->peers, peer, socket, st == KVF_OK);
+     return st;
+ }
+diff --git a/src/worker/remote/worker.c b/src/worker/remote/worker.c
+index 65c34f2..a4b3156 100644
+--- a/src/worker/remote/worker.c
++++ b/src/worker/remote/worker.c
+@@ -6,15 +6,154 @@
+ #define _POSIX_C_SOURCE 200809L
+ #include "internal.h"
+ #include <errno.h>
++#include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
+ 
++struct mi_remote_server {
++    mi_remote_worker *worker;
++    kvf_endpoint bound;
++    mi_remote_socket listeners[2];
++    pthread_mutex_t accept_lock;
++    atomic_bool stopping;
++    unsigned started, next;
++    struct inbound_lane {
++        pthread_t thread;
++        mi_remote_server *server;
++        unsigned index;
++    } lanes[];
++};
++
++static void *serve(void *arg) {
++    struct inbound_lane *lane = arg;
++    mi_remote_server *s = lane->server;
++    kvf_transport poll_mode = s->worker->transport_mode;
++    for (;;) {
++        pthread_mutex_lock(&s->accept_lock);
++        if (atomic_load_explicit(&s->stopping, memory_order_relaxed)) {
++            pthread_mutex_unlock(&s->accept_lock);
++            return NULL;
++        }
++        struct pollfd fds[] = {
++            {.fd = s->listeners[KVF_TRANSPORT_TCP].fd, .events = POLLIN},
++            {.fd = s->listeners[KVF_TRANSPORT_RDMA_RSOCKET].fd, .events = POLLIN}
++        };
++        /* Older rpoll implementations require all entries to be live descriptors. */
++        unsigned first = fds[KVF_TRANSPORT_TCP].fd < 0 ? KVF_TRANSPORT_RDMA_RSOCKET : KVF_TRANSPORT_TCP;
++        nfds_t count = !first && fds[KVF_TRANSPORT_RDMA_RSOCKET].fd >= 0 ? 2 : 1;
++        int ready = remote_poll(poll_mode, &fds[first], count, 100);
++        mi_remote_socket peer = {.fd = -1};
++        if (ready > 0) {
++            unsigned i = fds[s->next].revents & POLLIN ? s->next : s->next ^ 1u;
++            if (fds[i].revents & POLLIN) {
++                peer = remote_accept(s->listeners[i]);
++                s->next = i ^ 1u;
++            }
++        }
++        if (!ready && poll_mode == KVF_TRANSPORT_RDMA_RSOCKET)
++            nanosleep(&(struct timespec){.tv_nsec = 1000000}, NULL);
++        pthread_mutex_unlock(&s->accept_lock);
++        if (peer.fd >= 0) {
++            mi_remote_serve(s->worker, lane->index, peer, kvf_now_ms() + s->worker->control.timeout_ms);
++            remote_close(peer);
++        } else if (ready != 0) {
++            /* Bound retries if a listener reports an error. */
++            struct timespec delay = {.tv_nsec = 10000000};
++            nanosleep(&delay, NULL);
++        }
++    }
++}
++
++static void stop_server(mi_remote_server *s) {
++    if (!s)
++        return;
++    atomic_store_explicit(&s->stopping, 1, memory_order_relaxed);
++    for (unsigned i = 0; i < s->started; ++i)
++        pthread_join(s->lanes[i].thread, NULL);
++    remote_close(s->listeners[KVF_TRANSPORT_TCP]);
++    remote_close(s->listeners[KVF_TRANSPORT_RDMA_RSOCKET]);
++    pthread_mutex_destroy(&s->accept_lock);
++    free(s);
++}
++
++static kvf_status start_server(mi_remote_worker *w, kvf_endpoint listen) {
++    mi_remote_server *s = calloc(1, sizeof(*s) + w->lanes * sizeof(*s->lanes));
++    if (!s)
++        return KVF_LIMIT;
++    if (pthread_mutex_init(&s->accept_lock, NULL) != 0) {
++        free(s);
++        return KVF_INTERNAL;
++    }
++    s->worker = w;
++    s->bound = listen;
++    s->listeners[KVF_TRANSPORT_TCP].fd = -1;
++    s->listeners[KVF_TRANSPORT_RDMA_RSOCKET].fd = -1;
++    atomic_init(&s->stopping, 0);
++
++    kvf_status st;
++    if (w->transport_mode == KVF_TRANSPORT_TCP || !w->rdma_strict) {
++        st = remote_listen(&s->bound, w->lanes, KVF_TRANSPORT_TCP, &s->listeners[KVF_TRANSPORT_TCP]);
++        if (st != KVF_OK)
++            goto failed;
++    }
++    if (w->transport_mode == KVF_TRANSPORT_RDMA_RSOCKET) {
++        const char *reason = remote_rdma_unavailable();
++        /* IB/RoCE CM and TCP have separate port spaces. Reuse the TCP port when fallback is enabled. */
++        if (!reason && remote_listen(&s->bound, w->lanes, KVF_TRANSPORT_RDMA_RSOCKET,
++                                      &s->listeners[KVF_TRANSPORT_RDMA_RSOCKET]) != KVF_OK)
++            reason = strerror(errno);
++        if (reason) {
++            if (w->rdma_strict) {
++                fprintf(stderr, "kv-fabric: RDMA_RSOCKET unavailable (%s). TCP fallback is disabled.\n", reason);
++                st = KVF_UNAVAILABLE;
++                goto failed;
++            }
++            fprintf(stderr, "kv-fabric: warning: RDMA_RSOCKET unavailable (%s). Falling back to TCP.\n", reason);
++            w->transport_mode = KVF_TRANSPORT_TCP;
++        }
++    }
++    atomic_init(&w->active_transport, w->transport_mode);
++
++    st = KVF_INTERNAL;
++    for (unsigned i = 0; i < w->lanes; ++i) {
++        s->lanes[i].server = s;
++        s->lanes[i].index = i;
++        if (pthread_create(&s->lanes[i].thread, NULL, serve, &s->lanes[i]) != 0)
++            goto failed;
++        ++s->started;
++    }
++    w->server = s;
++    return KVF_OK;
++
++failed:
++    stop_server(s);
++    return st;
++}
++
++kvf_status mi_remote_transport_parse(const char *name, kvf_transport *out) {
++    if (!name || !out)
++        return KVF_INVALID;
++    if (strcmp(name, "tcp") == 0) {
++        *out = KVF_TRANSPORT_TCP;
++        return KVF_OK;
++    }
++    if (strcmp(name, "rdma") == 0) {
++        *out = KVF_TRANSPORT_RDMA_RSOCKET;
++        return KVF_OK;
++    }
++    return KVF_INVALID;
++}
++
++const char *mi_remote_transport_name(kvf_transport transport) {
++    return transport == KVF_TRANSPORT_RDMA_RSOCKET ? "RDMA_RSOCKET" : "TCP";
++}
++
+ void mi_remote_config_defaults(mi_remote_config *cfg) {
+     *cfg = (mi_remote_config){
+         .control = {{127, 0, 0, 1}, 9000}, .listen = {{127, 0, 0, 1}, 0},
+         .lanes = 8, .timeout_ms = KVF_DEFAULT_TIMEOUT_MS, .heartbeat_ms = 1000, .max_exports = 1024,
+-        .peer_connections = 8, .peer_idle_ms = 500
++        .peer_connections = 8, .peer_idle_ms = 500, .transport_mode = KVF_TRANSPORT_TCP
+     };
+ }
+ 
+@@ -124,8 +263,10 @@ static void *heartbeat(void *context) {
+             break;
+         if (w->stopping)
+             break;
+-        mi_peer_pool_reap(w->peers);
+         (void)mi_remote_sync_locked(w);
++        pthread_mutex_unlock(&w->updates);
++        mi_peer_pool_reap(w->peers);
++        pthread_mutex_lock(&w->updates);
+     }
+     pthread_mutex_unlock(&w->updates);
+     return NULL;
+@@ -160,8 +301,9 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
+     if (!storage || !out || !cfg.control.port || !specified(cfg.control) ||
+         (!specified(cfg.listen) && !specified(cfg.advertise)) ||
+         (unsigned)cfg.location > MI_LOCATION_GPU ||
++        (unsigned)cfg.transport_mode > KVF_TRANSPORT_RDMA_RSOCKET ||
+         !cfg.lanes || cfg.lanes > 64 || !cfg.timeout_ms || cfg.timeout_ms > 30000 ||
+-        cfg.peer_connections > 64 ||
++        cfg.peer_connections > MI_REMOTE_MAX_PEERS ||
+         !cfg.heartbeat_ms || cfg.heartbeat_ms > 30000 || !cfg.max_exports || cfg.max_exports > 65536 ||
+         kvf_identity_hash(&cfg.identity, &space) != KVF_OK)
+         return KVF_INVALID;
+@@ -181,6 +323,8 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
+     w->space = space;
+     w->device = device;
+     w->location = cfg.location;
++    w->transport_mode = cfg.transport_mode;
++    w->rdma_strict = cfg.rdma_strict;
+     w->lanes = cfg.lanes;
+     w->heartbeat_ms = cfg.heartbeat_ms;
+     w->peer_idle_ms = cfg.peer_idle_ms ? cfg.peer_idle_ms : 500;
+@@ -195,6 +339,7 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
+     atomic_init(&w->failed_fetches, 0);
+     atomic_init(&w->evictions, 0);
+     atomic_init(&w->active_transfers, 0);
++    atomic_init(&w->warned_peer_fallback, 0);
+ 
+     kvf_status st = kvf_uuid_new(&w->info.owner.boot);
+     if (st != KVF_OK)
+@@ -244,10 +389,10 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
+     st = mi_prefetch_start(w);
+     if (st != KVF_OK)
+         goto condition_ready;
+-    st = kvf_server_start(cfg.listen, cfg.lanes, cfg.timeout_ms, mi_remote_serve, w, &w->server);
++    st = start_server(w, cfg.listen);
+     if (st != KVF_OK)
+         goto condition_ready;
+-    kvf_endpoint bound = kvf_server_endpoint(w->server);
++    kvf_endpoint bound = w->server->bound;
+     w->info.endpoint = specified(cfg.advertise) ? cfg.advertise : bound;
+     if (!w->info.endpoint.port)
+         w->info.endpoint.port = bound.port;
+@@ -268,7 +413,7 @@ kvf_status mi_remote_worker_start(mi_tiered_storage *storage, mi_remote_config c
+ 
+ condition_ready:
+     mi_prefetch_stop(w);
+-    kvf_server_stop(w->server);
++    stop_server(w->server);
+     pthread_cond_destroy(&w->wake);
+ locks_ready:
+     pthread_mutex_destroy(&w->exports_lock);
+@@ -284,7 +429,11 @@ mi_paged_kv *mi_remote_worker_cache(mi_remote_worker *w) {
+ }
+ 
+ kvf_endpoint mi_remote_worker_listen_endpoint(const mi_remote_worker *w) {
+-    return kvf_server_endpoint(w->server);
++    return w->server->bound;
++}
++
++kvf_transport mi_remote_worker_active_transport(const mi_remote_worker *w) {
++    return atomic_load_explicit(&w->active_transport, memory_order_relaxed);
+ }
+ 
+ void mi_remote_worker_stop(mi_remote_worker *w) {
+@@ -296,7 +445,7 @@ void mi_remote_worker_stop(mi_remote_worker *w) {
+     pthread_cond_signal(&w->wake);
+     pthread_mutex_unlock(&w->updates);
+     pthread_join(w->heartbeat, NULL);
+-    kvf_server_stop(w->server);
++    stop_server(w->server);
+     (void)kvf_client_unregister(w->control, &w->info.owner);
+     pthread_cond_destroy(&w->wake);
+     pthread_mutex_destroy(&w->exports_lock);
+diff --git a/tests/nanovllm/remote_worker.c b/tests/nanovllm/remote_worker.c
+index 8929c92..7527e2f 100644
+--- a/tests/nanovllm/remote_worker.c
++++ b/tests/nanovllm/remote_worker.c
+@@ -1,7 +1,7 @@
+ /* An independent Worker process driven through the Nano-VLLM scheduling API. */
+ #define _POSIX_C_SOURCE 200809L
+ #include "nano_cache.h"
+-#include "kvfabric/kvfabric.h"
++#include "miniinfer/remote_cache.h"
+ #ifdef NANO_WITH_CUDA
+ #include <cuda_runtime_api.h>
+ #endif
+@@ -205,6 +205,7 @@ static void request(NvEngine *e, NvTokenizer *t, int max_new, size_t gpu_free_in
+     REPORT(remote_transfer_samples);
+ #undef REPORT
+     printf(",\"remote_published_pages\":%" PRIu32, after.remote_published_pages);
++    printf(",\"active_transport\":\"%s\"", after.active_transport ? after.active_transport : "OFF");
+     size_t sample_count;
+     const uint64_t *samples = nv_engine_remote_take_transfer_samples(e, &sample_count);
+     if (sample_count != after.remote_transfer_samples - before.remote_transfer_samples)
+@@ -258,6 +259,10 @@ int main(int argc, char **argv) {
+         remote.transfer_sample_capacity = (size_t)options.max_sequences * (size_t)options.num_blocks;
+         const char *generated = getenv("NV_TEST_PUBLISH_GENERATED");
+         remote.publish_generated = generated && strcmp(generated, "1") == 0;
++        const char *transport = getenv("NV_TEST_KV_TRANSPORT");
++        if (transport && mi_remote_transport_parse(transport, &remote.transport_mode) != KVF_OK)
++            nv_fatal("invalid test transport");
++        remote.rdma_strict = 1;
+         if (nv_engine_enable_remote(&engine, &tokenizer, remote) != 1)
+             nv_fatal("could not start Nano-VLLM KV worker");
+     }
+diff --git a/tests/nanovllm/test_remote_inference.py b/tests/nanovllm/test_remote_inference.py
+index c3914f6..05be48d 100644
+--- a/tests/nanovllm/test_remote_inference.py
++++ b/tests/nanovllm/test_remote_inference.py
+@@ -3,6 +3,7 @@
+ import argparse
+ import contextlib
+ import csv
++import ipaddress
+ import json
+ import math
+ import os
+@@ -269,14 +270,14 @@ class Runs:
+ 
+     def worker(self, mode, directory=None, *, tenant="integration", files=None, page=PAGE,
+                blocks=48, capacity=48, timeout=2000, new=4, name=None, listen=0, advertise="-", device=None,
+-               publish_generated=False):
++               publish_generated=False, transport="tcp", listen_ip="127.0.0.1"):
+         self.name += 1
+         model, tokenizer = files or self.files
+         return Child([
+             self.args.worker, model, tokenizer, device or self.args.device, mode,
+-            directory.endpoint if directory else "-", f"127.0.0.1:{listen}", advertise,
++            directory.endpoint if directory else "-", f"{listen_ip}:{listen}", advertise,
+             name or f"nano-test-{self.name}", tenant, page, blocks, capacity, timeout, new,
+-        ], env=dict(self.env, NV_TEST_PUBLISH_GENERATED=str(int(publish_generated))))
++        ], env=dict(self.env, NV_TEST_PUBLISH_GENERATED=str(int(publish_generated)), NV_TEST_KV_TRANSPORT=transport))
+ 
+ 
+ def match(output, expected, *, skip=None):
+@@ -345,10 +346,24 @@ def positive(runs, directory, cold):
+             with Child(persistent, env=runs.env, wait_ready=False) as publisher:
+                 publisher.send(SOURCE)
+                 assert publisher.receive().startswith("[0] ")
+-                cli = subprocess.run(cmd + prompt, check=True, capture_output=True, timeout=25, env=runs.env)
++                cli = subprocess.run(cmd + prompt + ["--kv-transport", "tcp", "--trace"],
++                                     check=True, capture_output=True, timeout=25, env=runs.env)
+                 assert cli.stdout == local.stdout, (cli.stdout, local.stdout)
+                 assert re.search(rb"\bremote_prefill_skipped_tokens=20\b", cli.stderr), cli.stderr
++                assert b"active_transport: TCP\n" in cli.stderr and b"active_transport=TCP\n" in cli.stderr, cli.stderr
+                 expected = "[0] " + " ".join(map(str, cold[TARGET]["tokens"][0]))
++                if runs.args.rdma_unavailable:
++                    rdma = cmd + prompt + ["--kv-transport", "rdma", "--trace", "--ids"]
++                    fallback = subprocess.run(rdma + ["--kv-rdma-fallback"], check=True, capture_output=True,
++                                              timeout=25, env=runs.env)
++                    assert fallback.stdout == (expected + "\n").encode(), fallback
++                    assert b"Falling back to TCP." in fallback.stderr, fallback.stderr
++                    assert b"active_transport: TCP\n" in fallback.stderr, fallback.stderr
++                    assert re.search(rb"\bremote_prefill_skipped_tokens=20\b", fallback.stderr), fallback.stderr
++                    strict = subprocess.run(rdma + ["--no-kv-rdma-fallback"], capture_output=True,
++                                            timeout=25, env=runs.env)
++                    assert strict.returncode == 1 and not strict.stdout, strict
++                    assert b"TCP fallback is disabled." in strict.stderr, strict.stderr
+                 with Child(persistent, env=runs.env, wait_ready=False) as consumer:
+                     for _ in range(2):
+                         consumer.send(TARGET)
+@@ -681,6 +696,55 @@ def benchmark(runs, output, samples, warmup=0, offset=0):
+     print(f"remote transfer_ns P50={p50} P95={p95} P99={p99} pages={len(transfers)}")
+ 
+ 
++def benchmark_transports(runs, output, samples, warmup):
++    address = str(runs.args.rdma_address)
++    modes = ("tcp", "rdma")
++    active = {"tcp": "TCP", "rdma": "RDMA_RSOCKET"}
++    rows = []
++    for repeats, skipped in ((4, 20), (24, 120)):
++        prefix = (SOURCE + " ") * repeats
++        target = prefix + "jumps high"
++        size = skipped * 13824  # stories15M FP32 K+V bytes per token
++        with runs.worker("cold", new=8) as cold:
++            reference = cold.infer(target, command="inspect")
++        with runs.directory() as directory, contextlib.ExitStack() as publishers:
++            for mode in modes:
++                worker = publishers.enter_context(runs.worker("remote", directory, tenant=mode, new=8,
++                                                              transport=mode, listen_ip=address))
++                published = worker.infer(prefix + "walks away")
++                assert published["remote_published_pages"] >= skipped // PAGE, published
++                assert published["active_transport"] == active[mode], published
++            for sample in range(samples):
++                for position, mode in enumerate(modes if sample % 2 == 0 else modes[::-1], 1):
++                    with runs.worker("remote", directory, tenant=mode, new=8, transport=mode,
++                                     listen_ip=address) as consumer:
++                        for _ in range(warmup):
++                            consumer.infer("A different story begins in a quiet valley.")
++                        result = consumer.infer(target, command="inspect")
++                    match(result, reference, skip=skipped)
++                    assert result["active_transport"] == active[mode], result
++                    assert result["kv_page_hashes"] == reference["kv_page_hashes"], result
++                    assert result["remote_import_bytes"] == result["received_bytes"] == size, result
++                    assert result["data_requests"] == (skipped // PAGE + 7) // 8, result
++                    assert result["remote_prefetch_failures"] == 0, result
++                    rows.append(dict(
++                        sample=sample + 1, position=position, address=address, device=runs.args.device,
++                        generated_token_ids=" ".join(map(str, result["tokens"][0])),
++                        **{name: result[name] for name in (
++                            "active_transport", "prompt_tokens", "remote_prefill_skipped_tokens",
++                            "received_bytes", "data_requests", "ttft_ns", "conn_acquire_ns", "net_recv_ns",
++                            "reply_wait_ns", "crc_verify_ns", "cpu_stage_ns", "kv_commit_ns",
++                        )},
++                    ))
++    write_csv(output, rows)
++    for skipped in (20, 120):
++        for mode in modes:
++            ttft = [row["ttft_ns"] for row in rows if row["remote_prefill_skipped_tokens"] == skipped
++                    and row["active_transport"] == active[mode]]
++            p50, p95, p99 = percentiles(ttft)
++            print(f"{skipped} tokens {active[mode]} TTFT ns P50={p50} P95={p95} P99={p99}")
++
++
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--directory", type=Path, required=True)
+@@ -688,7 +752,9 @@ def main():
+     parser.add_argument("--cli", type=Path, action="append", default=[])
+     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+     parser.add_argument("--benchmark", type=Path, help="write raw loopback samples to this CSV")
++    parser.add_argument("--rdma-address", type=ipaddress.IPv4Address, help="pair TCP and strict RDMA on this local IPv4")
+     parser.add_argument("--conversation", action="store_true", help="run three workers on canonical chat history")
++    parser.add_argument("--rdma-unavailable", action="store_true", help="check CLI fallback on a host without rsockets")
+     parser.add_argument("--samples", type=int, default=30)
+     parser.add_argument("--warmup", type=int, default=0, help="independent warmup requests per consumer")
+     parser.add_argument("--sample-offset", type=int, default=0, help="global sample offset for interleaved shards")
+@@ -700,10 +766,14 @@ def main():
+     if (args.samples <= 0 or args.warmup < 0 or args.sample_offset < 0 or bool(args.model) != bool(args.tokenizer)
+             or (args.model and not (args.benchmark or args.conversation))):
+         parser.error("provide a positive sample count and pair --model/--tokenizer for benchmark or chat")
++    if args.rdma_address and (not args.benchmark or not args.model or args.samples < 30 or args.sample_offset):
++        parser.error("--rdma-address requires --benchmark, stories15M model/tokenizer and at least 30 pairs")
+     try:
+         with tempfile.TemporaryDirectory(prefix="nano-kv-") as tmp:
+             runs = Runs(args, Path(tmp))
+-            if args.benchmark:
++            if args.rdma_address:
++                benchmark_transports(runs, args.benchmark, args.samples, args.warmup)
++            elif args.benchmark:
+                 benchmark(runs, args.benchmark, args.samples, args.warmup, args.sample_offset)
+             elif args.conversation:
+                 with runs.directory() as directory:
+diff --git a/tests/worker/test_remote_e2e.c b/tests/worker/test_remote_e2e.c
+index c2453ba..4b7f698 100644
+--- a/tests/worker/test_remote_e2e.c
++++ b/tests/worker/test_remote_e2e.c
+@@ -156,7 +156,7 @@ static int failover(child *publisher, child *daemon, char *daemon_path, char *co
+ }
+ 
+ static int exercise(const char *dir, char *worker, char *device, char *control, size_t layer_bytes,
+-                    child *daemon, char *daemon_path, int restart) {
++                    child *daemon, char *daemon_path, int restart, int rdma_unavailable) {
+     child publisher = {0};
+     int ok = 0;
+     char ns[256], tokens[256], payload[256], result[256];
+@@ -169,14 +169,22 @@ static int exercise(const char *dir, char *worker, char *device, char *control,
+         goto done;
+ 
+     char *publish_args[] = {worker, "serve", "source", control, "127.0.0.1:0",
+-                            device, ns, tokens, payload, NULL};
++                            device, ns, tokens, payload, rdma_unavailable ? "--kv-transport" : NULL,
++                            "rdma", NULL};
+     publisher = spawn(publish_args);
+     char line[256];
+     if (!read_line(publisher, line, sizeof(line)) || strncmp(line, "READY ", 6))
+         goto done;
+ 
+     char *pull_args[] = {worker, "pull", "target", control, "127.0.0.1:0",
+-                         device, ns, tokens, result, NULL};
++                         device, ns, tokens, result, rdma_unavailable ? "--kv-transport" : NULL,
++                         "rdma", "--no-kv-rdma-fallback", NULL};
++    if (rdma_unavailable) {
++        child strict = spawn(pull_args);
++        if (!strict.pid || reap(&strict) != 1)
++            goto done;
++        pull_args[11] = "--kv-rdma-fallback";
++    }
+     if (!pull(pull_args, 1))
+         goto done;
+     if (restart) {
+@@ -206,7 +214,8 @@ done:
+ 
+ int main(int argc, char **argv) {
+     int restart = argc == 5 && !strcmp(argv[4], "restart");
+-    if (argc != 4 && !restart)
++    int rdma_unavailable = argc == 5 && !strcmp(argv[4], "rdma-unavailable");
++    if (argc != 4 && !restart && !rdma_unavailable)
+         return 2;
+     char dir[] = "/tmp/miniinfer-kvf-e2e.XXXXXX";
+     if (!mkdtemp(dir))
+@@ -217,8 +226,8 @@ int main(int argc, char **argv) {
+     int ok = read_line(daemon, line, sizeof(line)) &&
+              sscanf(line, "READY %21s", control) == 1;
+     const size_t sizes[] = {4096, 65536, 262144, 1048576, 4194304};
+-    for (size_t i = 0; ok && i < (restart ? 1 : sizeof(sizes) / sizeof(*sizes)); ++i) {
+-        ok = exercise(dir, argv[2], argv[3], control, sizes[i], &daemon, argv[1], restart);
++    for (size_t i = 0; ok && i < (restart || rdma_unavailable ? 1 : sizeof(sizes) / sizeof(*sizes)); ++i) {
++        ok = exercise(dir, argv[2], argv[3], control, sizes[i], &daemon, argv[1], restart, rdma_unavailable);
+         if (!ok)
+             fprintf(stderr, "multi-process test failed for %s at %zu bytes\n", argv[3], sizes[i]);
+     }
+diff --git a/tests/worker/test_remote_faults.c b/tests/worker/test_remote_faults.c
+index 4e1833d..6950c68 100644
+--- a/tests/worker/test_remote_faults.c
++++ b/tests/worker/test_remote_faults.c
+@@ -2,11 +2,13 @@
+ #define _GNU_SOURCE
+ #include "../../src/worker/remote/internal.h"
+ #include <assert.h>
++#include <errno.h>
+ #include <stdatomic.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <sys/socket.h>
+ #include <time.h>
++#include <unistd.h>
+ 
+ enum { BYTES = 4096, LAYERS = 2, PAGES = 2, TPP = 2 };
+ typedef enum { DISCONNECT, BAD_CRC, EXPIRE, EVICT, PAUSE } fault;
+@@ -314,7 +316,7 @@ static void peer_epoch(void) {
+     kvf_endpoint loop = {{127, 0, 0, 1}, 0};
+     assert(kvf_server_start(loop, 2, 1500, probe_peer, &accepted, &server) == KVF_OK);
+     mi_peer_pool *pool;
+-    assert(mi_peer_pool_create(1, 200, &pool) == KVF_OK);
++    assert(mi_peer_pool_create(2, 200, &pool) == KVF_OK);
+     kvf_grant grant = {.endpoint = kvf_server_endpoint(server)};
+     assert(kvf_uuid_new(&grant.manifest.owner.boot) == KVF_OK);
+     for (unsigned attempt = 0; attempt < 4; ++attempt) {
+@@ -325,18 +327,44 @@ static void peer_epoch(void) {
+             mi_peer_pool_reap(pool);
+         }
+         mi_peer_conn *peer;
+-        int fd, reused;
++        mi_remote_socket socket;
++        int reused;
+         uint64_t deadline = kvf_now_ms() + 1000;
+-        assert(mi_peer_borrow(pool, &grant, deadline, &peer, &fd, &reused) == KVF_OK);
++        if (attempt == 1) {
++            /* Even with the same endpoint and boot, a TCP stream can't satisfy an RDMA checkout. */
++            kvf_status st = mi_peer_borrow(pool, &grant, KVF_TRANSPORT_RDMA_RSOCKET, kvf_now_ms(),
++                                           &peer, &socket, &reused);
++            assert((st == KVF_TIMEOUT || st == KVF_UNAVAILABLE) && !peer && !reused);
++        }
++        assert(mi_peer_borrow(pool, &grant, KVF_TRANSPORT_TCP, deadline, &peer, &socket, &reused) == KVF_OK);
+         assert(reused == (attempt == 1));
+-        assert(kvf_rpc_on(fd, KVF_STATS, NULL, NULL, 0, NULL, deadline) == KVF_OK);
+-        mi_peer_return(pool, peer, 1);
++        assert(socket.transport == KVF_TRANSPORT_TCP);
++        assert(kvf_rpc_on(socket.fd, KVF_STATS, NULL, NULL, 0, NULL, deadline) == KVF_OK);
++        mi_peer_return(pool, peer, socket, 1);
+         assert(atomic_load_explicit(&accepted, memory_order_relaxed) == (attempt ? attempt : 1));
+     }
+     mi_peer_pool_destroy(pool);
+     kvf_server_stop(server);
+ }
+ 
++static void rdma_poll_deadline(void) {
++    int ends[2];
++    assert(pipe(ends) == 0);
++    /* rpoll supports ordinary fds, so this exercises the actual library without an IB device. */
++    mi_remote_socket input = {.fd = ends[0], .transport = KVF_TRANSPORT_RDMA_RSOCKET};
++    struct pollfd ready = {.fd = input.fd, .events = POLLIN};
++    int count = remote_poll(input.transport, &ready, 1, 0);
++    assert(count == 0 || (count < 0 && errno == EOPNOTSUPP));
++    if (!count) {
++        for (int i = 0; i < 3; ++i)
++            assert(remote_wait(input, POLLIN, kvf_now_ms() + 10) == KVF_TIMEOUT);
++        assert(write(ends[1], "x", 1) == 1);
++        assert(remote_wait(input, POLLIN, kvf_now_ms() + 100) == KVF_OK);
++    }
++    close(ends[0]);
++    close(ends[1]);
++}
++
+ int main(void) {
+     exercise(DISCONNECT, "partial TCP response", KVF_IO);
+     exercise(BAD_CRC, "layer CRC32C", KVF_CRC);
+@@ -345,5 +373,6 @@ int main(void) {
+     exercise(PAUSE, "prefetch cancellation and bounded queue", KVF_CANCELLED);
+     leaf_pressure();
+     peer_epoch();
++    rdma_poll_deadline();
+     return 0;
+ }
+diff --git a/third_party/NtyCo/core/nty_coroutine.c b/third_party/NtyCo/core/nty_coroutine.c
+index a011806..feb6681 100644
+--- a/third_party/NtyCo/core/nty_coroutine.c
++++ b/third_party/NtyCo/core/nty_coroutine.c
+@@ -51,26 +51,45 @@ static pthread_once_t sched_key_once = PTHREAD_ONCE_INIT;
+ 
+ #ifdef _USE_UCONTEXT
+ 
++extern void __sanitizer_start_switch_fiber(void **, const void *, size_t) __attribute__((weak));
++extern void __sanitizer_finish_switch_fiber(void *, const void **, size_t *) __attribute__((weak));
++
++/* ASan tracks live frames per fiber. Use private stacks for instrumented runs. */
++static int asan_fibers(void) {
++	return __sanitizer_start_switch_fiber && __sanitizer_finish_switch_fiber;
++}
++
+ static void
+ _save_stack(nty_coroutine *co) {
+-	char* top = co->sched->stack + co->sched->stack_size;
++	uintptr_t bottom = (uintptr_t)co->sched->stack;
++	uintptr_t top = bottom + co->sched->stack_size;
+ 	char dummy = 0;
+-	assert(top - &dummy <= NTY_CO_MAX_STACKSIZE);
+-	if (co->stack_size < top - &dummy) {
+-		co->stack = realloc(co->stack, top - &dummy);
+-		assert(co->stack != NULL);
++	uintptr_t sp = (uintptr_t)&dummy;
++	if (sp < bottom || sp > top || top - sp > NTY_CO_MAX_STACKSIZE)
++		abort();
++	size_t size = top - sp;
++	if (co->stack_size < size) {
++		void *stack = realloc(co->stack, size);
++		if (!stack)
++			abort();
++		co->stack = stack;
+ 	}
+-	co->stack_size = top - &dummy;
+-	memcpy(co->stack, &dummy, co->stack_size);
++	co->stack_size = size;
++	memcpy(co->stack, &dummy, size);
+ }
+ 
+ static void
+ _load_stack(nty_coroutine *co) {
++	if (co->stack_size > co->sched->stack_size)
++		abort();
+ 	memcpy(co->sched->stack + co->sched->stack_size - co->stack_size, co->stack, co->stack_size);
+ }
+ 
+ static void _exec(void *lt) {
+ 	nty_coroutine *co = (nty_coroutine*)lt;
++	if (asan_fibers())
++		__sanitizer_finish_switch_fiber(co->asan_fake_stack, &co->sched->asan_stack_bottom,
++			&co->sched->asan_stack_size);
+ 	co->func(co->arg);
+ 	co->status |= (BIT(NTY_COROUTINE_STATUS_EXITED) | BIT(NTY_COROUTINE_STATUS_FDEOF) | BIT(NTY_COROUTINE_STATUS_DETACH));
+ 	nty_coroutine_yield(co);
+@@ -191,7 +210,7 @@ static void nty_coroutine_init(nty_coroutine *co) {
+ 
+ #ifdef _USE_UCONTEXT
+ 	getcontext(&co->ctx);
+-	co->ctx.uc_stack.ss_sp = co->sched->stack;
++	co->ctx.uc_stack.ss_sp = asan_fibers() ? co->stack : co->sched->stack;
+ 	co->ctx.uc_stack.ss_size = co->sched->stack_size;
+ 	co->ctx.uc_link = &co->sched->ctx;
+ 	// printf("TAG21\n");
+@@ -214,10 +233,16 @@ static void nty_coroutine_init(nty_coroutine *co) {
+ void nty_coroutine_yield(nty_coroutine *co) {
+ 	co->ops = 0;
+ #ifdef _USE_UCONTEXT
+-	if ((co->status & BIT(NTY_COROUTINE_STATUS_EXITED)) == 0) {
++	int alive = (co->status & BIT(NTY_COROUTINE_STATUS_EXITED)) == 0;
++	if (asan_fibers()) {
++		__sanitizer_start_switch_fiber(alive ? &co->asan_fake_stack : NULL,
++			co->sched->asan_stack_bottom, co->sched->asan_stack_size);
++	} else if (alive) {
+ 		_save_stack(co);
+ 	}
+ 	swapcontext(&co->ctx, &co->sched->ctx);
++	if (asan_fibers())
++		__sanitizer_finish_switch_fiber(co->asan_fake_stack, NULL, NULL);
+ #else
+ 	_switch(&co->sched->ctx, &co->ctx);
+ #endif
+@@ -229,14 +254,19 @@ int nty_coroutine_resume(nty_coroutine *co) {
+ 		nty_coroutine_init(co);
+ 	} 
+ #ifdef _USE_UCONTEXT	
+-	else {
++	else if (!asan_fibers()) {
+ 		_load_stack(co);
+ 	}
+ #endif
+ 	nty_schedule *sched = nty_coroutine_get_sched();
+ 	sched->curr_thread = co;
+ #ifdef _USE_UCONTEXT
++	if (asan_fibers())
++		__sanitizer_start_switch_fiber(&sched->asan_fake_stack, co->ctx.uc_stack.ss_sp,
++			co->ctx.uc_stack.ss_size);
+ 	swapcontext(&sched->ctx, &co->ctx);
++	if (asan_fibers())
++		__sanitizer_finish_switch_fiber(sched->asan_fake_stack, NULL, NULL);
+ #else
+ 	_switch(&co->ctx, &co->sched->ctx);
+ 	nty_coroutine_madvise(co);
+@@ -318,8 +348,14 @@ int nty_coroutine_create(nty_coroutine **new_co, proc_coroutine func, void *arg)
+ 	}
+ 
+ #ifdef _USE_UCONTEXT
+-	co->stack = NULL;
+-	co->stack_size = 0;
++	if (asan_fibers()) {
++		co->stack = malloc(sched->stack_size);
++		if (!co->stack) {
++			free(co);
++			return -3;
++		}
++		co->stack_size = sched->stack_size;
++	}
+ #else
+ 	int ret = posix_memalign(&co->stack, getpagesize(), sched->stack_size);
+ 	if (ret) {
+diff --git a/third_party/NtyCo/core/nty_coroutine.h b/third_party/NtyCo/core/nty_coroutine.h
+index b73a08a..6209af7 100644
+--- a/third_party/NtyCo/core/nty_coroutine.h
++++ b/third_party/NtyCo/core/nty_coroutine.h
+@@ -155,6 +155,9 @@ typedef struct _nty_schedule {
+ 	uint64_t birth;
+ #ifdef _USE_UCONTEXT
+ 	ucontext_t ctx;
++	void *asan_fake_stack;
++	const void *asan_stack_bottom;
++	size_t asan_stack_size;
+ #else
+ 	nty_cpu_ctx ctx;
+ #endif
+@@ -191,6 +194,7 @@ typedef struct _nty_coroutine {
+ 	
+ #ifdef _USE_UCONTEXT
+ 	ucontext_t ctx;
++	void *asan_fake_stack;
+ #else
+ 	nty_cpu_ctx ctx;
+ #endif
+diff --git a/third_party/NtyCo/core/nty_socket.c b/third_party/NtyCo/core/nty_socket.c
+index 2c4f314..033325e 100644
+--- a/third_party/NtyCo/core/nty_socket.c
++++ b/third_party/NtyCo/core/nty_socket.c
+@@ -209,21 +209,17 @@ int nty_connect(int fd, struct sockaddr *name, socklen_t namelen) {
+ // add epoll first
+ //
+ ssize_t nty_recv(int fd, void *buf, size_t len, int flags) {
+-	
+-	struct pollfd fds;
+-	fds.fd = fd;
+-	fds.events = POLLIN | POLLERR | POLLHUP;
+-
+-	nty_poll_inner(&fds, 1, 1);
+-
+-	int ret = recv(fd, buf, len, flags);
+-	if (ret < 0) {
+-		//if (errno == EAGAIN) return ret;
+-		if (errno == ECONNRESET) return -1;
+-		//printf("recv error : %d, ret : %d\n", errno, ret);
+-		
++	nty_schedule *sched = nty_coroutine_get_sched();
++	if (sched && sched->curr_thread) {
++		struct pollfd fds = {.fd = fd, .events = POLLIN | POLLERR | POLLHUP};
++		nty_poll_inner(&fds, 1, 1);
+ 	}
+-	return ret;
++#ifdef COROUTINE_HOOK
++	if (!recv_f) init_hook();
++	return recv_f(fd, buf, len, flags);
++#else
++	return recv(fd, buf, len, flags);
++#endif
+ }
+ 
+ 
+@@ -408,28 +404,7 @@ ssize_t read(int fd, void *buf, size_t count) {
+ }
+ 
+ ssize_t recv(int fd, void *buf, size_t len, int flags) {
+-
+-	if (!recv_f) init_hook();
+-
+-	nty_schedule *sched = nty_coroutine_get_sched();
+-	if (sched == NULL) {
+-		return recv_f(fd, buf, len, flags);
+-	}
+-
+-	struct pollfd fds;
+-	fds.fd = fd;
+-	fds.events = POLLIN | POLLERR | POLLHUP;
+-
+-	nty_poll_inner(&fds, 1, 1);
+-
+-	int ret = recv_f(fd, buf, len, flags);
+-	if (ret < 0) {
+-		//if (errno == EAGAIN) return ret;
+-		if (errno == ECONNRESET) return -1;
+-		//printf("recv error : %d, ret : %d\n", errno, ret);
+-		
+-	}
+-	return ret;
++	return nty_recv(fd, buf, len, flags);
+ }
+ 
+ 

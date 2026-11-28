@@ -1,0 +1,46 @@
+Internal ctest changing into directory: /home/wty/Infra/build-spdk
+Test project /home/wty/Infra/build-spdk
+      Start  1: kvf_protocol
+ 1/20 Test  #1: kvf_protocol .....................   Passed    0.04 sec
+      Start  2: kvf_directory
+ 2/20 Test  #2: kvf_directory ....................   Passed    0.68 sec
+      Start  3: pool
+ 3/20 Test  #3: pool .............................   Passed    0.29 sec
+      Start  4: graph
+ 4/20 Test  #4: graph ............................   Passed    0.01 sec
+      Start  5: tiered
+ 5/20 Test  #5: tiered ...........................   Passed    0.01 sec
+      Start  6: kv_cache
+ 6/20 Test  #6: kv_cache .........................   Passed    0.01 sec
+      Start  7: paged_kv
+ 7/20 Test  #7: paged_kv .........................   Passed    0.01 sec
+      Start  8: gpu_mock
+ 8/20 Test  #8: gpu_mock .........................   Passed    0.01 sec
+      Start  9: allocator_faults
+ 9/20 Test  #9: allocator_faults .................   Passed    0.01 sec
+      Start 10: device_boundaries_cpu
+10/20 Test #10: device_boundaries_cpu ............   Passed    0.01 sec
+      Start 11: storage_audit
+11/20 Test #11: storage_audit ....................   Passed    0.02 sec
+      Start 12: spdk_lifecycle
+12/20 Test #12: spdk_lifecycle ...................   Passed    0.08 sec
+      Start 13: spdk_init_failure
+13/20 Test #13: spdk_init_failure ................   Passed    0.10 sec
+      Start 14: direct_io_cpu
+14/20 Test #14: direct_io_cpu ....................   Passed    0.01 sec
+      Start 15: remote_lifecycle
+15/20 Test #15: remote_lifecycle .................   Passed    0.01 sec
+      Start 16: remote_audit
+16/20 Test #16: remote_audit .....................   Passed    2.93 sec
+      Start 17: remote_faults
+17/20 Test #17: remote_faults ....................   Passed    2.41 sec
+      Start 18: remote_e2e_cpu
+18/20 Test #18: remote_e2e_cpu ...................   Passed    1.28 sec
+      Start 19: remote_restart
+19/20 Test #19: remote_restart ...................   Passed    1.60 sec
+      Start 20: nano_remote_inference_cpu
+20/20 Test #20: nano_remote_inference_cpu ........   Passed    9.79 sec
+
+100% tests passed, 0 tests failed out of 20
+
+Total Test time (real) =  19.30 sec
