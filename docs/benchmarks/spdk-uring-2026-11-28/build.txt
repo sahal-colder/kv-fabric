@@ -1,0 +1,58 @@
+[  4%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/wire.c.o
+[  9%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/client.c.o
+[ 14%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/directory.c.o
+[ 14%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/identity.c.o
+[ 19%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/net.c.o
+[ 23%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/control.c.o
+[ 28%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/home/wty/Infra/third_party/infer-io/src/base/crc32c.c.o
+[ 28%] Linking C static library libkvfabric.a
+[ 28%] Built target kvfabric
+[ 28%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o
+[ 33%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[ 38%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o
+[ 47%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o
+[ 47%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o
+[ 52%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o
+[ 57%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[ 61%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[ 66%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o
+[ 71%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 76%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[ 76%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[ 80%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[ 85%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/spdk_bridge.c.o
+[ 90%] Building CUDA object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o
+[ 95%] Linking CUDA static library libminiinfer_storage.a
+[ 95%] Built target miniinfer_storage
+[ 95%] Building C object CMakeFiles/kvf_backend_compare.dir/home/wty/Infra/tools/kvf_backend_compare.c.o
+[100%] Linking C executable kvf_backend_compare
+[100%] Built target kvf_backend_compare
+Consolidate compiler generated dependencies of target kvfabric
+[ 17%] Built target kvfabric
+Consolidate compiler generated dependencies of target miniinfer_storage
+[ 57%] Built target miniinfer_storage
+[ 60%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[ 62%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o
+[ 68%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[ 68%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[ 68%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[ 71%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[ 74%] Linking CUDA static library libminiinfer_remote.a
+[ 74%] Built target miniinfer_remote
+[ 82%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/model.c.o
+[ 82%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/cache.c.o
+[ 82%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/sampler.c.o
+[ 88%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/main.c.o
+[ 88%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/cli.c.o
+[ 88%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/engine.c.o
+[ 91%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/tokenizer.c.o
+[ 94%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/nano_spill.c.o
+[ 97%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/nano_remote_kv.c.o
+[100%] Building CUDA object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/src/nanovllm/nano_cuda.cu.o
+[100%] Linking CUDA executable ../../../bin/miniinfer
+[100%] Built target miniinfer
+[ 27%] Built target kvfabric
+[ 90%] Built target miniinfer_storage
+[ 95%] Building C object kvfabric/src/worker/CMakeFiles/kvf_spdk_verify.dir/home/wty/Infra/tools/kvf_spdk_verify.c.o
+[100%] Linking CUDA executable ../../../bin/kvf_spdk_verify
+[100%] Built target kvf_spdk_verify

@@ -1,0 +1,42 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The CUDA compiler identification is NVIDIA 13.4.92
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2") found components: Crypto 
+-- Performing Test KVF_RSOCKETS_LINKS
+-- Performing Test KVF_RSOCKETS_LINKS - Success
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'liburing>=2.3'
+--   Found liburing, version 2.9
+-- Checking for modules 'spdk_event;spdk_event_bdev;spdk_event_iobuf;spdk_bdev_nvme;spdk_bdev_malloc;spdk_env_dpdk;spdk_syslibs'
+--   Found spdk_event, version 16.0
+--   Found spdk_event_bdev, version 8.0
+--   Found spdk_event_iobuf, version 5.0
+--   Found spdk_bdev_nvme, version 10.1
+--   Found spdk_bdev_malloc, version 8.0
+--   Found spdk_env_dpdk, version 17.0
+--   Found spdk_syslibs, version 1.0
+-- Found CUDAToolkit: /usr/local/cuda/include (found version "13.4.92") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/build-backend-compare

@@ -1,0 +1,18 @@
+{
+  "archive_source_files_verified": 203,
+  "all_manifest_hashes_match": true,
+  "benchmark_process_logs_checked": 32,
+  "all_commands_succeeded": 113,
+  "raw_samples_validated": 960,
+  "warmup_samples_validated": 96,
+  "inference_formal_samples": 60,
+  "inference_warmup_samples": 18,
+  "historical_replay_samples": 30,
+  "source_archive_rebuild_passed": true,
+  "all_three_original_region_hashes_match_before_after": true,
+  "driver_and_service_restored": {
+    "time": "2026-11-28T10:58:08.532715+08:00",
+    "driver": "vfio-pci",
+    "service": "ActiveState=active\nSubState=exited\nUnitFileState=enabled\n"
+  }
+}
