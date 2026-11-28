@@ -1,6 +1,7 @@
 /* Explicit Samsung scratch-region experiment. Not the production tiered path.
  * Both backends use the same hugepage + CUDA-registered host buffer, record
- * layout, ordered submissions, CRC, and post-read H2D. Only prepare writes. */
+ * layout, ordered submissions, CRC, and H2D. Optional pipeline mode overlaps
+ * reading later records with CRC/H2D of completed records. Only prepare writes. */
 #define _GNU_SOURCE
 #include <cuda_runtime_api.h>
 #include <liburing.h>
@@ -39,26 +40,39 @@ static struct {
     pthread_t reactor;
     pthread_mutex_t lock;
     pthread_cond_t changed;
+    pthread_cond_t records_changed, work_available;
     struct spdk_bdev_desc *desc;
     struct spdk_io_channel *ch;
     struct spdk_thread *thread;
     struct spdk_poller *stop_poller;
     atomic_bool stop;
     unsigned next,active,completed,peak,qd;
-    int done,error,temp;
+    int done,error,temp,pipeline,pending,fd;
+    unsigned ready[COUNT], records_completed;
+    double storage_done;
+    struct io_uring *ring;
     void *health;
 } s;
 static void notify_done(void) { pthread_mutex_lock(&s.lock); s.done=1; pthread_cond_signal(&s.changed); pthread_mutex_unlock(&s.lock); }
 static void pump(void);
+static void publish_record(unsigned i) {
+    pthread_mutex_lock(&s.lock);
+    REQUIRE(i<COUNT && !s.ready[i]); s.ready[i]=1;
+    if(++s.records_completed==COUNT)s.storage_done=stamp(CLOCK_MONOTONIC);
+    pthread_cond_broadcast(&s.records_changed);
+    pthread_mutex_unlock(&s.lock);
+}
 static void read_done(struct spdk_bdev_io *io,bool ok,void *arg) {
-    (void)arg; spdk_bdev_free_io(io); if(!ok)s.error=1;
+    unsigned i=(unsigned)(uintptr_t)arg;
+    spdk_bdev_free_io(io); REQUIRE(ok);
     --s.active; ++s.completed;
+    if(s.pipeline)publish_record(i);
     pump();
 }
 static void pump(void) {
     while(!s.error && s.next<COUNT && s.active<s.qd) {
         unsigned i=s.next++;
-        int rc=spdk_bdev_read(s.desc,s.ch,host+(size_t)i*STRIDE,offset+(size_t)i*STRIDE,STRIDE,read_done,NULL);
+        int rc=spdk_bdev_read(s.desc,s.ch,host+(size_t)i*STRIDE,offset+(size_t)i*STRIDE,STRIDE,read_done,(void*)(uintptr_t)i);
         if(rc) { s.error=rc; break; }
         ++s.active; if(s.active>s.peak)s.peak=s.active;
     }
@@ -133,15 +147,54 @@ static unsigned uring_read(struct io_uring *r,int fd,unsigned qd) {
         if(active>peak)peak=active;
         if(added)REQUIRE(io_uring_submit(r)==(int)added);
         struct io_uring_cqe *cqe; REQUIRE(!io_uring_wait_cqe(r,&cqe)); REQUIRE(cqe->res==STRIDE);
+        unsigned i=(unsigned)io_uring_cqe_get_data64(cqe);
         io_uring_cqe_seen(r,cqe); --active; ++done;
+        if(s.pipeline)publish_record(i);
     }
     return peak;
 }
+static void *uring_worker(void *arg) {
+    (void)arg; pin(2);
+    for(;;) {
+        pthread_mutex_lock(&s.lock);
+        while(!s.pending && !atomic_load(&s.stop))pthread_cond_wait(&s.work_available,&s.lock);
+        int stop=atomic_load(&s.stop); s.pending=0;
+        pthread_mutex_unlock(&s.lock);
+        if(stop)break;
+        s.peak=uring_read(s.ring,s.fd,s.qd); s.completed=COUNT; notify_done();
+    }
+    return NULL;
+}
+static void launch_pipeline(int spdk) {
+    pthread_mutex_lock(&s.lock);
+    s.done=0; s.records_completed=0; memset(s.ready,0,sizeof(s.ready));
+    if(spdk)REQUIRE(!spdk_thread_send_msg(s.thread,begin_reads,NULL));
+    else { s.pending=1; pthread_cond_signal(&s.work_available); }
+    pthread_mutex_unlock(&s.lock);
+}
+static void wait_record(unsigned i) {
+    pthread_mutex_lock(&s.lock);
+    while(!s.ready[i])pthread_cond_wait(&s.records_changed,&s.lock);
+    pthread_mutex_unlock(&s.lock);
+}
+static void wait_pipeline(void) {
+    pthread_mutex_lock(&s.lock);
+    while(!s.done)pthread_cond_wait(&s.changed,&s.lock);
+    pthread_mutex_unlock(&s.lock);
+    REQUIRE(!s.error && s.completed==COUNT && s.records_completed==COUNT);
+}
+static void verify_record(unsigned i) {
+    unsigned char *p=host+(size_t)i*STRIDE; record h; memcpy(&h,p,sizeof(h));
+    REQUIRE(h.magic==MAGIC&&h.format==1&&h.id==i+1&&h.version==1&&h.bytes==PAYLOAD);
+    REQUIRE(h.crc==kvf_crc32c(p+HEADER,PAYLOAD));
+}
 int main(int argc,char **argv) {
-    if(argc!=9) { fprintf(stderr,"usage: %s prepare|uring|spdk DEVICE|CONFIG QD cpu|gpu CSV ROUNDS WARMUP BATCH\n",argv[0]); return 2; }
+    if(argc!=9 && argc!=10) { fprintf(stderr,"usage: %s prepare|uring|spdk DEVICE|CONFIG QD cpu|gpu CSV ROUNDS WARMUP BATCH [serial|pipeline]\n",argv[0]); return 2; }
     int prepare=!strcmp(argv[1],"prepare"),spdk=!strcmp(argv[1],"spdk"),gpu=!strcmp(argv[4],"gpu");
     unsigned qd=(unsigned)atoi(argv[3]),rounds=(unsigned)atoi(argv[6]),warmup=(unsigned)atoi(argv[7]);
-    REQUIRE((prepare||spdk||!strcmp(argv[1],"uring")) && (qd==1||qd==4) && rounds>=30 && rounds<=1000 && warmup>=3 && warmup<=100);
+    REQUIRE((prepare||spdk||!strcmp(argv[1],"uring")) && qd>=1 && qd<=COUNT && !(qd&(qd-1)) && rounds>=30 && rounds<=1000 && warmup>=3 && warmup<=100);
+    s.pipeline=argc==10 && !strcmp(argv[9],"pipeline"); s.qd=qd;
+    REQUIRE(argc==9 || s.pipeline || !strcmp(argv[9],"serial"));
     REQUIRE(!strcmp(argv[4],"cpu")||gpu); pin(4);
     host=mmap((void*)UINT64_C(0x1800000000),HOST_BYTES,PROT_READ|PROT_WRITE,
               MAP_PRIVATE|MAP_ANONYMOUS|MAP_HUGETLB|MAP_FIXED_NOREPLACE,-1,0);
@@ -174,33 +227,51 @@ int main(int argc,char **argv) {
     unsigned char *device=NULL; cudaStream_t stream;
     CUDA(cudaStreamCreate(&stream)); CUDA(cudaMalloc((void**)&device,(size_t)COUNT*PAYLOAD));
     CUDA(cudaMemset(device,0,(size_t)COUNT*PAYLOAD)); CUDA(cudaDeviceSynchronize());
+    pthread_mutex_init(&s.lock,NULL); pthread_cond_init(&s.changed,NULL);
+    pthread_cond_init(&s.records_changed,NULL); pthread_cond_init(&s.work_available,NULL);
+    atomic_init(&s.stop,false);
     if(spdk) {
-        pthread_mutex_init(&s.lock,NULL); pthread_cond_init(&s.changed,NULL); atomic_init(&s.stop,false); s.qd=qd;
         pthread_mutex_lock(&s.lock); REQUIRE(!pthread_create(&s.reactor,NULL,reactor,argv[2]));
         while(!s.done)pthread_cond_wait(&s.changed,&s.lock);
         pthread_mutex_unlock(&s.lock);
     } else {
         REQUIRE(!io_uring_queue_init(64,&ring,0)); struct iovec v={host,HOST_BYTES}; REQUIRE(!io_uring_register_buffers(&ring,&v,1));
+        if(s.pipeline) { s.ring=&ring; s.fd=fd; REQUIRE(!pthread_create(&s.reactor,NULL,uring_worker,NULL)); }
     }
     FILE *out=fopen(argv[5],"wx"); REQUIRE(out);
-    fprintf(out,"backend,target,batch,round,warmup,qd,max_inflight,submitted,completed,payload_bytes,read_ms,crc_ms,h2d_ms,total_ms,cpu_ms,read_cpu_ms,temp_before_c,temp_after_c,verified_bytes\n");
+    fprintf(out,"backend,target,batch,round,warmup,qd,max_inflight,submitted,completed,payload_bytes,read_ms,crc_ms,h2d_ms,total_ms,cpu_ms,read_cpu_ms,temp_before_c,temp_after_c,verified_bytes,strategy,overlapped,wait_ms,h2d_submit_ms,final_sync_ms\n");
     for(unsigned n=0;n<warmup+rounds;n++) {
         memset(host,0xa5,(size_t)COUNT*STRIDE);
         int before,after; if(spdk) { message(get_health); before=s.temp; } else before=kernel_temp(argv[2]);
         double c0=stamp(CLOCK_PROCESS_CPUTIME_ID),a=stamp(CLOCK_MONOTONIC);
-        unsigned peak; if(spdk) { message(begin_reads); REQUIRE(!s.error&&s.completed==COUNT); peak=s.peak; } else peak=uring_read(&ring,fd,qd);
-        double b=stamp(CLOCK_MONOTONIC),c1=stamp(CLOCK_PROCESS_CPUTIME_ID);
-        for(unsigned i=0;i<COUNT;i++) {
-            unsigned char *p=host+(size_t)i*STRIDE; record h; memcpy(&h,p,sizeof(h));
-            REQUIRE(h.magic==MAGIC&&h.format==1&&h.id==i+1&&h.version==1&&h.bytes==PAYLOAD);
-            REQUIRE(h.crc==kvf_crc32c(p+HEADER,PAYLOAD));
-        }
-        double v=stamp(CLOCK_MONOTONIC);
-        if(gpu) {
-            for(unsigned i=0;i<COUNT;i++) CUDA(cudaMemcpyAsync(device+(size_t)i*PAYLOAD,host+(size_t)i*STRIDE+HEADER,PAYLOAD,cudaMemcpyHostToDevice,stream));
-            CUDA(cudaStreamSynchronize(stream));
+        unsigned peak; double read_ms,crc_ms=0,h2d_ms=0,wait_ms=0,submit_ms=0,sync_ms=0,c1;
+        if(s.pipeline) {
+            launch_pipeline(spdk);
+            for(unsigned i=0;i<COUNT;i++) {
+                double w=stamp(CLOCK_MONOTONIC); wait_record(i); double b=stamp(CLOCK_MONOTONIC); wait_ms+=(b-w)*1000;
+                verify_record(i); double v=stamp(CLOCK_MONOTONIC); crc_ms+=(v-b)*1000;
+                if(gpu)CUDA(cudaMemcpyAsync(device+(size_t)i*PAYLOAD,host+(size_t)i*STRIDE+HEADER,PAYLOAD,cudaMemcpyHostToDevice,stream));
+                submit_ms+=(stamp(CLOCK_MONOTONIC)-v)*1000;
+            }
+            wait_pipeline(); c1=stamp(CLOCK_PROCESS_CPUTIME_ID); peak=s.peak;
+            double v=stamp(CLOCK_MONOTONIC);
+            if(gpu)CUDA(cudaStreamSynchronize(stream));
+            sync_ms=(stamp(CLOCK_MONOTONIC)-v)*1000;
+            read_ms=(s.storage_done-a)*1000; h2d_ms=submit_ms+sync_ms;
+        } else {
+            if(spdk) { message(begin_reads); REQUIRE(!s.error&&s.completed==COUNT); peak=s.peak; } else peak=uring_read(&ring,fd,qd);
+            double b=stamp(CLOCK_MONOTONIC); c1=stamp(CLOCK_PROCESS_CPUTIME_ID);
+            for(unsigned i=0;i<COUNT;i++)verify_record(i);
+            double v=stamp(CLOCK_MONOTONIC); crc_ms=(v-b)*1000;
+            if(gpu) {
+                for(unsigned i=0;i<COUNT;i++) CUDA(cudaMemcpyAsync(device+(size_t)i*PAYLOAD,host+(size_t)i*STRIDE+HEADER,PAYLOAD,cudaMemcpyHostToDevice,stream));
+                double u=stamp(CLOCK_MONOTONIC); submit_ms=(u-v)*1000;
+                CUDA(cudaStreamSynchronize(stream)); sync_ms=(stamp(CLOCK_MONOTONIC)-u)*1000;
+            }
+            read_ms=(b-a)*1000; h2d_ms=(stamp(CLOCK_MONOTONIC)-v)*1000;
         }
         double d=stamp(CLOCK_MONOTONIC),c2=stamp(CLOCK_PROCESS_CPUTIME_ID);
+        if(!s.pipeline)h2d_ms=(d-a)*1000-read_ms-crc_ms;
         if(spdk) { message(get_health); after=s.temp; } else after=kernel_temp(argv[2]);
         REQUIRE(peak==qd);
         REQUIRE(!memcmp(host,expected,(size_t)COUNT*STRIDE));
@@ -208,12 +279,15 @@ int main(int argc,char **argv) {
             CUDA(cudaMemcpy(actual,device,(size_t)COUNT*PAYLOAD,cudaMemcpyDeviceToHost));
             for(unsigned i=0;i<COUNT;i++)REQUIRE(!memcmp(actual+(size_t)i*PAYLOAD,expected+(size_t)i*STRIDE+HEADER,PAYLOAD));
         }
-        fprintf(out,"%s,%s,%s,%d,%u,%u,%u,32,32,16777216,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%d,%d,16777216\n",argv[1],argv[4],argv[8],(int)n-(int)warmup,n<warmup,qd,peak,(b-a)*1000,(v-b)*1000,(d-v)*1000,(d-a)*1000,(c2-c0)*1000,(c1-c0)*1000,before,after);
+        fprintf(out,"%s,%s,%s,%d,%u,%u,%u,32,32,16777216,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%d,%d,16777216,%s,%d,%.6f,%.6f,%.6f\n",argv[1],argv[4],argv[8],(int)n-(int)warmup,n<warmup,qd,peak,read_ms,crc_ms,h2d_ms,(d-a)*1000,(c2-c0)*1000,(c1-c0)*1000,before,after,s.pipeline?"pipeline":"serial",s.pipeline,wait_ms,submit_ms,sync_ms);
         fflush(out);
     }
     fclose(out);
     if(spdk) { atomic_store(&s.stop,true); REQUIRE(!pthread_join(s.reactor,NULL)); }
-    else { io_uring_queue_exit(&ring); close(fd); }
+    else {
+        if(s.pipeline) { pthread_mutex_lock(&s.lock); atomic_store(&s.stop,true); pthread_cond_signal(&s.work_available); pthread_mutex_unlock(&s.lock); REQUIRE(!pthread_join(s.reactor,NULL)); }
+        io_uring_queue_exit(&ring); close(fd);
+    }
     CUDA(cudaFree(device)); CUDA(cudaStreamDestroy(stream)); CUDA(cudaHostUnregister(host));
     munlock(host,HOST_BYTES); munmap(host,HOST_BYTES); free(expected); free(actual);
     puts("all_rounds_identity_version_crc_cpu_gpu_bytes=PASS"); return 0;
