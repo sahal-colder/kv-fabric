@@ -18,6 +18,7 @@ for directory in ['src','include','cmake','tools','tests','examples','third_part
         if f.is_file() and (f.suffix in allowed or f.name in {'CMakeLists.txt','LICENSE','NOTICE'}):
             files.add(f.relative_to(root))
 for name in ['run_spdk_uring_compare.py','summarize_spdk_uring_compare.py',
+             'run_spdk_pipeline_tune.py','summarize_spdk_pipeline_tune.py',
              'archive_spdk_uring_source.py','spdk_device.py','test_spdk_nvme.py']:
     files.add(Path('scripts')/name)
 archive=out/'measured-source.tar.gz'

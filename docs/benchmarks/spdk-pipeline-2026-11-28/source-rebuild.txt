@@ -1,0 +1,100 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The CUDA compiler identification is NVIDIA 13.4.92
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2") found components: Crypto 
+-- Performing Test KVF_RSOCKETS_LINKS
+-- Performing Test KVF_RSOCKETS_LINKS - Success
+-- KV-Fabric Worker rsockets support: 1 (MINIINFER_WITH_RDMA=AUTO)
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'liburing>=2.3'
+--   Found liburing, version 2.9
+-- Checking for modules 'spdk_event;spdk_event_bdev;spdk_event_iobuf;spdk_bdev_nvme;spdk_bdev_malloc;spdk_env_dpdk;spdk_syslibs'
+--   Found spdk_event, version 16.0
+--   Found spdk_event_bdev, version 8.0
+--   Found spdk_event_iobuf, version 5.0
+--   Found spdk_bdev_nvme, version 10.1
+--   Found spdk_bdev_malloc, version 8.0
+--   Found spdk_env_dpdk, version 17.0
+--   Found spdk_syslibs, version 1.0
+-- Found CUDAToolkit: /usr/local/cuda/include (found version "13.4.92") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wty/Infra/.kvfabric-local/pipeline-repro-source/build-backend-compare
+[ 19%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/net.c.o
+[ 19%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/wire.c.o
+[ 19%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/control.c.o
+[ 19%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/client.c.o
+[ 19%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/identity.c.o
+[ 23%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/directory.c.o
+[ 28%] Building C object kvfabric/src/control/CMakeFiles/kvfabric.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/third_party/infer-io/src/base/crc32c.c.o
+[ 28%] Linking C static library libkvfabric.a
+[ 28%] Built target kvfabric
+[ 42%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/graph_allocator.c.o
+[ 42%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/model_mapping.c.o
+[ 42%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/segment_pool.c.o
+[ 42%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/allocator.c.o
+[ 47%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/common.c.o
+[ 52%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/device_transfer.c.o
+[ 57%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/storage_backend.c.o
+[ 61%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/tiered_storage.c.o
+[ 66%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/file_io.c.o
+[ 71%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/direct_io.c.o
+[ 76%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/kv_cache.c.o
+[ 76%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/paged_kv.c.o
+[ 80%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/uring_io.c.o
+[ 85%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/spdk_bridge.c.o
+[ 90%] Building CUDA object kvfabric/src/worker/CMakeFiles/miniinfer_storage.dir/device_cuda.cu.o
+[ 95%] Linking CUDA static library libminiinfer_storage.a
+[ 95%] Built target miniinfer_storage
+[ 95%] Building C object CMakeFiles/kvf_backend_compare.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/tools/kvf_backend_compare.c.o
+[100%] Linking C executable kvf_backend_compare
+[100%] Built target kvf_backend_compare
+Consolidate compiler generated dependencies of target kvfabric
+[ 17%] Built target kvfabric
+Consolidate compiler generated dependencies of target miniinfer_storage
+[ 57%] Built target miniinfer_storage
+[ 60%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/transfer.c.o
+[ 62%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/remote_sock.c.o
+[ 65%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/worker.c.o
+[ 68%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/cache.c.o
+[ 71%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/peer.c.o
+[ 71%] Building C object kvfabric/src/worker/CMakeFiles/miniinfer_remote.dir/remote/prefetch.c.o
+[ 74%] Linking CUDA static library libminiinfer_remote.a
+[ 74%] Built target miniinfer_remote
+[ 77%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/sampler.c.o
+[ 77%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/engine.c.o
+[ 80%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/cli.c.o
+[ 82%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/main.c.o
+[ 85%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/cache.c.o
+[ 88%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/model.c.o
+[ 91%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/tokenizer.c.o
+[ 94%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/nano_spill.c.o
+[ 97%] Building C object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/nano_remote_kv.c.o
+[100%] Building CUDA object kvfabric/src/integration/CMakeFiles/miniinfer.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/src/nanovllm/nano_cuda.cu.o
+[100%] Linking CUDA executable ../../../bin/miniinfer
+[100%] Built target miniinfer
+[ 27%] Built target kvfabric
+[ 90%] Built target miniinfer_storage
+[ 95%] Building C object kvfabric/src/worker/CMakeFiles/kvf_spdk_verify.dir/home/wty/Infra/.kvfabric-local/pipeline-repro-source/tools/kvf_spdk_verify.c.o
+[100%] Linking CUDA executable ../../../bin/kvf_spdk_verify
+[100%] Built target kvf_spdk_verify
