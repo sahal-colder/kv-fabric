@@ -56,6 +56,8 @@ int main(void) {
 
 	memset(&config, 0, sizeof(config));
 	config.role = KVS_ROLE_MASTER;
+	strcpy(config.secret,"unit-test-secret-32-bytes-minimum");
+	config.listen_port = 2101;
 	config.replication_port = 2000;
 	expect(
 		kvs_replication_configure(&config) == 0,
@@ -72,6 +74,7 @@ int main(void) {
 
 	memset(&config, 0, sizeof(config));
 	config.role = KVS_ROLE_SLAVE;
+	strcpy(config.secret,"unit-test-secret-32-bytes-minimum");
 	memcpy(config.master_host, "127.0.0.1", sizeof("127.0.0.1"));
 	config.master_port = 2000;
 	expect(

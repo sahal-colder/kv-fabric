@@ -66,3 +66,5 @@ python3 scripts/restore_benchmark_archives.py
 磁盘原始备份、真实模型权重、编译对象/临时执行文件和私人简历生成工具不上传。生成式小模型fixture可由已有脚本重新生成；原SHA仍保留。被排除文件的路径和原因见[排除清单](benchmarks/publication-exclusions.json)。
 
 物理设备测试保持手动运行，不注册默认CTest；克隆后不能直接照搬本机设备、序列号或测试区域执行破坏性写入。
+
+合并已发布审计基线时出现的历史报告版本差异，两份均保留；参见[上游历史版本索引](benchmarks/upstream-dev-47d9f18/versions.json)。本功能相对最新dev不改写三种网络执行模型。

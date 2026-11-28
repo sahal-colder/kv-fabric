@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <netdb.h>
 #include <netinet/tcp.h>
 #include <poll.h>
@@ -51,21 +52,48 @@ static int open_socket(kvs_transport_t *io, int rdma) {
 	return 0;
 }
 
+static unsigned long long now_ms(void) {
+	struct timespec ts;
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return (unsigned long long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
+}
+
 int kvs_transport_wait(kvs_transport_t *io, short events, unsigned int timeout_ms) {
-	struct pollfd p = {.fd = io->fd, .events = events};
-	int result;
-	do {
-		result = IO(io, poll, &p, 1, (int)timeout_ms);
-	} while (result < 0 && errno == EINTR);
-	if (result == 0)
-		errno = ETIMEDOUT;
-	if (result <= 0)
+	if (!io || io->fd < 0) {
+		errno = EINVAL;
 		return -1;
-	/* POLLIN may accompany HUP while the peer's last bytes are still readable. */
-	if (p.revents & events)
-		return 0;
-	errno = ECONNRESET;
-	return -1;
+	}
+	struct pollfd p = {.fd = io->fd, .events = events};
+	unsigned long long deadline = now_ms() + timeout_ms;
+	for (;;) {
+		unsigned long long now = now_ms();
+		unsigned long long left = now < deadline ? deadline - now : 0;
+		int wait_ms = left > INT_MAX ? INT_MAX : (int)left;
+		p.revents = 0;
+#if KVS_ENABLE_RDMA
+		/* rdma-core 39 timed rpoll may hang after an idle timeout. Keep the
+		 * wait in our monotonic loop; rsockets sees only nonblocking probes. */
+		int result = io->rdma ? rpoll(&p, 1, 0) : poll(&p, 1, wait_ms);
+#else
+		int result = poll(&p, 1, wait_ms);
+#endif
+		if (result > 0) {
+			if (p.revents & events)
+				return 0;
+			errno = ECONNRESET;
+			return -1;
+		}
+		if (result < 0 && errno != EINTR)
+			return -1;
+		if (now_ms() >= deadline) {
+			errno = ETIMEDOUT;
+			return -1;
+		}
+#if KVS_ENABLE_RDMA
+		if (io->rdma && !result)
+			nanosleep(&(struct timespec){.tv_nsec=50000}, NULL);
+#endif
+	}
 }
 
 int kvs_transport_connect(kvs_transport_t *io, const char *host, unsigned short port, int rdma,
@@ -128,11 +156,6 @@ int kvs_transport_accept(kvs_transport_t *listener, kvs_transport_t *peer,
 	return 0;
 }
 
-static unsigned long long now_ms(void) {
-	struct timespec ts;
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (unsigned long long)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
-}
 
 static int transfer(kvs_transport_t *io, void *data, size_t bytes, unsigned int timeout_ms,
                     int write) {

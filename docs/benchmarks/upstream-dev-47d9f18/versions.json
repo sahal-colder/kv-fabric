@@ -1,0 +1,59 @@
+{
+  "reason": "Preserve both historical report versions while merging the already-published audit baseline",
+  "reports": [
+    {
+      "original_path": "docs/KV-FABRIC-AUDIT-REMEDIATION.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-AUDIT-REMEDIATION.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "50ae4b7e07a5e5ac2a5355eaf84caf0a235cfc77612739d9da9d5800e061ea8b"
+    },
+    {
+      "original_path": "docs/KV-FABRIC-RDMA-INTEGRATION.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-RDMA-INTEGRATION.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "f88019fbc65cea7d5d94fd0120f5fd4bfc93d2d1f31edbccb83788531d6c4a35"
+    },
+    {
+      "original_path": "docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "a80d6bbc35eb35f99ab21aa487f170263f6e0468abbd0bf5f1c361a90f383dd2"
+    },
+    {
+      "original_path": "docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "7f8ecdee8caf8f85d9f6e4f6b7d91dca175410ebdf82326c3bd745106780ef59"
+    },
+    {
+      "original_path": "docs/KV-FABRIC-VALIDATION-REPORT.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-VALIDATION-REPORT.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "86d174fbf0cac2e2a68aca33e3ace7804180ed09f81e3b0526a5553ef1561897"
+    },
+    {
+      "original_path": "docs/PROJECT-DELIVERY.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/PROJECT-DELIVERY.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "b89b9dda876f37bb255271cd80dd61841eaeac5234196e839b31ffe7d9febf6e"
+    },
+    {
+      "original_path": "docs/SPDK-NVME-VALIDATION.md",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/SPDK-NVME-VALIDATION.md",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "c5eb90744fb96383a5b3a277d112ba62e7fdc10b687525ef9ddec90c2de50ce6"
+    },
+    {
+      "original_path": "docs/benchmarks/spdk-nvme-2026-11-28/cpu.csv",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/benchmarks/spdk-nvme-2026-11-28/cpu.csv",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "adc9ac808b6ceb706bae086764c380710042012633b1a97f077abc6ab2cdd674"
+    },
+    {
+      "original_path": "docs/benchmarks/spdk-nvme-2026-11-28/cuda.csv",
+      "archived_path": "docs/benchmarks/upstream-dev-47d9f18/docs/benchmarks/spdk-nvme-2026-11-28/cuda.csv",
+      "upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+      "sha256": "b8f25448166c98d7442a4907a89dc2df347434b0297cd1a19a2358e2e4b69718"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+Internal ctest changing into directory: REPO/build-spdk-publish
+Test project REPO/build-spdk-publish
+      Start  1: kvf_protocol
+ 1/26 Test  #1: kvf_protocol .....................   Passed    0.04 sec
+      Start  2: kvf_directory
+ 2/26 Test  #2: kvf_directory ....................   Passed    0.68 sec
+      Start  3: pool
+ 3/26 Test  #3: pool .............................   Passed    0.30 sec
+      Start  4: graph
+ 4/26 Test  #4: graph ............................   Passed    0.01 sec
+      Start  5: tiered
+ 5/26 Test  #5: tiered ...........................   Passed    0.02 sec
+      Start  6: kv_cache
+ 6/26 Test  #6: kv_cache .........................   Passed    0.02 sec
+      Start  7: paged_kv
+ 7/26 Test  #7: paged_kv .........................   Passed    0.01 sec
+      Start  8: gpu_mock
+ 8/26 Test  #8: gpu_mock .........................   Passed    2.16 sec
+      Start  9: allocator_faults
+ 9/26 Test  #9: allocator_faults .................   Passed    0.01 sec
+      Start 10: device_boundaries_cpu
+10/26 Test #10: device_boundaries_cpu ............   Passed    0.01 sec
+      Start 11: device_boundaries_cuda
+11/26 Test #11: device_boundaries_cuda ...........   Passed    0.19 sec
+      Start 12: storage_audit
+12/26 Test #12: storage_audit ....................   Passed    0.04 sec
+      Start 13: storage_retirement_cuda
+13/26 Test #13: storage_retirement_cuda ..........   Passed    0.19 sec
+      Start 14: spdk_lifecycle
+14/26 Test #14: spdk_lifecycle ...................   Passed    0.08 sec
+      Start 15: spdk_init_failure
+15/26 Test #15: spdk_init_failure ................   Passed    0.09 sec
+      Start 16: uring_faults
+16/26 Test #16: uring_faults .....................   Passed    0.02 sec
+      Start 17: direct_io_cpu
+17/26 Test #17: direct_io_cpu ....................   Passed    0.01 sec
+      Start 18: direct_io_cuda
+18/26 Test #18: direct_io_cuda ...................   Passed    0.18 sec
+      Start 19: remote_lifecycle
+19/26 Test #19: remote_lifecycle .................   Passed    0.01 sec
+      Start 20: remote_audit
+20/26 Test #20: remote_audit .....................   Passed    2.72 sec
+      Start 21: remote_faults
+21/26 Test #21: remote_faults ....................   Passed    2.71 sec
+      Start 22: remote_e2e_cpu
+22/26 Test #22: remote_e2e_cpu ...................   Passed    1.30 sec
+      Start 23: remote_restart
+23/26 Test #23: remote_restart ...................   Passed    1.60 sec
+      Start 24: remote_e2e_cuda
+24/26 Test #24: remote_e2e_cuda ..................   Passed    2.72 sec
+      Start 25: nano_remote_inference_cpu
+25/26 Test #25: nano_remote_inference_cpu ........   Passed    9.85 sec
+      Start 26: nano_remote_inference_cuda
+26/26 Test #26: nano_remote_inference_cuda .......   Passed   18.70 sec
+
+100% tests passed, 0 tests failed out of 26
+
+Total Test time (real) =  43.67 sec
+
+Isolated publication checkout hardware runner: PASS
+Raw 128 MiB x 5 + unaligned RMW: PASS
+CPU/CUDA smoke: 1 warmup + 3 measured rounds per mode
+Fixture A/B/A output Token IDs: identical to baseline; observed SSD read
+Original scratch restore and readback: PASS
+Performance samples in cpu.csv/cuda.csv are the original 30-round measurements, not this smoke run.

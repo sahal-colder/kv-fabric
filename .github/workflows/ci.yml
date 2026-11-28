@@ -1,0 +1,42 @@
+name: CPU correctness
+on:
+  push:
+    branches: [dev]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - build_type: Release
+            sanitize: 'OFF'
+          - build_type: Debug
+            sanitize: 'ON'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install CPU dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake pkg-config libssl-dev liburing-dev libopenblas-dev python3-pytest
+      - name: Configure
+        run: cmake -S . -B build-ci -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DKVF_SANITIZE=${{ matrix.sanitize }} -DMINIINFER_WITH_RDMA=OFF
+      - name: Build and test C11 components
+        env:
+          ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+          UBSAN_OPTIONS: halt_on_error=1
+        run: |
+          cmake --build build-ci -j2
+          ctest --test-dir build-ci --output-on-failure
+      - name: Legacy and Connector method regression
+        if: matrix.sanitize == 'OFF'
+        env:
+          KVS_TEST_BUILD_DIR: build-legacy-ci
+        run: |
+          make -j2 BUILD_DIR=build-legacy-ci
+          make BUILD_DIR=build-legacy-ci test_unit test_allocator
+          python3 -m pytest -q tests/kvstore/test_audit_security.py tests/vllm/test_audit.py

@@ -5,6 +5,12 @@
 /* Round-trip test for the versioned RESP full snapshot. */
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <sys/uio.h>
+#include <unistd.h>
 
 #include "kvs_store.h"
 #include "kvs_config.h"
@@ -68,6 +74,44 @@ static void verify_loaded(void) {
 #endif
 }
 
+static int fail_write;
+ssize_t __real_writev(int, const struct iovec *, int);
+ssize_t __wrap_writev(int fd, const struct iovec *v, int n) {
+    if (fail_write) {
+        if (fail_write++ == 1) {
+            struct iovec short_write = {v[0].iov_base, v[0].iov_len > 8 ? 8 : v[0].iov_len};
+            return __real_writev(fd,&short_write,1);
+        }
+        errno=EIO;
+        return -1;
+    }
+    return __real_writev(fd,v,n);
+}
+static void test_file_failure_atomicity(void) {
+    char path[]="/tmp/kvf-legacy-snapshot.XXXXXX";
+    int fd=mkstemp(path);assert(fd>=0);close(fd);
+    assert(!kvs_persistence_save(path));
+    fd=open(path,O_RDONLY);assert(fd>=0);
+    off_t length=lseek(fd,0,SEEK_END);assert(length>0);assert(lseek(fd,0,SEEK_SET)==0);
+    char *saved=malloc((size_t)length+1),*after=malloc((size_t)length);assert(saved&&after);
+    assert(read(fd,saved,(size_t)length)==length);saved[length]=0;close(fd);
+    assert(!kvs_array_mod(&kvs_store.array,"a_key","modified"));
+    fail_write=1;assert(kvs_persistence_save(path)!=0);fail_write=0;
+    fd=open(path,O_RDONLY);assert(fd>=0);assert(read(fd,after,(size_t)length)==length);
+    assert(lseek(fd,0,SEEK_END)==length && !memcmp(after,saved,(size_t)length));close(fd);
+    fd=open(path,O_WRONLY);assert(fd>=0);assert(!ftruncate(fd,length-1));close(fd);
+    assert(kvs_persistence_load(path)!=0);assert(!strcmp(kvs_array_get(&kvs_store.array,"a_key"),"modified"));
+    fd=open(path,O_WRONLY|O_TRUNC);assert(fd>=0);assert(write(fd,saved,(size_t)length)==length);close(fd);
+    /* Payload corruption with intact framing must fail CRC and preserve RAM. */
+    char *payload = strstr(saved,"a_value");assert(payload);
+    off_t at=(off_t)(payload-saved);fd=open(path,O_WRONLY);assert(fd>=0);
+    assert(pwrite(fd,"z",1,at)==1);close(fd);
+    assert(kvs_persistence_load(path)!=0);assert(!strcmp(kvs_array_get(&kvs_store.array,"a_key"),"modified"));
+    fd=open(path,O_WRONLY|O_TRUNC);assert(fd>=0);assert(write(fd,saved,(size_t)length)==length);close(fd);
+    assert(!kvs_persistence_load(path));verify_loaded();
+    free(after);free(saved);unlink(path);
+}
+
 int main(void) {
 	char *data = NULL;
 	size_t length = 0;
@@ -126,6 +170,8 @@ int main(void) {
 	CHECK(kvs_snapshot_import(data, length) == 0,
 		"snapshot import succeeds");
 	verify_loaded();
+
+	test_file_failure_atomicity();
 
 	/* 3. truncated stream must fail */
 	CHECK(kvs_snapshot_import(data, length - 3) != 0,

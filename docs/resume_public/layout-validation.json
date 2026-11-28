@@ -1,0 +1,25 @@
+{
+  "pages": 1,
+  "full_source_text_match": true,
+  "embedded_fonts": "NotoSansCJKsc-Bold, NotoSansCJKsc-Regular",
+  "source_sha256": "1b5d3fe17618fd58a1710f7500fcc8e4a4fd51e8b8ada86b1c1e369bf25c461a",
+  "pdf_sha256": "abe5b82f531723f764e267fcdd9daaafb96fc7367ab3e5fe1128a6a06a448788",
+  "settings": {
+    "body_pt": 11,
+    "line_spacing": 1.28,
+    "pages": 1,
+    "vertical_coverage": 0.8907363420427553
+  },
+  "trials": [
+    {
+      "body_pt": 11,
+      "line_spacing": 1.28,
+      "pages": 1,
+      "vertical_coverage": 0.8907363420427553
+    }
+  ],
+  "visual_review": "Canonical DOCX render: every page inspected; no clipping, overlap or missing glyphs",
+  "canonical_render_pages": 1,
+  "updated": "2026-11-28",
+  "spdk_evidence": "docs/benchmarks/spdk-nvme-2026-11-28/summary.json"
+}

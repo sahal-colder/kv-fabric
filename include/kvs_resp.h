@@ -22,6 +22,18 @@ int kvs_resp_build_record(
 	size_t *record_size
 );
 
+/* Explicit reply ownership. A caller may start with a stack buffer and permit
+ * growth; owned is set only when data becomes a heap allocation. */
+typedef struct {
+    char *data;
+    size_t used, capacity;
+    int grow, owned;
+} kvs_resp_buffer;
+#define KVS_RESP_MAX_REPLY (64u * 1024u * 1024u)
+int kvs_resp_buffer_append(kvs_resp_buffer *reply, const char *format, ...);
+int kvs_resp_buffer_bulk(kvs_resp_buffer *reply, const char *value, size_t length);
+int kvs_resp_buffer_value(kvs_resp_buffer *reply, const char *value);
+
 int kvs_resp_append(
 	char *response,
 	size_t *used,

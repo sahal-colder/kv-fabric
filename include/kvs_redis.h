@@ -9,6 +9,8 @@
 
 #include "kvs_resp.h"
 
+int kvs_resp_execute_buffer(kvs_resp_arg_t *args, int argc, kvs_resp_buffer *reply);
+
 int kvs_resp_execute_command(
 	kvs_resp_arg_t *args,
 	int argc,

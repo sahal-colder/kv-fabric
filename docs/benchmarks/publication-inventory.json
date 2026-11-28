@@ -55,8 +55,8 @@
     },
     {
       "path": "docs/PERFORMANCE-REPORTS.md",
-      "bytes": 4715,
-      "sha256": "af260771df05ef790de083b35f0faec446fb5fbb36d960f832c50cbcade2f0e3"
+      "bytes": 4943,
+      "sha256": "93d09f005f1b1c3ce2610ce78012c5f00c70fc77010e3b1075e1bb3165e7d088"
     },
     {
       "path": "docs/PROJECT-DELIVERY.md",
@@ -149,6 +149,11 @@
       "sha256": "fded1a92d7128f6187dcaa26fd51b155e2cee260508f075ce4703a60b50b7010"
     },
     {
+      "path": "docs/benchmarks/spdk-nvme-2026-11-28/README.md",
+      "bytes": 2127,
+      "sha256": "27df2400e83e8f6533fc15ce58da40d345bbd894f71027d614fc6c56de31b865"
+    },
+    {
       "path": "docs/benchmarks/spdk-pipeline-2026-11-28/README.md",
       "bytes": 1028,
       "sha256": "7cb2a7b61901e3ae4321ebbb2545b6db58cc1247e828394b08b31ef33648eb55"
@@ -159,9 +164,44 @@
       "sha256": "116ce0f9eeb4f66614b0351bd94018ef9ca99c27fc6679b1f7ee599638df1886"
     },
     {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-AUDIT-REMEDIATION.md",
+      "bytes": 3602,
+      "sha256": "50ae4b7e07a5e5ac2a5355eaf84caf0a235cfc77612739d9da9d5800e061ea8b"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-RDMA-INTEGRATION.md",
+      "bytes": 1123,
+      "sha256": "f88019fbc65cea7d5d94fd0120f5fd4bfc93d2d1f31edbccb83788531d6c4a35"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-ULTIMATE-OPTIMIZATION.md",
+      "bytes": 10366,
+      "sha256": "a80d6bbc35eb35f99ab21aa487f170263f6e0468abbd0bf5f1c361a90f383dd2"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-ULTIMATE-TEST-REPORT.md",
+      "bytes": 12610,
+      "sha256": "7f8ecdee8caf8f85d9f6e4f6b7d91dca175410ebdf82326c3bd745106780ef59"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/KV-FABRIC-VALIDATION-REPORT.md",
+      "bytes": 5448,
+      "sha256": "86d174fbf0cac2e2a68aca33e3ace7804180ed09f81e3b0526a5553ef1561897"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/PROJECT-DELIVERY.md",
+      "bytes": 5796,
+      "sha256": "b89b9dda876f37bb255271cd80dd61841eaeac5234196e839b31ffe7d9febf6e"
+    },
+    {
+      "path": "docs/benchmarks/upstream-dev-47d9f18/docs/SPDK-NVME-VALIDATION.md",
+      "bytes": 6869,
+      "sha256": "c5eb90744fb96383a5b3a277d112ba62e7fdc10b687525ef9ddec90c2de50ce6"
+    },
+    {
       "path": "docs/config-sync-miniinfer.md",
-      "bytes": 12033,
-      "sha256": "effc9faf92ebbecb345ae5470c77a78b9feba30914bf3c9b55c25b42b4825ecb"
+      "bytes": 7825,
+      "sha256": "ad5904efbcc55c3ab9e4d7d834c26e2d63192560372a85b163ecbd819dd6a4b4"
     },
     {
       "path": "docs/kvfabric-data-plane.md",
@@ -180,13 +220,13 @@
     },
     {
       "path": "docs/kvstore.md",
-      "bytes": 10231,
-      "sha256": "a2527a7e9e3d85bcde94a183ffb46c5ff896458ea242acd961ddc4e2e09df9b0"
+      "bytes": 10697,
+      "sha256": "309ae0aaa49c92c6512da014ce84764dc4914d1229383e7f7f3ac9c304d84fa4"
     },
     {
       "path": "docs/miniinfer.md",
-      "bytes": 11635,
-      "sha256": "3440604cfe3313e6d2e6332af2fb86fc3b384d349541294c527665846ae86784"
+      "bytes": 12125,
+      "sha256": "0a68be1d519aea47636e289d0fb1a59a978bc365b6431d9870c131408b883c36"
     },
     {
       "path": "docs/nanovllm.md",
@@ -292,5 +332,9 @@
   "public_clean_build_ctest_passed": 48,
   "excluded": "docs/benchmarks/publication-exclusions.json",
   "archive_index": "docs/benchmarks/archive-index.json",
-  "scope_note": "All report histories, warmups and diagnostic/failure evidence retained; compiled outputs, model fixtures and private resume tooling excluded; unrelated KVStore source changes remain in original worktree."
+  "scope_note": "All report histories, warmups and diagnostic/failure evidence retained; compiled outputs, model fixtures and private resume tooling excluded; unrelated KVStore source changes remain in original worktree.",
+  "merged_upstream_commit": "47d9f18ffc893291a1c0a436a5f8678c34dce06b",
+  "merge_validation_ctest_passed": 48,
+  "critical_storage_sources_match_measured_workspace_ignoring_eol": true,
+  "upstream_historical_variants": "docs/benchmarks/upstream-dev-47d9f18/versions.json"
 }

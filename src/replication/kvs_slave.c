@@ -81,8 +81,7 @@ static void *manage_slave(void *unused) {
 	(void)unused;
 	for (;;) {
 		kvs_transport_t io = {.fd = -1};
-		char ack[sizeof(KVS_MASTER_HANDSHAKE_ACK) - 1];
-		pthread_mutex_lock(&mutex);
+			pthread_mutex_lock(&mutex);
 		int stop = stopping;
 		pthread_mutex_unlock(&mutex);
 		if (stop)
@@ -95,10 +94,7 @@ static void *manage_slave(void *unused) {
 				kvs_transport_shutdown(&master);
 			pthread_mutex_unlock(&mutex);
 			if ((io.rdma || !kvs_bpf_add(io.fd)) &&
-			    !kvs_transport_write(&io, KVS_SLAVE_HANDSHAKE, sizeof(KVS_SLAVE_HANDSHAKE) - 1,
-			                         c->timeout_ms) &&
-			    !kvs_transport_read(&io, ack, sizeof(ack), c->timeout_ms) &&
-			    !memcmp(ack, KVS_MASTER_HANDSHAKE_ACK, sizeof(ack)))
+			    !kvs_transport_authenticate(&io, c->secret, 0, c->timeout_ms))
 				(void)receive_updates(&io);
 		}
 		pthread_mutex_lock(&mutex);

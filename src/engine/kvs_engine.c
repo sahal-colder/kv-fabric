@@ -32,15 +32,28 @@ int kvs_resp_select_engine(const char *name) {
 	return -1;
 }
 
+static const char *const commands[][5] = {
+    {"SET", "MOD", "SET", "DEL", "FLUSH"},
+    {"RSET", "RMOD", "RSET", "RDEL", "RFLUSH"},
+    {"HSET", "HMOD", "HSET", "HDEL", "HFLUSH"},
+    {"SSET", "SMOD", "SSET", "SDEL", "SFLUSH"}
+};
+
+static void publish_write(int engine, kvs_mutation_t operation, const char *key, const char *value,
+                          kvs_event_source_t source) {
+	kvs_write_event_t event = {commands[engine][operation], key ? key : "", value, source};
+	/* A failed log append after a mutation leaves RAM ahead of disk. Stop before
+	 * this write can be acknowledged, observed by other clients, or replicated. */
+	if (kvs_persistence_append(&event)) {
+		fprintf(stderr, "AOF append failed for %s; stopping before acknowledgement\n", event.cmd);
+		_Exit(EXIT_FAILURE);
+	}
+	kvs_master_publish(&event);
+}
+
 int kvs_engine_mutate_locked(int engine, kvs_mutation_t operation,
                              const char *key, const char *value,
                              kvs_event_source_t source) {
-	static const char *const commands[][5] = {
-		{"SET", "MOD", "SET", "DEL", "FLUSH"},
-		{"RSET", "RMOD", "RSET", "RDEL", "RFLUSH"},
-		{"HSET", "HMOD", "HSET", "HDEL", "HFLUSH"},
-		{"SSET", "SMOD", "SSET", "SDEL", "SFLUSH"}
-	};
 	int result = kvs_store_mutate(&kvs_store, engine,
 	                              operation == KVS_UPSERT ? KVS_INSERT : operation,
 	                              key, value);
@@ -51,15 +64,17 @@ int kvs_engine_mutate_locked(int engine, kvs_mutation_t operation,
 	if (result)
 		return result;
 
-	kvs_write_event_t event = {commands[engine][operation], key ? key : "", value, source};
-	/* A failed log append after a mutation leaves RAM ahead of disk. Stop before
-	 * this write can be acknowledged, observed by other clients, or replicated. */
-	if (kvs_persistence_append(&event)) {
-		fprintf(stderr, "AOF append failed for %s; stopping before acknowledgement\n", event.cmd);
-		_Exit(EXIT_FAILURE);
-	}
-	kvs_master_publish(&event);
+	publish_write(engine, operation, key, value, source);
 	return 0;
+}
+
+int kvs_resp_set_many(const char *const *keys, const char *const *values, size_t count, int only_missing) {
+    int result = kvs_store_mset(&kvs_store, resp_engine, keys, values, count, only_missing);
+    if (result)
+        return result;
+    for (size_t i = 0; i < count; ++i)
+        publish_write(resp_engine, KVS_UPSERT, keys[i], values[i], KVS_EVENT_SOURCE_CLIENT);
+    return 0;
 }
 
 int kvs_engine_replay(const char *command, const char *key, const char *value) {
