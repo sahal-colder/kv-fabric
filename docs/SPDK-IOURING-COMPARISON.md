@@ -28,6 +28,17 @@
 
 ## 2. 同负载方法与实际队列深度
 
+本次比较的是两条独立读盘路径，分别启动进程、切换设备驱动后运行：
+
+| 测试组 | SSD 数据读取路径 |
+|---|---|
+| io_uring 基线 | 基准程序 → io_uring → Linux 块层 → 内核 nvme 驱动 → 三星 NVMe |
+| SPDK | 基准程序 → SPDK PCIe NVMe bdev / 用户态 NVMe 驱动 → 三星 NVMe |
+
+**SPDK 组直接绕过 Linux 块层及内核 nvme 驱动，没有在 io_uring 上叠加 SPDK。** 该组将控制器绑定到 vfio-pci，由 SPDK 经 VFIO/IOMMU 建立 DMA 映射并在用户态提交、轮询 NVMe I/O；VFIO 提供设备访问和映射，不是内核块设备读盘路径。配置使用 `bdev_nvme_attach_controller`、`trtype=PCIe`、`traddr=0000:07:00.0`，没有使用 SPDK 的文件、AIO 或 uring bdev。
+
+代码中 SPDK 分支调用 `spdk_bdev_read`；io_uring 分支才创建 ring 并调用 `io_uring_prep_read_fixed`，二者互斥。后文数值中的“基线 → SPDK”表示两个独立测试组的结果对照，不表示 I/O 调用链。
+
 测试区固定为 `[1073741824, 1207959552)`，即起点 1 GiB、长度 128 MiB。主对照开始前经裸设备 `O_DIRECT` 校验原始区域与备份完全相同，然后仅写入一次固定记录集，后续四批、两后端、两 QD、两目标全部读取同一批记录。
 
 每轮 32 个 KV 记录，每个含 4096 字节头区及 524288 字节有效载荷，步长 528384 字节。有效载荷为 **16777216 字节（16 MiB）**，实际读盘 16908288 字节（16.125 MiB）；起始偏移为 `1 GiB + i × 528384`。头部含 magic、格式版本 1、ID `i+1`、数据版本 1、长度及 CRC32C。载荷模式固定，顺序固定为 0–31。
@@ -44,14 +55,14 @@ QD=1/4 是**真正异步提交且限制同时未完成的逻辑记录请求数**
 
 | 批次 | 后端顺序 | 每个后端内部顺序 |
 |---|---|---|
-| 1 | io_uring → SPDK | GPU QD1、GPU QD4、CPU QD1、CPU QD4 |
-| 2 | SPDK → io_uring | CPU QD4、CPU QD1、GPU QD4、GPU QD1 |
-| 3 | io_uring → SPDK | 同批 1 |
-| 4 | SPDK → io_uring | 同批 2 |
+| 1 | 先 io_uring，后 SPDK | GPU QD1、GPU QD4、CPU QD1、CPU QD4 |
+| 2 | 先 SPDK，后 io_uring | CPU QD4、CPU QD1、GPU QD4、GPU QD1 |
+| 3 | 先 io_uring，后 SPDK | 同批 1 |
+| 4 | 先 SPDK，后 io_uring | 同批 2 |
 
 每组汇总 **120 个正式样本**；全部保留，共 960 个正式、96 个预热。P50 是中位数，P95 是 nearest-rank。各批次的 P95 用第 29/30 个样本，合并 P95 用第 114/120 个样本。吞吐以 16 MiB 有效载荷计算，未包含头区，不使用实际读盘字节夸大有效吞吐。温度在计时外逐轮读取，以整数 °C 保存；内核毫摄氏取整与 SPDK 的 Kelvin−273 换算可能相差约 1°C。
 
-## 3. GPU 主指标：io_uring 基线 → SPDK
+## 3. GPU 主指标：io_uring 基线与独立 SPDK 路径对照
 
 “改善”按 `(io_uring − SPDK) / io_uring × 100%`，正数代表 SPDK 延迟较低。
 
@@ -192,6 +203,6 @@ python3 scripts/summarize_spdk_uring_compare.py \
 
 ## 7. 可直接放入中文简历的一句话
 
-> 在原生 Ubuntu、三星 MZVLQ512HALU NVMe 与 RTX 4060 Laptop 上建立可复现的 16 MiB KV 回载对照，四批实测最优 QD=4 时 io_uring→SPDK 的 GPU 可用延迟 P50 为 9.66→9.89 ms、P95 为 10.09→10.39 ms，未观察到 SPDK 稳定优势，完成原盘数据恢复与 SHA-256 回读核验。
+> 在原生 Ubuntu、三星 MZVLQ512HALU NVMe 与 RTX 4060 Laptop 上建立可复现的 16 MiB KV 回载对照，四批实测最优 QD=4 时，io_uring 基线的 GPU 可用延迟 P50/P95 为 9.66/10.09 ms，绕过内核块层的独立 SPDK 路径为 9.89/10.39 ms，未观察到 SPDK 稳定优势，完成原盘数据恢复与 SHA-256 回读核验。
 
 面试时应补充：QD1 中位数有约 0.84% 的微小优势，但 P95 跨批次变号；QD4 更慢且 CPU 成本更高。小模型中省下 32 Token 的前缀重算属于 SSD 卸载效果，**不是已证明的 SPDK 对 io_uring 的推理收益**。

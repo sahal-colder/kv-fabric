@@ -11,4 +11,6 @@
 - `measured-source.tar.gz` / `source-sha256.json`：包含既有未提交依赖的实际源码归档及哈希；原盘备份、模型二进制和密码均不在归档中。
 - `source-rebuild.txt`：从归档解出的源码独立重建三个实测目标的成功日志。
 
-GPU 最优 QD=4：io_uring → SPDK，P50 9.661468 → 9.890206 ms，P95 10.086211 → 10.385186 ms。该配置没有 SPDK 加速收益。
+两组使用独立路径：io_uring 基线经过内核 nvme 驱动；SPDK 使用 vfio-pci + PCIe NVMe bdev，直接绕过内核块层，没有经过 io_uring。
+
+GPU 最优 QD=4：io_uring 基线 P50/P95 为 9.661468/10.086211 ms；独立 SPDK 路径为 9.890206/10.385186 ms。该配置没有 SPDK 加速收益。
